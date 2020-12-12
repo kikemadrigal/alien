@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "tileset.C": "cpp",
+        "atomic": "c",
+        "cstring": "c",
+        "memory": "c",
+        "xmemory": "c",
+        "xstring": "c",
+        "xutility": "c",
+        "io.h": "c",
+        "pantalla.h": "c",
+        "msx_fusion.h": "c"
+    }
+}
