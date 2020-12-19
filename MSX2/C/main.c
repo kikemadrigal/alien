@@ -7,6 +7,8 @@
 #include "fusion-c/header/vdp_sprites.h"
 //Para el HMMC de pantalla.c
 #include "fusion-c/header/vdp_graph2.h"
+//Para el boolean
+#include "fusion-c/header/newTypes.h"
 //Para el sprintf
 #include <stdio.h>
 // Para el memset de pantalla.c
@@ -15,8 +17,8 @@
 #include <stdlib.h>
 #include "src/entities/pantalla.c"
 #include "src/entities/player.c"
-//#include "fire.h"
-//#include "enemies.h"
+#include "src/entities/fire.c"
+#include "src/entities/enemies.c"
 
 
 #include "fusion-c/header/io.h"
@@ -26,70 +28,62 @@
 void gui(void);
 void inicializar_sprites();
 
-void inicializar_enemigos();
-void crear_enemigos();
-void actualizar_enemigos();
-void eliminar_enemigos();
+void fabricaDeEnemigos();
 
 void procesar_entrada();
-void verArray();
 
 //#define  HALT __asm halt __endasm 
-
+//boolean repetir=true;
+int posicionPlayerInicial;
+TFire* fire;
 void main(void){
-  
   SetColors(15,1,1);
   Screen(5);
-  SetColors(15,1,1);
+
+  inicializar_sprites();
+  inicializar_player(); 
 
   cargarTileSetEnRAM();
   deRamAVramPage1();
 
   cargarTileMapEnRAM();
   cargarArrayFilasTileMap();
-
-  inicializar_sprites();
-  //Vamos aver la fila 4
+  pintarPantallaInicio();
+ 
+  inicializar_disparos();
+  inicilizar_enemigos();
+  fabricaDeEnemigos();
+  
+  gui();
   //verArray();
 
   /*******Pantalla de biendenida y salón de la fama****/
   //PutText(0,0,Itoa(ReadSP(),"  ",10),8);
-  PutText(0,100,"Alien, pulse una tecla para jugar",8);
-  WaitForKey();
-  Cls();
+  //PutText(0,100,"Alien, pulse una tecla para jugar",8);
+  //WaitForKey();
+  //Cls();
   /*************Fin pantalla de bienvenida**************/
-
-
-  inicializar_player(); 
- //Vamos a pintar arriba a la derecha el tile con el diibujo del 4 que es el tile 52 
-
-
-  gui();
+ 
   repetir:
-  //Inkey()!=27 si no has pulsado la tecla escape
+  contador=32;
   while(contador<100 && Inkey()!=27){
-    //contador++;
-    //HALT;
-    /*
     __asm 
       halt 
       halt 
+      halt 
     __endasm;
-    */
-    recorrerBufferTileMapYPintarPage1EnPage0();
+    //El movimiento de la pantalla o scroll está en el input system
     procesar_entrada();
-    actualizar_personaje();
-    //actualizar_disparos();
+    update_player(posicionPlayerInicial);
+    render_player();
+    actualizar_disparos();
+    actualizar_enemigos();
     //gui();
   }
   PutText(100,100,"Mision cumplida, desea repetir",8);
-  char c=InputChar();
-  if (c='s'){
-    Cls();
-    contador=0;
-    goto repetir;
-  }
+  goto repetir;
 }
+
 void inicializar_sprites(){
   //Ponemos a 0 todos los sprites
   SpriteReset(); 
@@ -105,21 +99,7 @@ void inicializar_sprites(){
 
 
 
-/*************ENEMIGOS******************/
-void inicilizar_enemigos(){
-  //SetSpritePattern( enemigo2_Sprite, sprite_enemigo2, 32);
-  //SC5SpriteColors(enemigo2_Plano, color_sprite_enemigo2);
-}
-void crear_enemigos(){
 
-}
-void actualizar_enemigos(){
-
-}
-void eliminar_enemigos(){
-
-}
-/***********FINAL DE ENEMIGOS*************/
 
 //Sistema de input
 void procesar_entrada(){
@@ -130,50 +110,105 @@ void procesar_entrada(){
   switch (joy)
   {
     case 1:
-        //py-=pvelocidad;
-        player.y-=player.velocidad;
-        //Hay que multiplizar por 4 el sprite porque fusionc es así
-        //psprite=2*4;
+        //Salto
+        if (player.saltando!=1){
+          posicionPlayerInicial=player.y;
+          player.saltando=1;
+        }
         break;
     case 3:
-        //px+=pvelocidad;
         player.x+=player.velocidad;
-        //psprite=0;
+        player.direccion=3;
+        if (player.andando==0){
+          player.andando=1;
+        }else{
+          player.andando=0;
+        }
+        recorrerBufferTileMapYPintarPage1EnPage0();
         break;
     case 5:
-        //py+=pvelocidad;
-        player.y+=player.velocidad;
-        //psprite=4*4;
+        //player.y+=player.velocidad;
         break;
     case 7:
-        //px-=pvelocidad;
         player.x-=player.velocidad;
-        //psprite=0;
+        player.direccion=7;
+        if (player.andando==0){
+          player.andando=1;
+        }else{
+          player.andando=0;
+        }
         break;
     default:
         break;
   }
+  
   //Leemos el disparo
   char trigger = TriggerRead(0);
   if (trigger!=0) {
-    //crear_disparos();
     Beep();
+    if (numero_disparo<10){
+      TFire* fire=crear_disparos();
+      fire->x=player.x;
+      fire->y=player.y+12;
+      fire->velocidad=20;
+      fire->plano=10+numero_disparo;
+      fire->sprite=10*4;
+    }
   }
 }
 
 
-//HUD
-void gui(){
-  //BoxLine(0,0,255,16,6,8);
-  //PutText(2,0,"Alien:",8);
-  //PutText(8*8,0,Itoa(obtener_colision_x(),"  ",10),8);
-  //PutText(120,0,Itoa(fireSprite,"  ",10),8);
-  //PutText(150,0,Itoa(devuelve_entero(),"  ",10),8);
+
+
+void fabricaDeEnemigos(){
+    TEnemy* enemy1=crear_enemigos();
+    enemy1->x=255;
+    enemy1->y=19*8;
+    enemy1->velocidad=4;
+    enemy1->direccion=7;
+    enemy1->plano=20;
+    enemy1->sprite=11*4;
+    enemy1->color=6;
+    enemy1->tipo=0;
 }
 
 
 
 
+//HUD
+void gui(){
+  BoxLine(0,184,255,210,6,8);
+  BoxFill(0,184,255,210,1,8);
+  /*
+  //Colision derecha con bloque
+  int fila=(player.y/8)+3;
+  int columna=((player.x/8)+2)+(contador-32);
+  PutText(0,185,Itoa(fila,"  ",10),8);
+  PutText(0,195,Itoa(columna,"  ",10),8);
+  PutText(0,203,Itoa(filas[fila][columna],"  ",10),8);
+  */
+
+  PutText(0,185,Itoa(array_structs_enemigos[0].plano,"  ",10),8);
+  PutText(0,195,Itoa(array_structs_enemigos[0].sprite,"  ",10),8);
+  PutText(0,203,Itoa(array_structs_enemigos[0].x,"  ",10),8);
+  PutText(100,185,Itoa(numero_disparo,"  ",10),8);
+  PutText(100,195,Itoa(numero_de_enemigo,"  ",10),8);
+  PutText(180,185,Itoa(contador,"  ",10),8);
+}
+
+
+char generar_numero_aleatorio (char a, char b){
+  //Time es un struct + typedef con 3 enteros para las horas, minutos y segundos
+    //TIME tm;
+    char random; 
+    //GetTime obtiene la hora del MSDOS y se la asigna al struct TIME
+    //GetTime(&tm); 
+    //srand utiliza los segundos como semilla para generar un número aleatorio  
+    //srand y rand forman parte de la librería stdlib.h normalmente utilizada para castear strings y manejar memoria dinámica         
+    //srand(tm.sec);
+    random = rand()%(b-a)+a;  
+    return(random);
+}
 
 
 

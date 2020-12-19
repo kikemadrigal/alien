@@ -5,14 +5,18 @@
 
 //FUNCIONES
 void inicializar_player();
-void actualizar_personaje();
+void render_player();
+void update_player(int posicionPlayerInicial);
 //VARIABLES (los arrays y primitos deben de ser ya inicializados)
-unsigned char px=10,py=212/2,pplano=0,psprite=0,pcolor=6,pvelocidad=4,penergia=100;
+//unsigned char px=10,py=212/2,pplano=0,psprite=0,pcolor=6,pvelocidad=4,penergia=100;
 typedef struct {
     unsigned char x;
     unsigned char y;
     unsigned char plano;
     unsigned char sprite;
+    unsigned char direccion;
+    unsigned char andando;
+    unsigned char saltando;
     unsigned char color;
     unsigned char velocidad;
     unsigned char energia;
@@ -78,6 +82,40 @@ unsigned char arma_izquierda[]={
     240,14,255,254,248,32,56,8,
     8,0,0,0,0,0,0,0
 };
+// SPRITE COLORS
+unsigned char color_personaje_tronco_superior1[]={
+    4,4,4,4,8,8,8,8,
+    8,8,8,8,8,8,8,8,
+    10,10,10,10,10,10,10,10,
+    10,10,10,10,10,10,10,10
+};
+unsigned char color_personaje_tronco_superior2[]={
+    8,8,8,8,8,8,8,8,
+    8,8,8,8,8,8,8,8,
+    8,8,8,8,8,8,8,8,
+    8,8,8,8,8,8,8,8
+};
+unsigned char color_personaje_piernas1[]={
+    13,13,13,13,13,13,13,13,
+    13,13,13,13,13,13,13,13,
+    4,4,4,4,8,8,8,8,
+    8,8,8,8,8,8,8,8
+};
+unsigned char color_personaje_piernas2[]={
+    10,10,10,10,10,10,10,10,
+    10,10,10,10,10,10,10,10,
+    8,8,8,8,8,8,8,8,
+    8,8,8,8,8,8,8,8
+};
+unsigned char color_arma[]={
+    8,8,8,8,8,8,8,8,
+    8,8,8,8,8,8,8,8,
+    13,13,13,13,13,13,13,13,
+    13,13,13,13,13,13,13,13
+};
+int tileX;
+int tileY;
+
 
 #endif
 /***********FINAL DE DECLARACIONES************/
@@ -85,7 +123,8 @@ unsigned char arma_izquierda[]={
 
 
 /**************DEFINICIONES************/
-TPlayer player={10,18*8,0,0,6,4,100};
+//x,y,plano,sprite,direccion(3 derecha-7 izquierda),andando,saltando,color,velocidad,energia
+TPlayer player={10,17*8,0,0,3,0,0,6,8,100};
 
 void inicializar_player(){
     //py=212/2;
@@ -107,28 +146,81 @@ void inicializar_player(){
     SetSpritePattern( 4*9, arma_izquierda, 32);
 
     //Le ponemos el color al sprite
-    //SC5SpriteColors(pplano, color_sprite_nave_derecha1);
-    //SC5SpriteColors(pplano+1, color_sprite_nave_derecha2);
+    SC5SpriteColors(player.plano, color_personaje_tronco_superior1);
+    SC5SpriteColors(player.plano+1, color_personaje_tronco_superior2);
+    SC5SpriteColors(player.plano+2, color_personaje_piernas1);
+    SC5SpriteColors(player.plano+3, color_personaje_piernas2);
+    SC5SpriteColors(player.plano+4, color_arma);
+
+    render_player();
+}
+void render_player(){
     // Sobre PutSprite, si queremos podemos hacer que se vea ya el sprite del personaje con
     // 1 El plano o su definición en la tabla de atributos, es donde alamcenará la posición x e y, y su sprite
     // 2 la definición en sprite pattern que va de 4 en 4
     // 3 posición eje x
     // 4 posición eje y
     // 5 color  
-    // PutSprite( pplano,psprite,px,py, pcolor );
-    // PutSprite( pplano+1,psprite+4,px,py, pcolor+1 );
-    
-}
-void actualizar_personaje(){
-    //Plano, ptron, x, y, color
     //PutSprite( pplano, psprite, px,py, pcolor );
-    //PutSprite( pplano+1, psprite+4, px,py, pcolor+1 );
-    //Pintamos el tronco superior, color 9 rosa
-    PutSprite( player.plano, player.sprite, player.x,player.y, 9 );
-    //Pintamos el tronco superior 2, color amarillo 10
-    PutSprite( player.plano+1, player.sprite+4, player.x,player.y, 10 );
-    //Pintamos las piernas
-    PutSprite( player.plano+2, player.sprite+8, player.x,player.y+16, 9 );
-    //Pintamos el arma
-    PutSprite( player.plano+3, player.sprite+16, player.x,player.y+8, 15 );
+    if (player.direccion==3){
+        //Pintamos el tronco superior, color 9 rosa
+        PutSprite( player.plano, player.sprite, player.x,player.y, 9 );
+        //Pintamos el tronco superior 2, color amarillo 10
+        PutSprite( player.plano+1, player.sprite+4, player.x,player.y,  10);
+        //Pintamos las piernas
+        if(player.andando==0){
+            PutSprite( player.plano+2, player.sprite+2*4, player.x,player.y+16,  9 );
+        } else {
+            PutSprite( player.plano+2, player.sprite+3*4, player.x,player.y+16,  9 );
+        }
+        //Pintamos el arma
+        PutSprite( player.plano+3, player.sprite+4*4, player.x,player.y+8, 15 );
+    }else if(player.direccion==7){
+        //Pintamos el tronco superior, color 9 rosa
+        PutSprite( player.plano, player.sprite+5*4, player.x,player.y, player.color );
+        //Pintamos el tronco superior 2, color amarillo 10
+        PutSprite( player.plano+1, player.sprite+6*4, player.x,player.y,  player.color );
+        //Pintamos las piernas
+        if(player.andando==0){
+            PutSprite( player.plano+2, player.sprite+7*4, player.x,player.y+16,  player.color );
+        } else {
+            PutSprite( player.plano+2, player.sprite+8*4, player.x,player.y+16,  player.color );
+        }
+        //Pintamos el arma
+        PutSprite( player.plano+3, player.sprite+9*4, player.x,player.y+8, 15 );
+    }
+}
+
+
+void update_player(int posicionPlayerInicial){
+    //Colision con la pantalla
+    if (player.x<16) player.x=16;
+    if (player.x>240) player.x=240;
+
+    //Colision con bloque solido en la derecha
+    //Los sprites son un poc dificiles de tratar porque son de 16 pixeles y son 2 y la pantalla su mueve
+    tileY=(player.y/8)+3;
+    tileX=(player.x/8)+(contador-32)+2;
+    //Obtenemos la fila del player y le sumamos 3 posiciones hacia abajo
+    if (filas[tileY][tileX]>100){
+       player.x-=player.velocidad;
+       Beep();
+    }
+    //Colision con el suelo
+    tileY=(player.y/8)+4;
+    tileX=player.x/8;
+    if (filas[tileY][tileX]!=81 && player.saltando==0){
+       player.y+=player.velocidad;
+    }
+    //Salto
+   if (player.saltando==1){
+       player.y-=player.velocidad;
+       if(player.y<posicionPlayerInicial-16){
+           player.velocidad= -player.velocidad;
+       }
+       if(player.y+1>posicionPlayerInicial){
+           player.saltando=0;
+           player.velocidad= -player.velocidad;
+       }
+   }
 }
