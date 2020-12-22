@@ -8,7 +8,8 @@
 typedef struct {
     int x;
     int y;
-    int velocidad;
+    unsigned char velocidad;
+    unsigned char direccion;
     unsigned char plano;
     unsigned char sprite;
 }TFire;
@@ -46,12 +47,18 @@ TFire* crear_disparos(){
 }
 void actualizar_disparos(){
   for (int i=0; i<numero_disparo; i++){
-    array_structs_fires[i].x+=array_structs_fires[i].velocidad;
-    if(array_structs_fires[i].x>256+2) eliminar_disparos(i);
-    PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, array_structs_fires[i].x,array_structs_fires[i].y, 15 );
+    if (array_structs_fires[i].direccion==3) array_structs_fires[i].x+=array_structs_fires[i].velocidad;
+    if (array_structs_fires[i].direccion==7) array_structs_fires[i].x-=array_structs_fires[i].velocidad;
+    if(array_structs_fires[i].x>240 || array_structs_fires[i].x<0){
+      PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, 1,215, 15 );
+      eliminar_disparos(i);
+    } else{
+       PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, array_structs_fires[i].x,array_structs_fires[i].y, 15 );
+    }
   }
 }
 void eliminar_disparos(int i){
    --numero_disparo;
   array_structs_fires[i]=array_structs_fires[numero_disparo];
+  PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, 1,215, 15 );
 }

@@ -25,10 +25,13 @@ FCB TFileTileMap;
 #define tamanobufferTileSet 27136
 unsigned char bufferTileSet[tamanobufferTileSet];
 //El tile map solo son bytes que identifican un valor correpondiente a cada fila y cada columna
-//Son 24 filas * 100 columnas
-#define tamanoBufferTileMap 2400
+//Son 23 filas * 500 columnas
+
+#define numeroFilas 23
+#define numeroColumnas 200
+#define tamanoBufferTileMap 4600 // numeroFilas*numeroColumnas
 unsigned char bufferTileMap[tamanoBufferTileMap];
-unsigned int filas[24][100];
+unsigned int filas[numeroFilas][numeroColumnas];
 int contador_tiles=0;
 unsigned int contador;
 
@@ -86,8 +89,8 @@ void FT_SetName( FCB *p_fcb, const char *p_name )  // Routine servant à vérifi
 
 
 void cargarArrayFilasTileMap(){
-  for (int fila=0;fila<25;fila++){
-    for (int columna=0; columna<100;columna++){
+  for (int fila=0;fila<numeroFilas;fila++){
+    for (int columna=0; columna<numeroColumnas;columna++){
       contador_tiles++;
       filas[fila][columna]=bufferTileMap[contador_tiles];
     }
@@ -97,14 +100,21 @@ void cargarArrayFilasTileMap(){
 
 void recorrerBufferTileMapYPintarPage1EnPage0(){
   contador++;
-  for (int f=0; f<23;f++){
+  for (int f=0; f<numeroFilas;f++){
     HMMM(((filas[f][contador]-(filas[f][contador]/32)*32 ) )*8,(filas[f][contador]/32)*8+256, 256-8,8*f,8,8);
   }
   HMMM(8,0, 0,0,256,184);
 }
+/*void recorrerBufferTileMapYPintarPage1EnPage0Inversa(){
+  contador--;
+  for (int f=0; f<numeroFilas;f++){
+    HMMM(((filas[f][contador]-(filas[f][contador]/32)*32 ) )*8,(filas[f][contador]/32)*8+256, 0,8*f,8,8);
+  }
+  HMMM(0,0, 8,0,256,184);
+}*/
 
 void pintarPantallaInicio(){
-  for (int f=0; f<23;f++){
+  for (int f=0; f<numeroFilas;f++){
     for (int c=0; c<32;c++){
       HMMM(((filas[f][c]-(filas[f][c]/32)*32))*8,(filas[f][c]/32)*8+256, c*8,f*8,8,8);
     }
@@ -133,7 +143,7 @@ void verArray(){
   for (int i=0; i<0x20; i++){
     //PutText(i*8,0,Itoa(bufferTileMap[i],"  ",10),8);
     //PutText(columna*24,fila,Itoa(fila1[i],"  ",10),8);
-    PutText(columna*24,fila,Itoa(filas[0][i],"  ",10),8);
+    PutText(columna*24,fila,Itoa(filas[22][i],"  ",10),8);
     columna++;
     if (columna==10){
       columna=0;

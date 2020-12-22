@@ -37,7 +37,9 @@ void inicializar_enemigos();
 // la posición del array donde está el struct
 TEnemy* crear_enemigos();
 void actualizar_enemigos();
-void eliminar_enemigos();
+void eliminar_enemigos(int i);
+char collision_enemigos(char fireX, char fireiY);
+char generar_numero_aleatorio (char a, char b);
 #endif
 /***********FINAL DE DECLARACIONES************/
 
@@ -45,12 +47,13 @@ void eliminar_enemigos();
 //TEnemy enemigo_prueba={256,160,4,8,8*4,3,0};
 TEnemy array_structs_enemigos[10];
 char numero_de_enemigo;
-
+char colisionFire;
 void inicilizar_enemigos(){
     SetSpritePattern( 4*11, enemie1, 32);
     SetSpritePattern( 4*12, enemie2, 32);
     //Las variables globales tienen que ser inicializadas dentro de un método
     numero_de_enemigo=0;
+    colisionFire=0;
 }
 TEnemy* crear_enemigos(){
     TEnemy* enemy=&array_structs_enemigos[numero_de_enemigo];
@@ -69,6 +72,43 @@ void actualizar_enemigos(){
    
    }
 }
-void eliminar_enemigos(){
+void eliminar_enemigos(int i){
+   --numero_de_enemigo;
+  array_structs_enemigos[i]=array_structs_enemigos[numero_de_enemigo];
+  PutSprite(array_structs_enemigos[i].plano,array_structs_enemigos[i].sprite,1,215,array_structs_enemigos[i].color);
+}
 
+char collision_enemigos(char fireX, char fireiY){
+    for (int i=0; i<numero_de_enemigo;i++){
+         if (fireX < array_structs_enemigos[i].x + 16 &&  fireX + 16 > array_structs_enemigos[i].x && fireiY < array_structs_enemigos[i].y + 16 && 16 + fireiY > array_structs_enemigos[i].y){
+            colisionFire=1;
+            eliminar_enemigos(i);
+            TEnemy* enemy1=crear_enemigos();
+            enemy1->x=255;
+            enemy1->y=generar_numero_aleatorio (120,150);
+            enemy1->velocidad=4;
+            enemy1->direccion=7;
+            enemy1->plano=20;
+            enemy1->sprite=11*4;
+            enemy1->color=6;
+            enemy1->tipo=0;
+        }else{
+            colisionFire=0;
+        }
+    }  
+    return colisionFire;
+}
+
+
+char generar_numero_aleatorio (char a, char b){
+  //Time es un struct + typedef con 3 enteros para las horas, minutos y segundos
+    //TIME tm;
+    char random; 
+    //GetTime obtiene la hora del MSDOS y se la asigna al struct TIME
+    //GetTime(&tm); 
+    //srand utiliza los segundos como semilla para generar un número aleatorio  
+    //srand y rand forman parte de la librería stdlib.h normalmente utilizada para castear strings y manejar memoria dinámica         
+    //srand(tm.sec);
+    random = rand()%(b-a)+a;  
+    return(random);
 }

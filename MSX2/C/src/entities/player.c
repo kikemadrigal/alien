@@ -7,18 +7,23 @@
 void inicializar_player();
 void render_player();
 void update_player(int posicionPlayerInicial);
+char collisionPlayer(char enemiX, char enemiY);
 //VARIABLES (los arrays y primitos deben de ser ya inicializados)
 //unsigned char px=10,py=212/2,pplano=0,psprite=0,pcolor=6,pvelocidad=4,penergia=100;
 typedef struct {
     unsigned char x;
     unsigned char y;
+    unsigned char oldX;
+    unsigned char oldY;
     unsigned char plano;
     unsigned char sprite;
     unsigned char direccion;
     unsigned char andando;
     unsigned char saltando;
+    unsigned char colision;
     unsigned char color;
-    unsigned char velocidad;
+    unsigned char velocidadX;
+    unsigned char velocidadY;
     unsigned char energia;
 } TPlayer;
 
@@ -124,8 +129,8 @@ int tileY;
 
 /**************DEFINICIONES************/
 //x,y,plano,sprite,direccion(3 derecha-7 izquierda),andando,saltando,color,velocidad,energia
-TPlayer player={10,17*8,0,0,3,0,0,6,8,100};
-
+TPlayer player={10,18*8,0,0,0,0,3,0,0,0,6,8,8,100};
+int gravedad=8;
 void inicializar_player(){
     //py=212/2;
     // px= player posición eje x, py= player posición eje y
@@ -193,34 +198,55 @@ void render_player(){
 
 
 void update_player(int posicionPlayerInicial){
-    //Colision con la pantalla
+    //Colision con los bordes de la pantalla
     if (player.x<16) player.x=16;
     if (player.x>240) player.x=240;
-
     //Colision con bloque solido en la derecha
     //Los sprites son un poc dificiles de tratar porque son de 16 pixeles y son 2 y la pantalla su mueve
     tileY=(player.y/8)+3;
-    tileX=(player.x/8)+(contador-32)+2;
-    //Obtenemos la fila del player y le sumamos 3 posiciones hacia abajo
-    if (filas[tileY][tileX]>100){
-       player.x-=player.velocidad;
-       Beep();
+    tileX=(player.x/8)+(contador-32);
+
+    if(filas[tileY+1][tileX]<192 && player.saltando==0){
+        //Beep();
+        player.y+=player.velocidadY;
     }
-    //Colision con el suelo
-    tileY=(player.y/8)+4;
-    tileX=player.x/8;
-    if (filas[tileY][tileX]!=81 && player.saltando==0){
-       player.y+=player.velocidad;
-    }
+
+    if (filas[tileY][tileX]>=195 && player.saltando==0){
+       player.x=player.oldX;
+       player.colision=1;
+    }else{
+        player.colision=0;
+    }    
     //Salto
-   if (player.saltando==1){
-       player.y-=player.velocidad;
-       if(player.y<posicionPlayerInicial-16){
-           player.velocidad= -player.velocidad;
-       }
-       if(player.y+1>posicionPlayerInicial){
+    /*if (player.saltando==1){
+        //Si la posición del player es menor qu ela inicial se l resta la velocidad
+         player.y-=player.velocidadY;
+        if(player.y+1>posicionPlayerInicial){
            player.saltando=0;
-           player.velocidad= -player.velocidad;
-       }
-   }
+           player.velocidadY= -player.velocidadY;
+        }else if(player.y<posicionPlayerInicial-8){
+           player.velocidadY= -player.velocidadY;
+        }
+       
+    }*/
+     //Salto
+    if (player.saltando==1){
+        //Si la posición del player es menor qu ela inicial se l resta la velocidad
+        
+        if(filas[tileY+1][tileX]>=192){
+           player.saltando=0;
+        }else{
+            player.y+=player.velocidadY;
+        }
+    }
+}
+
+
+
+char collisionPlayer(char enemiX, char enemiY){
+    if (enemiX < player.x + 16 &&  enemiX + 16 > player.x && enemiY < player.y + 32 && 16 + enemiY > player.y){
+        return 1;
+    }else{
+        return 0;
+    }
 }
