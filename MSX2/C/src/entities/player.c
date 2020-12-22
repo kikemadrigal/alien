@@ -6,7 +6,7 @@
 //FUNCIONES
 void inicializar_player();
 void render_player();
-void update_player(int posicionPlayerInicial);
+void update_player();
 char collisionPlayer(char enemiX, char enemiY);
 //VARIABLES (los arrays y primitos deben de ser ya inicializados)
 //unsigned char px=10,py=212/2,pplano=0,psprite=0,pcolor=6,pvelocidad=4,penergia=100;
@@ -197,15 +197,18 @@ void render_player(){
 }
 
 
-void update_player(int posicionPlayerInicial){
+void update_player(){
     //Colision con los bordes de la pantalla
     if (player.x<16) player.x=16;
     if (player.x>240) player.x=240;
+    //Colsión márgenes camino
+    if (player.y<80) player.y=80;
+    if (player.y>140) player.y=140;
     //Colision con bloque solido en la derecha
     //Los sprites son un poc dificiles de tratar porque son de 16 pixeles y son 2 y la pantalla su mueve
     tileY=(player.y/8)+3;
     tileX=(player.x/8)+(contador-32);
-
+    /*
     if(filas[tileY+1][tileX]<192 && player.saltando==0){
         //Beep();
         player.y+=player.velocidadY;
@@ -216,7 +219,8 @@ void update_player(int posicionPlayerInicial){
        player.colision=1;
     }else{
         player.colision=0;
-    }    
+    }   
+    */ 
     //Salto
     /*if (player.saltando==1){
         //Si la posición del player es menor qu ela inicial se l resta la velocidad

@@ -1,0 +1,3884 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 4.0.0 #11528 (MINGW64)
+                              4 ;--------------------------------------------------------
+                              5 	.module main
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _main
+                             12 	.globl _inicilizar_enemigos
+                             13 	.globl _verArray
+                             14 	.globl _rand
+                             15 	.globl _HMMM
+                             16 	.globl _HMMC
+                             17 	.globl _BoxLine
+                             18 	.globl _BoxFill
+                             19 	.globl _SC5SpriteColors
+                             20 	.globl _SetSpritePattern
+                             21 	.globl _PutSprite
+                             22 	.globl _SpriteReset
+                             23 	.globl _SpriteOn
+                             24 	.globl _SpriteSmall
+                             25 	.globl _Sprite16
+                             26 	.globl _fcb_read
+                             27 	.globl _fcb_close
+                             28 	.globl _fcb_open
+                             29 	.globl _ReadSP
+                             30 	.globl _Itoa
+                             31 	.globl _Inkey
+                             32 	.globl _PutText
+                             33 	.globl _VDPwrite
+                             34 	.globl _SetColors
+                             35 	.globl _TriggerRead
+                             36 	.globl _JoystickRead
+                             37 	.globl _Screen
+                             38 	.globl _Beep
+                             39 	.globl _enemie2
+                             40 	.globl _enemie1
+                             41 	.globl _fireSprite
+                             42 	.globl _gravedad
+                             43 	.globl _player
+                             44 	.globl _color_arma
+                             45 	.globl _color_personaje_piernas2
+                             46 	.globl _color_personaje_piernas1
+                             47 	.globl _color_personaje_tronco_superior2
+                             48 	.globl _color_personaje_tronco_superior1
+                             49 	.globl _arma_izquierda
+                             50 	.globl _personaje_piernas_izquierda2
+                             51 	.globl _personaje_piernas_izquierda1
+                             52 	.globl _personaje_tronco_superior_izquierda2
+                             53 	.globl _personaje_tronco_superior_izquieda1
+                             54 	.globl _arma_derecha
+                             55 	.globl _personaje_piernas_derecha2
+                             56 	.globl _personaje_piernas_derecha1
+                             57 	.globl _personaje_tronco_superior_derecha2
+                             58 	.globl _personaje_tronco_superior_derecha1
+                             59 	.globl _fileNameTileMap
+                             60 	.globl _fileNameTilseSet
+                             61 	.globl _fire
+                             62 	.globl _espacioLibre
+                             63 	.globl _posicionPlayerInicial
+                             64 	.globl _colisionFire
+                             65 	.globl _numero_de_enemigo
+                             66 	.globl _array_structs_enemigos
+                             67 	.globl _numero_disparo
+                             68 	.globl _array_structs_fires
+                             69 	.globl _tileY
+                             70 	.globl _tileX
+                             71 	.globl _contador
+                             72 	.globl _contador_tiles
+                             73 	.globl _filas
+                             74 	.globl _bufferTileSet
+                             75 	.globl _TFileTileMap
+                             76 	.globl _TFileTileSet
+                             77 	.globl _cargarTileSetEnRAM
+                             78 	.globl _cargarTileMapEnRAM
+                             79 	.globl _deRamAVramPage1
+                             80 	.globl _FT_SetName
+                             81 	.globl _cargarArrayFilasTileMap
+                             82 	.globl _recorrerBufferTileMapYPintarPage1EnPage0
+                             83 	.globl _pintarPantallaInicio
+                             84 	.globl _SetAdjust
+                             85 	.globl _inicializar_player
+                             86 	.globl _render_player
+                             87 	.globl _update_player
+                             88 	.globl _collisionPlayer
+                             89 	.globl _inicializar_disparos
+                             90 	.globl _crear_disparos
+                             91 	.globl _actualizar_disparos
+                             92 	.globl _eliminar_disparos
+                             93 	.globl _crear_enemigos
+                             94 	.globl _actualizar_enemigos
+                             95 	.globl _eliminar_enemigos
+                             96 	.globl _collision_enemigos
+                             97 	.globl _generar_numero_aleatorio
+                             98 	.globl _inicializar_sprites
+                             99 	.globl _procesar_entrada
+                            100 	.globl _update_collision_system
+                            101 	.globl _fabricaDeEnemigos
+                            102 	.globl _gui
+                            103 ;--------------------------------------------------------
+                            104 ; special function registers
+                            105 ;--------------------------------------------------------
+                            106 ;--------------------------------------------------------
+                            107 ; ram data
+                            108 ;--------------------------------------------------------
+                            109 	.area _DATA
+   0000                     110 _TFileTileSet::
+   0000                     111 	.ds 37
+   0025                     112 _TFileTileMap::
+   0025                     113 	.ds 37
+   004A                     114 _bufferTileSet::
+   004A                     115 	.ds 27136
+   6A4A                     116 _filas::
+   6A4A                     117 	.ds 11500
+   9736                     118 _contador_tiles::
+   9736                     119 	.ds 2
+   9738                     120 _contador::
+   9738                     121 	.ds 2
+   973A                     122 _tileX::
+   973A                     123 	.ds 2
+   973C                     124 _tileY::
+   973C                     125 	.ds 2
+   973E                     126 _array_structs_fires::
+   973E                     127 	.ds 80
+   978E                     128 _numero_disparo::
+   978E                     129 	.ds 1
+   978F                     130 _array_structs_enemigos::
+   978F                     131 	.ds 100
+   97F3                     132 _numero_de_enemigo::
+   97F3                     133 	.ds 1
+   97F4                     134 _colisionFire::
+   97F4                     135 	.ds 1
+   97F5                     136 _posicionPlayerInicial::
+   97F5                     137 	.ds 2
+   97F7                     138 _espacioLibre::
+   97F7                     139 	.ds 2
+   97F9                     140 _fire::
+   97F9                     141 	.ds 2
+                            142 ;--------------------------------------------------------
+                            143 ; ram data
+                            144 ;--------------------------------------------------------
+                            145 	.area _INITIALIZED
+   0000                     146 _fileNameTilseSet::
+   0000                     147 	.ds 12
+   000C                     148 _fileNameTileMap::
+   000C                     149 	.ds 11
+   0017                     150 _personaje_tronco_superior_derecha1::
+   0017                     151 	.ds 32
+   0037                     152 _personaje_tronco_superior_derecha2::
+   0037                     153 	.ds 32
+   0057                     154 _personaje_piernas_derecha1::
+   0057                     155 	.ds 32
+   0077                     156 _personaje_piernas_derecha2::
+   0077                     157 	.ds 32
+   0097                     158 _arma_derecha::
+   0097                     159 	.ds 32
+   00B7                     160 _personaje_tronco_superior_izquieda1::
+   00B7                     161 	.ds 32
+   00D7                     162 _personaje_tronco_superior_izquierda2::
+   00D7                     163 	.ds 32
+   00F7                     164 _personaje_piernas_izquierda1::
+   00F7                     165 	.ds 32
+   0117                     166 _personaje_piernas_izquierda2::
+   0117                     167 	.ds 32
+   0137                     168 _arma_izquierda::
+   0137                     169 	.ds 32
+   0157                     170 _color_personaje_tronco_superior1::
+   0157                     171 	.ds 32
+   0177                     172 _color_personaje_tronco_superior2::
+   0177                     173 	.ds 32
+   0197                     174 _color_personaje_piernas1::
+   0197                     175 	.ds 32
+   01B7                     176 _color_personaje_piernas2::
+   01B7                     177 	.ds 32
+   01D7                     178 _color_arma::
+   01D7                     179 	.ds 32
+   01F7                     180 _player::
+   01F7                     181 	.ds 14
+   0205                     182 _gravedad::
+   0205                     183 	.ds 2
+   0207                     184 _fireSprite::
+   0207                     185 	.ds 32
+   0227                     186 _enemie1::
+   0227                     187 	.ds 32
+   0247                     188 _enemie2::
+   0247                     189 	.ds 32
+                            190 ;--------------------------------------------------------
+                            191 ; absolute external ram data
+                            192 ;--------------------------------------------------------
+                            193 	.area _DABS (ABS)
+                            194 ;--------------------------------------------------------
+                            195 ; global & static initialisations
+                            196 ;--------------------------------------------------------
+                            197 	.area _HOME
+                            198 	.area _GSINIT
+                            199 	.area _GSFINAL
+                            200 	.area _GSINIT
+                            201 ;--------------------------------------------------------
+                            202 ; Home
+                            203 ;--------------------------------------------------------
+                            204 	.area _HOME
+                            205 	.area _HOME
+                            206 ;--------------------------------------------------------
+                            207 ; code
+                            208 ;--------------------------------------------------------
+                            209 	.area _CODE
+                            210 ;src/entities/pantalla.c:44: void cargarTileSetEnRAM(){
+                            211 ;	---------------------------------
+                            212 ; Function cargarTileSetEnRAM
+                            213 ; ---------------------------------
+   0000                     214 _cargarTileSetEnRAM::
+                            215 ;src/entities/pantalla.c:46: FT_SetName( &TFileTileSet, &fileNameTilseSet[0] );
+   0000 21r00r00      [10]  216 	ld	hl, #_fileNameTilseSet
+   0003 E5            [11]  217 	push	hl
+   0004 21r00r00      [10]  218 	ld	hl, #_TFileTileSet
+   0007 E5            [11]  219 	push	hl
+   0008 CDrB7r00      [17]  220 	call	_FT_SetName
+   000B F1            [10]  221 	pop	af
+                            222 ;src/entities/pantalla.c:47: fcb_open( &TFileTileSet );
+   000C 21r00r00      [10]  223 	ld	hl, #_TFileTileSet
+   000F E3            [19]  224 	ex	(sp),hl
+   0010 CDr00r00      [17]  225 	call	_fcb_open
+                            226 ;src/entities/pantalla.c:49: fcb_read( &TFileTileSet, &bufferTileSet[0], 7 ); 
+   0013 21 07 00      [10]  227 	ld	hl, #0x0007
+   0016 E3            [19]  228 	ex	(sp),hl
+   0017 21r4Ar00      [10]  229 	ld	hl, #_bufferTileSet
+   001A E5            [11]  230 	push	hl
+   001B 21r00r00      [10]  231 	ld	hl, #_TFileTileSet
+   001E E5            [11]  232 	push	hl
+   001F CDr00r00      [17]  233 	call	_fcb_read
+   0022 F1            [10]  234 	pop	af
+   0023 F1            [10]  235 	pop	af
+                            236 ;src/entities/pantalla.c:51: fcb_read( &TFileTileSet, &bufferTileSet[0], tamanobufferTileSet );  
+   0024 21 00 6A      [10]  237 	ld	hl, #0x6a00
+   0027 E3            [19]  238 	ex	(sp),hl
+   0028 21r4Ar00      [10]  239 	ld	hl, #_bufferTileSet
+   002B E5            [11]  240 	push	hl
+   002C 21r00r00      [10]  241 	ld	hl, #_TFileTileSet
+   002F E5            [11]  242 	push	hl
+   0030 CDr00r00      [17]  243 	call	_fcb_read
+   0033 F1            [10]  244 	pop	af
+   0034 F1            [10]  245 	pop	af
+                            246 ;src/entities/pantalla.c:52: fcb_close( &TFileTileSet );
+   0035 21r00r00      [10]  247 	ld	hl, #_TFileTileSet
+   0038 E3            [19]  248 	ex	(sp),hl
+   0039 CDr00r00      [17]  249 	call	_fcb_close
+   003C F1            [10]  250 	pop	af
+                            251 ;src/entities/pantalla.c:53: }
+   003D C9            [10]  252 	ret
+   003E                     253 _Done_Version:
+   003E 4D 61 64 65 20 77   254 	.ascii "Made with FUSION-C 1.2 (ebsoft)"
+        69 74 68 20 46 55
+        53 49 4F 4E 2D 43
+        20 31 2E 32 20 28
+        65 62 73 6F 66 74
+        29
+   005D 00                  255 	.db 0x00
+                            256 ;src/entities/pantalla.c:63: void cargarTileMapEnRAM(){
+                            257 ;	---------------------------------
+                            258 ; Function cargarTileMapEnRAM
+                            259 ; ---------------------------------
+   005E                     260 _cargarTileMapEnRAM::
+                            261 ;src/entities/pantalla.c:64: FT_SetName( &TFileTileMap, &fileNameTileMap[0] );
+   005E 21r0Cr00      [10]  262 	ld	hl, #_fileNameTileMap
+   0061 E5            [11]  263 	push	hl
+   0062 21r25r00      [10]  264 	ld	hl, #_TFileTileMap
+   0065 E5            [11]  265 	push	hl
+   0066 CDrB7r00      [17]  266 	call	_FT_SetName
+   0069 F1            [10]  267 	pop	af
+                            268 ;src/entities/pantalla.c:65: fcb_open( &TFileTileMap );
+   006A 21r25r00      [10]  269 	ld	hl, #_TFileTileMap
+   006D E3            [19]  270 	ex	(sp),hl
+   006E CDr00r00      [17]  271 	call	_fcb_open
+                            272 ;src/entities/pantalla.c:67: fcb_read( &TFileTileMap, &bufferTileSet[0], 7 );  // Skip 7 first bytes of the file  
+   0071 21 07 00      [10]  273 	ld	hl, #0x0007
+   0074 E3            [19]  274 	ex	(sp),hl
+   0075 21r4Ar00      [10]  275 	ld	hl, #_bufferTileSet
+   0078 E5            [11]  276 	push	hl
+   0079 21r25r00      [10]  277 	ld	hl, #_TFileTileMap
+   007C E5            [11]  278 	push	hl
+   007D CDr00r00      [17]  279 	call	_fcb_read
+   0080 F1            [10]  280 	pop	af
+   0081 F1            [10]  281 	pop	af
+                            282 ;src/entities/pantalla.c:68: fcb_read( &TFileTileMap, &bufferTileSet[0], tamanoBufferTileMap );  // Read 20 lines of image data (128bytes per line in screen5)
+   0082 21 76 16      [10]  283 	ld	hl, #0x1676
+   0085 E3            [19]  284 	ex	(sp),hl
+   0086 21r4Ar00      [10]  285 	ld	hl, #_bufferTileSet
+   0089 E5            [11]  286 	push	hl
+   008A 21r25r00      [10]  287 	ld	hl, #_TFileTileMap
+   008D E5            [11]  288 	push	hl
+   008E CDr00r00      [17]  289 	call	_fcb_read
+   0091 F1            [10]  290 	pop	af
+   0092 F1            [10]  291 	pop	af
+                            292 ;src/entities/pantalla.c:69: fcb_close( &TFileTileMap);
+   0093 21r25r00      [10]  293 	ld	hl, #_TFileTileMap
+   0096 E3            [19]  294 	ex	(sp),hl
+   0097 CDr00r00      [17]  295 	call	_fcb_close
+   009A F1            [10]  296 	pop	af
+                            297 ;src/entities/pantalla.c:71: }
+   009B C9            [10]  298 	ret
+                            299 ;src/entities/pantalla.c:72: void deRamAVramPage1(void){
+                            300 ;	---------------------------------
+                            301 ; Function deRamAVramPage1
+                            302 ; ---------------------------------
+   009C                     303 _deRamAVramPage1::
+                            304 ;src/entities/pantalla.c:75: HMMC(&bufferTileSet[0], 0,256,256,212 ); 
+   009C 21 D4 00      [10]  305 	ld	hl, #0x00d4
+   009F E5            [11]  306 	push	hl
+   00A0 21 00 01      [10]  307 	ld	hl, #0x0100
+   00A3 E5            [11]  308 	push	hl
+   00A4 2E 00         [ 7]  309 	ld	l, #0x00
+   00A6 E5            [11]  310 	push	hl
+   00A7 26 00         [ 7]  311 	ld	h, #0x00
+   00A9 E5            [11]  312 	push	hl
+   00AA 21r4Ar00      [10]  313 	ld	hl, #_bufferTileSet
+   00AD E5            [11]  314 	push	hl
+   00AE CDr00r00      [17]  315 	call	_HMMC
+   00B1 21 0A 00      [10]  316 	ld	hl, #10
+   00B4 39            [11]  317 	add	hl, sp
+   00B5 F9            [ 6]  318 	ld	sp, hl
+                            319 ;src/entities/pantalla.c:76: }
+   00B6 C9            [10]  320 	ret
+                            321 ;src/entities/pantalla.c:80: void FT_SetName( FCB *p_fcb, const char *p_name )  // Routine servant à vérifier le format du nom de fichier
+                            322 ;	---------------------------------
+                            323 ; Function FT_SetName
+                            324 ; ---------------------------------
+   00B7                     325 _FT_SetName::
+   00B7 CDr00r00      [17]  326 	call	___sdcc_enter_ix
+   00BA F5            [11]  327 	push	af
+   00BB F5            [11]  328 	push	af
+   00BC 3B            [ 6]  329 	dec	sp
+                            330 ;src/entities/pantalla.c:83: memset( p_fcb, 0, sizeof(FCB) );
+   00BD DD 6E 04      [19]  331 	ld	l, 4 (ix)
+   00C0 DD 66 05      [19]  332 	ld	h, 5 (ix)
+   00C3 06 25         [ 7]  333 	ld	b, #0x25
+   00C5                     334 00178$:
+   00C5 36 00         [10]  335 	ld	(hl), #0x00
+   00C7 23            [ 6]  336 	inc	hl
+   00C8 10 FB         [13]  337 	djnz	00178$
+                            338 ;src/entities/pantalla.c:84: for( i = 0; i < 11; i++ ) {
+   00CA DD 5E 04      [19]  339 	ld	e, 4 (ix)
+   00CD DD 56 05      [19]  340 	ld	d, 5 (ix)
+   00D0 21 01 00      [10]  341 	ld	hl, #0x0001
+   00D3 19            [11]  342 	add	hl, de
+   00D4 DD 75 FC      [19]  343 	ld	-4 (ix), l
+   00D7 DD 74 FD      [19]  344 	ld	-3 (ix), h
+   00DA 0E 00         [ 7]  345 	ld	c, #0x00
+   00DC                     346 00106$:
+                            347 ;src/entities/pantalla.c:85: p_fcb->name[i] = ' ';
+   00DC DD 6E FC      [19]  348 	ld	l, -4 (ix)
+   00DF DD 66 FD      [19]  349 	ld	h, -3 (ix)
+   00E2 06 00         [ 7]  350 	ld	b, #0x00
+   00E4 09            [11]  351 	add	hl, bc
+   00E5 36 20         [10]  352 	ld	(hl), #0x20
+                            353 ;src/entities/pantalla.c:84: for( i = 0; i < 11; i++ ) {
+   00E7 0C            [ 4]  354 	inc	c
+   00E8 79            [ 4]  355 	ld	a, c
+   00E9 D6 0B         [ 7]  356 	sub	a, #0x0b
+   00EB 38 EF         [12]  357 	jr	C,00106$
+                            358 ;src/entities/pantalla.c:87: for( i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++ ) {
+   00ED AF            [ 4]  359 	xor	a, a
+   00EE DD 77 FE      [19]  360 	ld	-2 (ix), a
+   00F1                     361 00111$:
+   00F1 DD 7E 06      [19]  362 	ld	a, 6 (ix)
+   00F4 DD 86 FE      [19]  363 	add	a, -2 (ix)
+   00F7 6F            [ 4]  364 	ld	l, a
+   00F8 DD 7E 07      [19]  365 	ld	a, 7 (ix)
+   00FB CE 00         [ 7]  366 	adc	a, #0x00
+   00FD 67            [ 4]  367 	ld	h, a
+   00FE DD 7E FE      [19]  368 	ld	a, -2 (ix)
+   0101 3C            [ 4]  369 	inc	a
+   0102 DD 77 FF      [19]  370 	ld	-1 (ix), a
+   0105 4E            [ 7]  371 	ld	c, (hl)
+   0106 79            [ 4]  372 	ld	a, c
+   0107 D6 2E         [ 7]  373 	sub	a, #0x2e
+   0109 3E 01         [ 7]  374 	ld	a, #0x01
+   010B 28 01         [12]  375 	jr	Z,00181$
+   010D AF            [ 4]  376 	xor	a, a
+   010E                     377 00181$:
+   010E 6F            [ 4]  378 	ld	l, a
+   010F DD 7E FE      [19]  379 	ld	a, -2 (ix)
+   0112 D6 08         [ 7]  380 	sub	a, #0x08
+   0114 30 1E         [12]  381 	jr	NC,00102$
+   0116 79            [ 4]  382 	ld	a, c
+   0117 B7            [ 4]  383 	or	a, a
+   0118 28 1A         [12]  384 	jr	Z,00102$
+   011A CB 45         [ 8]  385 	bit	0, l
+   011C 20 16         [12]  386 	jr	NZ,00102$
+                            387 ;src/entities/pantalla.c:88: p_fcb->name[i] =  p_name[i];
+   011E DD 7E FC      [19]  388 	ld	a, -4 (ix)
+   0121 DD 86 FE      [19]  389 	add	a, -2 (ix)
+   0124 6F            [ 4]  390 	ld	l, a
+   0125 DD 7E FD      [19]  391 	ld	a, -3 (ix)
+   0128 CE 00         [ 7]  392 	adc	a, #0x00
+   012A 67            [ 4]  393 	ld	h, a
+   012B 71            [ 7]  394 	ld	(hl), c
+                            395 ;src/entities/pantalla.c:87: for( i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++ ) {
+   012C DD 7E FF      [19]  396 	ld	a, -1 (ix)
+   012F DD 77 FE      [19]  397 	ld	-2 (ix), a
+   0132 18 BD         [12]  398 	jr	00111$
+   0134                     399 00102$:
+                            400 ;src/entities/pantalla.c:90: if( p_name[i] == '.' ) {
+   0134 7D            [ 4]  401 	ld	a, l
+   0135 B7            [ 4]  402 	or	a, a
+   0136 28 4C         [12]  403 	jr	Z,00118$
+                            404 ;src/entities/pantalla.c:91: i++;
+   0138 DD 7E FF      [19]  405 	ld	a, -1 (ix)
+   013B DD 77 FB      [19]  406 	ld	-5 (ix), a
+                            407 ;src/entities/pantalla.c:92: for( j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++ ) {
+   013E 21 09 00      [10]  408 	ld	hl, #0x0009
+   0141 19            [11]  409 	add	hl, de
+   0142 EB            [ 4]  410 	ex	de, hl
+   0143 0E 00         [ 7]  411 	ld	c, #0x00
+   0145                     412 00116$:
+   0145 79            [ 4]  413 	ld	a, c
+   0146 D6 03         [ 7]  414 	sub	a, #0x03
+   0148 30 3A         [12]  415 	jr	NC,00118$
+   014A DD 6E FB      [19]  416 	ld	l, -5 (ix)
+   014D 26 00         [ 7]  417 	ld	h, #0x00
+   014F DD 71 FC      [19]  418 	ld	-4 (ix), c
+   0152 AF            [ 4]  419 	xor	a, a
+   0153 DD 77 FD      [19]  420 	ld	-3 (ix), a
+   0156 7D            [ 4]  421 	ld	a, l
+   0157 DD 86 FC      [19]  422 	add	a, -4 (ix)
+   015A DD 77 FE      [19]  423 	ld	-2 (ix), a
+   015D 7C            [ 4]  424 	ld	a, h
+   015E DD 8E FD      [19]  425 	adc	a, -3 (ix)
+   0161 DD 77 FF      [19]  426 	ld	-1 (ix), a
+   0164 DD 7E 06      [19]  427 	ld	a, 6 (ix)
+   0167 DD 86 FE      [19]  428 	add	a, -2 (ix)
+   016A 6F            [ 4]  429 	ld	l, a
+   016B DD 7E 07      [19]  430 	ld	a, 7 (ix)
+   016E DD 8E FF      [19]  431 	adc	a, -1 (ix)
+   0171 67            [ 4]  432 	ld	h, a
+   0172 46            [ 7]  433 	ld	b, (hl)
+   0173 78            [ 4]  434 	ld	a, b
+   0174 B7            [ 4]  435 	or	a, a
+   0175 28 0D         [12]  436 	jr	Z,00118$
+   0177 78            [ 4]  437 	ld	a, b
+   0178 D6 2E         [ 7]  438 	sub	a, #0x2e
+   017A 28 08         [12]  439 	jr	Z,00118$
+                            440 ;src/entities/pantalla.c:93: p_fcb->ext[j] =  p_name[i + j] ;
+   017C 69            [ 4]  441 	ld	l, c
+   017D 26 00         [ 7]  442 	ld	h, #0x00
+   017F 19            [11]  443 	add	hl, de
+   0180 70            [ 7]  444 	ld	(hl), b
+                            445 ;src/entities/pantalla.c:92: for( j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++ ) {
+   0181 0C            [ 4]  446 	inc	c
+   0182 18 C1         [12]  447 	jr	00116$
+   0184                     448 00118$:
+                            449 ;src/entities/pantalla.c:96: }
+   0184 DD F9         [10]  450 	ld	sp, ix
+   0186 DD E1         [14]  451 	pop	ix
+   0188 C9            [10]  452 	ret
+                            453 ;src/entities/pantalla.c:99: void cargarArrayFilasTileMap(){
+                            454 ;	---------------------------------
+                            455 ; Function cargarArrayFilasTileMap
+                            456 ; ---------------------------------
+   0189                     457 _cargarArrayFilasTileMap::
+   0189 CDr00r00      [17]  458 	call	___sdcc_enter_ix
+   018C F5            [11]  459 	push	af
+   018D F5            [11]  460 	push	af
+                            461 ;src/entities/pantalla.c:100: for (int fila=0;fila<numeroFilas;fila++){
+   018E 01 00 00      [10]  462 	ld	bc, #0x0000
+   0191                     463 00107$:
+   0191 79            [ 4]  464 	ld	a, c
+   0192 D6 17         [ 7]  465 	sub	a, #0x17
+   0194 78            [ 4]  466 	ld	a, b
+   0195 17            [ 4]  467 	rla
+   0196 3F            [ 4]  468 	ccf
+   0197 1F            [ 4]  469 	rra
+   0198 DE 80         [ 7]  470 	sbc	a, #0x80
+   019A 30 5F         [12]  471 	jr	NC,00109$
+                            472 ;src/entities/pantalla.c:101: for (int columna=0; columna<numeroColumnas;columna++){
+   019C AF            [ 4]  473 	xor	a, a
+   019D DD 77 FE      [19]  474 	ld	-2 (ix), a
+   01A0 DD 77 FF      [19]  475 	ld	-1 (ix), a
+   01A3                     476 00104$:
+   01A3 DD 7E FE      [19]  477 	ld	a, -2 (ix)
+   01A6 D6 FA         [ 7]  478 	sub	a, #0xfa
+   01A8 DD 7E FF      [19]  479 	ld	a, -1 (ix)
+   01AB 17            [ 4]  480 	rla
+   01AC 3F            [ 4]  481 	ccf
+   01AD 1F            [ 4]  482 	rra
+   01AE DE 80         [ 7]  483 	sbc	a, #0x80
+   01B0 30 46         [12]  484 	jr	NC,00108$
+                            485 ;src/entities/pantalla.c:102: contador_tiles++;
+   01B2 2Ar36r97      [16]  486 	ld	hl, (_contador_tiles)
+   01B5 23            [ 6]  487 	inc	hl
+   01B6 22r36r97      [16]  488 	ld	(_contador_tiles), hl
+                            489 ;src/entities/pantalla.c:104: filas[fila][columna]=bufferTileSet[contador_tiles];
+   01B9 59            [ 4]  490 	ld	e, c
+   01BA 50            [ 4]  491 	ld	d, b
+   01BB 6B            [ 4]  492 	ld	l, e
+   01BC 62            [ 4]  493 	ld	h, d
+   01BD 29            [11]  494 	add	hl, hl
+   01BE 19            [11]  495 	add	hl, de
+   01BF 29            [11]  496 	add	hl, hl
+   01C0 19            [11]  497 	add	hl, de
+   01C1 29            [11]  498 	add	hl, hl
+   01C2 19            [11]  499 	add	hl, de
+   01C3 29            [11]  500 	add	hl, hl
+   01C4 19            [11]  501 	add	hl, de
+   01C5 29            [11]  502 	add	hl, hl
+   01C6 29            [11]  503 	add	hl, hl
+   01C7 19            [11]  504 	add	hl, de
+   01C8 29            [11]  505 	add	hl, hl
+   01C9 29            [11]  506 	add	hl, hl
+   01CA EB            [ 4]  507 	ex	de, hl
+   01CB 21r4Ar6A      [10]  508 	ld	hl, #_filas
+   01CE 19            [11]  509 	add	hl, de
+   01CF EB            [ 4]  510 	ex	de, hl
+   01D0 DD 6E FE      [19]  511 	ld	l, -2 (ix)
+   01D3 DD 66 FF      [19]  512 	ld	h, -1 (ix)
+   01D6 29            [11]  513 	add	hl, hl
+   01D7 19            [11]  514 	add	hl, de
+   01D8 E3            [19]  515 	ex	(sp), hl
+   01D9 3Er4A         [ 7]  516 	ld	a, #<(_bufferTileSet)
+   01DB 21r36r97      [10]  517 	ld	hl, #_contador_tiles
+   01DE 86            [ 7]  518 	add	a, (hl)
+   01DF 5F            [ 4]  519 	ld	e, a
+   01E0 3Es00         [ 7]  520 	ld	a, #>(_bufferTileSet)
+   01E2 23            [ 6]  521 	inc	hl
+   01E3 8E            [ 7]  522 	adc	a, (hl)
+   01E4 57            [ 4]  523 	ld	d, a
+   01E5 1A            [ 7]  524 	ld	a, (de)
+   01E6 5F            [ 4]  525 	ld	e, a
+   01E7 16 00         [ 7]  526 	ld	d, #0x00
+   01E9 E1            [10]  527 	pop	hl
+   01EA E5            [11]  528 	push	hl
+   01EB 73            [ 7]  529 	ld	(hl), e
+   01EC 23            [ 6]  530 	inc	hl
+   01ED 72            [ 7]  531 	ld	(hl), d
+                            532 ;src/entities/pantalla.c:101: for (int columna=0; columna<numeroColumnas;columna++){
+   01EE DD 34 FE      [23]  533 	inc	-2 (ix)
+   01F1 20 B0         [12]  534 	jr	NZ,00104$
+   01F3 DD 34 FF      [23]  535 	inc	-1 (ix)
+   01F6 18 AB         [12]  536 	jr	00104$
+   01F8                     537 00108$:
+                            538 ;src/entities/pantalla.c:100: for (int fila=0;fila<numeroFilas;fila++){
+   01F8 03            [ 6]  539 	inc	bc
+   01F9 18 96         [12]  540 	jr	00107$
+   01FB                     541 00109$:
+                            542 ;src/entities/pantalla.c:107: }
+   01FB DD F9         [10]  543 	ld	sp, ix
+   01FD DD E1         [14]  544 	pop	ix
+   01FF C9            [10]  545 	ret
+                            546 ;src/entities/pantalla.c:110: void recorrerBufferTileMapYPintarPage1EnPage0(){
+                            547 ;	---------------------------------
+                            548 ; Function recorrerBufferTileMapYPintarPage1EnPage0
+                            549 ; ---------------------------------
+   0200                     550 _recorrerBufferTileMapYPintarPage1EnPage0::
+   0200 CDr00r00      [17]  551 	call	___sdcc_enter_ix
+   0203 F5            [11]  552 	push	af
+   0204 F5            [11]  553 	push	af
+   0205 F5            [11]  554 	push	af
+                            555 ;src/entities/pantalla.c:111: contador++;
+   0206 2Ar38r97      [16]  556 	ld	hl, (_contador)
+   0209 23            [ 6]  557 	inc	hl
+   020A 22r38r97      [16]  558 	ld	(_contador), hl
+                            559 ;src/entities/pantalla.c:112: for (int f=0; f<numeroFilas;f++){
+   020D 01 00 00      [10]  560 	ld	bc, #0x0000
+   0210                     561 00103$:
+   0210 79            [ 4]  562 	ld	a, c
+   0211 D6 17         [ 7]  563 	sub	a, #0x17
+   0213 78            [ 4]  564 	ld	a, b
+   0214 17            [ 4]  565 	rla
+   0215 3F            [ 4]  566 	ccf
+   0216 1F            [ 4]  567 	rra
+   0217 DE 80         [ 7]  568 	sbc	a, #0x80
+   0219 D2rAEr02      [10]  569 	jp	NC, 00101$
+                            570 ;src/entities/pantalla.c:113: HMMM(((filas[f][contador]-(filas[f][contador]/32)*32 ) )*8,(filas[f][contador]/32)*8+256, 256-8,8*f,8,8);
+   021C DD 71 FA      [19]  571 	ld	-6 (ix), c
+   021F DD 70 FB      [19]  572 	ld	-5 (ix), b
+   0222 3E 04         [ 7]  573 	ld	a, #0x03+1
+   0224 18 08         [12]  574 	jr	00119$
+   0226                     575 00118$:
+   0226 DD CB FA 26   [23]  576 	sla	-6 (ix)
+   022A DD CB FB 16   [23]  577 	rl	-5 (ix)
+   022E                     578 00119$:
+   022E 3D            [ 4]  579 	dec	a
+   022F 20 F5         [12]  580 	jr	NZ,00118$
+   0231 59            [ 4]  581 	ld	e, c
+   0232 50            [ 4]  582 	ld	d, b
+   0233 6B            [ 4]  583 	ld	l, e
+   0234 62            [ 4]  584 	ld	h, d
+   0235 29            [11]  585 	add	hl, hl
+   0236 19            [11]  586 	add	hl, de
+   0237 29            [11]  587 	add	hl, hl
+   0238 19            [11]  588 	add	hl, de
+   0239 29            [11]  589 	add	hl, hl
+   023A 19            [11]  590 	add	hl, de
+   023B 29            [11]  591 	add	hl, hl
+   023C 19            [11]  592 	add	hl, de
+   023D 29            [11]  593 	add	hl, hl
+   023E 29            [11]  594 	add	hl, hl
+   023F 19            [11]  595 	add	hl, de
+   0240 29            [11]  596 	add	hl, hl
+   0241 29            [11]  597 	add	hl, hl
+   0242 EB            [ 4]  598 	ex	de, hl
+   0243 21r4Ar6A      [10]  599 	ld	hl, #_filas
+   0246 19            [11]  600 	add	hl, de
+   0247 EB            [ 4]  601 	ex	de, hl
+   0248 2Ar38r97      [16]  602 	ld	hl, (_contador)
+   024B 29            [11]  603 	add	hl, hl
+   024C 19            [11]  604 	add	hl, de
+   024D 7E            [ 7]  605 	ld	a, (hl)
+   024E DD 77 FC      [19]  606 	ld	-4 (ix), a
+   0251 23            [ 6]  607 	inc	hl
+   0252 7E            [ 7]  608 	ld	a, (hl)
+   0253 DD 77 FD      [19]  609 	ld	-3 (ix), a
+   0256 DD 5E FC      [19]  610 	ld	e, -4 (ix)
+   0259 DD 56 FD      [19]  611 	ld	d, -3 (ix)
+   025C 3E 05         [ 7]  612 	ld	a, #0x05
+   025E                     613 00120$:
+   025E CB 3A         [ 8]  614 	srl	d
+   0260 CB 1B         [ 8]  615 	rr	e
+   0262 3D            [ 4]  616 	dec	a
+   0263 20 F9         [12]  617 	jr	NZ,00120$
+   0265 6B            [ 4]  618 	ld	l, e
+   0266 62            [ 4]  619 	ld	h, d
+   0267 29            [11]  620 	add	hl, hl
+   0268 29            [11]  621 	add	hl, hl
+   0269 29            [11]  622 	add	hl, hl
+   026A DD 75 FE      [19]  623 	ld	-2 (ix), l
+   026D 7C            [ 4]  624 	ld	a, h
+   026E 3C            [ 4]  625 	inc	a
+   026F DD 77 FF      [19]  626 	ld	-1 (ix), a
+   0272 EB            [ 4]  627 	ex	de,hl
+   0273 29            [11]  628 	add	hl, hl
+   0274 29            [11]  629 	add	hl, hl
+   0275 29            [11]  630 	add	hl, hl
+   0276 29            [11]  631 	add	hl, hl
+   0277 29            [11]  632 	add	hl, hl
+   0278 DD 7E FC      [19]  633 	ld	a, -4 (ix)
+   027B 95            [ 4]  634 	sub	a, l
+   027C 6F            [ 4]  635 	ld	l, a
+   027D DD 7E FD      [19]  636 	ld	a, -3 (ix)
+   0280 9C            [ 4]  637 	sbc	a, h
+   0281 67            [ 4]  638 	ld	h, a
+   0282 29            [11]  639 	add	hl, hl
+   0283 29            [11]  640 	add	hl, hl
+   0284 29            [11]  641 	add	hl, hl
+   0285 C5            [11]  642 	push	bc
+   0286 11 08 00      [10]  643 	ld	de, #0x0008
+   0289 D5            [11]  644 	push	de
+   028A 11 08 00      [10]  645 	ld	de, #0x0008
+   028D D5            [11]  646 	push	de
+   028E DD 5E FA      [19]  647 	ld	e, -6 (ix)
+   0291 DD 56 FB      [19]  648 	ld	d, -5 (ix)
+   0294 D5            [11]  649 	push	de
+   0295 11 F8 00      [10]  650 	ld	de, #0x00f8
+   0298 D5            [11]  651 	push	de
+   0299 DD 5E FE      [19]  652 	ld	e, -2 (ix)
+   029C DD 56 FF      [19]  653 	ld	d, -1 (ix)
+   029F D5            [11]  654 	push	de
+   02A0 E5            [11]  655 	push	hl
+   02A1 CDr00r00      [17]  656 	call	_HMMM
+   02A4 21 0C 00      [10]  657 	ld	hl, #12
+   02A7 39            [11]  658 	add	hl, sp
+   02A8 F9            [ 6]  659 	ld	sp, hl
+   02A9 C1            [10]  660 	pop	bc
+                            661 ;src/entities/pantalla.c:112: for (int f=0; f<numeroFilas;f++){
+   02AA 03            [ 6]  662 	inc	bc
+   02AB C3r10r02      [10]  663 	jp	00103$
+   02AE                     664 00101$:
+                            665 ;src/entities/pantalla.c:115: HMMM(8,0, 0,0,256,184);
+   02AE 21 B8 00      [10]  666 	ld	hl, #0x00b8
+   02B1 E5            [11]  667 	push	hl
+   02B2 21 00 01      [10]  668 	ld	hl, #0x0100
+   02B5 E5            [11]  669 	push	hl
+   02B6 26 00         [ 7]  670 	ld	h, #0x00
+   02B8 E5            [11]  671 	push	hl
+   02B9 2E 00         [ 7]  672 	ld	l, #0x00
+   02BB E5            [11]  673 	push	hl
+   02BC 2E 00         [ 7]  674 	ld	l, #0x00
+   02BE E5            [11]  675 	push	hl
+   02BF 2E 08         [ 7]  676 	ld	l, #0x08
+   02C1 E5            [11]  677 	push	hl
+   02C2 CDr00r00      [17]  678 	call	_HMMM
+   02C5 21 0C 00      [10]  679 	ld	hl, #12
+   02C8 39            [11]  680 	add	hl, sp
+   02C9 F9            [ 6]  681 	ld	sp, hl
+                            682 ;src/entities/pantalla.c:116: }
+   02CA DD F9         [10]  683 	ld	sp, ix
+   02CC DD E1         [14]  684 	pop	ix
+   02CE C9            [10]  685 	ret
+                            686 ;src/entities/pantalla.c:125: void pintarPantallaInicio(){
+                            687 ;	---------------------------------
+                            688 ; Function pintarPantallaInicio
+                            689 ; ---------------------------------
+   02CF                     690 _pintarPantallaInicio::
+   02CF CDr00r00      [17]  691 	call	___sdcc_enter_ix
+   02D2 21 F6 FF      [10]  692 	ld	hl, #-10
+   02D5 39            [11]  693 	add	hl, sp
+   02D6 F9            [ 6]  694 	ld	sp, hl
+                            695 ;src/entities/pantalla.c:126: for (int f=0; f<numeroFilas;f++){
+   02D7 01 00 00      [10]  696 	ld	bc, #0x0000
+   02DA                     697 00107$:
+   02DA 79            [ 4]  698 	ld	a, c
+   02DB D6 17         [ 7]  699 	sub	a, #0x17
+   02DD 78            [ 4]  700 	ld	a, b
+   02DE 17            [ 4]  701 	rla
+   02DF 3F            [ 4]  702 	ccf
+   02E0 1F            [ 4]  703 	rra
+   02E1 DE 80         [ 7]  704 	sbc	a, #0x80
+   02E3 D2rBCr03      [10]  705 	jp	NC, 00109$
+                            706 ;src/entities/pantalla.c:127: for (int c=0; c<32;c++){
+   02E6 DD 71 F6      [19]  707 	ld	-10 (ix), c
+   02E9 DD 70 F7      [19]  708 	ld	-9 (ix), b
+   02EC 3E 04         [ 7]  709 	ld	a, #0x03+1
+   02EE 18 08         [12]  710 	jr	00134$
+   02F0                     711 00133$:
+   02F0 DD CB F6 26   [23]  712 	sla	-10 (ix)
+   02F4 DD CB F7 16   [23]  713 	rl	-9 (ix)
+   02F8                     714 00134$:
+   02F8 3D            [ 4]  715 	dec	a
+   02F9 20 F5         [12]  716 	jr	NZ,00133$
+   02FB AF            [ 4]  717 	xor	a, a
+   02FC DD 77 FE      [19]  718 	ld	-2 (ix), a
+   02FF DD 77 FF      [19]  719 	ld	-1 (ix), a
+   0302                     720 00104$:
+   0302 DD 7E FE      [19]  721 	ld	a, -2 (ix)
+   0305 D6 20         [ 7]  722 	sub	a, #0x20
+   0307 DD 7E FF      [19]  723 	ld	a, -1 (ix)
+   030A 17            [ 4]  724 	rla
+   030B 3F            [ 4]  725 	ccf
+   030C 1F            [ 4]  726 	rra
+   030D DE 80         [ 7]  727 	sbc	a, #0x80
+   030F D2rB8r03      [10]  728 	jp	NC, 00108$
+                            729 ;src/entities/pantalla.c:128: HMMM(((filas[f][c]-(filas[f][c]/32)*32))*8,(filas[f][c]/32)*8+256, c*8,f*8,8,8);
+   0312 DD 7E FE      [19]  730 	ld	a, -2 (ix)
+   0315 DD 77 F8      [19]  731 	ld	-8 (ix), a
+   0318 DD 7E FF      [19]  732 	ld	a, -1 (ix)
+   031B DD 77 F9      [19]  733 	ld	-7 (ix), a
+   031E 3E 04         [ 7]  734 	ld	a, #0x03+1
+   0320 18 08         [12]  735 	jr	00136$
+   0322                     736 00135$:
+   0322 DD CB F8 26   [23]  737 	sla	-8 (ix)
+   0326 DD CB F9 16   [23]  738 	rl	-7 (ix)
+   032A                     739 00136$:
+   032A 3D            [ 4]  740 	dec	a
+   032B 20 F5         [12]  741 	jr	NZ,00135$
+   032D 59            [ 4]  742 	ld	e, c
+   032E 50            [ 4]  743 	ld	d, b
+   032F 6B            [ 4]  744 	ld	l, e
+   0330 62            [ 4]  745 	ld	h, d
+   0331 29            [11]  746 	add	hl, hl
+   0332 19            [11]  747 	add	hl, de
+   0333 29            [11]  748 	add	hl, hl
+   0334 19            [11]  749 	add	hl, de
+   0335 29            [11]  750 	add	hl, hl
+   0336 19            [11]  751 	add	hl, de
+   0337 29            [11]  752 	add	hl, hl
+   0338 19            [11]  753 	add	hl, de
+   0339 29            [11]  754 	add	hl, hl
+   033A 29            [11]  755 	add	hl, hl
+   033B 19            [11]  756 	add	hl, de
+   033C 29            [11]  757 	add	hl, hl
+   033D 29            [11]  758 	add	hl, hl
+   033E EB            [ 4]  759 	ex	de, hl
+   033F 21r4Ar6A      [10]  760 	ld	hl, #_filas
+   0342 19            [11]  761 	add	hl, de
+   0343 EB            [ 4]  762 	ex	de, hl
+   0344 DD 6E FE      [19]  763 	ld	l, -2 (ix)
+   0347 DD 66 FF      [19]  764 	ld	h, -1 (ix)
+   034A 29            [11]  765 	add	hl, hl
+   034B 19            [11]  766 	add	hl, de
+   034C 7E            [ 7]  767 	ld	a, (hl)
+   034D DD 77 FA      [19]  768 	ld	-6 (ix), a
+   0350 23            [ 6]  769 	inc	hl
+   0351 7E            [ 7]  770 	ld	a, (hl)
+   0352 DD 77 FB      [19]  771 	ld	-5 (ix), a
+   0355 DD 5E FA      [19]  772 	ld	e, -6 (ix)
+   0358 DD 56 FB      [19]  773 	ld	d, -5 (ix)
+   035B 3E 05         [ 7]  774 	ld	a, #0x05
+   035D                     775 00137$:
+   035D CB 3A         [ 8]  776 	srl	d
+   035F CB 1B         [ 8]  777 	rr	e
+   0361 3D            [ 4]  778 	dec	a
+   0362 20 F9         [12]  779 	jr	NZ,00137$
+   0364 6B            [ 4]  780 	ld	l, e
+   0365 62            [ 4]  781 	ld	h, d
+   0366 29            [11]  782 	add	hl, hl
+   0367 29            [11]  783 	add	hl, hl
+   0368 29            [11]  784 	add	hl, hl
+   0369 DD 75 FC      [19]  785 	ld	-4 (ix), l
+   036C 7C            [ 4]  786 	ld	a, h
+   036D 3C            [ 4]  787 	inc	a
+   036E DD 77 FD      [19]  788 	ld	-3 (ix), a
+   0371 EB            [ 4]  789 	ex	de,hl
+   0372 29            [11]  790 	add	hl, hl
+   0373 29            [11]  791 	add	hl, hl
+   0374 29            [11]  792 	add	hl, hl
+   0375 29            [11]  793 	add	hl, hl
+   0376 29            [11]  794 	add	hl, hl
+   0377 DD 7E FA      [19]  795 	ld	a, -6 (ix)
+   037A 95            [ 4]  796 	sub	a, l
+   037B 6F            [ 4]  797 	ld	l, a
+   037C DD 7E FB      [19]  798 	ld	a, -5 (ix)
+   037F 9C            [ 4]  799 	sbc	a, h
+   0380 67            [ 4]  800 	ld	h, a
+   0381 29            [11]  801 	add	hl, hl
+   0382 29            [11]  802 	add	hl, hl
+   0383 29            [11]  803 	add	hl, hl
+   0384 C5            [11]  804 	push	bc
+   0385 11 08 00      [10]  805 	ld	de, #0x0008
+   0388 D5            [11]  806 	push	de
+   0389 11 08 00      [10]  807 	ld	de, #0x0008
+   038C D5            [11]  808 	push	de
+   038D DD 5E F6      [19]  809 	ld	e, -10 (ix)
+   0390 DD 56 F7      [19]  810 	ld	d, -9 (ix)
+   0393 D5            [11]  811 	push	de
+   0394 DD 5E F8      [19]  812 	ld	e, -8 (ix)
+   0397 DD 56 F9      [19]  813 	ld	d, -7 (ix)
+   039A D5            [11]  814 	push	de
+   039B DD 5E FC      [19]  815 	ld	e, -4 (ix)
+   039E DD 56 FD      [19]  816 	ld	d, -3 (ix)
+   03A1 D5            [11]  817 	push	de
+   03A2 E5            [11]  818 	push	hl
+   03A3 CDr00r00      [17]  819 	call	_HMMM
+   03A6 21 0C 00      [10]  820 	ld	hl, #12
+   03A9 39            [11]  821 	add	hl, sp
+   03AA F9            [ 6]  822 	ld	sp, hl
+   03AB C1            [10]  823 	pop	bc
+                            824 ;src/entities/pantalla.c:127: for (int c=0; c<32;c++){
+   03AC DD 34 FE      [23]  825 	inc	-2 (ix)
+   03AF C2r02r03      [10]  826 	jp	NZ,00104$
+   03B2 DD 34 FF      [23]  827 	inc	-1 (ix)
+   03B5 C3r02r03      [10]  828 	jp	00104$
+   03B8                     829 00108$:
+                            830 ;src/entities/pantalla.c:126: for (int f=0; f<numeroFilas;f++){
+   03B8 03            [ 6]  831 	inc	bc
+   03B9 C3rDAr02      [10]  832 	jp	00107$
+   03BC                     833 00109$:
+                            834 ;src/entities/pantalla.c:131: }
+   03BC DD F9         [10]  835 	ld	sp, ix
+   03BE DD E1         [14]  836 	pop	ix
+   03C0 C9            [10]  837 	ret
+                            838 ;src/entities/pantalla.c:136: void SetAdjust(signed char x, signed char y) // x and y must be between -7 and +6
+                            839 ;	---------------------------------
+                            840 ; Function SetAdjust
+                            841 ; ---------------------------------
+   03C1                     842 _SetAdjust::
+                            843 ;src/entities/pantalla.c:139: vx=x;
+   03C1 FD 21 02 00   [14]  844 	ld	iy, #2
+   03C5 FD 39         [15]  845 	add	iy, sp
+   03C7 FD 4E 00      [19]  846 	ld	c, 0 (iy)
+                            847 ;src/entities/pantalla.c:140: if (x<0)
+   03CA FD CB 00 7E   [20]  848 	bit	7,0 (iy)
+   03CE 28 04         [12]  849 	jr	Z,00102$
+                            850 ;src/entities/pantalla.c:141: vx=16+x;
+   03D0 79            [ 4]  851 	ld	a, c
+   03D1 C6 10         [ 7]  852 	add	a, #0x10
+   03D3 4F            [ 4]  853 	ld	c, a
+   03D4                     854 00102$:
+                            855 ;src/entities/pantalla.c:142: vy=y;
+   03D4 FD 21 03 00   [14]  856 	ld	iy, #3
+   03D8 FD 39         [15]  857 	add	iy, sp
+   03DA FD 46 00      [19]  858 	ld	b, 0 (iy)
+                            859 ;src/entities/pantalla.c:143: if (y<0)
+   03DD FD CB 00 7E   [20]  860 	bit	7,0 (iy)
+   03E1 28 04         [12]  861 	jr	Z,00104$
+                            862 ;src/entities/pantalla.c:144: vy=16+y;
+   03E3 78            [ 4]  863 	ld	a, b
+   03E4 C6 10         [ 7]  864 	add	a, #0x10
+   03E6 47            [ 4]  865 	ld	b, a
+   03E7                     866 00104$:
+                            867 ;src/entities/pantalla.c:145: value = (vy<<4) | vx ;
+   03E7 78            [ 4]  868 	ld	a, b
+   03E8 87            [ 4]  869 	add	a, a
+   03E9 87            [ 4]  870 	add	a, a
+   03EA 87            [ 4]  871 	add	a, a
+   03EB 87            [ 4]  872 	add	a, a
+   03EC B1            [ 4]  873 	or	a, c
+                            874 ;src/entities/pantalla.c:146: Poke(0xFFF1,value);     // Reg 18 Save
+   03ED 32 F1 FF      [13]  875 	ld	(#0xfff1),a
+                            876 ;src/entities/pantalla.c:147: VDPwrite(18,value);
+   03F0 57            [ 4]  877 	ld	d,a
+   03F1 1E 12         [ 7]  878 	ld	e,#0x12
+   03F3 D5            [11]  879 	push	de
+   03F4 CDr00r00      [17]  880 	call	_VDPwrite
+   03F7 F1            [10]  881 	pop	af
+                            882 ;src/entities/pantalla.c:148: }
+   03F8 C9            [10]  883 	ret
+                            884 ;src/entities/pantalla.c:149: void verArray(){
+                            885 ;	---------------------------------
+                            886 ; Function verArray
+                            887 ; ---------------------------------
+   03F9                     888 _verArray::
+   03F9 CDr00r00      [17]  889 	call	___sdcc_enter_ix
+   03FC F5            [11]  890 	push	af
+   03FD F5            [11]  891 	push	af
+                            892 ;src/entities/pantalla.c:150: int columna=0;
+   03FE 01 00 00      [10]  893 	ld	bc, #0x0000
+                            894 ;src/entities/pantalla.c:152: for (int i=0; i<0x20; i++){
+   0401 21 00 00      [10]  895 	ld	hl, #0x0000
+   0404 E3            [19]  896 	ex	(sp), hl
+   0405 AF            [ 4]  897 	xor	a, a
+   0406 DD 77 FE      [19]  898 	ld	-2 (ix), a
+   0409 DD 77 FF      [19]  899 	ld	-1 (ix), a
+   040C                     900 00105$:
+   040C DD 7E FE      [19]  901 	ld	a, -2 (ix)
+   040F D6 20         [ 7]  902 	sub	a, #0x20
+   0411 DD 7E FF      [19]  903 	ld	a, -1 (ix)
+   0414 17            [ 4]  904 	rla
+   0415 3F            [ 4]  905 	ccf
+   0416 1F            [ 4]  906 	rra
+   0417 DE 80         [ 7]  907 	sbc	a, #0x80
+   0419 30 5C         [12]  908 	jr	NC,00107$
+                            909 ;src/entities/pantalla.c:155: PutText(columna*24,fila,Itoa(filas[22][i],"  ",10),8);
+   041B D1            [10]  910 	pop	de
+   041C E1            [10]  911 	pop	hl
+   041D E5            [11]  912 	push	hl
+   041E D5            [11]  913 	push	de
+   041F 29            [11]  914 	add	hl, hl
+   0420 11r42r95      [10]  915 	ld	de, #(_filas + 0x2af8)
+   0423 19            [11]  916 	add	hl, de
+   0424 5E            [ 7]  917 	ld	e, (hl)
+   0425 23            [ 6]  918 	inc	hl
+   0426 56            [ 7]  919 	ld	d, (hl)
+   0427 C5            [11]  920 	push	bc
+   0428 21 0A 00      [10]  921 	ld	hl, #0x000a
+   042B E5            [11]  922 	push	hl
+   042C 21r7Cr04      [10]  923 	ld	hl, #___str_1
+   042F E5            [11]  924 	push	hl
+   0430 D5            [11]  925 	push	de
+   0431 CDr00r00      [17]  926 	call	_Itoa
+   0434 F1            [10]  927 	pop	af
+   0435 F1            [10]  928 	pop	af
+   0436 F1            [10]  929 	pop	af
+   0437 EB            [ 4]  930 	ex	de,hl
+   0438 C1            [10]  931 	pop	bc
+   0439 69            [ 4]  932 	ld	l, c
+   043A 60            [ 4]  933 	ld	h, b
+   043B 29            [11]  934 	add	hl, hl
+   043C 09            [11]  935 	add	hl, bc
+   043D 29            [11]  936 	add	hl, hl
+   043E 29            [11]  937 	add	hl, hl
+   043F 29            [11]  938 	add	hl, hl
+   0440 C5            [11]  939 	push	bc
+   0441 3E 08         [ 7]  940 	ld	a, #0x08
+   0443 F5            [11]  941 	push	af
+   0444 33            [ 6]  942 	inc	sp
+   0445 D5            [11]  943 	push	de
+   0446 DD 5E FC      [19]  944 	ld	e, -4 (ix)
+   0449 DD 56 FD      [19]  945 	ld	d, -3 (ix)
+   044C D5            [11]  946 	push	de
+   044D E5            [11]  947 	push	hl
+   044E CDr00r00      [17]  948 	call	_PutText
+   0451 F1            [10]  949 	pop	af
+   0452 F1            [10]  950 	pop	af
+   0453 F1            [10]  951 	pop	af
+   0454 33            [ 6]  952 	inc	sp
+   0455 C1            [10]  953 	pop	bc
+                            954 ;src/entities/pantalla.c:156: columna++;
+   0456 03            [ 6]  955 	inc	bc
+                            956 ;src/entities/pantalla.c:157: if (columna==10){
+   0457 79            [ 4]  957 	ld	a, c
+   0458 D6 0A         [ 7]  958 	sub	a, #0x0a
+   045A B0            [ 4]  959 	or	a, b
+   045B 20 10         [12]  960 	jr	NZ,00106$
+                            961 ;src/entities/pantalla.c:158: columna=0;
+   045D 01 00 00      [10]  962 	ld	bc, #0x0000
+                            963 ;src/entities/pantalla.c:159: fila+=8;
+   0460 DD 7E FC      [19]  964 	ld	a, -4 (ix)
+   0463 C6 08         [ 7]  965 	add	a, #0x08
+   0465 DD 77 FC      [19]  966 	ld	-4 (ix), a
+   0468 30 03         [12]  967 	jr	NC,00127$
+   046A DD 34 FD      [23]  968 	inc	-3 (ix)
+   046D                     969 00127$:
+   046D                     970 00106$:
+                            971 ;src/entities/pantalla.c:152: for (int i=0; i<0x20; i++){
+   046D DD 34 FE      [23]  972 	inc	-2 (ix)
+   0470 20 9A         [12]  973 	jr	NZ,00105$
+   0472 DD 34 FF      [23]  974 	inc	-1 (ix)
+   0475 18 95         [12]  975 	jr	00105$
+   0477                     976 00107$:
+                            977 ;src/entities/pantalla.c:162: }
+   0477 DD F9         [10]  978 	ld	sp, ix
+   0479 DD E1         [14]  979 	pop	ix
+   047B C9            [10]  980 	ret
+   047C                     981 ___str_1:
+   047C 20 20               982 	.ascii "  "
+   047E 00                  983 	.db 0x00
+                            984 ;src/entities/player.c:134: void inicializar_player(){
+                            985 ;	---------------------------------
+                            986 ; Function inicializar_player
+                            987 ; ---------------------------------
+   047F                     988 _inicializar_player::
+                            989 ;src/entities/player.c:142: SetSpritePattern( 0, personaje_tronco_superior_derecha1, 32);
+   047F 3E 20         [ 7]  990 	ld	a, #0x20
+   0481 F5            [11]  991 	push	af
+   0482 33            [ 6]  992 	inc	sp
+   0483 21r17r00      [10]  993 	ld	hl, #_personaje_tronco_superior_derecha1
+   0486 E5            [11]  994 	push	hl
+   0487 AF            [ 4]  995 	xor	a, a
+   0488 F5            [11]  996 	push	af
+   0489 33            [ 6]  997 	inc	sp
+   048A CDr00r00      [17]  998 	call	_SetSpritePattern
+   048D F1            [10]  999 	pop	af
+                           1000 ;src/entities/player.c:143: SetSpritePattern( 4, personaje_tronco_superior_derecha2, 32);
+   048E 26 20         [ 7] 1001 	ld	h,#0x20
+   0490 E3            [19] 1002 	ex	(sp),hl
+   0491 33            [ 6] 1003 	inc	sp
+   0492 21r37r00      [10] 1004 	ld	hl, #_personaje_tronco_superior_derecha2
+   0495 E5            [11] 1005 	push	hl
+   0496 3E 04         [ 7] 1006 	ld	a, #0x04
+   0498 F5            [11] 1007 	push	af
+   0499 33            [ 6] 1008 	inc	sp
+   049A CDr00r00      [17] 1009 	call	_SetSpritePattern
+   049D F1            [10] 1010 	pop	af
+                           1011 ;src/entities/player.c:144: SetSpritePattern( 4*2, personaje_piernas_derecha1, 32);
+   049E 26 20         [ 7] 1012 	ld	h,#0x20
+   04A0 E3            [19] 1013 	ex	(sp),hl
+   04A1 33            [ 6] 1014 	inc	sp
+   04A2 21r57r00      [10] 1015 	ld	hl, #_personaje_piernas_derecha1
+   04A5 E5            [11] 1016 	push	hl
+   04A6 3E 08         [ 7] 1017 	ld	a, #0x08
+   04A8 F5            [11] 1018 	push	af
+   04A9 33            [ 6] 1019 	inc	sp
+   04AA CDr00r00      [17] 1020 	call	_SetSpritePattern
+   04AD F1            [10] 1021 	pop	af
+                           1022 ;src/entities/player.c:145: SetSpritePattern( 4*3, personaje_piernas_derecha2, 32);
+   04AE 26 20         [ 7] 1023 	ld	h,#0x20
+   04B0 E3            [19] 1024 	ex	(sp),hl
+   04B1 33            [ 6] 1025 	inc	sp
+   04B2 21r77r00      [10] 1026 	ld	hl, #_personaje_piernas_derecha2
+   04B5 E5            [11] 1027 	push	hl
+   04B6 3E 0C         [ 7] 1028 	ld	a, #0x0c
+   04B8 F5            [11] 1029 	push	af
+   04B9 33            [ 6] 1030 	inc	sp
+   04BA CDr00r00      [17] 1031 	call	_SetSpritePattern
+   04BD F1            [10] 1032 	pop	af
+                           1033 ;src/entities/player.c:146: SetSpritePattern( 4*4, arma_derecha, 32);
+   04BE 26 20         [ 7] 1034 	ld	h,#0x20
+   04C0 E3            [19] 1035 	ex	(sp),hl
+   04C1 33            [ 6] 1036 	inc	sp
+   04C2 21r97r00      [10] 1037 	ld	hl, #_arma_derecha
+   04C5 E5            [11] 1038 	push	hl
+   04C6 3E 10         [ 7] 1039 	ld	a, #0x10
+   04C8 F5            [11] 1040 	push	af
+   04C9 33            [ 6] 1041 	inc	sp
+   04CA CDr00r00      [17] 1042 	call	_SetSpritePattern
+   04CD F1            [10] 1043 	pop	af
+                           1044 ;src/entities/player.c:147: SetSpritePattern( 4*5, personaje_tronco_superior_izquieda1, 32);
+   04CE 26 20         [ 7] 1045 	ld	h,#0x20
+   04D0 E3            [19] 1046 	ex	(sp),hl
+   04D1 33            [ 6] 1047 	inc	sp
+   04D2 21rB7r00      [10] 1048 	ld	hl, #_personaje_tronco_superior_izquieda1
+   04D5 E5            [11] 1049 	push	hl
+   04D6 3E 14         [ 7] 1050 	ld	a, #0x14
+   04D8 F5            [11] 1051 	push	af
+   04D9 33            [ 6] 1052 	inc	sp
+   04DA CDr00r00      [17] 1053 	call	_SetSpritePattern
+   04DD F1            [10] 1054 	pop	af
+                           1055 ;src/entities/player.c:148: SetSpritePattern( 4*6, personaje_tronco_superior_izquierda2, 32);
+   04DE 26 20         [ 7] 1056 	ld	h,#0x20
+   04E0 E3            [19] 1057 	ex	(sp),hl
+   04E1 33            [ 6] 1058 	inc	sp
+   04E2 21rD7r00      [10] 1059 	ld	hl, #_personaje_tronco_superior_izquierda2
+   04E5 E5            [11] 1060 	push	hl
+   04E6 3E 18         [ 7] 1061 	ld	a, #0x18
+   04E8 F5            [11] 1062 	push	af
+   04E9 33            [ 6] 1063 	inc	sp
+   04EA CDr00r00      [17] 1064 	call	_SetSpritePattern
+   04ED F1            [10] 1065 	pop	af
+                           1066 ;src/entities/player.c:149: SetSpritePattern( 4*7, personaje_piernas_izquierda1, 32);
+   04EE 26 20         [ 7] 1067 	ld	h,#0x20
+   04F0 E3            [19] 1068 	ex	(sp),hl
+   04F1 33            [ 6] 1069 	inc	sp
+   04F2 21rF7r00      [10] 1070 	ld	hl, #_personaje_piernas_izquierda1
+   04F5 E5            [11] 1071 	push	hl
+   04F6 3E 1C         [ 7] 1072 	ld	a, #0x1c
+   04F8 F5            [11] 1073 	push	af
+   04F9 33            [ 6] 1074 	inc	sp
+   04FA CDr00r00      [17] 1075 	call	_SetSpritePattern
+   04FD F1            [10] 1076 	pop	af
+                           1077 ;src/entities/player.c:150: SetSpritePattern( 4*8, personaje_piernas_izquierda2, 32);
+   04FE 26 20         [ 7] 1078 	ld	h,#0x20
+   0500 E3            [19] 1079 	ex	(sp),hl
+   0501 33            [ 6] 1080 	inc	sp
+   0502 21r17r01      [10] 1081 	ld	hl, #_personaje_piernas_izquierda2
+   0505 E5            [11] 1082 	push	hl
+   0506 3E 20         [ 7] 1083 	ld	a, #0x20
+   0508 F5            [11] 1084 	push	af
+   0509 33            [ 6] 1085 	inc	sp
+   050A CDr00r00      [17] 1086 	call	_SetSpritePattern
+   050D F1            [10] 1087 	pop	af
+                           1088 ;src/entities/player.c:151: SetSpritePattern( 4*9, arma_izquierda, 32);
+   050E 26 20         [ 7] 1089 	ld	h,#0x20
+   0510 E3            [19] 1090 	ex	(sp),hl
+   0511 33            [ 6] 1091 	inc	sp
+   0512 21r37r01      [10] 1092 	ld	hl, #_arma_izquierda
+   0515 E5            [11] 1093 	push	hl
+   0516 3E 24         [ 7] 1094 	ld	a, #0x24
+   0518 F5            [11] 1095 	push	af
+   0519 33            [ 6] 1096 	inc	sp
+   051A CDr00r00      [17] 1097 	call	_SetSpritePattern
+   051D F1            [10] 1098 	pop	af
+   051E F1            [10] 1099 	pop	af
+                           1100 ;src/entities/player.c:154: SC5SpriteColors(player.plano, color_personaje_tronco_superior1);
+   051F 11r57r01      [10] 1101 	ld	de, #_color_personaje_tronco_superior1+0
+   0522 3ArFBr01      [13] 1102 	ld	a, (#(_player + 0x0004) + 0)
+   0525 4F            [ 4] 1103 	ld	c, a
+   0526 06 00         [ 7] 1104 	ld	b, #0x00
+   0528 D5            [11] 1105 	push	de
+   0529 C5            [11] 1106 	push	bc
+   052A CDr00r00      [17] 1107 	call	_SC5SpriteColors
+   052D F1            [10] 1108 	pop	af
+   052E F1            [10] 1109 	pop	af
+                           1110 ;src/entities/player.c:155: SC5SpriteColors(player.plano+1, color_personaje_tronco_superior2);
+   052F 11r77r01      [10] 1111 	ld	de, #_color_personaje_tronco_superior2+0
+   0532 3ArFBr01      [13] 1112 	ld	a, (#(_player + 0x0004) + 0)
+   0535 4F            [ 4] 1113 	ld	c, a
+   0536 06 00         [ 7] 1114 	ld	b, #0x00
+   0538 03            [ 6] 1115 	inc	bc
+   0539 D5            [11] 1116 	push	de
+   053A C5            [11] 1117 	push	bc
+   053B CDr00r00      [17] 1118 	call	_SC5SpriteColors
+   053E F1            [10] 1119 	pop	af
+   053F F1            [10] 1120 	pop	af
+                           1121 ;src/entities/player.c:156: SC5SpriteColors(player.plano+2, color_personaje_piernas1);
+   0540 11r97r01      [10] 1122 	ld	de, #_color_personaje_piernas1+0
+   0543 3ArFBr01      [13] 1123 	ld	a, (#(_player + 0x0004) + 0)
+   0546 4F            [ 4] 1124 	ld	c, a
+   0547 06 00         [ 7] 1125 	ld	b, #0x00
+   0549 03            [ 6] 1126 	inc	bc
+   054A 03            [ 6] 1127 	inc	bc
+   054B D5            [11] 1128 	push	de
+   054C C5            [11] 1129 	push	bc
+   054D CDr00r00      [17] 1130 	call	_SC5SpriteColors
+   0550 F1            [10] 1131 	pop	af
+   0551 F1            [10] 1132 	pop	af
+                           1133 ;src/entities/player.c:157: SC5SpriteColors(player.plano+3, color_personaje_piernas2);
+   0552 11rB7r01      [10] 1134 	ld	de, #_color_personaje_piernas2+0
+   0555 3ArFBr01      [13] 1135 	ld	a, (#(_player + 0x0004) + 0)
+   0558 4F            [ 4] 1136 	ld	c, a
+   0559 06 00         [ 7] 1137 	ld	b, #0x00
+   055B 03            [ 6] 1138 	inc	bc
+   055C 03            [ 6] 1139 	inc	bc
+   055D 03            [ 6] 1140 	inc	bc
+   055E D5            [11] 1141 	push	de
+   055F C5            [11] 1142 	push	bc
+   0560 CDr00r00      [17] 1143 	call	_SC5SpriteColors
+   0563 F1            [10] 1144 	pop	af
+   0564 F1            [10] 1145 	pop	af
+                           1146 ;src/entities/player.c:158: SC5SpriteColors(player.plano+4, color_arma);
+   0565 11rD7r01      [10] 1147 	ld	de, #_color_arma+0
+   0568 3ArFBr01      [13] 1148 	ld	a, (#(_player + 0x0004) + 0)
+   056B 4F            [ 4] 1149 	ld	c, a
+   056C 06 00         [ 7] 1150 	ld	b, #0x00
+   056E 03            [ 6] 1151 	inc	bc
+   056F 03            [ 6] 1152 	inc	bc
+   0570 03            [ 6] 1153 	inc	bc
+   0571 03            [ 6] 1154 	inc	bc
+   0572 D5            [11] 1155 	push	de
+   0573 C5            [11] 1156 	push	bc
+   0574 CDr00r00      [17] 1157 	call	_SC5SpriteColors
+   0577 F1            [10] 1158 	pop	af
+   0578 F1            [10] 1159 	pop	af
+                           1160 ;src/entities/player.c:160: render_player();
+                           1161 ;src/entities/player.c:161: }
+   0579 C3r7Cr05      [10] 1162 	jp	_render_player
+                           1163 ;src/entities/player.c:162: void render_player(){
+                           1164 ;	---------------------------------
+                           1165 ; Function render_player
+                           1166 ; ---------------------------------
+   057C                    1167 _render_player::
+   057C CDr00r00      [17] 1168 	call	___sdcc_enter_ix
+   057F F5            [11] 1169 	push	af
+   0580 F5            [11] 1170 	push	af
+                           1171 ;src/entities/player.c:170: if (player.direccion==3){
+   0581 3ArFDr01      [13] 1172 	ld	a,(#_player + 6)
+                           1173 ;src/entities/player.c:172: PutSprite( player.plano, player.sprite, player.x,player.y, 9 );
+                           1174 ;src/entities/player.c:176: if(player.andando==0){
+                           1175 ;src/entities/player.c:170: if (player.direccion==3){
+   0584 DD 77 FF      [19] 1176 	ld	-1 (ix), a
+   0587 D6 03         [ 7] 1177 	sub	a, #0x03
+   0589 C2r5Er06      [10] 1178 	jp	NZ,00110$
+                           1179 ;src/entities/player.c:172: PutSprite( player.plano, player.sprite, player.x,player.y, 9 );
+   058C 21rF8r01      [10] 1180 	ld	hl, #(_player + 0x0001) + 0
+   058F 56            [ 7] 1181 	ld	d, (hl)
+   0590 21rF7r01      [10] 1182 	ld	hl, #_player + 0
+   0593 5E            [ 7] 1183 	ld	e, (hl)
+   0594 21rFCr01      [10] 1184 	ld	hl, #(_player + 0x0005) + 0
+   0597 46            [ 7] 1185 	ld	b, (hl)
+   0598 21rFBr01      [10] 1186 	ld	hl, #(_player + 0x0004) + 0
+   059B 4E            [ 7] 1187 	ld	c, (hl)
+   059C 3E 09         [ 7] 1188 	ld	a, #0x09
+   059E F5            [11] 1189 	push	af
+   059F 33            [ 6] 1190 	inc	sp
+   05A0 D5            [11] 1191 	push	de
+   05A1 C5            [11] 1192 	push	bc
+   05A2 33            [ 6] 1193 	inc	sp
+   05A3 79            [ 4] 1194 	ld	a, c
+   05A4 F5            [11] 1195 	push	af
+   05A5 33            [ 6] 1196 	inc	sp
+   05A6 CDr00r00      [17] 1197 	call	_PutSprite
+   05A9 F1            [10] 1198 	pop	af
+   05AA F1            [10] 1199 	pop	af
+   05AB 33            [ 6] 1200 	inc	sp
+                           1201 ;src/entities/player.c:174: PutSprite( player.plano+1, player.sprite+4, player.x,player.y,  10);
+   05AC 21rF8r01      [10] 1202 	ld	hl, #(_player + 0x0001) + 0
+   05AF 56            [ 7] 1203 	ld	d, (hl)
+   05B0 21rF7r01      [10] 1204 	ld	hl, #_player + 0
+   05B3 5E            [ 7] 1205 	ld	e, (hl)
+   05B4 3ArFCr01      [13] 1206 	ld	a, (#(_player + 0x0005) + 0)
+   05B7 C6 04         [ 7] 1207 	add	a, #0x04
+   05B9 4F            [ 4] 1208 	ld	c, a
+   05BA 3ArFBr01      [13] 1209 	ld	a, (#(_player + 0x0004) + 0)
+   05BD 47            [ 4] 1210 	ld	b, a
+   05BE 04            [ 4] 1211 	inc	b
+   05BF 3E 0A         [ 7] 1212 	ld	a, #0x0a
+   05C1 F5            [11] 1213 	push	af
+   05C2 33            [ 6] 1214 	inc	sp
+   05C3 D5            [11] 1215 	push	de
+   05C4 79            [ 4] 1216 	ld	a, c
+   05C5 F5            [11] 1217 	push	af
+   05C6 33            [ 6] 1218 	inc	sp
+   05C7 C5            [11] 1219 	push	bc
+   05C8 33            [ 6] 1220 	inc	sp
+   05C9 CDr00r00      [17] 1221 	call	_PutSprite
+   05CC F1            [10] 1222 	pop	af
+   05CD F1            [10] 1223 	pop	af
+   05CE 33            [ 6] 1224 	inc	sp
+                           1225 ;src/entities/player.c:176: if(player.andando==0){
+   05CF 21rFEr01      [10] 1226 	ld	hl, #(_player + 0x0007) + 0
+   05D2 4E            [ 7] 1227 	ld	c, (hl)
+                           1228 ;src/entities/player.c:172: PutSprite( player.plano, player.sprite, player.x,player.y, 9 );
+   05D3 21rF8r01      [10] 1229 	ld	hl, #(_player + 0x0001) + 0
+   05D6 5E            [ 7] 1230 	ld	e, (hl)
+   05D7 3ArF7r01      [13] 1231 	ld	a,(#_player + 0)
+   05DA DD 77 FC      [19] 1232 	ld	-4 (ix), a
+   05DD 3ArFCr01      [13] 1233 	ld	a,(#(_player + 0x0005) + 0)
+   05E0 DD 77 FD      [19] 1234 	ld	-3 (ix), a
+   05E3 21rFBr01      [10] 1235 	ld	hl, #(_player + 0x0004) + 0
+   05E6 46            [ 7] 1236 	ld	b, (hl)
+                           1237 ;src/entities/player.c:177: PutSprite( player.plano+2, player.sprite+2*4, player.x,player.y+16,  9 );
+   05E7 7B            [ 4] 1238 	ld	a, e
+   05E8 C6 10         [ 7] 1239 	add	a, #0x10
+   05EA DD 77 FE      [19] 1240 	ld	-2 (ix), a
+   05ED 78            [ 4] 1241 	ld	a, b
+   05EE C6 02         [ 7] 1242 	add	a, #0x02
+   05F0 DD 77 FF      [19] 1243 	ld	-1 (ix), a
+                           1244 ;src/entities/player.c:176: if(player.andando==0){
+   05F3 79            [ 4] 1245 	ld	a, c
+   05F4 B7            [ 4] 1246 	or	a, a
+   05F5 20 20         [12] 1247 	jr	NZ,00102$
+                           1248 ;src/entities/player.c:177: PutSprite( player.plano+2, player.sprite+2*4, player.x,player.y+16,  9 );
+   05F7 DD 7E FD      [19] 1249 	ld	a, -3 (ix)
+   05FA C6 08         [ 7] 1250 	add	a, #0x08
+   05FC 47            [ 4] 1251 	ld	b, a
+   05FD 3E 09         [ 7] 1252 	ld	a, #0x09
+   05FF F5            [11] 1253 	push	af
+   0600 33            [ 6] 1254 	inc	sp
+   0601 DD 66 FE      [19] 1255 	ld	h, -2 (ix)
+   0604 DD 6E FC      [19] 1256 	ld	l, -4 (ix)
+   0607 E5            [11] 1257 	push	hl
+   0608 C5            [11] 1258 	push	bc
+   0609 33            [ 6] 1259 	inc	sp
+   060A DD 7E FF      [19] 1260 	ld	a, -1 (ix)
+   060D F5            [11] 1261 	push	af
+   060E 33            [ 6] 1262 	inc	sp
+   060F CDr00r00      [17] 1263 	call	_PutSprite
+   0612 F1            [10] 1264 	pop	af
+   0613 F1            [10] 1265 	pop	af
+   0614 33            [ 6] 1266 	inc	sp
+   0615 18 1E         [12] 1267 	jr	00103$
+   0617                    1268 00102$:
+                           1269 ;src/entities/player.c:179: PutSprite( player.plano+2, player.sprite+3*4, player.x,player.y+16,  9 );
+   0617 DD 7E FD      [19] 1270 	ld	a, -3 (ix)
+   061A C6 0C         [ 7] 1271 	add	a, #0x0c
+   061C 47            [ 4] 1272 	ld	b, a
+   061D 3E 09         [ 7] 1273 	ld	a, #0x09
+   061F F5            [11] 1274 	push	af
+   0620 33            [ 6] 1275 	inc	sp
+   0621 DD 66 FE      [19] 1276 	ld	h, -2 (ix)
+   0624 DD 6E FC      [19] 1277 	ld	l, -4 (ix)
+   0627 E5            [11] 1278 	push	hl
+   0628 C5            [11] 1279 	push	bc
+   0629 33            [ 6] 1280 	inc	sp
+   062A DD 7E FF      [19] 1281 	ld	a, -1 (ix)
+   062D F5            [11] 1282 	push	af
+   062E 33            [ 6] 1283 	inc	sp
+   062F CDr00r00      [17] 1284 	call	_PutSprite
+   0632 F1            [10] 1285 	pop	af
+   0633 F1            [10] 1286 	pop	af
+   0634 33            [ 6] 1287 	inc	sp
+   0635                    1288 00103$:
+                           1289 ;src/entities/player.c:182: PutSprite( player.plano+3, player.sprite+4*4, player.x,player.y+8, 15 );
+   0635 3ArF8r01      [13] 1290 	ld	a, (#(_player + 0x0001) + 0)
+   0638 C6 08         [ 7] 1291 	add	a, #0x08
+   063A 57            [ 4] 1292 	ld	d, a
+   063B 21rF7r01      [10] 1293 	ld	hl, #_player + 0
+   063E 5E            [ 7] 1294 	ld	e, (hl)
+   063F 3ArFCr01      [13] 1295 	ld	a, (#(_player + 0x0005) + 0)
+   0642 C6 10         [ 7] 1296 	add	a, #0x10
+   0644 4F            [ 4] 1297 	ld	c, a
+   0645 3ArFBr01      [13] 1298 	ld	a, (#(_player + 0x0004) + 0)
+   0648 C6 03         [ 7] 1299 	add	a, #0x03
+   064A 47            [ 4] 1300 	ld	b, a
+   064B 3E 0F         [ 7] 1301 	ld	a, #0x0f
+   064D F5            [11] 1302 	push	af
+   064E 33            [ 6] 1303 	inc	sp
+   064F D5            [11] 1304 	push	de
+   0650 79            [ 4] 1305 	ld	a, c
+   0651 F5            [11] 1306 	push	af
+   0652 33            [ 6] 1307 	inc	sp
+   0653 C5            [11] 1308 	push	bc
+   0654 33            [ 6] 1309 	inc	sp
+   0655 CDr00r00      [17] 1310 	call	_PutSprite
+   0658 F1            [10] 1311 	pop	af
+   0659 F1            [10] 1312 	pop	af
+   065A 33            [ 6] 1313 	inc	sp
+   065B C3r3Cr07      [10] 1314 	jp	00112$
+   065E                    1315 00110$:
+                           1316 ;src/entities/player.c:183: }else if(player.direccion==7){
+   065E DD 7E FF      [19] 1317 	ld	a, -1 (ix)
+   0661 D6 07         [ 7] 1318 	sub	a, #0x07
+   0663 C2r3Cr07      [10] 1319 	jp	NZ,00112$
+                           1320 ;src/entities/player.c:185: PutSprite( player.plano, player.sprite+5*4, player.x,player.y, player.color );
+   0666 21r01r02      [10] 1321 	ld	hl, #(_player + 0x000a) + 0
+   0669 56            [ 7] 1322 	ld	d, (hl)
+   066A 21rF8r01      [10] 1323 	ld	hl, #(_player + 0x0001) + 0
+   066D 5E            [ 7] 1324 	ld	e, (hl)
+   066E 21rF7r01      [10] 1325 	ld	hl, #_player + 0
+   0671 4E            [ 7] 1326 	ld	c, (hl)
+   0672 3ArFCr01      [13] 1327 	ld	a, (#(_player + 0x0005) + 0)
+   0675 C6 14         [ 7] 1328 	add	a, #0x14
+   0677 DD 77 FF      [19] 1329 	ld	-1 (ix), a
+   067A 21rFBr01      [10] 1330 	ld	hl, #(_player + 0x0004) + 0
+   067D 46            [ 7] 1331 	ld	b, (hl)
+   067E D5            [11] 1332 	push	de
+   067F 79            [ 4] 1333 	ld	a, c
+   0680 F5            [11] 1334 	push	af
+   0681 33            [ 6] 1335 	inc	sp
+   0682 DD 7E FF      [19] 1336 	ld	a, -1 (ix)
+   0685 F5            [11] 1337 	push	af
+   0686 33            [ 6] 1338 	inc	sp
+   0687 C5            [11] 1339 	push	bc
+   0688 33            [ 6] 1340 	inc	sp
+   0689 CDr00r00      [17] 1341 	call	_PutSprite
+   068C F1            [10] 1342 	pop	af
+   068D F1            [10] 1343 	pop	af
+   068E 33            [ 6] 1344 	inc	sp
+                           1345 ;src/entities/player.c:187: PutSprite( player.plano+1, player.sprite+6*4, player.x,player.y,  player.color );
+   068F 21r01r02      [10] 1346 	ld	hl, #(_player + 0x000a) + 0
+   0692 56            [ 7] 1347 	ld	d, (hl)
+   0693 21rF8r01      [10] 1348 	ld	hl, #(_player + 0x0001) + 0
+   0696 5E            [ 7] 1349 	ld	e, (hl)
+   0697 21rF7r01      [10] 1350 	ld	hl, #_player + 0
+   069A 4E            [ 7] 1351 	ld	c, (hl)
+   069B 3ArFCr01      [13] 1352 	ld	a, (#(_player + 0x0005) + 0)
+   069E C6 18         [ 7] 1353 	add	a, #0x18
+   06A0 DD 77 FF      [19] 1354 	ld	-1 (ix), a
+   06A3 3ArFBr01      [13] 1355 	ld	a, (#(_player + 0x0004) + 0)
+   06A6 47            [ 4] 1356 	ld	b, a
+   06A7 04            [ 4] 1357 	inc	b
+   06A8 D5            [11] 1358 	push	de
+   06A9 79            [ 4] 1359 	ld	a, c
+   06AA F5            [11] 1360 	push	af
+   06AB 33            [ 6] 1361 	inc	sp
+   06AC DD 7E FF      [19] 1362 	ld	a, -1 (ix)
+   06AF F5            [11] 1363 	push	af
+   06B0 33            [ 6] 1364 	inc	sp
+   06B1 C5            [11] 1365 	push	bc
+   06B2 33            [ 6] 1366 	inc	sp
+   06B3 CDr00r00      [17] 1367 	call	_PutSprite
+   06B6 F1            [10] 1368 	pop	af
+   06B7 F1            [10] 1369 	pop	af
+   06B8 33            [ 6] 1370 	inc	sp
+                           1371 ;src/entities/player.c:189: if(player.andando==0){
+   06B9 21rFEr01      [10] 1372 	ld	hl, #(_player + 0x0007) + 0
+   06BC 4E            [ 7] 1373 	ld	c, (hl)
+                           1374 ;src/entities/player.c:172: PutSprite( player.plano, player.sprite, player.x,player.y, 9 );
+   06BD 21rF8r01      [10] 1375 	ld	hl, #(_player + 0x0001) + 0
+   06C0 5E            [ 7] 1376 	ld	e, (hl)
+   06C1 3ArF7r01      [13] 1377 	ld	a,(#_player + 0)
+   06C4 DD 77 FE      [19] 1378 	ld	-2 (ix), a
+   06C7 3ArFCr01      [13] 1379 	ld	a,(#(_player + 0x0005) + 0)
+   06CA DD 77 FF      [19] 1380 	ld	-1 (ix), a
+   06CD 3ArFBr01      [13] 1381 	ld	a, (#(_player + 0x0004) + 0)
+                           1382 ;src/entities/player.c:185: PutSprite( player.plano, player.sprite+5*4, player.x,player.y, player.color );
+   06D0 21r01r02      [10] 1383 	ld	hl, #(_player + 0x000a) + 0
+   06D3 66            [ 7] 1384 	ld	h, (hl)
+                           1385 ;src/entities/player.c:177: PutSprite( player.plano+2, player.sprite+2*4, player.x,player.y+16,  9 );
+   06D4 6F            [ 4] 1386 	ld	l, a
+   06D5 7B            [ 4] 1387 	ld	a, e
+   06D6 C6 10         [ 7] 1388 	add	a, #0x10
+   06D8 5F            [ 4] 1389 	ld	e, a
+   06D9 55            [ 4] 1390 	ld	d, l
+   06DA 14            [ 4] 1391 	inc	d
+   06DB 14            [ 4] 1392 	inc	d
+                           1393 ;src/entities/player.c:189: if(player.andando==0){
+   06DC 79            [ 4] 1394 	ld	a, c
+   06DD B7            [ 4] 1395 	or	a, a
+   06DE 20 1A         [12] 1396 	jr	NZ,00105$
+                           1397 ;src/entities/player.c:190: PutSprite( player.plano+2, player.sprite+7*4, player.x,player.y+16,  player.color );
+   06E0 DD 7E FF      [19] 1398 	ld	a, -1 (ix)
+   06E3 C6 1C         [ 7] 1399 	add	a, #0x1c
+   06E5 47            [ 4] 1400 	ld	b, a
+   06E6 E5            [11] 1401 	push	hl
+   06E7 33            [ 6] 1402 	inc	sp
+   06E8 7B            [ 4] 1403 	ld	a, e
+   06E9 F5            [11] 1404 	push	af
+   06EA 33            [ 6] 1405 	inc	sp
+   06EB DD 7E FE      [19] 1406 	ld	a, -2 (ix)
+   06EE F5            [11] 1407 	push	af
+   06EF 33            [ 6] 1408 	inc	sp
+   06F0 4A            [ 4] 1409 	ld	c, d
+   06F1 C5            [11] 1410 	push	bc
+   06F2 CDr00r00      [17] 1411 	call	_PutSprite
+   06F5 F1            [10] 1412 	pop	af
+   06F6 F1            [10] 1413 	pop	af
+   06F7 33            [ 6] 1414 	inc	sp
+   06F8 18 18         [12] 1415 	jr	00106$
+   06FA                    1416 00105$:
+                           1417 ;src/entities/player.c:192: PutSprite( player.plano+2, player.sprite+8*4, player.x,player.y+16,  player.color );
+   06FA DD 7E FF      [19] 1418 	ld	a, -1 (ix)
+   06FD C6 20         [ 7] 1419 	add	a, #0x20
+   06FF 47            [ 4] 1420 	ld	b, a
+   0700 E5            [11] 1421 	push	hl
+   0701 33            [ 6] 1422 	inc	sp
+   0702 7B            [ 4] 1423 	ld	a, e
+   0703 F5            [11] 1424 	push	af
+   0704 33            [ 6] 1425 	inc	sp
+   0705 DD 7E FE      [19] 1426 	ld	a, -2 (ix)
+   0708 F5            [11] 1427 	push	af
+   0709 33            [ 6] 1428 	inc	sp
+   070A 4A            [ 4] 1429 	ld	c, d
+   070B C5            [11] 1430 	push	bc
+   070C CDr00r00      [17] 1431 	call	_PutSprite
+   070F F1            [10] 1432 	pop	af
+   0710 F1            [10] 1433 	pop	af
+   0711 33            [ 6] 1434 	inc	sp
+   0712                    1435 00106$:
+                           1436 ;src/entities/player.c:195: PutSprite( player.plano+3, player.sprite+9*4, player.x,player.y+8, 15 );
+   0712 3ArF8r01      [13] 1437 	ld	a, (#(_player + 0x0001) + 0)
+   0715 C6 08         [ 7] 1438 	add	a, #0x08
+   0717 4F            [ 4] 1439 	ld	c, a
+   0718 21rF7r01      [10] 1440 	ld	hl, #_player + 0
+   071B 46            [ 7] 1441 	ld	b, (hl)
+   071C 3ArFCr01      [13] 1442 	ld	a, (#(_player + 0x0005) + 0)
+   071F C6 24         [ 7] 1443 	add	a, #0x24
+   0721 5F            [ 4] 1444 	ld	e, a
+   0722 3ArFBr01      [13] 1445 	ld	a, (#(_player + 0x0004) + 0)
+   0725 C6 03         [ 7] 1446 	add	a, #0x03
+   0727 57            [ 4] 1447 	ld	d, a
+   0728 3E 0F         [ 7] 1448 	ld	a, #0x0f
+   072A F5            [11] 1449 	push	af
+   072B 33            [ 6] 1450 	inc	sp
+   072C 79            [ 4] 1451 	ld	a, c
+   072D F5            [11] 1452 	push	af
+   072E 33            [ 6] 1453 	inc	sp
+   072F C5            [11] 1454 	push	bc
+   0730 33            [ 6] 1455 	inc	sp
+   0731 7B            [ 4] 1456 	ld	a, e
+   0732 F5            [11] 1457 	push	af
+   0733 33            [ 6] 1458 	inc	sp
+   0734 D5            [11] 1459 	push	de
+   0735 33            [ 6] 1460 	inc	sp
+   0736 CDr00r00      [17] 1461 	call	_PutSprite
+   0739 F1            [10] 1462 	pop	af
+   073A F1            [10] 1463 	pop	af
+   073B 33            [ 6] 1464 	inc	sp
+   073C                    1465 00112$:
+                           1466 ;src/entities/player.c:197: }
+   073C DD F9         [10] 1467 	ld	sp, ix
+   073E DD E1         [14] 1468 	pop	ix
+   0740 C9            [10] 1469 	ret
+                           1470 ;src/entities/player.c:200: void update_player(){
+                           1471 ;	---------------------------------
+                           1472 ; Function update_player
+                           1473 ; ---------------------------------
+   0741                    1474 _update_player::
+                           1475 ;src/entities/player.c:202: if (player.x<16) player.x=16;
+   0741 21rF7r01      [10] 1476 	ld	hl, #_player+0
+   0744 7E            [ 7] 1477 	ld	a, (hl)
+   0745 D6 10         [ 7] 1478 	sub	a, #0x10
+   0747 30 02         [12] 1479 	jr	NC,00102$
+   0749 36 10         [10] 1480 	ld	(hl), #0x10
+   074B                    1481 00102$:
+                           1482 ;src/entities/player.c:203: if (player.x>240) player.x=240;
+   074B 4E            [ 7] 1483 	ld	c, (hl)
+   074C 3E F0         [ 7] 1484 	ld	a, #0xf0
+   074E 91            [ 4] 1485 	sub	a, c
+   074F 30 02         [12] 1486 	jr	NC,00104$
+   0751 36 F0         [10] 1487 	ld	(hl), #0xf0
+   0753                    1488 00104$:
+                           1489 ;src/entities/player.c:205: if (player.y<80) player.y=80;
+   0753 3ArF8r01      [13] 1490 	ld	a, (#(_player + 0x0001) + 0)
+   0756 D6 50         [ 7] 1491 	sub	a, #0x50
+   0758 30 05         [12] 1492 	jr	NC,00106$
+   075A 21rF8r01      [10] 1493 	ld	hl, #(_player + 0x0001)
+   075D 36 50         [10] 1494 	ld	(hl), #0x50
+   075F                    1495 00106$:
+                           1496 ;src/entities/player.c:206: if (player.y>140) player.y=140;
+   075F 21rF8r01      [10] 1497 	ld	hl, #(_player + 0x0001) + 0
+   0762 4E            [ 7] 1498 	ld	c, (hl)
+   0763 3E 8C         [ 7] 1499 	ld	a, #0x8c
+   0765 91            [ 4] 1500 	sub	a, c
+   0766 30 05         [12] 1501 	jr	NC,00108$
+   0768 21rF8r01      [10] 1502 	ld	hl, #(_player + 0x0001)
+   076B 36 8C         [10] 1503 	ld	(hl), #0x8c
+   076D                    1504 00108$:
+                           1505 ;src/entities/player.c:209: tileY=(player.y/8)+3;
+   076D 3ArF8r01      [13] 1506 	ld	a, (#(_player + 0x0001) + 0)
+   0770 4F            [ 4] 1507 	ld	c, a
+   0771 06 00         [ 7] 1508 	ld	b, #0x00
+   0773 59            [ 4] 1509 	ld	e, c
+   0774 50            [ 4] 1510 	ld	d, b
+   0775 CB 78         [ 8] 1511 	bit	7, b
+   0777 28 05         [12] 1512 	jr	Z,00116$
+   0779 21 07 00      [10] 1513 	ld	hl, #0x0007
+   077C 09            [11] 1514 	add	hl, bc
+   077D EB            [ 4] 1515 	ex	de, hl
+   077E                    1516 00116$:
+   077E 06 03         [ 7] 1517 	ld	b, #0x03
+   0780                    1518 00158$:
+   0780 CB 2A         [ 8] 1519 	sra	d
+   0782 CB 1B         [ 8] 1520 	rr	e
+   0784 10 FA         [13] 1521 	djnz	00158$
+   0786 13            [ 6] 1522 	inc	de
+   0787 13            [ 6] 1523 	inc	de
+   0788 13            [ 6] 1524 	inc	de
+   0789 ED 53r3Cr97   [20] 1525 	ld	(_tileY), de
+                           1526 ;src/entities/player.c:210: tileX=(player.x/8)+(contador-32);
+   078D 3ArF7r01      [13] 1527 	ld	a, (#_player + 0)
+   0790 4F            [ 4] 1528 	ld	c, a
+   0791 06 00         [ 7] 1529 	ld	b, #0x00
+   0793 59            [ 4] 1530 	ld	e, c
+   0794 50            [ 4] 1531 	ld	d, b
+   0795 CB 78         [ 8] 1532 	bit	7, b
+   0797 28 05         [12] 1533 	jr	Z,00117$
+   0799 21 07 00      [10] 1534 	ld	hl, #0x0007
+   079C 09            [11] 1535 	add	hl, bc
+   079D EB            [ 4] 1536 	ex	de, hl
+   079E                    1537 00117$:
+   079E 06 03         [ 7] 1538 	ld	b, #0x03
+   07A0                    1539 00159$:
+   07A0 CB 2A         [ 8] 1540 	sra	d
+   07A2 CB 1B         [ 8] 1541 	rr	e
+   07A4 10 FA         [13] 1542 	djnz	00159$
+   07A6 FD 21r38r97   [14] 1543 	ld	iy, #_contador
+   07AA FD 7E 00      [19] 1544 	ld	a, 0 (iy)
+   07AD C6 E0         [ 7] 1545 	add	a, #0xe0
+   07AF 4F            [ 4] 1546 	ld	c, a
+   07B0 FD 7E 01      [19] 1547 	ld	a, 1 (iy)
+   07B3 CE FF         [ 7] 1548 	adc	a, #0xff
+   07B5 47            [ 4] 1549 	ld	b, a
+   07B6 7B            [ 4] 1550 	ld	a, e
+   07B7 21r3Ar97      [10] 1551 	ld	hl, #_tileX
+   07BA 81            [ 4] 1552 	add	a, c
+   07BB 77            [ 7] 1553 	ld	(hl), a
+   07BC 7A            [ 4] 1554 	ld	a, d
+   07BD 88            [ 4] 1555 	adc	a, b
+   07BE 23            [ 6] 1556 	inc	hl
+   07BF 77            [ 7] 1557 	ld	(hl), a
+                           1558 ;src/entities/player.c:237: if (player.saltando==1){
+   07C0 01rFFr01      [10] 1559 	ld	bc, #_player + 8
+   07C3 0A            [ 7] 1560 	ld	a, (bc)
+   07C4 3D            [ 4] 1561 	dec	a
+   07C5 C0            [11] 1562 	ret	NZ
+                           1563 ;src/entities/player.c:240: if(filas[tileY+1][tileX]>=192){
+   07C6 2Ar3Cr97      [16] 1564 	ld	hl, (_tileY)
+   07C9 23            [ 6] 1565 	inc	hl
+   07CA 5D            [ 4] 1566 	ld	e, l
+   07CB 54            [ 4] 1567 	ld	d, h
+   07CC 29            [11] 1568 	add	hl, hl
+   07CD 19            [11] 1569 	add	hl, de
+   07CE 29            [11] 1570 	add	hl, hl
+   07CF 19            [11] 1571 	add	hl, de
+   07D0 29            [11] 1572 	add	hl, hl
+   07D1 19            [11] 1573 	add	hl, de
+   07D2 29            [11] 1574 	add	hl, hl
+   07D3 19            [11] 1575 	add	hl, de
+   07D4 29            [11] 1576 	add	hl, hl
+   07D5 29            [11] 1577 	add	hl, hl
+   07D6 19            [11] 1578 	add	hl, de
+   07D7 29            [11] 1579 	add	hl, hl
+   07D8 29            [11] 1580 	add	hl, hl
+   07D9 EB            [ 4] 1581 	ex	de, hl
+   07DA 21r4Ar6A      [10] 1582 	ld	hl, #_filas
+   07DD 19            [11] 1583 	add	hl, de
+   07DE EB            [ 4] 1584 	ex	de, hl
+   07DF 2Ar3Ar97      [16] 1585 	ld	hl, (_tileX)
+   07E2 29            [11] 1586 	add	hl, hl
+   07E3 19            [11] 1587 	add	hl, de
+   07E4 5E            [ 7] 1588 	ld	e, (hl)
+   07E5 23            [ 6] 1589 	inc	hl
+   07E6 56            [ 7] 1590 	ld	d, (hl)
+   07E7 7B            [ 4] 1591 	ld	a, e
+   07E8 D6 C0         [ 7] 1592 	sub	a, #0xc0
+   07EA 7A            [ 4] 1593 	ld	a, d
+   07EB DE 00         [ 7] 1594 	sbc	a, #0x00
+   07ED 38 03         [12] 1595 	jr	C,00110$
+                           1596 ;src/entities/player.c:241: player.saltando=0;
+   07EF AF            [ 4] 1597 	xor	a, a
+   07F0 02            [ 7] 1598 	ld	(bc), a
+   07F1 C9            [10] 1599 	ret
+   07F2                    1600 00110$:
+                           1601 ;src/entities/player.c:243: player.y+=player.velocidadY;
+   07F2 21rF8r01      [10] 1602 	ld	hl, #(_player + 0x0001) + 0
+   07F5 4E            [ 7] 1603 	ld	c, (hl)
+   07F6 3Ar03r02      [13] 1604 	ld	a, (#_player + 12)
+   07F9 81            [ 4] 1605 	add	a, c
+   07FA 32rF8r01      [13] 1606 	ld	(#(_player + 0x0001)),a
+                           1607 ;src/entities/player.c:246: }
+   07FD C9            [10] 1608 	ret
+                           1609 ;src/entities/player.c:250: char collisionPlayer(char enemiX, char enemiY){
+                           1610 ;	---------------------------------
+                           1611 ; Function collisionPlayer
+                           1612 ; ---------------------------------
+   07FE                    1613 _collisionPlayer::
+   07FE CDr00r00      [17] 1614 	call	___sdcc_enter_ix
+                           1615 ;src/entities/player.c:251: if (enemiX < player.x + 16 &&  enemiX + 16 > player.x && enemiY < player.y + 32 && 16 + enemiY > player.y){
+   0801 3ArF7r01      [13] 1616 	ld	a, (#_player + 0)
+   0804 4F            [ 4] 1617 	ld	c, a
+   0805 06 00         [ 7] 1618 	ld	b, #0x00
+   0807 21 10 00      [10] 1619 	ld	hl, #0x0010
+   080A 09            [11] 1620 	add	hl, bc
+   080B DD 5E 04      [19] 1621 	ld	e, 4 (ix)
+   080E 16 00         [ 7] 1622 	ld	d, #0x00
+   0810 7B            [ 4] 1623 	ld	a, e
+   0811 95            [ 4] 1624 	sub	a, l
+   0812 7A            [ 4] 1625 	ld	a, d
+   0813 9C            [ 4] 1626 	sbc	a, h
+   0814 E2r19r08      [10] 1627 	jp	PO, 00129$
+   0817 EE 80         [ 7] 1628 	xor	a, #0x80
+   0819                    1629 00129$:
+   0819 F2r5Br08      [10] 1630 	jp	P, 00102$
+   081C 21 10 00      [10] 1631 	ld	hl, #0x0010
+   081F 19            [11] 1632 	add	hl, de
+   0820 79            [ 4] 1633 	ld	a, c
+   0821 95            [ 4] 1634 	sub	a, l
+   0822 78            [ 4] 1635 	ld	a, b
+   0823 9C            [ 4] 1636 	sbc	a, h
+   0824 E2r29r08      [10] 1637 	jp	PO, 00130$
+   0827 EE 80         [ 7] 1638 	xor	a, #0x80
+   0829                    1639 00130$:
+   0829 F2r5Br08      [10] 1640 	jp	P, 00102$
+   082C 3ArF8r01      [13] 1641 	ld	a, (#(_player + 0x0001) + 0)
+   082F 4F            [ 4] 1642 	ld	c, a
+   0830 06 00         [ 7] 1643 	ld	b, #0x00
+   0832 21 20 00      [10] 1644 	ld	hl, #0x0020
+   0835 09            [11] 1645 	add	hl, bc
+   0836 DD 5E 05      [19] 1646 	ld	e, 5 (ix)
+   0839 16 00         [ 7] 1647 	ld	d, #0x00
+   083B 7B            [ 4] 1648 	ld	a, e
+   083C 95            [ 4] 1649 	sub	a, l
+   083D 7A            [ 4] 1650 	ld	a, d
+   083E 9C            [ 4] 1651 	sbc	a, h
+   083F E2r44r08      [10] 1652 	jp	PO, 00131$
+   0842 EE 80         [ 7] 1653 	xor	a, #0x80
+   0844                    1654 00131$:
+   0844 F2r5Br08      [10] 1655 	jp	P, 00102$
+   0847 21 10 00      [10] 1656 	ld	hl, #0x0010
+   084A 19            [11] 1657 	add	hl, de
+   084B 79            [ 4] 1658 	ld	a, c
+   084C 95            [ 4] 1659 	sub	a, l
+   084D 78            [ 4] 1660 	ld	a, b
+   084E 9C            [ 4] 1661 	sbc	a, h
+   084F E2r54r08      [10] 1662 	jp	PO, 00132$
+   0852 EE 80         [ 7] 1663 	xor	a, #0x80
+   0854                    1664 00132$:
+   0854 F2r5Br08      [10] 1665 	jp	P, 00102$
+                           1666 ;src/entities/player.c:252: return 1;
+   0857 2E 01         [ 7] 1667 	ld	l, #0x01
+   0859 18 02         [12] 1668 	jr	00107$
+   085B                    1669 00102$:
+                           1670 ;src/entities/player.c:254: return 0;
+   085B 2E 00         [ 7] 1671 	ld	l, #0x00
+   085D                    1672 00107$:
+                           1673 ;src/entities/player.c:256: }
+   085D DD E1         [14] 1674 	pop	ix
+   085F C9            [10] 1675 	ret
+                           1676 ;src/entities/fire.c:39: void inicializar_disparos(){
+                           1677 ;	---------------------------------
+                           1678 ; Function inicializar_disparos
+                           1679 ; ---------------------------------
+   0860                    1680 _inicializar_disparos::
+                           1681 ;src/entities/fire.c:40: SetSpritePattern( 4*10, fireSprite, 32);
+   0860 3E 20         [ 7] 1682 	ld	a, #0x20
+   0862 F5            [11] 1683 	push	af
+   0863 33            [ 6] 1684 	inc	sp
+   0864 21r07r02      [10] 1685 	ld	hl, #_fireSprite
+   0867 E5            [11] 1686 	push	hl
+   0868 3E 28         [ 7] 1687 	ld	a, #0x28
+   086A F5            [11] 1688 	push	af
+   086B 33            [ 6] 1689 	inc	sp
+   086C CDr00r00      [17] 1690 	call	_SetSpritePattern
+   086F F1            [10] 1691 	pop	af
+   0870 F1            [10] 1692 	pop	af
+                           1693 ;src/entities/fire.c:41: numero_disparo=0;
+   0871 21r8Er97      [10] 1694 	ld	hl,#_numero_disparo + 0
+   0874 36 00         [10] 1695 	ld	(hl), #0x00
+                           1696 ;src/entities/fire.c:42: }
+   0876 C9            [10] 1697 	ret
+                           1698 ;src/entities/fire.c:43: TFire* crear_disparos(){
+                           1699 ;	---------------------------------
+                           1700 ; Function crear_disparos
+                           1701 ; ---------------------------------
+   0877                    1702 _crear_disparos::
+                           1703 ;src/entities/fire.c:44: TFire* fire=&array_structs_fires[numero_disparo];
+   0877 01r3Er97      [10] 1704 	ld	bc, #_array_structs_fires+0
+   087A FD 21r8Er97   [14] 1705 	ld	iy, #_numero_disparo
+   087E FD 6E 00      [19] 1706 	ld	l, 0 (iy)
+   0881 26 00         [ 7] 1707 	ld	h, #0x00
+   0883 29            [11] 1708 	add	hl, hl
+   0884 29            [11] 1709 	add	hl, hl
+   0885 29            [11] 1710 	add	hl, hl
+   0886 09            [11] 1711 	add	hl, bc
+   0887 EB            [ 4] 1712 	ex	de, hl
+                           1713 ;src/entities/fire.c:45: ++numero_disparo;
+   0888 FD 34 00      [23] 1714 	inc	0 (iy)
+                           1715 ;src/entities/fire.c:46: return fire;
+   088B EB            [ 4] 1716 	ex	de,hl
+                           1717 ;src/entities/fire.c:47: }
+   088C C9            [10] 1718 	ret
+                           1719 ;src/entities/fire.c:48: void actualizar_disparos(){
+                           1720 ;	---------------------------------
+                           1721 ; Function actualizar_disparos
+                           1722 ; ---------------------------------
+   088D                    1723 _actualizar_disparos::
+   088D CDr00r00      [17] 1724 	call	___sdcc_enter_ix
+   0890 F5            [11] 1725 	push	af
+   0891 F5            [11] 1726 	push	af
+   0892 F5            [11] 1727 	push	af
+   0893 3B            [ 6] 1728 	dec	sp
+                           1729 ;src/entities/fire.c:49: for (int i=0; i<numero_disparo; i++){
+   0894 01 00 00      [10] 1730 	ld	bc, #0x0000
+   0897                    1731 00111$:
+   0897 21r8Er97      [10] 1732 	ld	hl,#_numero_disparo + 0
+   089A 5E            [ 7] 1733 	ld	e, (hl)
+   089B 16 00         [ 7] 1734 	ld	d, #0x00
+   089D 79            [ 4] 1735 	ld	a, c
+   089E 93            [ 4] 1736 	sub	a, e
+   089F 78            [ 4] 1737 	ld	a, b
+   08A0 9A            [ 4] 1738 	sbc	a, d
+   08A1 E2rA6r08      [10] 1739 	jp	PO, 00141$
+   08A4 EE 80         [ 7] 1740 	xor	a, #0x80
+   08A6                    1741 00141$:
+   08A6 F2rB0r09      [10] 1742 	jp	P, 00113$
+                           1743 ;src/entities/fire.c:50: if (array_structs_fires[i].direccion==3) array_structs_fires[i].x+=array_structs_fires[i].velocidad;
+   08A9 69            [ 4] 1744 	ld	l, c
+   08AA 60            [ 4] 1745 	ld	h, b
+   08AB 29            [11] 1746 	add	hl, hl
+   08AC 29            [11] 1747 	add	hl, hl
+   08AD 29            [11] 1748 	add	hl, hl
+                           1749 ;src/entities/fire.c:52: if(array_structs_fires[i].x>240 || array_structs_fires[i].x<0){
+   08AE 7D            [ 4] 1750 	ld	a, l
+   08AF C6r3E         [ 7] 1751 	add	a, #<(_array_structs_fires)
+   08B1 DD 77 FB      [19] 1752 	ld	-5 (ix), a
+   08B4 7C            [ 4] 1753 	ld	a, h
+   08B5 CEs97         [ 7] 1754 	adc	a, #>(_array_structs_fires)
+   08B7 DD 77 FC      [19] 1755 	ld	-4 (ix), a
+                           1756 ;src/entities/fire.c:50: if (array_structs_fires[i].direccion==3) array_structs_fires[i].x+=array_structs_fires[i].velocidad;
+   08BA DD 7E FB      [19] 1757 	ld	a, -5 (ix)
+   08BD C6 05         [ 7] 1758 	add	a, #0x05
+   08BF DD 77 F9      [19] 1759 	ld	-7 (ix), a
+   08C2 DD 7E FC      [19] 1760 	ld	a, -4 (ix)
+   08C5 CE 00         [ 7] 1761 	adc	a, #0x00
+   08C7 DD 77 FA      [19] 1762 	ld	-6 (ix), a
+   08CA E1            [10] 1763 	pop	hl
+   08CB E5            [11] 1764 	push	hl
+   08CC 5E            [ 7] 1765 	ld	e, (hl)
+   08CD DD 7E FB      [19] 1766 	ld	a, -5 (ix)
+   08D0 C6 04         [ 7] 1767 	add	a, #0x04
+   08D2 DD 77 FE      [19] 1768 	ld	-2 (ix), a
+   08D5 DD 7E FC      [19] 1769 	ld	a, -4 (ix)
+   08D8 CE 00         [ 7] 1770 	adc	a, #0x00
+   08DA DD 77 FF      [19] 1771 	ld	-1 (ix), a
+   08DD 7B            [ 4] 1772 	ld	a, e
+   08DE D6 03         [ 7] 1773 	sub	a, #0x03
+   08E0 20 1D         [12] 1774 	jr	NZ,00102$
+   08E2 DD 6E FB      [19] 1775 	ld	l, -5 (ix)
+   08E5 DD 66 FC      [19] 1776 	ld	h, -4 (ix)
+   08E8 5E            [ 7] 1777 	ld	e, (hl)
+   08E9 23            [ 6] 1778 	inc	hl
+   08EA 56            [ 7] 1779 	ld	d, (hl)
+   08EB DD 6E FE      [19] 1780 	ld	l, -2 (ix)
+   08EE DD 66 FF      [19] 1781 	ld	h, -1 (ix)
+   08F1 6E            [ 7] 1782 	ld	l, (hl)
+   08F2 26 00         [ 7] 1783 	ld	h, #0x00
+   08F4 19            [11] 1784 	add	hl, de
+   08F5 EB            [ 4] 1785 	ex	de, hl
+   08F6 DD 6E FB      [19] 1786 	ld	l, -5 (ix)
+   08F9 DD 66 FC      [19] 1787 	ld	h, -4 (ix)
+   08FC 73            [ 7] 1788 	ld	(hl), e
+   08FD 23            [ 6] 1789 	inc	hl
+   08FE 72            [ 7] 1790 	ld	(hl), d
+   08FF                    1791 00102$:
+                           1792 ;src/entities/fire.c:51: if (array_structs_fires[i].direccion==7) array_structs_fires[i].x-=array_structs_fires[i].velocidad;
+   08FF E1            [10] 1793 	pop	hl
+   0900 E5            [11] 1794 	push	hl
+   0901 7E            [ 7] 1795 	ld	a, (hl)
+   0902 D6 07         [ 7] 1796 	sub	a, #0x07
+   0904 20 21         [12] 1797 	jr	NZ,00104$
+   0906 DD 6E FB      [19] 1798 	ld	l, -5 (ix)
+   0909 DD 66 FC      [19] 1799 	ld	h, -4 (ix)
+   090C 5E            [ 7] 1800 	ld	e, (hl)
+   090D 23            [ 6] 1801 	inc	hl
+   090E 56            [ 7] 1802 	ld	d, (hl)
+   090F DD 6E FE      [19] 1803 	ld	l, -2 (ix)
+   0912 DD 66 FF      [19] 1804 	ld	h, -1 (ix)
+   0915 6E            [ 7] 1805 	ld	l, (hl)
+   0916 26 00         [ 7] 1806 	ld	h, #0x00
+   0918 7B            [ 4] 1807 	ld	a, e
+   0919 95            [ 4] 1808 	sub	a, l
+   091A 5F            [ 4] 1809 	ld	e, a
+   091B 7A            [ 4] 1810 	ld	a, d
+   091C 9C            [ 4] 1811 	sbc	a, h
+   091D 57            [ 4] 1812 	ld	d, a
+   091E DD 6E FB      [19] 1813 	ld	l, -5 (ix)
+   0921 DD 66 FC      [19] 1814 	ld	h, -4 (ix)
+   0924 73            [ 7] 1815 	ld	(hl), e
+   0925 23            [ 6] 1816 	inc	hl
+   0926 72            [ 7] 1817 	ld	(hl), d
+   0927                    1818 00104$:
+                           1819 ;src/entities/fire.c:50: if (array_structs_fires[i].direccion==3) array_structs_fires[i].x+=array_structs_fires[i].velocidad;
+   0927 DD 6E FB      [19] 1820 	ld	l, -5 (ix)
+   092A DD 66 FC      [19] 1821 	ld	h, -4 (ix)
+   092D 7E            [ 7] 1822 	ld	a, (hl)
+   092E DD 77 FD      [19] 1823 	ld	-3 (ix), a
+   0931 23            [ 6] 1824 	inc	hl
+   0932 7E            [ 7] 1825 	ld	a, (hl)
+   0933 DD 77 FE      [19] 1826 	ld	-2 (ix), a
+                           1827 ;src/entities/fire.c:53: PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, 1,215, 15 );
+   0936 D1            [10] 1828 	pop	de
+   0937 E1            [10] 1829 	pop	hl
+   0938 E5            [11] 1830 	push	hl
+   0939 D5            [11] 1831 	push	de
+   093A DD 5E FB      [19] 1832 	ld	e, -5 (ix)
+   093D DD 56 FC      [19] 1833 	ld	d, -4 (ix)
+   0940 C5            [11] 1834 	push	bc
+   0941 01 07 00      [10] 1835 	ld	bc, #0x0007
+   0944 09            [11] 1836 	add	hl, bc
+   0945 C1            [10] 1837 	pop	bc
+   0946 7E            [ 7] 1838 	ld	a, (hl)
+   0947 DD 77 FF      [19] 1839 	ld	-1 (ix), a
+   094A EB            [ 4] 1840 	ex	de,hl
+   094B 11 06 00      [10] 1841 	ld	de, #0x0006
+   094E 19            [11] 1842 	add	hl, de
+   094F 56            [ 7] 1843 	ld	d, (hl)
+                           1844 ;src/entities/fire.c:52: if(array_structs_fires[i].x>240 || array_structs_fires[i].x<0){
+   0950 3E F0         [ 7] 1845 	ld	a, #0xf0
+   0952 DD BE FD      [19] 1846 	cp	a, -3 (ix)
+   0955 3E 00         [ 7] 1847 	ld	a, #0x00
+   0957 DD 9E FE      [19] 1848 	sbc	a, -2 (ix)
+   095A E2r5Fr09      [10] 1849 	jp	PO, 00146$
+   095D EE 80         [ 7] 1850 	xor	a, #0x80
+   095F                    1851 00146$:
+   095F FAr68r09      [10] 1852 	jp	M, 00105$
+   0962 DD CB FE 7E   [20] 1853 	bit	7, -2 (ix)
+   0966 28 20         [12] 1854 	jr	Z,00106$
+   0968                    1855 00105$:
+                           1856 ;src/entities/fire.c:53: PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, 1,215, 15 );
+   0968 C5            [11] 1857 	push	bc
+   0969 01 D7 0F      [10] 1858 	ld	bc, #0x0fd7
+   096C C5            [11] 1859 	push	bc
+   096D 3E 01         [ 7] 1860 	ld	a, #0x01
+   096F F5            [11] 1861 	push	af
+   0970 33            [ 6] 1862 	inc	sp
+   0971 DD 7E FF      [19] 1863 	ld	a, -1 (ix)
+   0974 F5            [11] 1864 	push	af
+   0975 33            [ 6] 1865 	inc	sp
+   0976 D5            [11] 1866 	push	de
+   0977 33            [ 6] 1867 	inc	sp
+   0978 CDr00r00      [17] 1868 	call	_PutSprite
+   097B F1            [10] 1869 	pop	af
+   097C F1            [10] 1870 	pop	af
+   097D 33            [ 6] 1871 	inc	sp
+   097E C1            [10] 1872 	pop	bc
+                           1873 ;src/entities/fire.c:54: eliminar_disparos(i);
+   097F C5            [11] 1874 	push	bc
+   0980 C5            [11] 1875 	push	bc
+   0981 CDrB5r09      [17] 1876 	call	_eliminar_disparos
+   0984 F1            [10] 1877 	pop	af
+   0985 C1            [10] 1878 	pop	bc
+   0986 18 24         [12] 1879 	jr	00112$
+   0988                    1880 00106$:
+                           1881 ;src/entities/fire.c:56: PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, array_structs_fires[i].x,array_structs_fires[i].y, 15 );
+   0988 DD 6E FB      [19] 1882 	ld	l, -5 (ix)
+   098B DD 66 FC      [19] 1883 	ld	h, -4 (ix)
+   098E 23            [ 6] 1884 	inc	hl
+   098F 23            [ 6] 1885 	inc	hl
+   0990 66            [ 7] 1886 	ld	h, (hl)
+   0991 DD 5E FD      [19] 1887 	ld	e, -3 (ix)
+   0994 C5            [11] 1888 	push	bc
+   0995 3E 0F         [ 7] 1889 	ld	a, #0x0f
+   0997 F5            [11] 1890 	push	af
+   0998 33            [ 6] 1891 	inc	sp
+   0999 E5            [11] 1892 	push	hl
+   099A 33            [ 6] 1893 	inc	sp
+   099B 7B            [ 4] 1894 	ld	a, e
+   099C F5            [11] 1895 	push	af
+   099D 33            [ 6] 1896 	inc	sp
+   099E DD 7E FF      [19] 1897 	ld	a, -1 (ix)
+   09A1 F5            [11] 1898 	push	af
+   09A2 33            [ 6] 1899 	inc	sp
+   09A3 D5            [11] 1900 	push	de
+   09A4 33            [ 6] 1901 	inc	sp
+   09A5 CDr00r00      [17] 1902 	call	_PutSprite
+   09A8 F1            [10] 1903 	pop	af
+   09A9 F1            [10] 1904 	pop	af
+   09AA 33            [ 6] 1905 	inc	sp
+   09AB C1            [10] 1906 	pop	bc
+   09AC                    1907 00112$:
+                           1908 ;src/entities/fire.c:49: for (int i=0; i<numero_disparo; i++){
+   09AC 03            [ 6] 1909 	inc	bc
+   09AD C3r97r08      [10] 1910 	jp	00111$
+   09B0                    1911 00113$:
+                           1912 ;src/entities/fire.c:59: }
+   09B0 DD F9         [10] 1913 	ld	sp, ix
+   09B2 DD E1         [14] 1914 	pop	ix
+   09B4 C9            [10] 1915 	ret
+                           1916 ;src/entities/fire.c:60: void eliminar_disparos(int i){
+                           1917 ;	---------------------------------
+                           1918 ; Function eliminar_disparos
+                           1919 ; ---------------------------------
+   09B5                    1920 _eliminar_disparos::
+   09B5 CDr00r00      [17] 1921 	call	___sdcc_enter_ix
+                           1922 ;src/entities/fire.c:61: --numero_disparo;
+   09B8 FD 21r8Er97   [14] 1923 	ld	iy, #_numero_disparo
+   09BC FD 35 00      [23] 1924 	dec	0 (iy)
+                           1925 ;src/entities/fire.c:62: array_structs_fires[i]=array_structs_fires[numero_disparo];
+   09BF DD 6E 04      [19] 1926 	ld	l, 4 (ix)
+   09C2 DD 66 05      [19] 1927 	ld	h, 5 (ix)
+   09C5 29            [11] 1928 	add	hl, hl
+   09C6 29            [11] 1929 	add	hl, hl
+   09C7 29            [11] 1930 	add	hl, hl
+   09C8 7D            [ 4] 1931 	ld	a, l
+   09C9 C6r3E         [ 7] 1932 	add	a, #<(_array_structs_fires)
+   09CB 4F            [ 4] 1933 	ld	c, a
+   09CC 7C            [ 4] 1934 	ld	a, h
+   09CD CEs97         [ 7] 1935 	adc	a, #>(_array_structs_fires)
+   09CF 47            [ 4] 1936 	ld	b, a
+   09D0 59            [ 4] 1937 	ld	e, c
+   09D1 50            [ 4] 1938 	ld	d, b
+   09D2 FD 6E 00      [19] 1939 	ld	l, 0 (iy)
+   09D5 26 00         [ 7] 1940 	ld	h, #0x00
+   09D7 29            [11] 1941 	add	hl, hl
+   09D8 29            [11] 1942 	add	hl, hl
+   09D9 29            [11] 1943 	add	hl, hl
+   09DA D5            [11] 1944 	push	de
+   09DB 11r3Er97      [10] 1945 	ld	de, #_array_structs_fires
+   09DE 19            [11] 1946 	add	hl, de
+   09DF D1            [10] 1947 	pop	de
+   09E0 C5            [11] 1948 	push	bc
+   09E1 01 08 00      [10] 1949 	ld	bc, #0x0008
+   09E4 ED B0         [21] 1950 	ldir
+   09E6 C1            [10] 1951 	pop	bc
+                           1952 ;src/entities/fire.c:63: PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, 1,215, 15 );
+   09E7 69            [ 4] 1953 	ld	l, c
+   09E8 60            [ 4] 1954 	ld	h, b
+   09E9 11 07 00      [10] 1955 	ld	de, #0x0007
+   09EC 19            [11] 1956 	add	hl, de
+   09ED 56            [ 7] 1957 	ld	d, (hl)
+   09EE 69            [ 4] 1958 	ld	l, c
+   09EF 60            [ 4] 1959 	ld	h, b
+   09F0 01 06 00      [10] 1960 	ld	bc, #0x0006
+   09F3 09            [11] 1961 	add	hl, bc
+   09F4 46            [ 7] 1962 	ld	b, (hl)
+   09F5 3E 0F         [ 7] 1963 	ld	a, #0x0f
+   09F7 F5            [11] 1964 	push	af
+   09F8 33            [ 6] 1965 	inc	sp
+   09F9 3E D7         [ 7] 1966 	ld	a, #0xd7
+   09FB F5            [11] 1967 	push	af
+   09FC 33            [ 6] 1968 	inc	sp
+   09FD 3E 01         [ 7] 1969 	ld	a, #0x01
+   09FF F5            [11] 1970 	push	af
+   0A00 33            [ 6] 1971 	inc	sp
+   0A01 58            [ 4] 1972 	ld	e, b
+   0A02 D5            [11] 1973 	push	de
+   0A03 CDr00r00      [17] 1974 	call	_PutSprite
+   0A06 F1            [10] 1975 	pop	af
+   0A07 F1            [10] 1976 	pop	af
+   0A08 33            [ 6] 1977 	inc	sp
+                           1978 ;src/entities/fire.c:64: }
+   0A09 DD E1         [14] 1979 	pop	ix
+   0A0B C9            [10] 1980 	ret
+                           1981 ;src/entities/enemies.c:51: void inicilizar_enemigos(){
+                           1982 ;	---------------------------------
+                           1983 ; Function inicilizar_enemigos
+                           1984 ; ---------------------------------
+   0A0C                    1985 _inicilizar_enemigos::
+                           1986 ;src/entities/enemies.c:52: SetSpritePattern( 4*11, enemie1, 32);
+   0A0C 3E 20         [ 7] 1987 	ld	a, #0x20
+   0A0E F5            [11] 1988 	push	af
+   0A0F 33            [ 6] 1989 	inc	sp
+   0A10 21r27r02      [10] 1990 	ld	hl, #_enemie1
+   0A13 E5            [11] 1991 	push	hl
+   0A14 3E 2C         [ 7] 1992 	ld	a, #0x2c
+   0A16 F5            [11] 1993 	push	af
+   0A17 33            [ 6] 1994 	inc	sp
+   0A18 CDr00r00      [17] 1995 	call	_SetSpritePattern
+   0A1B F1            [10] 1996 	pop	af
+                           1997 ;src/entities/enemies.c:53: SetSpritePattern( 4*12, enemie2, 32);
+   0A1C 26 20         [ 7] 1998 	ld	h,#0x20
+   0A1E E3            [19] 1999 	ex	(sp),hl
+   0A1F 33            [ 6] 2000 	inc	sp
+   0A20 21r47r02      [10] 2001 	ld	hl, #_enemie2
+   0A23 E5            [11] 2002 	push	hl
+   0A24 3E 30         [ 7] 2003 	ld	a, #0x30
+   0A26 F5            [11] 2004 	push	af
+   0A27 33            [ 6] 2005 	inc	sp
+   0A28 CDr00r00      [17] 2006 	call	_SetSpritePattern
+   0A2B F1            [10] 2007 	pop	af
+   0A2C F1            [10] 2008 	pop	af
+                           2009 ;src/entities/enemies.c:55: numero_de_enemigo=0;
+   0A2D 21rF3r97      [10] 2010 	ld	hl,#_numero_de_enemigo + 0
+   0A30 36 00         [10] 2011 	ld	(hl), #0x00
+                           2012 ;src/entities/enemies.c:56: colisionFire=0;
+   0A32 21rF4r97      [10] 2013 	ld	hl,#_colisionFire + 0
+   0A35 36 00         [10] 2014 	ld	(hl), #0x00
+                           2015 ;src/entities/enemies.c:57: }
+   0A37 C9            [10] 2016 	ret
+                           2017 ;src/entities/enemies.c:58: TEnemy* crear_enemigos(){
+                           2018 ;	---------------------------------
+                           2019 ; Function crear_enemigos
+                           2020 ; ---------------------------------
+   0A38                    2021 _crear_enemigos::
+                           2022 ;src/entities/enemies.c:59: TEnemy* enemy=&array_structs_enemigos[numero_de_enemigo];
+   0A38 01r8Fr97      [10] 2023 	ld	bc, #_array_structs_enemigos+0
+   0A3B ED 5BrF3r97   [20] 2024 	ld	de, (_numero_de_enemigo)
+   0A3F 16 00         [ 7] 2025 	ld	d, #0x00
+   0A41 6B            [ 4] 2026 	ld	l, e
+   0A42 62            [ 4] 2027 	ld	h, d
+   0A43 29            [11] 2028 	add	hl, hl
+   0A44 29            [11] 2029 	add	hl, hl
+   0A45 19            [11] 2030 	add	hl, de
+   0A46 29            [11] 2031 	add	hl, hl
+   0A47 09            [11] 2032 	add	hl, bc
+   0A48 EB            [ 4] 2033 	ex	de, hl
+                           2034 ;src/entities/enemies.c:60: ++numero_de_enemigo;
+   0A49 21rF3r97      [10] 2035 	ld	hl, #_numero_de_enemigo+0
+   0A4C 34            [11] 2036 	inc	(hl)
+                           2037 ;src/entities/enemies.c:61: return enemy;
+   0A4D EB            [ 4] 2038 	ex	de,hl
+                           2039 ;src/entities/enemies.c:62: }
+   0A4E C9            [10] 2040 	ret
+                           2041 ;src/entities/enemies.c:63: void actualizar_enemigos(){
+                           2042 ;	---------------------------------
+                           2043 ; Function actualizar_enemigos
+                           2044 ; ---------------------------------
+   0A4F                    2045 _actualizar_enemigos::
+   0A4F CDr00r00      [17] 2046 	call	___sdcc_enter_ix
+   0A52 21 F5 FF      [10] 2047 	ld	hl, #-11
+   0A55 39            [11] 2048 	add	hl, sp
+   0A56 F9            [ 6] 2049 	ld	sp, hl
+                           2050 ;src/entities/enemies.c:64: for (int i=0; i<numero_de_enemigo;i++){
+   0A57 AF            [ 4] 2051 	xor	a, a
+   0A58 DD 77 FE      [19] 2052 	ld	-2 (ix), a
+   0A5B DD 77 FF      [19] 2053 	ld	-1 (ix), a
+   0A5E                    2054 00108$:
+   0A5E 21rF3r97      [10] 2055 	ld	hl,#_numero_de_enemigo + 0
+   0A61 4E            [ 7] 2056 	ld	c, (hl)
+   0A62 06 00         [ 7] 2057 	ld	b, #0x00
+   0A64 DD 7E FE      [19] 2058 	ld	a, -2 (ix)
+   0A67 91            [ 4] 2059 	sub	a, c
+   0A68 DD 7E FF      [19] 2060 	ld	a, -1 (ix)
+   0A6B 98            [ 4] 2061 	sbc	a, b
+   0A6C E2r71r0A      [10] 2062 	jp	PO, 00133$
+   0A6F EE 80         [ 7] 2063 	xor	a, #0x80
+   0A71                    2064 00133$:
+   0A71 F2r40r0B      [10] 2065 	jp	P, 00110$
+                           2066 ;src/entities/enemies.c:65: array_structs_enemigos[i].x-=1;
+   0A74 DD 4E FE      [19] 2067 	ld	c, -2 (ix)
+   0A77 DD 46 FF      [19] 2068 	ld	b, -1 (ix)
+   0A7A 69            [ 4] 2069 	ld	l, c
+   0A7B 60            [ 4] 2070 	ld	h, b
+   0A7C 29            [11] 2071 	add	hl, hl
+   0A7D 29            [11] 2072 	add	hl, hl
+   0A7E 09            [11] 2073 	add	hl, bc
+   0A7F 29            [11] 2074 	add	hl, hl
+   0A80 DD 75 FC      [19] 2075 	ld	-4 (ix), l
+   0A83 DD 74 FD      [19] 2076 	ld	-3 (ix), h
+                           2077 ;src/entities/enemies.c:67: if(array_structs_enemigos[i].x % 2){
+   0A86 DD 7E FC      [19] 2078 	ld	a, -4 (ix)
+   0A89 C6r8F         [ 7] 2079 	add	a, #<(_array_structs_enemigos)
+   0A8B 5F            [ 4] 2080 	ld	e, a
+   0A8C DD 7E FD      [19] 2081 	ld	a, -3 (ix)
+   0A8F CEs97         [ 7] 2082 	adc	a, #>(_array_structs_enemigos)
+   0A91 57            [ 4] 2083 	ld	d, a
+                           2084 ;src/entities/enemies.c:65: array_structs_enemigos[i].x-=1;
+   0A92 6B            [ 4] 2085 	ld	l, e
+   0A93 62            [ 4] 2086 	ld	h, d
+   0A94 4E            [ 7] 2087 	ld	c, (hl)
+   0A95 23            [ 6] 2088 	inc	hl
+   0A96 46            [ 7] 2089 	ld	b, (hl)
+   0A97 0B            [ 6] 2090 	dec	bc
+   0A98 6B            [ 4] 2091 	ld	l, e
+   0A99 62            [ 4] 2092 	ld	h, d
+   0A9A 71            [ 7] 2093 	ld	(hl), c
+   0A9B 23            [ 6] 2094 	inc	hl
+   0A9C 70            [ 7] 2095 	ld	(hl), b
+                           2096 ;src/entities/enemies.c:66: if(array_structs_enemigos[i].x<0) array_structs_enemigos[i].x=255;
+   0A9D CB 78         [ 8] 2097 	bit	7, b
+   0A9F 28 07         [12] 2098 	jr	Z,00102$
+   0AA1 6B            [ 4] 2099 	ld	l, e
+   0AA2 62            [ 4] 2100 	ld	h, d
+   0AA3 36 FF         [10] 2101 	ld	(hl), #0xff
+   0AA5 23            [ 6] 2102 	inc	hl
+   0AA6 36 00         [10] 2103 	ld	(hl), #0x00
+   0AA8                    2104 00102$:
+                           2105 ;src/entities/enemies.c:65: array_structs_enemigos[i].x-=1;
+   0AA8 6B            [ 4] 2106 	ld	l, e
+   0AA9 62            [ 4] 2107 	ld	h, d
+   0AAA 4E            [ 7] 2108 	ld	c, (hl)
+   0AAB 23            [ 6] 2109 	inc	hl
+   0AAC 46            [ 7] 2110 	ld	b, (hl)
+                           2111 ;src/entities/enemies.c:67: if(array_structs_enemigos[i].x % 2){
+   0AAD C5            [11] 2112 	push	bc
+   0AAE D5            [11] 2113 	push	de
+   0AAF 21 02 00      [10] 2114 	ld	hl, #0x0002
+   0AB2 E5            [11] 2115 	push	hl
+   0AB3 C5            [11] 2116 	push	bc
+                           2117 ;src/entities/enemies.c:68: PutSprite(array_structs_enemigos[i].plano,array_structs_enemigos[i].sprite,array_structs_enemigos[i].x,array_structs_enemigos[i].y,array_structs_enemigos[i].color);
+   0AB4 CDr00r00      [17] 2118 	call	__modsint
+   0AB7 F1            [10] 2119 	pop	af
+   0AB8 F1            [10] 2120 	pop	af
+   0AB9 DD 75 F5      [19] 2121 	ld	-11 (ix), l
+   0ABC DD 74 F6      [19] 2122 	ld	-10 (ix), h
+   0ABF D1            [10] 2123 	pop	de
+   0AC0 C1            [10] 2124 	pop	bc
+   0AC1 6B            [ 4] 2125 	ld	l, e
+   0AC2 62            [ 4] 2126 	ld	h, d
+   0AC3 DD 73 F7      [19] 2127 	ld	-9 (ix), e
+   0AC6 DD 72 F8      [19] 2128 	ld	-8 (ix), d
+   0AC9 DD 73 F9      [19] 2129 	ld	-7 (ix), e
+   0ACC DD 72 FA      [19] 2130 	ld	-6 (ix), d
+   0ACF DD 73 FB      [19] 2131 	ld	-5 (ix), e
+   0AD2 DD 72 FC      [19] 2132 	ld	-4 (ix), d
+   0AD5 11 08 00      [10] 2133 	ld	de, #0x0008
+   0AD8 19            [11] 2134 	add	hl, de
+   0AD9 5E            [ 7] 2135 	ld	e, (hl)
+   0ADA DD 6E F7      [19] 2136 	ld	l, -9 (ix)
+   0ADD DD 66 F8      [19] 2137 	ld	h, -8 (ix)
+   0AE0 23            [ 6] 2138 	inc	hl
+   0AE1 23            [ 6] 2139 	inc	hl
+   0AE2 7E            [ 7] 2140 	ld	a, (hl)
+   0AE3 DD 77 FD      [19] 2141 	ld	-3 (ix), a
+   0AE6 DD 6E F9      [19] 2142 	ld	l, -7 (ix)
+   0AE9 DD 66 FA      [19] 2143 	ld	h, -6 (ix)
+   0AEC C5            [11] 2144 	push	bc
+   0AED 01 07 00      [10] 2145 	ld	bc, #0x0007
+   0AF0 09            [11] 2146 	add	hl, bc
+   0AF1 C1            [10] 2147 	pop	bc
+   0AF2 46            [ 7] 2148 	ld	b, (hl)
+   0AF3 DD 6E FB      [19] 2149 	ld	l, -5 (ix)
+   0AF6 DD 66 FC      [19] 2150 	ld	h, -4 (ix)
+   0AF9 C5            [11] 2151 	push	bc
+   0AFA 01 06 00      [10] 2152 	ld	bc, #0x0006
+   0AFD 09            [11] 2153 	add	hl, bc
+   0AFE C1            [10] 2154 	pop	bc
+   0AFF 56            [ 7] 2155 	ld	d, (hl)
+                           2156 ;src/entities/enemies.c:67: if(array_structs_enemigos[i].x % 2){
+   0B00 DD 7E F6      [19] 2157 	ld	a, -10 (ix)
+   0B03 DD B6 F5      [19] 2158 	or	a, -11 (ix)
+   0B06 28 15         [12] 2159 	jr	Z,00104$
+                           2160 ;src/entities/enemies.c:68: PutSprite(array_structs_enemigos[i].plano,array_structs_enemigos[i].sprite,array_structs_enemigos[i].x,array_structs_enemigos[i].y,array_structs_enemigos[i].color);
+   0B08 7B            [ 4] 2161 	ld	a, e
+   0B09 F5            [11] 2162 	push	af
+   0B0A 33            [ 6] 2163 	inc	sp
+   0B0B DD 7E FD      [19] 2164 	ld	a, -3 (ix)
+   0B0E F5            [11] 2165 	push	af
+   0B0F 33            [ 6] 2166 	inc	sp
+   0B10 79            [ 4] 2167 	ld	a, c
+   0B11 F5            [11] 2168 	push	af
+   0B12 33            [ 6] 2169 	inc	sp
+   0B13 4A            [ 4] 2170 	ld	c, d
+   0B14 C5            [11] 2171 	push	bc
+   0B15 CDr00r00      [17] 2172 	call	_PutSprite
+   0B18 F1            [10] 2173 	pop	af
+   0B19 F1            [10] 2174 	pop	af
+   0B1A 33            [ 6] 2175 	inc	sp
+   0B1B 18 17         [12] 2176 	jr	00109$
+   0B1D                    2177 00104$:
+                           2178 ;src/entities/enemies.c:70: PutSprite(array_structs_enemigos[i].plano,array_structs_enemigos[i].sprite+4,array_structs_enemigos[i].x,array_structs_enemigos[i].y,array_structs_enemigos[i].color);
+   0B1D 78            [ 4] 2179 	ld	a, b
+   0B1E C6 04         [ 7] 2180 	add	a, #0x04
+   0B20 47            [ 4] 2181 	ld	b, a
+   0B21 7B            [ 4] 2182 	ld	a, e
+   0B22 F5            [11] 2183 	push	af
+   0B23 33            [ 6] 2184 	inc	sp
+   0B24 DD 7E FD      [19] 2185 	ld	a, -3 (ix)
+   0B27 F5            [11] 2186 	push	af
+   0B28 33            [ 6] 2187 	inc	sp
+   0B29 79            [ 4] 2188 	ld	a, c
+   0B2A F5            [11] 2189 	push	af
+   0B2B 33            [ 6] 2190 	inc	sp
+   0B2C 4A            [ 4] 2191 	ld	c, d
+   0B2D C5            [11] 2192 	push	bc
+   0B2E CDr00r00      [17] 2193 	call	_PutSprite
+   0B31 F1            [10] 2194 	pop	af
+   0B32 F1            [10] 2195 	pop	af
+   0B33 33            [ 6] 2196 	inc	sp
+   0B34                    2197 00109$:
+                           2198 ;src/entities/enemies.c:64: for (int i=0; i<numero_de_enemigo;i++){
+   0B34 DD 34 FE      [23] 2199 	inc	-2 (ix)
+   0B37 C2r5Er0A      [10] 2200 	jp	NZ,00108$
+   0B3A DD 34 FF      [23] 2201 	inc	-1 (ix)
+   0B3D C3r5Er0A      [10] 2202 	jp	00108$
+   0B40                    2203 00110$:
+                           2204 ;src/entities/enemies.c:74: }
+   0B40 DD F9         [10] 2205 	ld	sp, ix
+   0B42 DD E1         [14] 2206 	pop	ix
+   0B44 C9            [10] 2207 	ret
+                           2208 ;src/entities/enemies.c:75: void eliminar_enemigos(int i){
+                           2209 ;	---------------------------------
+                           2210 ; Function eliminar_enemigos
+                           2211 ; ---------------------------------
+   0B45                    2212 _eliminar_enemigos::
+   0B45 CDr00r00      [17] 2213 	call	___sdcc_enter_ix
+                           2214 ;src/entities/enemies.c:76: --numero_de_enemigo;
+   0B48 21rF3r97      [10] 2215 	ld	hl, #_numero_de_enemigo+0
+   0B4B 35            [11] 2216 	dec	(hl)
+                           2217 ;src/entities/enemies.c:77: array_structs_enemigos[i]=array_structs_enemigos[numero_de_enemigo];
+   0B4C DD 4E 04      [19] 2218 	ld	c, 4 (ix)
+   0B4F DD 46 05      [19] 2219 	ld	b, 5 (ix)
+   0B52 69            [ 4] 2220 	ld	l, c
+   0B53 60            [ 4] 2221 	ld	h, b
+   0B54 29            [11] 2222 	add	hl, hl
+   0B55 29            [11] 2223 	add	hl, hl
+   0B56 09            [11] 2224 	add	hl, bc
+   0B57 29            [11] 2225 	add	hl, hl
+   0B58 7D            [ 4] 2226 	ld	a, l
+   0B59 C6r8F         [ 7] 2227 	add	a, #<(_array_structs_enemigos)
+   0B5B 4F            [ 4] 2228 	ld	c, a
+   0B5C 7C            [ 4] 2229 	ld	a, h
+   0B5D CEs97         [ 7] 2230 	adc	a, #>(_array_structs_enemigos)
+   0B5F 47            [ 4] 2231 	ld	b, a
+   0B60 59            [ 4] 2232 	ld	e, c
+   0B61 50            [ 4] 2233 	ld	d, b
+   0B62 D5            [11] 2234 	push	de
+   0B63 ED 5BrF3r97   [20] 2235 	ld	de, (_numero_de_enemigo)
+   0B67 16 00         [ 7] 2236 	ld	d, #0x00
+   0B69 6B            [ 4] 2237 	ld	l, e
+   0B6A 62            [ 4] 2238 	ld	h, d
+   0B6B 29            [11] 2239 	add	hl, hl
+   0B6C 29            [11] 2240 	add	hl, hl
+   0B6D 19            [11] 2241 	add	hl, de
+   0B6E 29            [11] 2242 	add	hl, hl
+   0B6F 11r8Fr97      [10] 2243 	ld	de, #_array_structs_enemigos
+   0B72 19            [11] 2244 	add	hl, de
+   0B73 D1            [10] 2245 	pop	de
+   0B74 C5            [11] 2246 	push	bc
+   0B75 01 0A 00      [10] 2247 	ld	bc, #0x000a
+   0B78 ED B0         [21] 2248 	ldir
+   0B7A C1            [10] 2249 	pop	bc
+                           2250 ;src/entities/enemies.c:78: PutSprite(array_structs_enemigos[i].plano,array_structs_enemigos[i].sprite,1,215,array_structs_enemigos[i].color);
+   0B7B 69            [ 4] 2251 	ld	l, c
+   0B7C 60            [ 4] 2252 	ld	h, b
+   0B7D 11 08 00      [10] 2253 	ld	de, #0x0008
+   0B80 19            [11] 2254 	add	hl, de
+   0B81 7E            [ 7] 2255 	ld	a, (hl)
+   0B82 59            [ 4] 2256 	ld	e, c
+   0B83 50            [ 4] 2257 	ld	d, b
+   0B84 EB            [ 4] 2258 	ex	de,hl
+   0B85 11 07 00      [10] 2259 	ld	de, #0x0007
+   0B88 19            [11] 2260 	add	hl, de
+   0B89 5E            [ 7] 2261 	ld	e, (hl)
+   0B8A 69            [ 4] 2262 	ld	l, c
+   0B8B 60            [ 4] 2263 	ld	h, b
+   0B8C 01 06 00      [10] 2264 	ld	bc, #0x0006
+   0B8F 09            [11] 2265 	add	hl, bc
+   0B90 46            [ 7] 2266 	ld	b, (hl)
+   0B91 F5            [11] 2267 	push	af
+   0B92 33            [ 6] 2268 	inc	sp
+   0B93 3E D7         [ 7] 2269 	ld	a, #0xd7
+   0B95 F5            [11] 2270 	push	af
+   0B96 33            [ 6] 2271 	inc	sp
+   0B97 16 01         [ 7] 2272 	ld	d,#0x01
+   0B99 D5            [11] 2273 	push	de
+   0B9A C5            [11] 2274 	push	bc
+   0B9B 33            [ 6] 2275 	inc	sp
+   0B9C CDr00r00      [17] 2276 	call	_PutSprite
+   0B9F F1            [10] 2277 	pop	af
+   0BA0 F1            [10] 2278 	pop	af
+   0BA1 33            [ 6] 2279 	inc	sp
+                           2280 ;src/entities/enemies.c:79: }
+   0BA2 DD E1         [14] 2281 	pop	ix
+   0BA4 C9            [10] 2282 	ret
+                           2283 ;src/entities/enemies.c:81: char collision_enemigos(char fireX, char fireiY){
+                           2284 ;	---------------------------------
+                           2285 ; Function collision_enemigos
+                           2286 ; ---------------------------------
+   0BA5                    2287 _collision_enemigos::
+   0BA5 CDr00r00      [17] 2288 	call	___sdcc_enter_ix
+   0BA8 F5            [11] 2289 	push	af
+   0BA9 F5            [11] 2290 	push	af
+                           2291 ;src/entities/enemies.c:82: for (int i=0; i<numero_de_enemigo;i++){
+   0BAA 01 00 00      [10] 2292 	ld	bc, #0x0000
+   0BAD                    2293 00109$:
+   0BAD 21rF3r97      [10] 2294 	ld	hl,#_numero_de_enemigo + 0
+   0BB0 5E            [ 7] 2295 	ld	e, (hl)
+   0BB1 16 00         [ 7] 2296 	ld	d, #0x00
+   0BB3 79            [ 4] 2297 	ld	a, c
+   0BB4 93            [ 4] 2298 	sub	a, e
+   0BB5 78            [ 4] 2299 	ld	a, b
+   0BB6 9A            [ 4] 2300 	sbc	a, d
+   0BB7 E2rBCr0B      [10] 2301 	jp	PO, 00144$
+   0BBA EE 80         [ 7] 2302 	xor	a, #0x80
+   0BBC                    2303 00144$:
+   0BBC F2rB3r0C      [10] 2304 	jp	P, 00107$
+                           2305 ;src/entities/enemies.c:83: if (fireX < array_structs_enemigos[i].x + 16 &&  fireX + 16 > array_structs_enemigos[i].x && fireiY < array_structs_enemigos[i].y + 16 && 16 + fireiY > array_structs_enemigos[i].y){
+   0BBF 69            [ 4] 2306 	ld	l, c
+   0BC0 60            [ 4] 2307 	ld	h, b
+   0BC1 29            [11] 2308 	add	hl, hl
+   0BC2 29            [11] 2309 	add	hl, hl
+   0BC3 09            [11] 2310 	add	hl, bc
+   0BC4 29            [11] 2311 	add	hl, hl
+   0BC5 11r8Fr97      [10] 2312 	ld	de, #_array_structs_enemigos
+   0BC8 19            [11] 2313 	add	hl, de
+   0BC9 7E            [ 7] 2314 	ld	a, (hl)
+   0BCA DD 77 FC      [19] 2315 	ld	-4 (ix), a
+   0BCD 23            [ 6] 2316 	inc	hl
+   0BCE 7E            [ 7] 2317 	ld	a, (hl)
+   0BCF DD 77 FD      [19] 2318 	ld	-3 (ix), a
+   0BD2 2B            [ 6] 2319 	dec	hl
+   0BD3 DD 7E FC      [19] 2320 	ld	a, -4 (ix)
+   0BD6 C6 10         [ 7] 2321 	add	a, #0x10
+   0BD8 5F            [ 4] 2322 	ld	e, a
+   0BD9 DD 7E FD      [19] 2323 	ld	a, -3 (ix)
+   0BDC CE 00         [ 7] 2324 	adc	a, #0x00
+   0BDE 57            [ 4] 2325 	ld	d, a
+   0BDF DD 7E 04      [19] 2326 	ld	a, 4 (ix)
+   0BE2 DD 77 FE      [19] 2327 	ld	-2 (ix), a
+   0BE5 AF            [ 4] 2328 	xor	a, a
+   0BE6 DD 77 FF      [19] 2329 	ld	-1 (ix), a
+   0BE9 DD 7E FE      [19] 2330 	ld	a, -2 (ix)
+   0BEC 93            [ 4] 2331 	sub	a, e
+   0BED DD 7E FF      [19] 2332 	ld	a, -1 (ix)
+   0BF0 9A            [ 4] 2333 	sbc	a, d
+   0BF1 E2rF6r0B      [10] 2334 	jp	PO, 00145$
+   0BF4 EE 80         [ 7] 2335 	xor	a, #0x80
+   0BF6                    2336 00145$:
+   0BF6 F2rAAr0C      [10] 2337 	jp	P, 00102$
+   0BF9 DD 7E FE      [19] 2338 	ld	a, -2 (ix)
+   0BFC C6 10         [ 7] 2339 	add	a, #0x10
+   0BFE 5F            [ 4] 2340 	ld	e, a
+   0BFF DD 7E FF      [19] 2341 	ld	a, -1 (ix)
+   0C02 CE 00         [ 7] 2342 	adc	a, #0x00
+   0C04 57            [ 4] 2343 	ld	d, a
+   0C05 DD 7E FC      [19] 2344 	ld	a, -4 (ix)
+   0C08 93            [ 4] 2345 	sub	a, e
+   0C09 DD 7E FD      [19] 2346 	ld	a, -3 (ix)
+   0C0C 9A            [ 4] 2347 	sbc	a, d
+   0C0D E2r12r0C      [10] 2348 	jp	PO, 00146$
+   0C10 EE 80         [ 7] 2349 	xor	a, #0x80
+   0C12                    2350 00146$:
+   0C12 F2rAAr0C      [10] 2351 	jp	P, 00102$
+   0C15 23            [ 6] 2352 	inc	hl
+   0C16 23            [ 6] 2353 	inc	hl
+   0C17 5E            [ 7] 2354 	ld	e, (hl)
+   0C18 23            [ 6] 2355 	inc	hl
+   0C19 56            [ 7] 2356 	ld	d, (hl)
+   0C1A 21 10 00      [10] 2357 	ld	hl, #0x0010
+   0C1D 19            [11] 2358 	add	hl, de
+   0C1E DD 75 FE      [19] 2359 	ld	-2 (ix), l
+   0C21 DD 74 FF      [19] 2360 	ld	-1 (ix), h
+   0C24 DD 6E 05      [19] 2361 	ld	l, 5 (ix)
+   0C27 26 00         [ 7] 2362 	ld	h, #0x00
+   0C29 7D            [ 4] 2363 	ld	a, l
+   0C2A DD 96 FE      [19] 2364 	sub	a, -2 (ix)
+   0C2D 7C            [ 4] 2365 	ld	a, h
+   0C2E DD 9E FF      [19] 2366 	sbc	a, -1 (ix)
+   0C31 E2r36r0C      [10] 2367 	jp	PO, 00147$
+   0C34 EE 80         [ 7] 2368 	xor	a, #0x80
+   0C36                    2369 00147$:
+   0C36 F2rAAr0C      [10] 2370 	jp	P, 00102$
+   0C39 D5            [11] 2371 	push	de
+   0C3A 11 10 00      [10] 2372 	ld	de, #0x0010
+   0C3D 19            [11] 2373 	add	hl, de
+   0C3E D1            [10] 2374 	pop	de
+   0C3F 7B            [ 4] 2375 	ld	a, e
+   0C40 95            [ 4] 2376 	sub	a, l
+   0C41 7A            [ 4] 2377 	ld	a, d
+   0C42 9C            [ 4] 2378 	sbc	a, h
+   0C43 E2r48r0C      [10] 2379 	jp	PO, 00148$
+   0C46 EE 80         [ 7] 2380 	xor	a, #0x80
+   0C48                    2381 00148$:
+   0C48 F2rAAr0C      [10] 2382 	jp	P, 00102$
+                           2383 ;src/entities/enemies.c:84: colisionFire=1;
+   0C4B 21rF4r97      [10] 2384 	ld	hl,#_colisionFire + 0
+   0C4E 36 01         [10] 2385 	ld	(hl), #0x01
+                           2386 ;src/entities/enemies.c:85: eliminar_enemigos(i);
+   0C50 C5            [11] 2387 	push	bc
+   0C51 C5            [11] 2388 	push	bc
+   0C52 CDr45r0B      [17] 2389 	call	_eliminar_enemigos
+   0C55 F1            [10] 2390 	pop	af
+   0C56 CDr38r0A      [17] 2391 	call	_crear_enemigos
+   0C59 C1            [10] 2392 	pop	bc
+                           2393 ;src/entities/enemies.c:87: enemy1->x=255;
+   0C5A 5D            [ 4] 2394 	ld	e,l
+   0C5B 54            [ 4] 2395 	ld	d,h
+   0C5C 36 FF         [10] 2396 	ld	(hl), #0xff
+   0C5E 23            [ 6] 2397 	inc	hl
+   0C5F 36 00         [10] 2398 	ld	(hl), #0x00
+                           2399 ;src/entities/enemies.c:88: enemy1->y=generar_numero_aleatorio (120,150);
+   0C61 6B            [ 4] 2400 	ld	l, e
+   0C62 62            [ 4] 2401 	ld	h, d
+   0C63 23            [ 6] 2402 	inc	hl
+   0C64 23            [ 6] 2403 	inc	hl
+   0C65 E5            [11] 2404 	push	hl
+   0C66 C5            [11] 2405 	push	bc
+   0C67 D5            [11] 2406 	push	de
+   0C68 11 78 96      [10] 2407 	ld	de, #0x9678
+   0C6B D5            [11] 2408 	push	de
+   0C6C CDrBFr0C      [17] 2409 	call	_generar_numero_aleatorio
+   0C6F F1            [10] 2410 	pop	af
+   0C70 7D            [ 4] 2411 	ld	a, l
+   0C71 D1            [10] 2412 	pop	de
+   0C72 C1            [10] 2413 	pop	bc
+   0C73 E1            [10] 2414 	pop	hl
+   0C74 DD 77 FE      [19] 2415 	ld	-2 (ix), a
+   0C77 AF            [ 4] 2416 	xor	a, a
+   0C78 DD 77 FF      [19] 2417 	ld	-1 (ix), a
+   0C7B DD 7E FE      [19] 2418 	ld	a, -2 (ix)
+   0C7E 77            [ 7] 2419 	ld	(hl), a
+   0C7F 23            [ 6] 2420 	inc	hl
+   0C80 DD 7E FF      [19] 2421 	ld	a, -1 (ix)
+   0C83 77            [ 7] 2422 	ld	(hl), a
+                           2423 ;src/entities/enemies.c:89: enemy1->velocidad=4;
+   0C84 21 04 00      [10] 2424 	ld	hl, #0x0004
+   0C87 19            [11] 2425 	add	hl, de
+   0C88 36 04         [10] 2426 	ld	(hl), #0x04
+                           2427 ;src/entities/enemies.c:90: enemy1->direccion=7;
+   0C8A 21 05 00      [10] 2428 	ld	hl, #0x0005
+   0C8D 19            [11] 2429 	add	hl, de
+   0C8E 36 07         [10] 2430 	ld	(hl), #0x07
+                           2431 ;src/entities/enemies.c:91: enemy1->plano=20;
+   0C90 21 06 00      [10] 2432 	ld	hl, #0x0006
+   0C93 19            [11] 2433 	add	hl, de
+   0C94 36 14         [10] 2434 	ld	(hl), #0x14
+                           2435 ;src/entities/enemies.c:92: enemy1->sprite=11*4;
+   0C96 21 07 00      [10] 2436 	ld	hl, #0x0007
+   0C99 19            [11] 2437 	add	hl, de
+   0C9A 36 2C         [10] 2438 	ld	(hl), #0x2c
+                           2439 ;src/entities/enemies.c:93: enemy1->color=6;
+   0C9C 21 08 00      [10] 2440 	ld	hl, #0x0008
+   0C9F 19            [11] 2441 	add	hl, de
+   0CA0 36 06         [10] 2442 	ld	(hl), #0x06
+                           2443 ;src/entities/enemies.c:94: enemy1->tipo=0;
+   0CA2 21 09 00      [10] 2444 	ld	hl, #0x0009
+   0CA5 19            [11] 2445 	add	hl, de
+   0CA6 36 00         [10] 2446 	ld	(hl), #0x00
+   0CA8 18 05         [12] 2447 	jr	00110$
+   0CAA                    2448 00102$:
+                           2449 ;src/entities/enemies.c:96: colisionFire=0;
+   0CAA 21rF4r97      [10] 2450 	ld	hl,#_colisionFire + 0
+   0CAD 36 00         [10] 2451 	ld	(hl), #0x00
+   0CAF                    2452 00110$:
+                           2453 ;src/entities/enemies.c:82: for (int i=0; i<numero_de_enemigo;i++){
+   0CAF 03            [ 6] 2454 	inc	bc
+   0CB0 C3rADr0B      [10] 2455 	jp	00109$
+   0CB3                    2456 00107$:
+                           2457 ;src/entities/enemies.c:99: return colisionFire;
+   0CB3 FD 21rF4r97   [14] 2458 	ld	iy, #_colisionFire
+   0CB7 FD 6E 00      [19] 2459 	ld	l, 0 (iy)
+                           2460 ;src/entities/enemies.c:100: }
+   0CBA DD F9         [10] 2461 	ld	sp, ix
+   0CBC DD E1         [14] 2462 	pop	ix
+   0CBE C9            [10] 2463 	ret
+                           2464 ;src/entities/enemies.c:103: char generar_numero_aleatorio (char a, char b){
+                           2465 ;	---------------------------------
+                           2466 ; Function generar_numero_aleatorio
+                           2467 ; ---------------------------------
+   0CBF                    2468 _generar_numero_aleatorio::
+   0CBF CDr00r00      [17] 2469 	call	___sdcc_enter_ix
+                           2470 ;src/entities/enemies.c:112: random = rand()%(b-a)+a;  
+   0CC2 CDr00r00      [17] 2471 	call	_rand
+   0CC5 DD 4E 05      [19] 2472 	ld	c, 5 (ix)
+   0CC8 06 00         [ 7] 2473 	ld	b, #0x00
+   0CCA DD 5E 04      [19] 2474 	ld	e, 4 (ix)
+   0CCD 16 00         [ 7] 2475 	ld	d, #0x00
+   0CCF 79            [ 4] 2476 	ld	a, c
+   0CD0 93            [ 4] 2477 	sub	a, e
+   0CD1 4F            [ 4] 2478 	ld	c, a
+   0CD2 78            [ 4] 2479 	ld	a, b
+   0CD3 9A            [ 4] 2480 	sbc	a, d
+   0CD4 47            [ 4] 2481 	ld	b, a
+   0CD5 C5            [11] 2482 	push	bc
+   0CD6 E5            [11] 2483 	push	hl
+   0CD7 CDr00r00      [17] 2484 	call	__modsint
+   0CDA F1            [10] 2485 	pop	af
+   0CDB F1            [10] 2486 	pop	af
+   0CDC DD 4E 04      [19] 2487 	ld	c, 4 (ix)
+   0CDF 09            [11] 2488 	add	hl, bc
+                           2489 ;src/entities/enemies.c:113: return(random);
+                           2490 ;src/entities/enemies.c:114: }
+   0CE0 DD E1         [14] 2491 	pop	ix
+   0CE2 C9            [10] 2492 	ret
+                           2493 ;main.c:40: void main(void){
+                           2494 ;	---------------------------------
+                           2495 ; Function main
+                           2496 ; ---------------------------------
+   0CE3                    2497 _main::
+                           2498 ;main.c:41: contador_tiles=0;
+   0CE3 21 00 00      [10] 2499 	ld	hl, #0x0000
+   0CE6 22r36r97      [16] 2500 	ld	(_contador_tiles), hl
+                           2501 ;main.c:42: espacioLibre=0;
+   0CE9 2E 00         [ 7] 2502 	ld	l, #0x00
+   0CEB 22rF7r97      [16] 2503 	ld	(_espacioLibre), hl
+                           2504 ;main.c:43: SetColors(15,1,1);
+   0CEE 11 01 01      [10] 2505 	ld	de, #0x0101
+   0CF1 D5            [11] 2506 	push	de
+   0CF2 3E 0F         [ 7] 2507 	ld	a, #0x0f
+   0CF4 F5            [11] 2508 	push	af
+   0CF5 33            [ 6] 2509 	inc	sp
+   0CF6 CDr00r00      [17] 2510 	call	_SetColors
+   0CF9 F1            [10] 2511 	pop	af
+   0CFA 33            [ 6] 2512 	inc	sp
+                           2513 ;main.c:44: Screen(5);
+   0CFB 3E 05         [ 7] 2514 	ld	a, #0x05
+   0CFD F5            [11] 2515 	push	af
+   0CFE 33            [ 6] 2516 	inc	sp
+   0CFF CDr00r00      [17] 2517 	call	_Screen
+   0D02 33            [ 6] 2518 	inc	sp
+                           2519 ;main.c:46: inicializar_sprites();
+   0D03 CDr92r0D      [17] 2520 	call	_inicializar_sprites
+                           2521 ;main.c:47: SpriteOn();
+   0D06 CDr00r00      [17] 2522 	call	_SpriteOn
+                           2523 ;main.c:48: inicializar_player(); 
+   0D09 CDr7Fr04      [17] 2524 	call	_inicializar_player
+                           2525 ;main.c:50: cargarTileSetEnRAM();
+   0D0C CDr00r00      [17] 2526 	call	_cargarTileSetEnRAM
+                           2527 ;main.c:51: deRamAVramPage1();
+   0D0F CDr9Cr00      [17] 2528 	call	_deRamAVramPage1
+                           2529 ;main.c:53: cargarTileMapEnRAM();
+   0D12 CDr5Er00      [17] 2530 	call	_cargarTileMapEnRAM
+                           2531 ;main.c:54: cargarArrayFilasTileMap();
+   0D15 CDr89r01      [17] 2532 	call	_cargarArrayFilasTileMap
+                           2533 ;main.c:55: pintarPantallaInicio();
+   0D18 CDrCFr02      [17] 2534 	call	_pintarPantallaInicio
+                           2535 ;main.c:57: inicializar_disparos();
+   0D1B CDr60r08      [17] 2536 	call	_inicializar_disparos
+                           2537 ;main.c:58: inicilizar_enemigos();
+   0D1E CDr0Cr0A      [17] 2538 	call	_inicilizar_enemigos
+                           2539 ;main.c:59: fabricaDeEnemigos();
+   0D21 CDr16r0F      [17] 2540 	call	_fabricaDeEnemigos
+                           2541 ;main.c:61: gui();
+   0D24 CDr4Er0F      [17] 2542 	call	_gui
+                           2543 ;main.c:71: repetir:
+   0D27                    2544 00101$:
+                           2545 ;main.c:72: contador=32;
+   0D27 21 20 00      [10] 2546 	ld	hl, #0x0020
+   0D2A 22r38r97      [16] 2547 	ld	(_contador), hl
+                           2548 ;main.c:73: while(contador<numeroColumnas && Inkey()!=27){
+   0D2D                    2549 00103$:
+   0D2D FD 21r38r97   [14] 2550 	ld	iy, #_contador
+   0D31 FD 7E 00      [19] 2551 	ld	a, 0 (iy)
+   0D34 D6 FA         [ 7] 2552 	sub	a, #0xfa
+   0D36 FD 7E 01      [19] 2553 	ld	a, 1 (iy)
+   0D39 DE 00         [ 7] 2554 	sbc	a, #0x00
+   0D3B 30 1E         [12] 2555 	jr	NC,00105$
+   0D3D CDr00r00      [17] 2556 	call	_Inkey
+   0D40 7D            [ 4] 2557 	ld	a, l
+   0D41 D6 1B         [ 7] 2558 	sub	a, #0x1b
+   0D43 28 16         [12] 2559 	jr	Z,00105$
+                           2560 ;main.c:79: __endasm;
+   0D45 76            [ 4] 2561 	halt
+   0D46 76            [ 4] 2562 	halt
+                           2563 ;main.c:82: procesar_entrada();
+   0D47 CDr9Br0D      [17] 2564 	call	_procesar_entrada
+                           2565 ;main.c:83: update_player();
+   0D4A CDr41r07      [17] 2566 	call	_update_player
+                           2567 ;main.c:84: render_player();
+   0D4D CDr7Cr05      [17] 2568 	call	_render_player
+                           2569 ;main.c:85: actualizar_disparos();
+   0D50 CDr8Dr08      [17] 2570 	call	_actualizar_disparos
+                           2571 ;main.c:86: actualizar_enemigos();
+   0D53 CDr4Fr0A      [17] 2572 	call	_actualizar_enemigos
+                           2573 ;main.c:87: update_collision_system();
+   0D56 CDr84r0E      [17] 2574 	call	_update_collision_system
+   0D59 18 D2         [12] 2575 	jr	00103$
+   0D5B                    2576 00105$:
+                           2577 ;main.c:90: PutText(100,100,"Mision cumplida, desea repetir",8);
+   0D5B 3E 08         [ 7] 2578 	ld	a, #0x08
+   0D5D F5            [11] 2579 	push	af
+   0D5E 33            [ 6] 2580 	inc	sp
+   0D5F 21r73r0D      [10] 2581 	ld	hl, #___str_2
+   0D62 E5            [11] 2582 	push	hl
+   0D63 21 64 00      [10] 2583 	ld	hl, #0x0064
+   0D66 E5            [11] 2584 	push	hl
+   0D67 2E 64         [ 7] 2585 	ld	l, #0x64
+   0D69 E5            [11] 2586 	push	hl
+   0D6A CDr00r00      [17] 2587 	call	_PutText
+   0D6D F1            [10] 2588 	pop	af
+   0D6E F1            [10] 2589 	pop	af
+   0D6F F1            [10] 2590 	pop	af
+   0D70 33            [ 6] 2591 	inc	sp
+                           2592 ;main.c:91: goto repetir;
+                           2593 ;main.c:92: }
+   0D71 18 B4         [12] 2594 	jr	00101$
+   0D73                    2595 ___str_2:
+   0D73 4D 69 73 69 6F 6E  2596 	.ascii "Mision cumplida, desea repetir"
+        20 63 75 6D 70 6C
+        69 64 61 2C 20 64
+        65 73 65 61 20 72
+        65 70 65 74 69 72
+   0D91 00                 2597 	.db 0x00
+                           2598 ;main.c:94: void inicializar_sprites(){
+                           2599 ;	---------------------------------
+                           2600 ; Function inicializar_sprites
+                           2601 ; ---------------------------------
+   0D92                    2602 _inicializar_sprites::
+                           2603 ;main.c:96: SpriteReset(); 
+   0D92 CDr00r00      [17] 2604 	call	_SpriteReset
+                           2605 ;main.c:98: Sprite16(); 
+   0D95 CDr00r00      [17] 2606 	call	_Sprite16
+                           2607 ;main.c:100: SpriteSmall(); 
+                           2608 ;main.c:102: }
+   0D98 C3r00r00      [10] 2609 	jp	_SpriteSmall
+                           2610 ;main.c:112: void procesar_entrada(){
+                           2611 ;	---------------------------------
+                           2612 ; Function procesar_entrada
+                           2613 ; ---------------------------------
+   0D9B                    2614 _procesar_entrada::
+   0D9B CDr00r00      [17] 2615 	call	___sdcc_enter_ix
+   0D9E F5            [11] 2616 	push	af
+                           2617 ;main.c:116: char joy = JoystickRead(0);
+   0D9F AF            [ 4] 2618 	xor	a, a
+   0DA0 F5            [11] 2619 	push	af
+   0DA1 33            [ 6] 2620 	inc	sp
+   0DA2 CDr00r00      [17] 2621 	call	_JoystickRead
+   0DA5 33            [ 6] 2622 	inc	sp
+   0DA6 4D            [ 4] 2623 	ld	c, l
+                           2624 ;main.c:117: switch (joy)
+   0DA7 79            [ 4] 2625 	ld	a, c
+   0DA8 3D            [ 4] 2626 	dec	a
+   0DA9 28 0F         [12] 2627 	jr	Z,00101$
+   0DAB 79            [ 4] 2628 	ld	a,c
+   0DAC FE 03         [ 7] 2629 	cp	a,#0x03
+   0DAE 28 18         [12] 2630 	jr	Z,00102$
+   0DB0 FE 05         [ 7] 2631 	cp	a,#0x05
+   0DB2 28 48         [12] 2632 	jr	Z,00108$
+   0DB4 D6 07         [ 7] 2633 	sub	a, #0x07
+   0DB6 28 50         [12] 2634 	jr	Z,00109$
+   0DB8 18 6C         [12] 2635 	jr	00114$
+                           2636 ;main.c:119: case 1:
+   0DBA                    2637 00101$:
+                           2638 ;main.c:120: player.y-=player.velocidadY;
+   0DBA 01rF8r01      [10] 2639 	ld	bc, #_player + 1
+   0DBD 0A            [ 7] 2640 	ld	a, (bc)
+   0DBE 5F            [ 4] 2641 	ld	e, a
+   0DBF 21r03r02      [10] 2642 	ld	hl, #_player + 12
+   0DC2 6E            [ 7] 2643 	ld	l, (hl)
+   0DC3 7B            [ 4] 2644 	ld	a, e
+   0DC4 95            [ 4] 2645 	sub	a, l
+   0DC5 02            [ 7] 2646 	ld	(bc), a
+                           2647 ;main.c:128: break;
+   0DC6 18 5E         [12] 2648 	jr	00114$
+                           2649 ;main.c:129: case 3:
+   0DC8                    2650 00102$:
+                           2651 ;main.c:130: if (player.colision==0) {
+   0DC8 3Ar00r02      [13] 2652 	ld	a, (#_player + 9)
+   0DCB B7            [ 4] 2653 	or	a, a
+   0DCC 20 58         [12] 2654 	jr	NZ,00114$
+                           2655 ;main.c:131: player.oldX=player.x;
+   0DCE 3ArF7r01      [13] 2656 	ld	a, (#_player + 0)
+   0DD1 32rF9r01      [13] 2657 	ld	(#(_player + 0x0002)),a
+                           2658 ;main.c:132: player.oldY=player.y;
+   0DD4 3ArF8r01      [13] 2659 	ld	a, (#_player + 1)
+   0DD7 32rFAr01      [13] 2660 	ld	(#(_player + 0x0003)),a
+                           2661 ;main.c:134: recorrerBufferTileMapYPintarPage1EnPage0();
+   0DDA CDr00r02      [17] 2662 	call	_recorrerBufferTileMapYPintarPage1EnPage0
+                           2663 ;main.c:135: player.x+=player.velocidadX;
+   0DDD 21rF7r01      [10] 2664 	ld	hl, #_player + 0
+   0DE0 4E            [ 7] 2665 	ld	c, (hl)
+   0DE1 3Ar02r02      [13] 2666 	ld	a, (#_player + 11)
+   0DE4 81            [ 4] 2667 	add	a, c
+   0DE5 32rF7r01      [13] 2668 	ld	(#_player),a
+                           2669 ;main.c:136: player.direccion=3;
+   0DE8 21rFDr01      [10] 2670 	ld	hl, #(_player + 0x0006)
+   0DEB 36 03         [10] 2671 	ld	(hl), #0x03
+                           2672 ;main.c:137: if (player.andando==0){
+   0DED 21rFEr01      [10] 2673 	ld	hl, #_player + 7
+   0DF0 7E            [ 7] 2674 	ld	a, (hl)
+   0DF1 B7            [ 4] 2675 	or	a, a
+   0DF2 20 04         [12] 2676 	jr	NZ,00104$
+                           2677 ;main.c:138: player.andando=1;
+   0DF4 36 01         [10] 2678 	ld	(hl), #0x01
+   0DF6 18 2E         [12] 2679 	jr	00114$
+   0DF8                    2680 00104$:
+                           2681 ;main.c:140: player.andando=0;
+   0DF8 36 00         [10] 2682 	ld	(hl), #0x00
+                           2683 ;main.c:143: break;
+   0DFA 18 2A         [12] 2684 	jr	00114$
+                           2685 ;main.c:144: case 5:
+   0DFC                    2686 00108$:
+                           2687 ;main.c:145: player.y+=player.velocidadY;
+   0DFC 01rF8r01      [10] 2688 	ld	bc, #_player + 1
+   0DFF 0A            [ 7] 2689 	ld	a, (bc)
+   0E00 5F            [ 4] 2690 	ld	e, a
+   0E01 3Ar03r02      [13] 2691 	ld	a, (#_player + 12)
+   0E04 83            [ 4] 2692 	add	a, e
+   0E05 02            [ 7] 2693 	ld	(bc), a
+                           2694 ;main.c:146: break;
+   0E06 18 1E         [12] 2695 	jr	00114$
+                           2696 ;main.c:147: case 7:
+   0E08                    2697 00109$:
+                           2698 ;main.c:148: player.x-=player.velocidadX;
+   0E08 01rF7r01      [10] 2699 	ld	bc, #_player+0
+   0E0B 0A            [ 7] 2700 	ld	a, (bc)
+   0E0C 5F            [ 4] 2701 	ld	e, a
+   0E0D 21r02r02      [10] 2702 	ld	hl, #_player + 11
+   0E10 6E            [ 7] 2703 	ld	l, (hl)
+   0E11 7B            [ 4] 2704 	ld	a, e
+   0E12 95            [ 4] 2705 	sub	a, l
+   0E13 02            [ 7] 2706 	ld	(bc), a
+                           2707 ;main.c:149: player.direccion=7;
+   0E14 21rFDr01      [10] 2708 	ld	hl, #(_player + 0x0006)
+   0E17 36 07         [10] 2709 	ld	(hl), #0x07
+                           2710 ;main.c:150: if (player.andando==0){
+   0E19 21rFEr01      [10] 2711 	ld	hl, #_player + 7
+   0E1C 7E            [ 7] 2712 	ld	a, (hl)
+   0E1D B7            [ 4] 2713 	or	a, a
+   0E1E 20 04         [12] 2714 	jr	NZ,00111$
+                           2715 ;main.c:151: player.andando=1;
+   0E20 36 01         [10] 2716 	ld	(hl), #0x01
+   0E22 18 02         [12] 2717 	jr	00114$
+   0E24                    2718 00111$:
+                           2719 ;main.c:153: player.andando=0;
+   0E24 36 00         [10] 2720 	ld	(hl), #0x00
+                           2721 ;main.c:159: }
+   0E26                    2722 00114$:
+                           2723 ;main.c:162: char trigger = TriggerRead(0);
+   0E26 AF            [ 4] 2724 	xor	a, a
+   0E27 F5            [11] 2725 	push	af
+   0E28 33            [ 6] 2726 	inc	sp
+   0E29 CDr00r00      [17] 2727 	call	_TriggerRead
+   0E2C 33            [ 6] 2728 	inc	sp
+   0E2D 7D            [ 4] 2729 	ld	a, l
+                           2730 ;main.c:163: if (trigger!=0) {
+   0E2E B7            [ 4] 2731 	or	a, a
+   0E2F 28 4F         [12] 2732 	jr	Z,00119$
+                           2733 ;main.c:164: Beep();
+   0E31 CDr00r00      [17] 2734 	call	_Beep
+                           2735 ;main.c:165: if (numero_disparo<10){
+   0E34 3Ar8Er97      [13] 2736 	ld	a,(#_numero_disparo + 0)
+   0E37 D6 0A         [ 7] 2737 	sub	a, #0x0a
+   0E39 30 45         [12] 2738 	jr	NC,00119$
+                           2739 ;main.c:166: TFire* fire=crear_disparos();
+   0E3B CDr77r08      [17] 2740 	call	_crear_disparos
+   0E3E 4D            [ 4] 2741 	ld	c, l
+   0E3F 44            [ 4] 2742 	ld	b, h
+                           2743 ;main.c:167: fire->x=player.x;
+   0E40 3ArF7r01      [13] 2744 	ld	a, (#_player + 0)
+   0E43 5F            [ 4] 2745 	ld	e, a
+   0E44 16 00         [ 7] 2746 	ld	d, #0x00
+   0E46 69            [ 4] 2747 	ld	l, c
+   0E47 60            [ 4] 2748 	ld	h, b
+   0E48 73            [ 7] 2749 	ld	(hl), e
+   0E49 23            [ 6] 2750 	inc	hl
+   0E4A 72            [ 7] 2751 	ld	(hl), d
+                           2752 ;main.c:168: fire->y=player.y+12;
+   0E4B 21 02 00      [10] 2753 	ld	hl, #0x0002
+   0E4E 09            [11] 2754 	add	hl, bc
+   0E4F E3            [19] 2755 	ex	(sp), hl
+   0E50 3ArF8r01      [13] 2756 	ld	a, (#_player + 1)
+   0E53 5F            [ 4] 2757 	ld	e, a
+   0E54 16 00         [ 7] 2758 	ld	d, #0x00
+   0E56 21 0C 00      [10] 2759 	ld	hl, #0x000c
+   0E59 19            [11] 2760 	add	hl, de
+   0E5A EB            [ 4] 2761 	ex	de, hl
+   0E5B E1            [10] 2762 	pop	hl
+   0E5C E5            [11] 2763 	push	hl
+   0E5D 73            [ 7] 2764 	ld	(hl), e
+   0E5E 23            [ 6] 2765 	inc	hl
+   0E5F 72            [ 7] 2766 	ld	(hl), d
+                           2767 ;main.c:169: fire->direccion=player.direccion;
+   0E60 21 05 00      [10] 2768 	ld	hl, #0x0005
+   0E63 09            [11] 2769 	add	hl, bc
+   0E64 EB            [ 4] 2770 	ex	de, hl
+   0E65 3ArFDr01      [13] 2771 	ld	a, (#_player + 6)
+   0E68 12            [ 7] 2772 	ld	(de), a
+                           2773 ;main.c:170: fire->velocidad=20;
+   0E69 21 04 00      [10] 2774 	ld	hl, #0x0004
+   0E6C 09            [11] 2775 	add	hl, bc
+   0E6D 36 14         [10] 2776 	ld	(hl), #0x14
+                           2777 ;main.c:171: fire->plano=10+numero_disparo;
+   0E6F 21 06 00      [10] 2778 	ld	hl, #0x0006
+   0E72 09            [11] 2779 	add	hl, bc
+   0E73 EB            [ 4] 2780 	ex	de, hl
+   0E74 3Ar8Er97      [13] 2781 	ld	a,(#_numero_disparo + 0)
+   0E77 C6 0A         [ 7] 2782 	add	a, #0x0a
+   0E79 12            [ 7] 2783 	ld	(de), a
+                           2784 ;main.c:172: fire->sprite=10*4;
+   0E7A 21 07 00      [10] 2785 	ld	hl, #0x0007
+   0E7D 09            [11] 2786 	add	hl, bc
+   0E7E 36 28         [10] 2787 	ld	(hl), #0x28
+   0E80                    2788 00119$:
+                           2789 ;main.c:175: }
+   0E80 F1            [10] 2790 	pop	af
+   0E81 DD E1         [14] 2791 	pop	ix
+   0E83 C9            [10] 2792 	ret
+                           2793 ;main.c:177: void update_collision_system(){
+                           2794 ;	---------------------------------
+                           2795 ; Function update_collision_system
+                           2796 ; ---------------------------------
+   0E84                    2797 _update_collision_system::
+   0E84 CDr00r00      [17] 2798 	call	___sdcc_enter_ix
+   0E87 F5            [11] 2799 	push	af
+                           2800 ;main.c:179: for (int i=0; i<numero_de_enemigo;i++){
+   0E88 21 00 00      [10] 2801 	ld	hl, #0x0000
+   0E8B E3            [19] 2802 	ex	(sp), hl
+   0E8C                    2803 00108$:
+   0E8C 21rF3r97      [10] 2804 	ld	hl,#_numero_de_enemigo + 0
+   0E8F 4E            [ 7] 2805 	ld	c, (hl)
+   0E90 06 00         [ 7] 2806 	ld	b, #0x00
+   0E92 DD 7E FE      [19] 2807 	ld	a, -2 (ix)
+   0E95 91            [ 4] 2808 	sub	a, c
+   0E96 DD 7E FF      [19] 2809 	ld	a, -1 (ix)
+   0E99 98            [ 4] 2810 	sbc	a, b
+   0E9A E2r9Fr0E      [10] 2811 	jp	PO, 00147$
+   0E9D EE 80         [ 7] 2812 	xor	a, #0x80
+   0E9F                    2813 00147$:
+   0E9F F2rCFr0E      [10] 2814 	jp	P, 00103$
+                           2815 ;main.c:180: if(collisionPlayer(array_structs_enemigos[i].x,array_structs_enemigos[i].y)) Beep();
+   0EA2 C1            [10] 2816 	pop	bc
+   0EA3 C5            [11] 2817 	push	bc
+   0EA4 69            [ 4] 2818 	ld	l, c
+   0EA5 60            [ 4] 2819 	ld	h, b
+   0EA6 29            [11] 2820 	add	hl, hl
+   0EA7 29            [11] 2821 	add	hl, hl
+   0EA8 09            [11] 2822 	add	hl, bc
+   0EA9 29            [11] 2823 	add	hl, hl
+   0EAA EB            [ 4] 2824 	ex	de, hl
+   0EAB 21r8Fr97      [10] 2825 	ld	hl, #_array_structs_enemigos
+   0EAE 19            [11] 2826 	add	hl, de
+   0EAF EB            [ 4] 2827 	ex	de, hl
+   0EB0 6B            [ 4] 2828 	ld	l, e
+   0EB1 62            [ 4] 2829 	ld	h, d
+   0EB2 23            [ 6] 2830 	inc	hl
+   0EB3 23            [ 6] 2831 	inc	hl
+   0EB4 46            [ 7] 2832 	ld	b, (hl)
+   0EB5 1A            [ 7] 2833 	ld	a, (de)
+   0EB6 C5            [11] 2834 	push	bc
+   0EB7 33            [ 6] 2835 	inc	sp
+   0EB8 F5            [11] 2836 	push	af
+   0EB9 33            [ 6] 2837 	inc	sp
+   0EBA CDrFEr07      [17] 2838 	call	_collisionPlayer
+   0EBD F1            [10] 2839 	pop	af
+   0EBE 7D            [ 4] 2840 	ld	a, l
+   0EBF B7            [ 4] 2841 	or	a, a
+   0EC0 28 03         [12] 2842 	jr	Z,00109$
+   0EC2 CDr00r00      [17] 2843 	call	_Beep
+   0EC5                    2844 00109$:
+                           2845 ;main.c:179: for (int i=0; i<numero_de_enemigo;i++){
+   0EC5 DD 34 FE      [23] 2846 	inc	-2 (ix)
+   0EC8 20 C2         [12] 2847 	jr	NZ,00108$
+   0ECA DD 34 FF      [23] 2848 	inc	-1 (ix)
+   0ECD 18 BD         [12] 2849 	jr	00108$
+   0ECF                    2850 00103$:
+                           2851 ;main.c:183: for (int i=0; i<numero_disparo;i++){
+   0ECF 01 00 00      [10] 2852 	ld	bc, #0x0000
+   0ED2                    2853 00111$:
+   0ED2 21r8Er97      [10] 2854 	ld	hl,#_numero_disparo + 0
+   0ED5 5E            [ 7] 2855 	ld	e, (hl)
+   0ED6 16 00         [ 7] 2856 	ld	d, #0x00
+   0ED8 79            [ 4] 2857 	ld	a, c
+   0ED9 93            [ 4] 2858 	sub	a, e
+   0EDA 78            [ 4] 2859 	ld	a, b
+   0EDB 9A            [ 4] 2860 	sbc	a, d
+   0EDC E2rE1r0E      [10] 2861 	jp	PO, 00149$
+   0EDF EE 80         [ 7] 2862 	xor	a, #0x80
+   0EE1                    2863 00149$:
+   0EE1 F2r12r0F      [10] 2864 	jp	P, 00113$
+                           2865 ;main.c:184: if (collision_enemigos(array_structs_fires[i].x,array_structs_fires[i].y)) {
+   0EE4 69            [ 4] 2866 	ld	l, c
+   0EE5 60            [ 4] 2867 	ld	h, b
+   0EE6 29            [11] 2868 	add	hl, hl
+   0EE7 29            [11] 2869 	add	hl, hl
+   0EE8 29            [11] 2870 	add	hl, hl
+   0EE9 7D            [ 4] 2871 	ld	a, l
+   0EEA C6r3E         [ 7] 2872 	add	a, #<(_array_structs_fires)
+   0EEC 5F            [ 4] 2873 	ld	e, a
+   0EED 7C            [ 4] 2874 	ld	a, h
+   0EEE CEs97         [ 7] 2875 	adc	a, #>(_array_structs_fires)
+   0EF0 57            [ 4] 2876 	ld	d, a
+   0EF1 6B            [ 4] 2877 	ld	l, e
+   0EF2 62            [ 4] 2878 	ld	h, d
+   0EF3 23            [ 6] 2879 	inc	hl
+   0EF4 23            [ 6] 2880 	inc	hl
+   0EF5 7E            [ 7] 2881 	ld	a, (hl)
+   0EF6 F5            [11] 2882 	push	af
+   0EF7 1A            [ 7] 2883 	ld	a, (de)
+   0EF8 57            [ 4] 2884 	ld	d, a
+   0EF9 F1            [10] 2885 	pop	af
+   0EFA C5            [11] 2886 	push	bc
+   0EFB F5            [11] 2887 	push	af
+   0EFC 33            [ 6] 2888 	inc	sp
+   0EFD D5            [11] 2889 	push	de
+   0EFE 33            [ 6] 2890 	inc	sp
+   0EFF CDrA5r0B      [17] 2891 	call	_collision_enemigos
+   0F02 F1            [10] 2892 	pop	af
+   0F03 7D            [ 4] 2893 	ld	a, l
+   0F04 C1            [10] 2894 	pop	bc
+   0F05 B7            [ 4] 2895 	or	a, a
+   0F06 28 07         [12] 2896 	jr	Z,00112$
+                           2897 ;main.c:185: eliminar_disparos(i);
+   0F08 C5            [11] 2898 	push	bc
+   0F09 C5            [11] 2899 	push	bc
+   0F0A CDrB5r09      [17] 2900 	call	_eliminar_disparos
+   0F0D F1            [10] 2901 	pop	af
+   0F0E C1            [10] 2902 	pop	bc
+   0F0F                    2903 00112$:
+                           2904 ;main.c:183: for (int i=0; i<numero_disparo;i++){
+   0F0F 03            [ 6] 2905 	inc	bc
+   0F10 18 C0         [12] 2906 	jr	00111$
+   0F12                    2907 00113$:
+                           2908 ;main.c:189: }
+   0F12 F1            [10] 2909 	pop	af
+   0F13 DD E1         [14] 2910 	pop	ix
+   0F15 C9            [10] 2911 	ret
+                           2912 ;main.c:192: void fabricaDeEnemigos(){
+                           2913 ;	---------------------------------
+                           2914 ; Function fabricaDeEnemigos
+                           2915 ; ---------------------------------
+   0F16                    2916 _fabricaDeEnemigos::
+                           2917 ;main.c:193: TEnemy* enemy1=crear_enemigos();
+   0F16 CDr38r0A      [17] 2918 	call	_crear_enemigos
+                           2919 ;main.c:194: enemy1->x=255;
+   0F19 4D            [ 4] 2920 	ld	c,l
+   0F1A 44            [ 4] 2921 	ld	b,h
+   0F1B 36 FF         [10] 2922 	ld	(hl), #0xff
+   0F1D 23            [ 6] 2923 	inc	hl
+   0F1E 36 00         [10] 2924 	ld	(hl), #0x00
+                           2925 ;main.c:195: enemy1->y=19*8;
+   0F20 69            [ 4] 2926 	ld	l, c
+   0F21 60            [ 4] 2927 	ld	h, b
+   0F22 23            [ 6] 2928 	inc	hl
+   0F23 23            [ 6] 2929 	inc	hl
+   0F24 36 98         [10] 2930 	ld	(hl), #0x98
+   0F26 23            [ 6] 2931 	inc	hl
+   0F27 36 00         [10] 2932 	ld	(hl), #0x00
+                           2933 ;main.c:196: enemy1->velocidad=16;
+   0F29 21 04 00      [10] 2934 	ld	hl, #0x0004
+   0F2C 09            [11] 2935 	add	hl, bc
+   0F2D 36 10         [10] 2936 	ld	(hl), #0x10
+                           2937 ;main.c:197: enemy1->direccion=7;
+   0F2F 21 05 00      [10] 2938 	ld	hl, #0x0005
+   0F32 09            [11] 2939 	add	hl, bc
+   0F33 36 07         [10] 2940 	ld	(hl), #0x07
+                           2941 ;main.c:198: enemy1->plano=20;
+   0F35 21 06 00      [10] 2942 	ld	hl, #0x0006
+   0F38 09            [11] 2943 	add	hl, bc
+   0F39 36 14         [10] 2944 	ld	(hl), #0x14
+                           2945 ;main.c:199: enemy1->sprite=11*4;
+   0F3B 21 07 00      [10] 2946 	ld	hl, #0x0007
+   0F3E 09            [11] 2947 	add	hl, bc
+   0F3F 36 2C         [10] 2948 	ld	(hl), #0x2c
+                           2949 ;main.c:200: enemy1->color=6;
+   0F41 21 08 00      [10] 2950 	ld	hl, #0x0008
+   0F44 09            [11] 2951 	add	hl, bc
+   0F45 36 06         [10] 2952 	ld	(hl), #0x06
+                           2953 ;main.c:201: enemy1->tipo=0;
+   0F47 21 09 00      [10] 2954 	ld	hl, #0x0009
+   0F4A 09            [11] 2955 	add	hl, bc
+   0F4B 36 00         [10] 2956 	ld	(hl), #0x00
+                           2957 ;main.c:202: }
+   0F4D C9            [10] 2958 	ret
+                           2959 ;main.c:208: void gui(){
+                           2960 ;	---------------------------------
+                           2961 ; Function gui
+                           2962 ; ---------------------------------
+   0F4E                    2963 _gui::
+                           2964 ;main.c:209: BoxLine(0,184,255,210,6,8);
+   0F4E 11 06 08      [10] 2965 	ld	de, #0x0806
+   0F51 D5            [11] 2966 	push	de
+   0F52 21 D2 00      [10] 2967 	ld	hl, #0x00d2
+   0F55 E5            [11] 2968 	push	hl
+   0F56 2E FF         [ 7] 2969 	ld	l, #0xff
+   0F58 E5            [11] 2970 	push	hl
+   0F59 2E B8         [ 7] 2971 	ld	l, #0xb8
+   0F5B E5            [11] 2972 	push	hl
+   0F5C 2E 00         [ 7] 2973 	ld	l, #0x00
+   0F5E E5            [11] 2974 	push	hl
+   0F5F CDr00r00      [17] 2975 	call	_BoxLine
+   0F62 21 0A 00      [10] 2976 	ld	hl, #10
+   0F65 39            [11] 2977 	add	hl, sp
+   0F66 F9            [ 6] 2978 	ld	sp, hl
+                           2979 ;main.c:210: BoxFill(0,184,255,210,1,8);
+   0F67 11 01 08      [10] 2980 	ld	de, #0x0801
+   0F6A D5            [11] 2981 	push	de
+   0F6B 21 D2 00      [10] 2982 	ld	hl, #0x00d2
+   0F6E E5            [11] 2983 	push	hl
+   0F6F 2E FF         [ 7] 2984 	ld	l, #0xff
+   0F71 E5            [11] 2985 	push	hl
+   0F72 2E B8         [ 7] 2986 	ld	l, #0xb8
+   0F74 E5            [11] 2987 	push	hl
+   0F75 2E 00         [ 7] 2988 	ld	l, #0x00
+   0F77 E5            [11] 2989 	push	hl
+   0F78 CDr00r00      [17] 2990 	call	_BoxFill
+   0F7B 21 0A 00      [10] 2991 	ld	hl, #10
+   0F7E 39            [11] 2992 	add	hl, sp
+   0F7F F9            [ 6] 2993 	ld	sp, hl
+                           2994 ;main.c:212: tileY=(player.y/8)+3;
+   0F80 3ArF8r01      [13] 2995 	ld	a, (#(_player + 0x0001) + 0)
+   0F83 4F            [ 4] 2996 	ld	c, a
+   0F84 06 00         [ 7] 2997 	ld	b, #0x00
+   0F86 59            [ 4] 2998 	ld	e, c
+   0F87 50            [ 4] 2999 	ld	d, b
+   0F88 CB 78         [ 8] 3000 	bit	7, b
+   0F8A 28 05         [12] 3001 	jr	Z,00103$
+   0F8C 21 07 00      [10] 3002 	ld	hl, #0x0007
+   0F8F 09            [11] 3003 	add	hl, bc
+   0F90 EB            [ 4] 3004 	ex	de, hl
+   0F91                    3005 00103$:
+   0F91 06 03         [ 7] 3006 	ld	b, #0x03
+   0F93                    3007 00127$:
+   0F93 CB 2A         [ 8] 3008 	sra	d
+   0F95 CB 1B         [ 8] 3009 	rr	e
+   0F97 10 FA         [13] 3010 	djnz	00127$
+   0F99 13            [ 6] 3011 	inc	de
+   0F9A 13            [ 6] 3012 	inc	de
+   0F9B 13            [ 6] 3013 	inc	de
+   0F9C ED 53r3Cr97   [20] 3014 	ld	(_tileY), de
+                           3015 ;main.c:213: tileX=(player.x/8)+(contador-32);
+   0FA0 3ArF7r01      [13] 3016 	ld	a, (#_player + 0)
+   0FA3 4F            [ 4] 3017 	ld	c, a
+   0FA4 06 00         [ 7] 3018 	ld	b, #0x00
+   0FA6 59            [ 4] 3019 	ld	e, c
+   0FA7 50            [ 4] 3020 	ld	d, b
+   0FA8 CB 78         [ 8] 3021 	bit	7, b
+   0FAA 28 05         [12] 3022 	jr	Z,00104$
+   0FAC 21 07 00      [10] 3023 	ld	hl, #0x0007
+   0FAF 09            [11] 3024 	add	hl, bc
+   0FB0 EB            [ 4] 3025 	ex	de, hl
+   0FB1                    3026 00104$:
+   0FB1 06 03         [ 7] 3027 	ld	b, #0x03
+   0FB3                    3028 00128$:
+   0FB3 CB 2A         [ 8] 3029 	sra	d
+   0FB5 CB 1B         [ 8] 3030 	rr	e
+   0FB7 10 FA         [13] 3031 	djnz	00128$
+   0FB9 FD 21r38r97   [14] 3032 	ld	iy, #_contador
+   0FBD FD 7E 00      [19] 3033 	ld	a, 0 (iy)
+   0FC0 C6 E0         [ 7] 3034 	add	a, #0xe0
+   0FC2 4F            [ 4] 3035 	ld	c, a
+   0FC3 FD 7E 01      [19] 3036 	ld	a, 1 (iy)
+   0FC6 CE FF         [ 7] 3037 	adc	a, #0xff
+   0FC8 47            [ 4] 3038 	ld	b, a
+   0FC9 7B            [ 4] 3039 	ld	a, e
+   0FCA 21r3Ar97      [10] 3040 	ld	hl, #_tileX
+   0FCD 81            [ 4] 3041 	add	a, c
+   0FCE 77            [ 7] 3042 	ld	(hl), a
+   0FCF 7A            [ 4] 3043 	ld	a, d
+   0FD0 88            [ 4] 3044 	adc	a, b
+   0FD1 23            [ 6] 3045 	inc	hl
+   0FD2 77            [ 7] 3046 	ld	(hl), a
+                           3047 ;main.c:214: PutText(100,185,Itoa(tileY,"  ",10),8);
+   0FD3 21 0A 00      [10] 3048 	ld	hl, #0x000a
+   0FD6 E5            [11] 3049 	push	hl
+   0FD7 21r05r11      [10] 3050 	ld	hl, #___str_3
+   0FDA E5            [11] 3051 	push	hl
+   0FDB 2Ar3Cr97      [16] 3052 	ld	hl, (_tileY)
+   0FDE E5            [11] 3053 	push	hl
+   0FDF CDr00r00      [17] 3054 	call	_Itoa
+   0FE2 F1            [10] 3055 	pop	af
+   0FE3 F1            [10] 3056 	pop	af
+   0FE4 F1            [10] 3057 	pop	af
+   0FE5 3E 08         [ 7] 3058 	ld	a, #0x08
+   0FE7 F5            [11] 3059 	push	af
+   0FE8 33            [ 6] 3060 	inc	sp
+   0FE9 E5            [11] 3061 	push	hl
+   0FEA 21 B9 00      [10] 3062 	ld	hl, #0x00b9
+   0FED E5            [11] 3063 	push	hl
+   0FEE 2E 64         [ 7] 3064 	ld	l, #0x64
+   0FF0 E5            [11] 3065 	push	hl
+   0FF1 CDr00r00      [17] 3066 	call	_PutText
+   0FF4 F1            [10] 3067 	pop	af
+   0FF5 F1            [10] 3068 	pop	af
+                           3069 ;main.c:215: PutText(100,195,Itoa(tileX,"  ",10),8);
+   0FF6 33            [ 6] 3070 	inc	sp
+   0FF7 21 0A 00      [10] 3071 	ld	hl,#0x000a
+   0FFA E3            [19] 3072 	ex	(sp),hl
+   0FFB 21r05r11      [10] 3073 	ld	hl, #___str_3
+   0FFE E5            [11] 3074 	push	hl
+   0FFF 2Ar3Ar97      [16] 3075 	ld	hl, (_tileX)
+   1002 E5            [11] 3076 	push	hl
+   1003 CDr00r00      [17] 3077 	call	_Itoa
+   1006 F1            [10] 3078 	pop	af
+   1007 F1            [10] 3079 	pop	af
+   1008 F1            [10] 3080 	pop	af
+   1009 3E 08         [ 7] 3081 	ld	a, #0x08
+   100B F5            [11] 3082 	push	af
+   100C 33            [ 6] 3083 	inc	sp
+   100D E5            [11] 3084 	push	hl
+   100E 21 C3 00      [10] 3085 	ld	hl, #0x00c3
+   1011 E5            [11] 3086 	push	hl
+   1012 2E 64         [ 7] 3087 	ld	l, #0x64
+   1014 E5            [11] 3088 	push	hl
+   1015 CDr00r00      [17] 3089 	call	_PutText
+   1018 F1            [10] 3090 	pop	af
+   1019 F1            [10] 3091 	pop	af
+   101A F1            [10] 3092 	pop	af
+   101B 33            [ 6] 3093 	inc	sp
+                           3094 ;main.c:216: PutText(100,203,Itoa(filas[tileY][tileX],"  ",10),8);
+   101C 01r4Ar6A      [10] 3095 	ld	bc, #_filas+0
+   101F 2Ar3Cr97      [16] 3096 	ld	hl, (_tileY)
+   1022 5D            [ 4] 3097 	ld	e, l
+   1023 54            [ 4] 3098 	ld	d, h
+   1024 29            [11] 3099 	add	hl, hl
+   1025 19            [11] 3100 	add	hl, de
+   1026 29            [11] 3101 	add	hl, hl
+   1027 19            [11] 3102 	add	hl, de
+   1028 29            [11] 3103 	add	hl, hl
+   1029 19            [11] 3104 	add	hl, de
+   102A 29            [11] 3105 	add	hl, hl
+   102B 19            [11] 3106 	add	hl, de
+   102C 29            [11] 3107 	add	hl, hl
+   102D 29            [11] 3108 	add	hl, hl
+   102E 19            [11] 3109 	add	hl, de
+   102F 29            [11] 3110 	add	hl, hl
+   1030 29            [11] 3111 	add	hl, hl
+   1031 09            [11] 3112 	add	hl, bc
+   1032 EB            [ 4] 3113 	ex	de, hl
+   1033 2Ar3Ar97      [16] 3114 	ld	hl, (_tileX)
+   1036 29            [11] 3115 	add	hl, hl
+   1037 19            [11] 3116 	add	hl, de
+   1038 4E            [ 7] 3117 	ld	c, (hl)
+   1039 23            [ 6] 3118 	inc	hl
+   103A 46            [ 7] 3119 	ld	b, (hl)
+   103B 21 0A 00      [10] 3120 	ld	hl, #0x000a
+   103E E5            [11] 3121 	push	hl
+   103F 21r05r11      [10] 3122 	ld	hl, #___str_3
+   1042 E5            [11] 3123 	push	hl
+   1043 C5            [11] 3124 	push	bc
+   1044 CDr00r00      [17] 3125 	call	_Itoa
+   1047 F1            [10] 3126 	pop	af
+   1048 F1            [10] 3127 	pop	af
+   1049 F1            [10] 3128 	pop	af
+   104A 3E 08         [ 7] 3129 	ld	a, #0x08
+   104C F5            [11] 3130 	push	af
+   104D 33            [ 6] 3131 	inc	sp
+   104E E5            [11] 3132 	push	hl
+   104F 21 CB 00      [10] 3133 	ld	hl, #0x00cb
+   1052 E5            [11] 3134 	push	hl
+   1053 2E 64         [ 7] 3135 	ld	l, #0x64
+   1055 E5            [11] 3136 	push	hl
+   1056 CDr00r00      [17] 3137 	call	_PutText
+   1059 F1            [10] 3138 	pop	af
+   105A F1            [10] 3139 	pop	af
+   105B F1            [10] 3140 	pop	af
+   105C 33            [ 6] 3141 	inc	sp
+                           3142 ;main.c:218: tileY=(player.y/8)+3;
+   105D 3ArF8r01      [13] 3143 	ld	a, (#(_player + 0x0001) + 0)
+   1060 4F            [ 4] 3144 	ld	c, a
+   1061 06 00         [ 7] 3145 	ld	b, #0x00
+   1063 59            [ 4] 3146 	ld	e, c
+   1064 50            [ 4] 3147 	ld	d, b
+   1065 CB 78         [ 8] 3148 	bit	7, b
+   1067 28 05         [12] 3149 	jr	Z,00105$
+   1069 21 07 00      [10] 3150 	ld	hl, #0x0007
+   106C 09            [11] 3151 	add	hl, bc
+   106D EB            [ 4] 3152 	ex	de, hl
+   106E                    3153 00105$:
+   106E 06 03         [ 7] 3154 	ld	b, #0x03
+   1070                    3155 00129$:
+   1070 CB 2A         [ 8] 3156 	sra	d
+   1072 CB 1B         [ 8] 3157 	rr	e
+   1074 10 FA         [13] 3158 	djnz	00129$
+   1076 13            [ 6] 3159 	inc	de
+   1077 13            [ 6] 3160 	inc	de
+   1078 13            [ 6] 3161 	inc	de
+   1079 ED 53r3Cr97   [20] 3162 	ld	(_tileY), de
+                           3163 ;main.c:219: tileX=(player.x/8)+(contador-32)-3;
+   107D FD 21r38r97   [14] 3164 	ld	iy, #_contador
+   1081 FD 7E 00      [19] 3165 	ld	a, 0 (iy)
+   1084 C6 23         [ 7] 3166 	add	a, #0x23
+   1086 5F            [ 4] 3167 	ld	e, a
+   1087 FD 7E 01      [19] 3168 	ld	a, 1 (iy)
+   108A CE 00         [ 7] 3169 	adc	a, #0x00
+   108C 57            [ 4] 3170 	ld	d, a
+   108D 3ArF7r01      [13] 3171 	ld	a, (#_player + 0)
+   1090 4F            [ 4] 3172 	ld	c, a
+   1091 06 00         [ 7] 3173 	ld	b, #0x00
+   1093 69            [ 4] 3174 	ld	l, c
+   1094 60            [ 4] 3175 	ld	h, b
+   1095 CB 78         [ 8] 3176 	bit	7, b
+   1097 28 04         [12] 3177 	jr	Z,00106$
+   1099 21 07 00      [10] 3178 	ld	hl, #0x0007
+   109C 09            [11] 3179 	add	hl, bc
+   109D                    3180 00106$:
+   109D 06 03         [ 7] 3181 	ld	b, #0x03
+   109F                    3182 00130$:
+   109F CB 2C         [ 8] 3183 	sra	h
+   10A1 CB 1D         [ 8] 3184 	rr	l
+   10A3 10 FA         [13] 3185 	djnz	00130$
+   10A5 4D            [ 4] 3186 	ld	c, l
+   10A6 44            [ 4] 3187 	ld	b, h
+   10A7 21r3Ar97      [10] 3188 	ld	hl, #_tileX
+   10AA 7B            [ 4] 3189 	ld	a, e
+   10AB 91            [ 4] 3190 	sub	a, c
+   10AC 77            [ 7] 3191 	ld	(hl), a
+   10AD 7A            [ 4] 3192 	ld	a, d
+   10AE 98            [ 4] 3193 	sbc	a, b
+   10AF 23            [ 6] 3194 	inc	hl
+   10B0 77            [ 7] 3195 	ld	(hl), a
+                           3196 ;main.c:220: PutText(200,185,Itoa(player.saltando,"  ",10),8);
+   10B1 11r05r11      [10] 3197 	ld	de, #___str_3
+   10B4 3ArFFr01      [13] 3198 	ld	a, (#_player + 8)
+   10B7 4F            [ 4] 3199 	ld	c, a
+   10B8 06 00         [ 7] 3200 	ld	b, #0x00
+   10BA 21 0A 00      [10] 3201 	ld	hl, #0x000a
+   10BD E5            [11] 3202 	push	hl
+   10BE D5            [11] 3203 	push	de
+   10BF C5            [11] 3204 	push	bc
+   10C0 CDr00r00      [17] 3205 	call	_Itoa
+   10C3 F1            [10] 3206 	pop	af
+   10C4 F1            [10] 3207 	pop	af
+   10C5 F1            [10] 3208 	pop	af
+   10C6 3E 08         [ 7] 3209 	ld	a, #0x08
+   10C8 F5            [11] 3210 	push	af
+   10C9 33            [ 6] 3211 	inc	sp
+   10CA E5            [11] 3212 	push	hl
+   10CB 21 B9 00      [10] 3213 	ld	hl, #0x00b9
+   10CE E5            [11] 3214 	push	hl
+   10CF 2E C8         [ 7] 3215 	ld	l, #0xc8
+   10D1 E5            [11] 3216 	push	hl
+   10D2 CDr00r00      [17] 3217 	call	_PutText
+   10D5 F1            [10] 3218 	pop	af
+   10D6 F1            [10] 3219 	pop	af
+   10D7 F1            [10] 3220 	pop	af
+   10D8 33            [ 6] 3221 	inc	sp
+                           3222 ;main.c:221: espacioLibre=ReadSP();
+   10D9 CDr00r00      [17] 3223 	call	_ReadSP
+   10DC 22rF7r97      [16] 3224 	ld	(_espacioLibre), hl
+                           3225 ;main.c:222: PutText(200,195,Itoa(espacioLibre,"  ",10),8);
+   10DF 21 0A 00      [10] 3226 	ld	hl, #0x000a
+   10E2 E5            [11] 3227 	push	hl
+   10E3 21r05r11      [10] 3228 	ld	hl, #___str_3
+   10E6 E5            [11] 3229 	push	hl
+   10E7 2ArF7r97      [16] 3230 	ld	hl, (_espacioLibre)
+   10EA E5            [11] 3231 	push	hl
+   10EB CDr00r00      [17] 3232 	call	_Itoa
+   10EE F1            [10] 3233 	pop	af
+   10EF F1            [10] 3234 	pop	af
+   10F0 F1            [10] 3235 	pop	af
+   10F1 3E 08         [ 7] 3236 	ld	a, #0x08
+   10F3 F5            [11] 3237 	push	af
+   10F4 33            [ 6] 3238 	inc	sp
+   10F5 E5            [11] 3239 	push	hl
+   10F6 21 C3 00      [10] 3240 	ld	hl, #0x00c3
+   10F9 E5            [11] 3241 	push	hl
+   10FA 2E C8         [ 7] 3242 	ld	l, #0xc8
+   10FC E5            [11] 3243 	push	hl
+   10FD CDr00r00      [17] 3244 	call	_PutText
+   1100 F1            [10] 3245 	pop	af
+   1101 F1            [10] 3246 	pop	af
+   1102 F1            [10] 3247 	pop	af
+   1103 33            [ 6] 3248 	inc	sp
+                           3249 ;main.c:231: }
+   1104 C9            [10] 3250 	ret
+   1105                    3251 ___str_3:
+   1105 20 20              3252 	.ascii "  "
+   1107 00                 3253 	.db 0x00
+                           3254 	.area _CODE
+                           3255 	.area _INITIALIZER
+   0000                    3256 __xinit__fileNameTilseSet:
+   0000 74 69 6C 65 73 65  3257 	.ascii "tileset.sc5"
+        74 2E 73 63 35
+   000B 00                 3258 	.db 0x00
+   000C                    3259 __xinit__fileNameTileMap:
+   000C 77 6F 72 6C 64 30  3260 	.ascii "world0.bin"
+        2E 62 69 6E
+   0016 00                 3261 	.db 0x00
+   0017                    3262 __xinit__personaje_tronco_superior_derecha1:
+   0017 03                 3263 	.db #0x03	; 3
+   0018 07                 3264 	.db #0x07	; 7
+   0019 06                 3265 	.db #0x06	; 6
+   001A 07                 3266 	.db #0x07	; 7
+   001B 01                 3267 	.db #0x01	; 1
+   001C 07                 3268 	.db #0x07	; 7
+   001D 1D                 3269 	.db #0x1d	; 29
+   001E 39                 3270 	.db #0x39	; 57	'9'
+   001F 3C                 3271 	.db #0x3c	; 60
+   0020 1F                 3272 	.db #0x1f	; 31
+   0021 07                 3273 	.db #0x07	; 7
+   0022 01                 3274 	.db #0x01	; 1
+   0023 0C                 3275 	.db #0x0c	; 12
+   0024 0E                 3276 	.db #0x0e	; 14
+   0025 06                 3277 	.db #0x06	; 6
+   0026 06                 3278 	.db #0x06	; 6
+   0027 C0                 3279 	.db #0xc0	; 192
+   0028 40                 3280 	.db #0x40	; 64
+   0029 00                 3281 	.db #0x00	; 0
+   002A 00                 3282 	.db #0x00	; 0
+   002B 80                 3283 	.db #0x80	; 128
+   002C A0                 3284 	.db #0xa0	; 160
+   002D A0                 3285 	.db #0xa0	; 160
+   002E 80                 3286 	.db #0x80	; 128
+   002F 00                 3287 	.db #0x00	; 0
+   0030 00                 3288 	.db #0x00	; 0
+   0031 80                 3289 	.db #0x80	; 128
+   0032 CC                 3290 	.db #0xcc	; 204
+   0033 00                 3291 	.db #0x00	; 0
+   0034 C0                 3292 	.db #0xc0	; 192
+   0035 E0                 3293 	.db #0xe0	; 224
+   0036 E0                 3294 	.db #0xe0	; 224
+   0037                    3295 __xinit__personaje_tronco_superior_derecha2:
+   0037 00                 3296 	.db #0x00	; 0
+   0038 00                 3297 	.db #0x00	; 0
+   0039 01                 3298 	.db #0x01	; 1
+   003A 01                 3299 	.db #0x01	; 1
+   003B 00                 3300 	.db #0x00	; 0
+   003C 00                 3301 	.db #0x00	; 0
+   003D 01                 3302 	.db #0x01	; 1
+   003E 01                 3303 	.db #0x01	; 1
+   003F 00                 3304 	.db #0x00	; 0
+   0040 00                 3305 	.db #0x00	; 0
+   0041 00                 3306 	.db #0x00	; 0
+   0042 00                 3307 	.db #0x00	; 0
+   0043 00                 3308 	.db #0x00	; 0
+   0044 00                 3309 	.db #0x00	; 0
+   0045 00                 3310 	.db #0x00	; 0
+   0046 00                 3311 	.db #0x00	; 0
+   0047 00                 3312 	.db #0x00	; 0
+   0048 C0                 3313 	.db #0xc0	; 192
+   0049 E0                 3314 	.db #0xe0	; 224
+   004A C0                 3315 	.db #0xc0	; 192
+   004B 00                 3316 	.db #0x00	; 0
+   004C 40                 3317 	.db #0x40	; 64
+   004D E0                 3318 	.db #0xe0	; 224
+   004E F0                 3319 	.db #0xf0	; 240
+   004F D8                 3320 	.db #0xd8	; 216
+   0050 00                 3321 	.db #0x00	; 0
+   0051 03                 3322 	.db #0x03	; 3
+   0052 00                 3323 	.db #0x00	; 0
+   0053 00                 3324 	.db #0x00	; 0
+   0054 00                 3325 	.db #0x00	; 0
+   0055 00                 3326 	.db #0x00	; 0
+   0056 00                 3327 	.db #0x00	; 0
+   0057                    3328 __xinit__personaje_piernas_derecha1:
+   0057 07                 3329 	.db #0x07	; 7
+   0058 0E                 3330 	.db #0x0e	; 14
+   0059 0E                 3331 	.db #0x0e	; 14
+   005A 0E                 3332 	.db #0x0e	; 14
+   005B 0E                 3333 	.db #0x0e	; 14
+   005C 1C                 3334 	.db #0x1c	; 28
+   005D 1C                 3335 	.db #0x1c	; 28
+   005E 02                 3336 	.db #0x02	; 2
+   005F 1E                 3337 	.db #0x1e	; 30
+   0060 1C                 3338 	.db #0x1c	; 28
+   0061 3C                 3339 	.db #0x3c	; 60
+   0062 38                 3340 	.db #0x38	; 56	'8'
+   0063 30                 3341 	.db #0x30	; 48	'0'
+   0064 70                 3342 	.db #0x70	; 112	'p'
+   0065 78                 3343 	.db #0x78	; 120	'x'
+   0066 FC                 3344 	.db #0xfc	; 252
+   0067 E0                 3345 	.db #0xe0	; 224
+   0068 70                 3346 	.db #0x70	; 112	'p'
+   0069 78                 3347 	.db #0x78	; 120	'x'
+   006A 38                 3348 	.db #0x38	; 56	'8'
+   006B 38                 3349 	.db #0x38	; 56	'8'
+   006C 38                 3350 	.db #0x38	; 56	'8'
+   006D 30                 3351 	.db #0x30	; 48	'0'
+   006E 38                 3352 	.db #0x38	; 56	'8'
+   006F 38                 3353 	.db #0x38	; 56	'8'
+   0070 08                 3354 	.db #0x08	; 8
+   0071 38                 3355 	.db #0x38	; 56	'8'
+   0072 30                 3356 	.db #0x30	; 48	'0'
+   0073 38                 3357 	.db #0x38	; 56	'8'
+   0074 18                 3358 	.db #0x18	; 24
+   0075 3C                 3359 	.db #0x3c	; 60
+   0076 3F                 3360 	.db #0x3f	; 63
+   0077                    3361 __xinit__personaje_piernas_derecha2:
+   0077 07                 3362 	.db #0x07	; 7
+   0078 0E                 3363 	.db #0x0e	; 14
+   0079 0F                 3364 	.db #0x0f	; 15
+   007A 0F                 3365 	.db #0x0f	; 15
+   007B 07                 3366 	.db #0x07	; 7
+   007C 07                 3367 	.db #0x07	; 7
+   007D 07                 3368 	.db #0x07	; 7
+   007E 07                 3369 	.db #0x07	; 7
+   007F 07                 3370 	.db #0x07	; 7
+   0080 07                 3371 	.db #0x07	; 7
+   0081 07                 3372 	.db #0x07	; 7
+   0082 5F                 3373 	.db #0x5f	; 95
+   0083 7F                 3374 	.db #0x7f	; 127
+   0084 61                 3375 	.db #0x61	; 97	'a'
+   0085 33                 3376 	.db #0x33	; 51	'3'
+   0086 07                 3377 	.db #0x07	; 7
+   0087 C0                 3378 	.db #0xc0	; 192
+   0088 70                 3379 	.db #0x70	; 112	'p'
+   0089 70                 3380 	.db #0x70	; 112	'p'
+   008A 30                 3381 	.db #0x30	; 48	'0'
+   008B B0                 3382 	.db #0xb0	; 176
+   008C B0                 3383 	.db #0xb0	; 176
+   008D F0                 3384 	.db #0xf0	; 240
+   008E E0                 3385 	.db #0xe0	; 224
+   008F C0                 3386 	.db #0xc0	; 192
+   0090 C0                 3387 	.db #0xc0	; 192
+   0091 80                 3388 	.db #0x80	; 128
+   0092 80                 3389 	.db #0x80	; 128
+   0093 80                 3390 	.db #0x80	; 128
+   0094 80                 3391 	.db #0x80	; 128
+   0095 80                 3392 	.db #0x80	; 128
+   0096 E0                 3393 	.db #0xe0	; 224
+   0097                    3394 __xinit__arma_derecha:
+   0097 0F                 3395 	.db #0x0f	; 15
+   0098 70                 3396 	.db #0x70	; 112	'p'
+   0099 FF                 3397 	.db #0xff	; 255
+   009A 7F                 3398 	.db #0x7f	; 127
+   009B 1F                 3399 	.db #0x1f	; 31
+   009C 04                 3400 	.db #0x04	; 4
+   009D 1C                 3401 	.db #0x1c	; 28
+   009E 10                 3402 	.db #0x10	; 16
+   009F 10                 3403 	.db #0x10	; 16
+   00A0 00                 3404 	.db #0x00	; 0
+   00A1 00                 3405 	.db #0x00	; 0
+   00A2 00                 3406 	.db #0x00	; 0
+   00A3 00                 3407 	.db #0x00	; 0
+   00A4 00                 3408 	.db #0x00	; 0
+   00A5 00                 3409 	.db #0x00	; 0
+   00A6 00                 3410 	.db #0x00	; 0
+   00A7 80                 3411 	.db #0x80	; 128
+   00A8 E0                 3412 	.db #0xe0	; 224
+   00A9 FF                 3413 	.db #0xff	; 255
+   00AA F7                 3414 	.db #0xf7	; 247
+   00AB 80                 3415 	.db #0x80	; 128
+   00AC 00                 3416 	.db #0x00	; 0
+   00AD 00                 3417 	.db #0x00	; 0
+   00AE 00                 3418 	.db #0x00	; 0
+   00AF 00                 3419 	.db #0x00	; 0
+   00B0 00                 3420 	.db #0x00	; 0
+   00B1 00                 3421 	.db #0x00	; 0
+   00B2 00                 3422 	.db #0x00	; 0
+   00B3 00                 3423 	.db #0x00	; 0
+   00B4 00                 3424 	.db #0x00	; 0
+   00B5 00                 3425 	.db #0x00	; 0
+   00B6 00                 3426 	.db #0x00	; 0
+   00B7                    3427 __xinit__personaje_tronco_superior_izquieda1:
+   00B7 03                 3428 	.db #0x03	; 3
+   00B8 02                 3429 	.db #0x02	; 2
+   00B9 00                 3430 	.db #0x00	; 0
+   00BA 00                 3431 	.db #0x00	; 0
+   00BB 01                 3432 	.db #0x01	; 1
+   00BC 05                 3433 	.db #0x05	; 5
+   00BD 05                 3434 	.db #0x05	; 5
+   00BE 01                 3435 	.db #0x01	; 1
+   00BF 00                 3436 	.db #0x00	; 0
+   00C0 00                 3437 	.db #0x00	; 0
+   00C1 01                 3438 	.db #0x01	; 1
+   00C2 33                 3439 	.db #0x33	; 51	'3'
+   00C3 00                 3440 	.db #0x00	; 0
+   00C4 03                 3441 	.db #0x03	; 3
+   00C5 07                 3442 	.db #0x07	; 7
+   00C6 07                 3443 	.db #0x07	; 7
+   00C7 C0                 3444 	.db #0xc0	; 192
+   00C8 E0                 3445 	.db #0xe0	; 224
+   00C9 60                 3446 	.db #0x60	; 96
+   00CA E0                 3447 	.db #0xe0	; 224
+   00CB 80                 3448 	.db #0x80	; 128
+   00CC E0                 3449 	.db #0xe0	; 224
+   00CD B8                 3450 	.db #0xb8	; 184
+   00CE 9C                 3451 	.db #0x9c	; 156
+   00CF 3C                 3452 	.db #0x3c	; 60
+   00D0 F8                 3453 	.db #0xf8	; 248
+   00D1 E0                 3454 	.db #0xe0	; 224
+   00D2 80                 3455 	.db #0x80	; 128
+   00D3 30                 3456 	.db #0x30	; 48	'0'
+   00D4 70                 3457 	.db #0x70	; 112	'p'
+   00D5 60                 3458 	.db #0x60	; 96
+   00D6 60                 3459 	.db #0x60	; 96
+   00D7                    3460 __xinit__personaje_tronco_superior_izquierda2:
+   00D7 00                 3461 	.db #0x00	; 0
+   00D8 03                 3462 	.db #0x03	; 3
+   00D9 07                 3463 	.db #0x07	; 7
+   00DA 03                 3464 	.db #0x03	; 3
+   00DB 00                 3465 	.db #0x00	; 0
+   00DC 02                 3466 	.db #0x02	; 2
+   00DD 07                 3467 	.db #0x07	; 7
+   00DE 0F                 3468 	.db #0x0f	; 15
+   00DF 1B                 3469 	.db #0x1b	; 27
+   00E0 00                 3470 	.db #0x00	; 0
+   00E1 C0                 3471 	.db #0xc0	; 192
+   00E2 00                 3472 	.db #0x00	; 0
+   00E3 00                 3473 	.db #0x00	; 0
+   00E4 00                 3474 	.db #0x00	; 0
+   00E5 00                 3475 	.db #0x00	; 0
+   00E6 00                 3476 	.db #0x00	; 0
+   00E7 00                 3477 	.db #0x00	; 0
+   00E8 00                 3478 	.db #0x00	; 0
+   00E9 80                 3479 	.db #0x80	; 128
+   00EA 80                 3480 	.db #0x80	; 128
+   00EB 00                 3481 	.db #0x00	; 0
+   00EC 00                 3482 	.db #0x00	; 0
+   00ED 80                 3483 	.db #0x80	; 128
+   00EE 80                 3484 	.db #0x80	; 128
+   00EF 00                 3485 	.db #0x00	; 0
+   00F0 00                 3486 	.db #0x00	; 0
+   00F1 00                 3487 	.db #0x00	; 0
+   00F2 00                 3488 	.db #0x00	; 0
+   00F3 00                 3489 	.db #0x00	; 0
+   00F4 00                 3490 	.db #0x00	; 0
+   00F5 00                 3491 	.db #0x00	; 0
+   00F6 00                 3492 	.db #0x00	; 0
+   00F7                    3493 __xinit__personaje_piernas_izquierda1:
+   00F7 07                 3494 	.db #0x07	; 7
+   00F8 0E                 3495 	.db #0x0e	; 14
+   00F9 1E                 3496 	.db #0x1e	; 30
+   00FA 1C                 3497 	.db #0x1c	; 28
+   00FB 1C                 3498 	.db #0x1c	; 28
+   00FC 1C                 3499 	.db #0x1c	; 28
+   00FD 0C                 3500 	.db #0x0c	; 12
+   00FE 1C                 3501 	.db #0x1c	; 28
+   00FF 1C                 3502 	.db #0x1c	; 28
+   0100 10                 3503 	.db #0x10	; 16
+   0101 1C                 3504 	.db #0x1c	; 28
+   0102 0C                 3505 	.db #0x0c	; 12
+   0103 1C                 3506 	.db #0x1c	; 28
+   0104 18                 3507 	.db #0x18	; 24
+   0105 3C                 3508 	.db #0x3c	; 60
+   0106 FC                 3509 	.db #0xfc	; 252
+   0107 E0                 3510 	.db #0xe0	; 224
+   0108 70                 3511 	.db #0x70	; 112	'p'
+   0109 70                 3512 	.db #0x70	; 112	'p'
+   010A 70                 3513 	.db #0x70	; 112	'p'
+   010B 70                 3514 	.db #0x70	; 112	'p'
+   010C 38                 3515 	.db #0x38	; 56	'8'
+   010D 38                 3516 	.db #0x38	; 56	'8'
+   010E 40                 3517 	.db #0x40	; 64
+   010F 78                 3518 	.db #0x78	; 120	'x'
+   0110 38                 3519 	.db #0x38	; 56	'8'
+   0111 3C                 3520 	.db #0x3c	; 60
+   0112 1C                 3521 	.db #0x1c	; 28
+   0113 0C                 3522 	.db #0x0c	; 12
+   0114 0E                 3523 	.db #0x0e	; 14
+   0115 1E                 3524 	.db #0x1e	; 30
+   0116 3F                 3525 	.db #0x3f	; 63
+   0117                    3526 __xinit__personaje_piernas_izquierda2:
+   0117 03                 3527 	.db #0x03	; 3
+   0118 0E                 3528 	.db #0x0e	; 14
+   0119 0E                 3529 	.db #0x0e	; 14
+   011A 0C                 3530 	.db #0x0c	; 12
+   011B 0D                 3531 	.db #0x0d	; 13
+   011C 0D                 3532 	.db #0x0d	; 13
+   011D 0F                 3533 	.db #0x0f	; 15
+   011E 07                 3534 	.db #0x07	; 7
+   011F 03                 3535 	.db #0x03	; 3
+   0120 03                 3536 	.db #0x03	; 3
+   0121 01                 3537 	.db #0x01	; 1
+   0122 01                 3538 	.db #0x01	; 1
+   0123 01                 3539 	.db #0x01	; 1
+   0124 01                 3540 	.db #0x01	; 1
+   0125 01                 3541 	.db #0x01	; 1
+   0126 07                 3542 	.db #0x07	; 7
+   0127 E0                 3543 	.db #0xe0	; 224
+   0128 70                 3544 	.db #0x70	; 112	'p'
+   0129 F0                 3545 	.db #0xf0	; 240
+   012A F0                 3546 	.db #0xf0	; 240
+   012B E0                 3547 	.db #0xe0	; 224
+   012C E0                 3548 	.db #0xe0	; 224
+   012D E0                 3549 	.db #0xe0	; 224
+   012E E0                 3550 	.db #0xe0	; 224
+   012F E0                 3551 	.db #0xe0	; 224
+   0130 E0                 3552 	.db #0xe0	; 224
+   0131 E0                 3553 	.db #0xe0	; 224
+   0132 FA                 3554 	.db #0xfa	; 250
+   0133 FE                 3555 	.db #0xfe	; 254
+   0134 86                 3556 	.db #0x86	; 134
+   0135 CC                 3557 	.db #0xcc	; 204
+   0136 E0                 3558 	.db #0xe0	; 224
+   0137                    3559 __xinit__arma_izquierda:
+   0137 01                 3560 	.db #0x01	; 1
+   0138 07                 3561 	.db #0x07	; 7
+   0139 FF                 3562 	.db #0xff	; 255
+   013A EF                 3563 	.db #0xef	; 239
+   013B 01                 3564 	.db #0x01	; 1
+   013C 00                 3565 	.db #0x00	; 0
+   013D 00                 3566 	.db #0x00	; 0
+   013E 00                 3567 	.db #0x00	; 0
+   013F 00                 3568 	.db #0x00	; 0
+   0140 00                 3569 	.db #0x00	; 0
+   0141 00                 3570 	.db #0x00	; 0
+   0142 00                 3571 	.db #0x00	; 0
+   0143 00                 3572 	.db #0x00	; 0
+   0144 00                 3573 	.db #0x00	; 0
+   0145 00                 3574 	.db #0x00	; 0
+   0146 00                 3575 	.db #0x00	; 0
+   0147 F0                 3576 	.db #0xf0	; 240
+   0148 0E                 3577 	.db #0x0e	; 14
+   0149 FF                 3578 	.db #0xff	; 255
+   014A FE                 3579 	.db #0xfe	; 254
+   014B F8                 3580 	.db #0xf8	; 248
+   014C 20                 3581 	.db #0x20	; 32
+   014D 38                 3582 	.db #0x38	; 56	'8'
+   014E 08                 3583 	.db #0x08	; 8
+   014F 08                 3584 	.db #0x08	; 8
+   0150 00                 3585 	.db #0x00	; 0
+   0151 00                 3586 	.db #0x00	; 0
+   0152 00                 3587 	.db #0x00	; 0
+   0153 00                 3588 	.db #0x00	; 0
+   0154 00                 3589 	.db #0x00	; 0
+   0155 00                 3590 	.db #0x00	; 0
+   0156 00                 3591 	.db #0x00	; 0
+   0157                    3592 __xinit__color_personaje_tronco_superior1:
+   0157 04                 3593 	.db #0x04	; 4
+   0158 04                 3594 	.db #0x04	; 4
+   0159 04                 3595 	.db #0x04	; 4
+   015A 04                 3596 	.db #0x04	; 4
+   015B 08                 3597 	.db #0x08	; 8
+   015C 08                 3598 	.db #0x08	; 8
+   015D 08                 3599 	.db #0x08	; 8
+   015E 08                 3600 	.db #0x08	; 8
+   015F 08                 3601 	.db #0x08	; 8
+   0160 08                 3602 	.db #0x08	; 8
+   0161 08                 3603 	.db #0x08	; 8
+   0162 08                 3604 	.db #0x08	; 8
+   0163 08                 3605 	.db #0x08	; 8
+   0164 08                 3606 	.db #0x08	; 8
+   0165 08                 3607 	.db #0x08	; 8
+   0166 08                 3608 	.db #0x08	; 8
+   0167 0A                 3609 	.db #0x0a	; 10
+   0168 0A                 3610 	.db #0x0a	; 10
+   0169 0A                 3611 	.db #0x0a	; 10
+   016A 0A                 3612 	.db #0x0a	; 10
+   016B 0A                 3613 	.db #0x0a	; 10
+   016C 0A                 3614 	.db #0x0a	; 10
+   016D 0A                 3615 	.db #0x0a	; 10
+   016E 0A                 3616 	.db #0x0a	; 10
+   016F 0A                 3617 	.db #0x0a	; 10
+   0170 0A                 3618 	.db #0x0a	; 10
+   0171 0A                 3619 	.db #0x0a	; 10
+   0172 0A                 3620 	.db #0x0a	; 10
+   0173 0A                 3621 	.db #0x0a	; 10
+   0174 0A                 3622 	.db #0x0a	; 10
+   0175 0A                 3623 	.db #0x0a	; 10
+   0176 0A                 3624 	.db #0x0a	; 10
+   0177                    3625 __xinit__color_personaje_tronco_superior2:
+   0177 08                 3626 	.db #0x08	; 8
+   0178 08                 3627 	.db #0x08	; 8
+   0179 08                 3628 	.db #0x08	; 8
+   017A 08                 3629 	.db #0x08	; 8
+   017B 08                 3630 	.db #0x08	; 8
+   017C 08                 3631 	.db #0x08	; 8
+   017D 08                 3632 	.db #0x08	; 8
+   017E 08                 3633 	.db #0x08	; 8
+   017F 08                 3634 	.db #0x08	; 8
+   0180 08                 3635 	.db #0x08	; 8
+   0181 08                 3636 	.db #0x08	; 8
+   0182 08                 3637 	.db #0x08	; 8
+   0183 08                 3638 	.db #0x08	; 8
+   0184 08                 3639 	.db #0x08	; 8
+   0185 08                 3640 	.db #0x08	; 8
+   0186 08                 3641 	.db #0x08	; 8
+   0187 08                 3642 	.db #0x08	; 8
+   0188 08                 3643 	.db #0x08	; 8
+   0189 08                 3644 	.db #0x08	; 8
+   018A 08                 3645 	.db #0x08	; 8
+   018B 08                 3646 	.db #0x08	; 8
+   018C 08                 3647 	.db #0x08	; 8
+   018D 08                 3648 	.db #0x08	; 8
+   018E 08                 3649 	.db #0x08	; 8
+   018F 08                 3650 	.db #0x08	; 8
+   0190 08                 3651 	.db #0x08	; 8
+   0191 08                 3652 	.db #0x08	; 8
+   0192 08                 3653 	.db #0x08	; 8
+   0193 08                 3654 	.db #0x08	; 8
+   0194 08                 3655 	.db #0x08	; 8
+   0195 08                 3656 	.db #0x08	; 8
+   0196 08                 3657 	.db #0x08	; 8
+   0197                    3658 __xinit__color_personaje_piernas1:
+   0197 0D                 3659 	.db #0x0d	; 13
+   0198 0D                 3660 	.db #0x0d	; 13
+   0199 0D                 3661 	.db #0x0d	; 13
+   019A 0D                 3662 	.db #0x0d	; 13
+   019B 0D                 3663 	.db #0x0d	; 13
+   019C 0D                 3664 	.db #0x0d	; 13
+   019D 0D                 3665 	.db #0x0d	; 13
+   019E 0D                 3666 	.db #0x0d	; 13
+   019F 0D                 3667 	.db #0x0d	; 13
+   01A0 0D                 3668 	.db #0x0d	; 13
+   01A1 0D                 3669 	.db #0x0d	; 13
+   01A2 0D                 3670 	.db #0x0d	; 13
+   01A3 0D                 3671 	.db #0x0d	; 13
+   01A4 0D                 3672 	.db #0x0d	; 13
+   01A5 0D                 3673 	.db #0x0d	; 13
+   01A6 0D                 3674 	.db #0x0d	; 13
+   01A7 04                 3675 	.db #0x04	; 4
+   01A8 04                 3676 	.db #0x04	; 4
+   01A9 04                 3677 	.db #0x04	; 4
+   01AA 04                 3678 	.db #0x04	; 4
+   01AB 08                 3679 	.db #0x08	; 8
+   01AC 08                 3680 	.db #0x08	; 8
+   01AD 08                 3681 	.db #0x08	; 8
+   01AE 08                 3682 	.db #0x08	; 8
+   01AF 08                 3683 	.db #0x08	; 8
+   01B0 08                 3684 	.db #0x08	; 8
+   01B1 08                 3685 	.db #0x08	; 8
+   01B2 08                 3686 	.db #0x08	; 8
+   01B3 08                 3687 	.db #0x08	; 8
+   01B4 08                 3688 	.db #0x08	; 8
+   01B5 08                 3689 	.db #0x08	; 8
+   01B6 08                 3690 	.db #0x08	; 8
+   01B7                    3691 __xinit__color_personaje_piernas2:
+   01B7 0A                 3692 	.db #0x0a	; 10
+   01B8 0A                 3693 	.db #0x0a	; 10
+   01B9 0A                 3694 	.db #0x0a	; 10
+   01BA 0A                 3695 	.db #0x0a	; 10
+   01BB 0A                 3696 	.db #0x0a	; 10
+   01BC 0A                 3697 	.db #0x0a	; 10
+   01BD 0A                 3698 	.db #0x0a	; 10
+   01BE 0A                 3699 	.db #0x0a	; 10
+   01BF 0A                 3700 	.db #0x0a	; 10
+   01C0 0A                 3701 	.db #0x0a	; 10
+   01C1 0A                 3702 	.db #0x0a	; 10
+   01C2 0A                 3703 	.db #0x0a	; 10
+   01C3 0A                 3704 	.db #0x0a	; 10
+   01C4 0A                 3705 	.db #0x0a	; 10
+   01C5 0A                 3706 	.db #0x0a	; 10
+   01C6 0A                 3707 	.db #0x0a	; 10
+   01C7 08                 3708 	.db #0x08	; 8
+   01C8 08                 3709 	.db #0x08	; 8
+   01C9 08                 3710 	.db #0x08	; 8
+   01CA 08                 3711 	.db #0x08	; 8
+   01CB 08                 3712 	.db #0x08	; 8
+   01CC 08                 3713 	.db #0x08	; 8
+   01CD 08                 3714 	.db #0x08	; 8
+   01CE 08                 3715 	.db #0x08	; 8
+   01CF 08                 3716 	.db #0x08	; 8
+   01D0 08                 3717 	.db #0x08	; 8
+   01D1 08                 3718 	.db #0x08	; 8
+   01D2 08                 3719 	.db #0x08	; 8
+   01D3 08                 3720 	.db #0x08	; 8
+   01D4 08                 3721 	.db #0x08	; 8
+   01D5 08                 3722 	.db #0x08	; 8
+   01D6 08                 3723 	.db #0x08	; 8
+   01D7                    3724 __xinit__color_arma:
+   01D7 08                 3725 	.db #0x08	; 8
+   01D8 08                 3726 	.db #0x08	; 8
+   01D9 08                 3727 	.db #0x08	; 8
+   01DA 08                 3728 	.db #0x08	; 8
+   01DB 08                 3729 	.db #0x08	; 8
+   01DC 08                 3730 	.db #0x08	; 8
+   01DD 08                 3731 	.db #0x08	; 8
+   01DE 08                 3732 	.db #0x08	; 8
+   01DF 08                 3733 	.db #0x08	; 8
+   01E0 08                 3734 	.db #0x08	; 8
+   01E1 08                 3735 	.db #0x08	; 8
+   01E2 08                 3736 	.db #0x08	; 8
+   01E3 08                 3737 	.db #0x08	; 8
+   01E4 08                 3738 	.db #0x08	; 8
+   01E5 08                 3739 	.db #0x08	; 8
+   01E6 08                 3740 	.db #0x08	; 8
+   01E7 0D                 3741 	.db #0x0d	; 13
+   01E8 0D                 3742 	.db #0x0d	; 13
+   01E9 0D                 3743 	.db #0x0d	; 13
+   01EA 0D                 3744 	.db #0x0d	; 13
+   01EB 0D                 3745 	.db #0x0d	; 13
+   01EC 0D                 3746 	.db #0x0d	; 13
+   01ED 0D                 3747 	.db #0x0d	; 13
+   01EE 0D                 3748 	.db #0x0d	; 13
+   01EF 0D                 3749 	.db #0x0d	; 13
+   01F0 0D                 3750 	.db #0x0d	; 13
+   01F1 0D                 3751 	.db #0x0d	; 13
+   01F2 0D                 3752 	.db #0x0d	; 13
+   01F3 0D                 3753 	.db #0x0d	; 13
+   01F4 0D                 3754 	.db #0x0d	; 13
+   01F5 0D                 3755 	.db #0x0d	; 13
+   01F6 0D                 3756 	.db #0x0d	; 13
+   01F7                    3757 __xinit__player:
+   01F7 0A                 3758 	.db #0x0a	; 10
+   01F8 90                 3759 	.db #0x90	; 144
+   01F9 00                 3760 	.db #0x00	; 0
+   01FA 00                 3761 	.db #0x00	; 0
+   01FB 00                 3762 	.db #0x00	; 0
+   01FC 00                 3763 	.db #0x00	; 0
+   01FD 03                 3764 	.db #0x03	; 3
+   01FE 00                 3765 	.db #0x00	; 0
+   01FF 00                 3766 	.db #0x00	; 0
+   0200 00                 3767 	.db #0x00	; 0
+   0201 06                 3768 	.db #0x06	; 6
+   0202 08                 3769 	.db #0x08	; 8
+   0203 08                 3770 	.db #0x08	; 8
+   0204 64                 3771 	.db #0x64	; 100	'd'
+   0205                    3772 __xinit__gravedad:
+   0205 08 00              3773 	.dw #0x0008
+   0207                    3774 __xinit__fireSprite:
+   0207 FF                 3775 	.db #0xff	; 255
+   0208 00                 3776 	.db #0x00	; 0
+   0209 00                 3777 	.db #0x00	; 0
+   020A 00                 3778 	.db #0x00	; 0
+   020B 00                 3779 	.db #0x00	; 0
+   020C 00                 3780 	.db #0x00	; 0
+   020D 00                 3781 	.db #0x00	; 0
+   020E 00                 3782 	.db #0x00	; 0
+   020F 00                 3783 	.db #0x00	; 0
+   0210 00                 3784 	.db #0x00	; 0
+   0211 00                 3785 	.db #0x00	; 0
+   0212 00                 3786 	.db #0x00	; 0
+   0213 00                 3787 	.db #0x00	; 0
+   0214 00                 3788 	.db #0x00	; 0
+   0215 00                 3789 	.db #0x00	; 0
+   0216 00                 3790 	.db #0x00	; 0
+   0217 FF                 3791 	.db #0xff	; 255
+   0218 00                 3792 	.db #0x00	; 0
+   0219 00                 3793 	.db #0x00	; 0
+   021A 00                 3794 	.db #0x00	; 0
+   021B 00                 3795 	.db #0x00	; 0
+   021C 00                 3796 	.db #0x00	; 0
+   021D 00                 3797 	.db #0x00	; 0
+   021E 00                 3798 	.db #0x00	; 0
+   021F 00                 3799 	.db #0x00	; 0
+   0220 00                 3800 	.db #0x00	; 0
+   0221 00                 3801 	.db #0x00	; 0
+   0222 00                 3802 	.db #0x00	; 0
+   0223 00                 3803 	.db #0x00	; 0
+   0224 00                 3804 	.db #0x00	; 0
+   0225 00                 3805 	.db #0x00	; 0
+   0226 00                 3806 	.db #0x00	; 0
+   0227                    3807 __xinit__enemie1:
+   0227 00                 3808 	.db #0x00	; 0
+   0228 07                 3809 	.db #0x07	; 7
+   0229 04                 3810 	.db #0x04	; 4
+   022A 04                 3811 	.db #0x04	; 4
+   022B 07                 3812 	.db #0x07	; 7
+   022C 03                 3813 	.db #0x03	; 3
+   022D 01                 3814 	.db #0x01	; 1
+   022E 1F                 3815 	.db #0x1f	; 31
+   022F 32                 3816 	.db #0x32	; 50	'2'
+   0230 26                 3817 	.db #0x26	; 38
+   0231 24                 3818 	.db #0x24	; 36
+   0232 28                 3819 	.db #0x28	; 40
+   0233 68                 3820 	.db #0x68	; 104	'h'
+   0234 48                 3821 	.db #0x48	; 72	'H'
+   0235 48                 3822 	.db #0x48	; 72	'H'
+   0236 48                 3823 	.db #0x48	; 72	'H'
+   0237 00                 3824 	.db #0x00	; 0
+   0238 C0                 3825 	.db #0xc0	; 192
+   0239 40                 3826 	.db #0x40	; 64
+   023A 40                 3827 	.db #0x40	; 64
+   023B C0                 3828 	.db #0xc0	; 192
+   023C 80                 3829 	.db #0x80	; 128
+   023D 00                 3830 	.db #0x00	; 0
+   023E F8                 3831 	.db #0xf8	; 248
+   023F 4C                 3832 	.db #0x4c	; 76	'L'
+   0240 64                 3833 	.db #0x64	; 100	'd'
+   0241 24                 3834 	.db #0x24	; 36
+   0242 36                 3835 	.db #0x36	; 54	'6'
+   0243 12                 3836 	.db #0x12	; 18
+   0244 12                 3837 	.db #0x12	; 18
+   0245 12                 3838 	.db #0x12	; 18
+   0246 12                 3839 	.db #0x12	; 18
+   0247                    3840 __xinit__enemie2:
+   0247 00                 3841 	.db #0x00	; 0
+   0248 07                 3842 	.db #0x07	; 7
+   0249 04                 3843 	.db #0x04	; 4
+   024A 04                 3844 	.db #0x04	; 4
+   024B 07                 3845 	.db #0x07	; 7
+   024C 03                 3846 	.db #0x03	; 3
+   024D 01                 3847 	.db #0x01	; 1
+   024E 0F                 3848 	.db #0x0f	; 15
+   024F 0A                 3849 	.db #0x0a	; 10
+   0250 1A                 3850 	.db #0x1a	; 26
+   0251 12                 3851 	.db #0x12	; 18
+   0252 12                 3852 	.db #0x12	; 18
+   0253 12                 3853 	.db #0x12	; 18
+   0254 12                 3854 	.db #0x12	; 18
+   0255 12                 3855 	.db #0x12	; 18
+   0256 12                 3856 	.db #0x12	; 18
+   0257 00                 3857 	.db #0x00	; 0
+   0258 C0                 3858 	.db #0xc0	; 192
+   0259 40                 3859 	.db #0x40	; 64
+   025A 40                 3860 	.db #0x40	; 64
+   025B C0                 3861 	.db #0xc0	; 192
+   025C 80                 3862 	.db #0x80	; 128
+   025D 00                 3863 	.db #0x00	; 0
+   025E F0                 3864 	.db #0xf0	; 240
+   025F 50                 3865 	.db #0x50	; 80	'P'
+   0260 58                 3866 	.db #0x58	; 88	'X'
+   0261 48                 3867 	.db #0x48	; 72	'H'
+   0262 48                 3868 	.db #0x48	; 72	'H'
+   0263 48                 3869 	.db #0x48	; 72	'H'
+   0264 48                 3870 	.db #0x48	; 72	'H'
+   0265 48                 3871 	.db #0x48	; 72	'H'
+   0266 48                 3872 	.db #0x48	; 72	'H'
+                           3873 	.area _CABS (ABS)

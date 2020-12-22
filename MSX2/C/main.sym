@@ -1,0 +1,156 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  2710 L
+    .__.ABS.                                                    =  0000 G
+    .__.CPU.                                                    =  0000 L
+    .__.H$L.                                                    =  0000 L
+    _Beep                                                          **** GX
+    _BoxFill                                                       **** GX
+    _BoxLine                                                       **** GX
+  0 _Done_Version                                                  003E R
+  0 _FT_SetName                                                    00B7 GR
+    _HMMC                                                          **** GX
+    _HMMM                                                          **** GX
+    _Inkey                                                         **** GX
+    _Itoa                                                          **** GX
+    _JoystickRead                                                  **** GX
+    _PutSprite                                                     **** GX
+    _PutText                                                       **** GX
+    _ReadSP                                                        **** GX
+    _SC5SpriteColors                                               **** GX
+    _Screen                                                        **** GX
+  0 _SetAdjust                                                     03C1 GR
+    _SetColors                                                     **** GX
+    _SetSpritePattern                                              **** GX
+    _Sprite16                                                      **** GX
+    _SpriteOn                                                      **** GX
+    _SpriteReset                                                   **** GX
+    _SpriteSmall                                                   **** GX
+  1 _TFileTileMap                                                  0025 GR
+  1 _TFileTileSet                                                  0000 GR
+    _TriggerRead                                                   **** GX
+    _VDPwrite                                                      **** GX
+    ___sdcc_enter_ix                                               **** GX
+  0 ___str_1                                                       047C R
+  0 ___str_2                                                       0D73 R
+  0 ___str_3                                                       1105 R
+    __modsint                                                      **** GX
+  7 __xinit__arma_derecha                                          0097 R
+  7 __xinit__arma_izquierda                                        0137 R
+  7 __xinit__color_arma                                            01D7 R
+  7 __xinit__color_personaje_piernas1                              0197 R
+  7 __xinit__color_personaje_piernas2                              01B7 R
+  7 __xinit__color_personaje_tronco_superior1                      0157 R
+  7 __xinit__color_personaje_tronco_superior2                      0177 R
+  7 __xinit__enemie1                                               0227 R
+  7 __xinit__enemie2                                               0247 R
+  7 __xinit__fileNameTileMap                                       000C R
+  7 __xinit__fileNameTilseSet                                      0000 R
+  7 __xinit__fireSprite                                            0207 R
+  7 __xinit__gravedad                                              0205 R
+  7 __xinit__personaje_piernas_derecha1                            0057 R
+  7 __xinit__personaje_piernas_derecha2                            0077 R
+  7 __xinit__personaje_piernas_izquierda1                          00F7 R
+  7 __xinit__personaje_piernas_izquierda2                          0117 R
+  7 __xinit__personaje_tronco_superior_derecha1                    0017 R
+  7 __xinit__personaje_tronco_superior_derecha2                    0037 R
+  7 __xinit__personaje_tronco_superior_izquieda1                   00B7 R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+  7 __xinit__personaje_tronco_superior_izquierda2                  00D7 R
+  7 __xinit__player                                                01F7 R
+  0 _actualizar_disparos                                           088D GR
+  0 _actualizar_enemigos                                           0A4F GR
+  2 _arma_derecha                                                  0097 GR
+  2 _arma_izquierda                                                0137 GR
+  1 _array_structs_enemigos                                        978F GR
+  1 _array_structs_fires                                           973E GR
+  1 _bufferTileSet                                                 004A GR
+  0 _cargarArrayFilasTileMap                                       0189 GR
+  0 _cargarTileMapEnRAM                                            005E GR
+  0 _cargarTileSetEnRAM                                            0000 GR
+  1 _colisionFire                                                  97F4 GR
+  0 _collisionPlayer                                               07FE GR
+  0 _collision_enemigos                                            0BA5 GR
+  2 _color_arma                                                    01D7 GR
+  2 _color_personaje_piernas1                                      0197 GR
+  2 _color_personaje_piernas2                                      01B7 GR
+  2 _color_personaje_tronco_superior1                              0157 GR
+  2 _color_personaje_tronco_superior2                              0177 GR
+  1 _contador                                                      9738 GR
+  1 _contador_tiles                                                9736 GR
+  0 _crear_disparos                                                0877 GR
+  0 _crear_enemigos                                                0A38 GR
+  0 _deRamAVramPage1                                               009C GR
+  0 _eliminar_disparos                                             09B5 GR
+  0 _eliminar_enemigos                                             0B45 GR
+  2 _enemie1                                                       0227 GR
+  2 _enemie2                                                       0247 GR
+  1 _espacioLibre                                                  97F7 GR
+  0 _fabricaDeEnemigos                                             0F16 GR
+    _fcb_close                                                     **** GX
+    _fcb_open                                                      **** GX
+    _fcb_read                                                      **** GX
+  1 _filas                                                         6A4A GR
+  2 _fileNameTileMap                                               000C GR
+  2 _fileNameTilseSet                                              0000 GR
+  1 _fire                                                          97F9 GR
+  2 _fireSprite                                                    0207 GR
+  0 _generar_numero_aleatorio                                      0CBF GR
+  2 _gravedad                                                      0205 GR
+  0 _gui                                                           0F4E GR
+  0 _inicializar_disparos                                          0860 GR
+  0 _inicializar_player                                            047F GR
+  0 _inicializar_sprites                                           0D92 GR
+  0 _inicilizar_enemigos                                           0A0C GR
+  0 _main                                                          0CE3 GR
+  1 _numero_de_enemigo                                             97F3 GR
+  1 _numero_disparo                                                978E GR
+  2 _personaje_piernas_derecha1                                    0057 GR
+  2 _personaje_piernas_derecha2                                    0077 GR
+  2 _personaje_piernas_izquierda1                                  00F7 GR
+  2 _personaje_piernas_izquierda2                                  0117 GR
+  2 _personaje_tronco_superior_derecha1                            0017 GR
+  2 _personaje_tronco_superior_derecha2                            0037 GR
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 3.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+  2 _personaje_tronco_superior_izquieda1                           00B7 GR
+  2 _personaje_tronco_superior_izquierda2                          00D7 GR
+  0 _pintarPantallaInicio                                          02CF GR
+  2 _player                                                        01F7 GR
+  1 _posicionPlayerInicial                                         97F5 GR
+  0 _procesar_entrada                                              0D9B GR
+    _rand                                                          **** GX
+  0 _recorrerBufferTileMapYPintarPage1EnPage0                      0200 GR
+  0 _render_player                                                 057C GR
+  1 _tileX                                                         973A GR
+  1 _tileY                                                         973C GR
+  0 _update_collision_system                                       0E84 GR
+  0 _update_player                                                 0741 GR
+  0 _verArray                                                      03F9 GR
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 4.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE                                      size 1108   flags    0
+   1 _DATA                                      size 97FB   flags    0
+   2 _INITIALIZED                               size  267   flags    0
+   3 _DABS                                      size    0   flags    8
+   4 _HOME                                      size    0   flags    0
+   5 _GSINIT                                    size    0   flags    0
+   6 _GSFINAL                                   size    0   flags    0
+   7 _INITIALIZER                               size  267   flags    0
+   8 _CABS                                      size    0   flags    8
+

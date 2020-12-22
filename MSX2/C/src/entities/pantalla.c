@@ -28,11 +28,11 @@ unsigned char bufferTileSet[tamanobufferTileSet];
 //Son 23 filas * 500 columnas
 
 #define numeroFilas 23
-#define numeroColumnas 200
-#define tamanoBufferTileMap 4600 // numeroFilas*numeroColumnas
-unsigned char bufferTileMap[tamanoBufferTileMap];
+#define numeroColumnas 250
+#define tamanoBufferTileMap 5750 // numeroFilas*numeroColumnas
+//unsigned char bufferTileMap[tamanoBufferTileMap];
 unsigned int filas[numeroFilas][numeroColumnas];
-int contador_tiles=0;
+int contador_tiles;
 unsigned int contador;
 
 /********FINAL DE DECLARAIONES***********/
@@ -52,15 +52,23 @@ void cargarTileSetEnRAM(){
     fcb_close( &TFileTileSet );
 }
 
-void cargarTileMapEnRAM(){
+/*void cargarTileMapEnRAM(){
     FT_SetName( &TFileTileMap, &fileNameTileMap[0] );
     fcb_open( &TFileTileMap );
     //Analizando el archivo word0.bin con un editor hexadecimal vemos que hay que saltar 8 bytes que definen al .bin
     fcb_read( &TFileTileMap, &bufferTileMap[0], 7 );  // Skip 7 first bytes of the file  
     fcb_read( &TFileTileMap, &bufferTileMap[0], tamanoBufferTileMap );  // Read 20 lines of image data (128bytes per line in screen5)
     fcb_close( &TFileTileMap);
-}
+}*/
+void cargarTileMapEnRAM(){
+    FT_SetName( &TFileTileMap, &fileNameTileMap[0] );
+    fcb_open( &TFileTileMap );
+    //Analizando el archivo word0.bin con un editor hexadecimal vemos que hay que saltar 8 bytes que definen al .bin
+    fcb_read( &TFileTileMap, &bufferTileSet[0], 7 );  // Skip 7 first bytes of the file  
+    fcb_read( &TFileTileMap, &bufferTileSet[0], tamanoBufferTileMap );  // Read 20 lines of image data (128bytes per line in screen5)
+    fcb_close( &TFileTileMap);
 
+}
 void deRamAVramPage1(void){
   //HMMC transfiere bloques de RAM a VRAM rápidamente en un area rectangular, ver www.tipolisto.es/files/v9938 página 66
   //HMMM(buffer en RAM, posición_x, posición_Y (256 será la page 1), ancho copia, alto copia)
@@ -92,7 +100,8 @@ void cargarArrayFilasTileMap(){
   for (int fila=0;fila<numeroFilas;fila++){
     for (int columna=0; columna<numeroColumnas;columna++){
       contador_tiles++;
-      filas[fila][columna]=bufferTileMap[contador_tiles];
+      //filas[fila][columna]=bufferTileMap[contador_tiles];
+      filas[fila][columna]=bufferTileSet[contador_tiles];
     }
   }
 }

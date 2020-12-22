@@ -8,9 +8,9 @@
 //Para el HMMC de pantalla.c
 #include "fusion-c/header/vdp_graph2.h"
 //Para el boolean
-#include "fusion-c/header/newTypes.h"
+//#include "fusion-c/header/newTypes.h"
 //Para el sprintf
-#include <stdio.h>
+//#include <stdio.h>
 // Para el memset de pantalla.c
 #include <string.h>
 //itoa
@@ -21,7 +21,7 @@
 #include "src/entities/enemies.c"
 
 
-#include "fusion-c/header/io.h"
+//#include "fusion-c/header/io.h"
 
 
 //información del juego
@@ -35,9 +35,11 @@ void update_collision_system();
 //#define  HALT __asm halt __endasm 
 //boolean repetir=true;
 int posicionPlayerInicial;
-
+unsigned int espacioLibre;
 TFire* fire;
 void main(void){
+  contador_tiles=0;
+  espacioLibre=0;
   SetColors(15,1,1);
   Screen(5);
 
@@ -68,7 +70,7 @@ void main(void){
  
   repetir:
   contador=32;
-  while(contador<200 && Inkey()!=27){
+  while(contador<numeroColumnas && Inkey()!=27){
     
     __asm 
       halt 
@@ -78,7 +80,7 @@ void main(void){
     
     //El movimiento de la pantalla o scroll está en el input system
     procesar_entrada();
-    update_player(posicionPlayerInicial);
+    update_player();
     render_player();
     actualizar_disparos();
     actualizar_enemigos();
@@ -115,19 +117,21 @@ void procesar_entrada(){
   switch (joy)
   {
     case 1:
+      player.y-=player.velocidadY;
+
+        /*
         //Salto
         if (player.saltando!=1){
-          //posicionPlayerInicial=player.y;
           player.saltando=1;
           player.y-=48;
-        }
+        }*/
         break;
     case 3:
         if (player.colision==0) {
           player.oldX=player.x;
           player.oldY=player.y;
           //La pantalla solo se moverá si el player está en el centro
-          if ( player.x>70) recorrerBufferTileMapYPintarPage1EnPage0();
+          recorrerBufferTileMapYPintarPage1EnPage0();
           player.x+=player.velocidadX;
           player.direccion=3;
           if (player.andando==0){
@@ -138,7 +142,7 @@ void procesar_entrada(){
         }
         break;
     case 5:
-        //player.y+=player.velocidad;
+        player.y+=player.velocidadY;
         break;
     case 7:
         player.x-=player.velocidadX;
@@ -214,7 +218,8 @@ void gui(){
   tileY=(player.y/8)+3;
   tileX=(player.x/8)+(contador-32)-3;
   PutText(200,185,Itoa(player.saltando,"  ",10),8);
-
+  espacioLibre=ReadSP();
+  PutText(200,195,Itoa(espacioLibre,"  ",10),8);
   /*
   PutText(0,185,Itoa(array_structs_enemigos[0].plano,"  ",10),8);
   PutText(0,195,Itoa(array_structs_enemigos[0].sprite,"  ",10),8);
