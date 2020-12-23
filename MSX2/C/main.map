@@ -23,22 +23,22 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000106  s__CODE                         
      000003AB  l__INITIALIZER                  
      000003AD  l__INITIALIZED                  
-     0000299C  l__CODE                         
-     00002AA2  s__DATA                         
+     00002A49  l__CODE                         
+     00002B4F  s__DATA                         
      00006B0D  l__DATA                         
-     000095AF  s__INITIALIZED                  
-     0000995C  s__GSINIT                       
-     0000995C  s__HOME                         
-     0000996B  s__GSFINAL                      
-     0000996C  s__INITIALIZER                  
-     00009D17  s__HEAP                         
+     0000965C  s__INITIALIZED                  
+     00009A09  s__GSINIT                       
+     00009A09  s__HOME                         
+     00009A18  s__GSFINAL                      
+     00009A19  s__INITIALIZER                  
+     00009DC4  s__HEAP                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000106    0000299C =       10652. bytes (REL,CON)
+_CODE                               00000106    00002A49 =       10825. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -69,184 +69,184 @@ _CODE                               00000106    0000299C =       10652. bytes (R
      00000F92  _main                              main
      000010BC  _inicializar_sprites               main
      000010C5  _procesar_entrada                  main
-     000011B5  _update_collision_system           main
-     00001247  _gui                               main
-     000013BC  __divuint                          
-     000013C4  __divuchar                         
-     000013CB  __divu8                            
-     000013CE  __divu16                           
-     000013FD  _rand                              rand
-     000014BC  _srand                             rand
-     00001509  _vMSX                              
-     00001551  _SetVDPWrite                       
-     00001577  _WriteScr                          
-     0000159A  _SetVDPRead                        
-     000015BC  _ReadScr                           
-     0000161A  _PsetXY                            
-     00001660  _PgetXY                            
-     00001690  _Point                             
-     000016DD  _NewLine                           
-     0000176C  _OLD_Line                          
-     000017E7  _OLD_Rect                          
-     00001856  _Paint                             
-     000018DC  _HMMC                              
-     0000198D  _LMMC                              
-     000019F7  _HMCM                              
+     000011DF  _update_collision_system           main
+     00001271  _gui                               main
+     00001469  __divuint                          
+     00001471  __divuchar                         
+     00001478  __divu8                            
+     0000147B  __divu16                           
+     000014AA  _rand                              rand
+     00001569  _srand                             rand
+     000015B6  _vMSX                              
+     000015FE  _SetVDPWrite                       
+     00001624  _WriteScr                          
+     00001647  _SetVDPRead                        
+     00001669  _ReadScr                           
+     000016C7  _PsetXY                            
+     0000170D  _PgetXY                            
+     0000173D  _Point                             
+     0000178A  _NewLine                           
+     00001819  _OLD_Line                          
+     00001894  _OLD_Rect                          
+     00001903  _Paint                             
+     00001989  _HMMC                              
+     00001A3A  _LMMC                              
+     00001AA4  _HMCM                              
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000106    0000299C =       10652. bytes (REL,CON)
+_CODE                               00000106    00002A49 =       10825. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00001ACD  _HMCM_SC8                          
-     00001BBE  _HMMM                              
-     00001C1D  _YMMM                              
-     00001C76  _HMMV                              
-     00001CC4  _LMMV                              
-     00001D17  _Pset                              
-     00001D5D  _LMMM                              
-     00001DDC  _fLMMM                             
-     00001E09  _Draw                              
-     0000203D  _fcb_read                          
-     00002060  _fcb_write                         
-     00002084  _SubLine                           vdp_graph2plus
-     000020EE  _Line                              vdp_graph2plus
-     00002183  _BoxFill                           vdp_graph2plus
-     000021F7  _BoxLine                           vdp_graph2plus
-     000022E3  _PutSprite                         putsprite
-     0000234B  _SpriteSmall                       spriteSmall
-     00002382  _SetRealTimer                      setrealtimer
-     000023B5  _KeySound                          keysound
-     000023ED  _SC8SpritePattern                  
-     000023F6  _SC5SpritePattern                  
-     000023FF  _SC8SpriteColors                   
-     00002409  _SC5SpriteColors                   
-     0000247A  _SC5SpriteAttribs                  
-     000024A9  _Sprite32Bytes                     
-     00002503  _SpriteOn                          spriteon
-     0000253A  _SpriteReset                       spritereset
-     0000254C  _fcb_open                          
-     0000255D  _fcb_create                        
-     0000257E  _fcb_close                         
-     00002590  _Beep                              beep
-     000025A5  _WaitKey                           
-     000025BD  _Inkey                             
-     000025E3  _SetSpritePattern                  setspritepattern
-     00002639  _RealTimer                         realtimer
-     00002661  _VDPwriteNi                        
-     00002671  _JoystickRead                      joystickread
-     00002690  _VpokeFirst                        vpoke
-     0000271C  _Vpoke                             vpoke
-     00002734  _Itoa                              itoa
-     0000285B  _OutPorts                          
-     0000286B  _TriggerRead                       triggerread
-     0000288A  _StrReverse                        strreverse
-     0000290F  _VDPwrite                          
-     00002921  _StrLen                            
-     0000293C  ___sdcc_enter_ix                   
-     00002946  _OutPort                           
-     00002950  __modschar                         
-     0000295D  __modsint                          
-     00002969  _Sprite16                          sprite16
-     000029A0  _PutText                           
+     00001B7A  _HMCM_SC8                          
+     00001C6B  _HMMM                              
+     00001CCA  _YMMM                              
+     00001D23  _HMMV                              
+     00001D71  _LMMV                              
+     00001DC4  _Pset                              
+     00001E0A  _LMMM                              
+     00001E89  _fLMMM                             
+     00001EB6  _Draw                              
+     000020EA  _fcb_read                          
+     0000210D  _fcb_write                         
+     00002131  _SubLine                           vdp_graph2plus
+     0000219B  _Line                              vdp_graph2plus
+     00002230  _BoxFill                           vdp_graph2plus
+     000022A4  _BoxLine                           vdp_graph2plus
+     00002390  _PutSprite                         putsprite
+     000023F8  _SpriteSmall                       spriteSmall
+     0000242F  _SetRealTimer                      setrealtimer
+     00002462  _KeySound                          keysound
+     0000249A  _SC8SpritePattern                  
+     000024A3  _SC5SpritePattern                  
+     000024AC  _SC8SpriteColors                   
+     000024B6  _SC5SpriteColors                   
+     00002527  _SC5SpriteAttribs                  
+     00002556  _Sprite32Bytes                     
+     000025B0  _SpriteOn                          spriteon
+     000025E7  _SpriteReset                       spritereset
+     000025F9  _fcb_open                          
+     0000260A  _fcb_create                        
+     0000262B  _fcb_close                         
+     0000263D  _Beep                              beep
+     00002652  _WaitKey                           
+     0000266A  _Inkey                             
+     00002690  _SetSpritePattern                  setspritepattern
+     000026E6  _RealTimer                         realtimer
+     0000270E  _VDPwriteNi                        
+     0000271E  _JoystickRead                      joystickread
+     0000273D  _VpokeFirst                        vpoke
+     000027C9  _Vpoke                             vpoke
+     000027E1  _Itoa                              itoa
+     00002908  _OutPorts                          
+     00002918  _TriggerRead                       triggerread
+     00002937  _StrReverse                        strreverse
+     000029BC  _VDPwrite                          
+     000029CE  _StrLen                            
+     000029E9  ___sdcc_enter_ix                   
+     000029F3  _OutPort                           
+     000029FD  __modschar                         
+     00002A0A  __modsint                          
+     00002A16  _Sprite16                          sprite16
+     00002A4D  _PutText                           
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000106    0000299C =       10652. bytes (REL,CON)
+_CODE                               00000106    00002A49 =       10825. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000029E0  _SetColors                         setcolors
-     00002A3A  __divsint                          
-     00002A43  __divschar                         
-     00002A4A  __div8                             
-     00002A4E  __div_signexte                     
-     00002A52  __div16                            
-     00002A78  __get_remainder                    
-     00002A82  _Screen                            
+     00002A8D  _SetColors                         setcolors
+     00002AE7  __divsint                          
+     00002AF0  __divschar                         
+     00002AF7  __div8                             
+     00002AFB  __div_signexte                     
+     00002AFF  __div16                            
+     00002B25  __get_remainder                    
+     00002B2F  _Screen                            
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               00002AA2    00006B0D =       27405. bytes (REL,CON)
+_DATA                               00002B4F    00006B0D =       27405. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00002AA2  _TFileTileSet                      main
-     00002AC7  _TFileTileMap                      main
-     00002AEC  _bufferTileSetYMap                 main
-     000094EC  _contadorColumna                   main
-     000094EE  _tileX                             main
-     000094F0  _tileY                             main
-     000094F2  _array_structs_fires               main
-     00009542  _numero_disparo                    main
-     00009543  _array_structs_enemigos            main
-     000095A7  _numero_de_enemigo                 main
-     000095A8  _colisionFire                      main
-     000095A9  _posicionPlayerInicial             main
-     000095AB  _espacioLibre                      main
-     000095AD  _fire                              main
+     00002B4F  _TFileTileSet                      main
+     00002B74  _TFileTileMap                      main
+     00002B99  _bufferTileSetYMap                 main
+     00009599  _contadorColumna                   main
+     0000959B  _tileX                             main
+     0000959D  _tileY                             main
+     0000959F  _array_structs_fires               main
+     000095EF  _numero_disparo                    main
+     000095F0  _array_structs_enemigos            main
+     00009654  _numero_de_enemigo                 main
+     00009655  _colisionFire                      main
+     00009656  _posicionPlayerInicial             main
+     00009658  _espacioLibre                      main
+     0000965A  _fire                              main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZED                        000095AF    000003AD =         941. bytes (REL,CON)
+_INITIALIZED                        0000965C    000003AD =         941. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000095AF  _fileNameTilseSet                  main
-     000095BB  _fileNameTileMap                   main
-     000095C6  _personaje_tronco_superior_derec   main
-     000095E6  _personaje_tronco_superior_derec   main
-     00009606  _personaje_piernas_derecha1        main
-     00009626  _personaje_piernas_derecha2        main
-     00009646  _arma_derecha                      main
-     00009666  _personaje_tronco_superior_izqui   main
-     00009686  _personaje_tronco_superior_izqui   main
-     000096A6  _personaje_piernas_izquierda1      main
-     000096C6  _personaje_piernas_izquierda2      main
-     000096E6  _arma_izquierda                    main
-     00009706  _color_personaje_tronco_superior   main
-     00009726  _color_personaje_tronco_superior   main
-     00009746  _color_personaje_piernas1          main
-     00009766  _color_personaje_piernas2          main
-     00009786  _color_arma                        main
-     000097A6  _player                            main
-     000097B4  _gravedad                          main
-     000097B6  _fireSprite                        main
-     000097D6  _enemigo1                          main
-     000097F6  _enemigo1andando                   main
-     00009816  _enemigo2                          main
-     00009836  _enemigo2andando                   main
-     00009856  _enemigo3                          main
-     00009876  _enemigo3andando                   main
-     00009896  _enemigo4                          main
-     000098B6  _enemigo4andando                   main
-     000098D6  _colorEnemigo1                     main
-     000098E6  _colorEnemigo1Andando              main
-     000098F6  _colorEnemigo2                     main
-     00009906  _colorEnemigo2Andando              main
-     00009916  _colorEnemigo3                     main
-     00009926  _colorEnemigo3Andando              main
-     00009936  _colorEnemigo4                     main
-     00009946  _colorEnemigo4Andando              main
-     00009956  _heap_top                          
+     0000965C  _fileNameTilseSet                  main
+     00009668  _fileNameTileMap                   main
+     00009673  _personaje_tronco_superior_derec   main
+     00009693  _personaje_tronco_superior_derec   main
+     000096B3  _personaje_piernas_derecha1        main
+     000096D3  _personaje_piernas_derecha2        main
+     000096F3  _arma_derecha                      main
+     00009713  _personaje_tronco_superior_izqui   main
+     00009733  _personaje_tronco_superior_izqui   main
+     00009753  _personaje_piernas_izquierda1      main
+     00009773  _personaje_piernas_izquierda2      main
+     00009793  _arma_izquierda                    main
+     000097B3  _color_personaje_tronco_superior   main
+     000097D3  _color_personaje_tronco_superior   main
+     000097F3  _color_personaje_piernas1          main
+     00009813  _color_personaje_piernas2          main
+     00009833  _color_arma                        main
+     00009853  _player                            main
+     00009861  _gravedad                          main
+     00009863  _fireSprite                        main
+     00009883  _enemigo1                          main
+     000098A3  _enemigo1andando                   main
+     000098C3  _enemigo2                          main
+     000098E3  _enemigo2andando                   main
+     00009903  _enemigo3                          main
+     00009923  _enemigo3andando                   main
+     00009943  _enemigo4                          main
+     00009963  _enemigo4andando                   main
+     00009983  _colorEnemigo1                     main
+     00009993  _colorEnemigo1Andando              main
+     000099A3  _colorEnemigo2                     main
+     000099B3  _colorEnemigo2Andando              main
+     000099C3  _colorEnemigo3                     main
+     000099D3  _colorEnemigo3Andando              main
+     000099E3  _colorEnemigo4                     main
+     000099F3  _colorEnemigo4Andando              main
+     00009A03  _heap_top                          
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSINIT                             0000995C    0000000F =          15. bytes (REL,CON)
+_GSINIT                             00009A09    0000000F =          15. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -255,7 +255,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_GSFINAL                            0000996B    00000001 =           1. bytes (REL,CON)
+_GSFINAL                            00009A18    00000001 =           1. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -264,7 +264,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZER                        0000996C    000003AB =         939. bytes (REL,CON)
+_INITIALIZER                        00009A19    000003AB =         939. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -282,11 +282,11 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_HEAP                               00009D17    00000000 =           0. bytes (REL,CON)
+_HEAP                               00009DC4    00000000 =           0. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00009D17  _HEAP_start                        
+     00009DC4  _HEAP_start                        
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 

@@ -41,7 +41,10 @@ Symbol Table
   0 ___str_2                                                       0F7D R
   0 ___str_3                                                       0F9D R
   0 ___str_4                                                       0FA0 R
-  0 ___str_5                                                       12A8 R
+  0 ___str_5                                                       1338 R
+  0 ___str_6                                                       133B R
+  0 ___str_7                                                       1345 R
+  0 ___str_8                                                       134D R
     __divuint                                                      **** GX
     __modsint                                                      **** GX
   7 __xinit__arma_derecha                                          0097 R
@@ -55,14 +58,14 @@ Symbol Table
   7 __xinit__colorEnemigo4                                         0387 R
   7 __xinit__colorEnemigo4Andando                                  0397 R
   7 __xinit__color_arma                                            01D7 R
-  7 __xinit__color_personaje_piernas1                              0197 R
-  7 __xinit__color_personaje_piernas2                              01B7 R
-  7 __xinit__color_personaje_tronco_superior1                      0157 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
 Hexadecimal [16-Bits]
 
 Symbol Table
 
+  7 __xinit__color_personaje_piernas1                              0197 R
+  7 __xinit__color_personaje_piernas2                              01B7 R
+  7 __xinit__color_personaje_tronco_superior1                      0157 R
   7 __xinit__color_personaje_tronco_superior2                      0177 R
   7 __xinit__enemigo1                                              0227 R
   7 __xinit__enemigo1andando                                       0247 R
@@ -115,14 +118,14 @@ Symbol Table
   0 _crear_enemigos                                                0A9A GR
   0 _deRamAVramPage1                                               00A3 GR
   0 _eliminar_disparos                                             09B7 GR
-  0 _eliminar_enemigos                                             0D36 GR
-  2 _enemigo1                                                      0227 GR
-  2 _enemigo1andando                                               0247 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 3.
 Hexadecimal [16-Bits]
 
 Symbol Table
 
+  0 _eliminar_enemigos                                             0D36 GR
+  2 _enemigo1                                                      0227 GR
+  2 _enemigo1andando                                               0247 GR
   2 _enemigo2                                                      0267 GR
   2 _enemigo2andando                                               0287 GR
   2 _enemigo3                                                      02A7 GR
@@ -140,7 +143,7 @@ Symbol Table
   2 _fireSprite                                                    0207 GR
   0 _generar_numero_aleatorio                                      0E68 GR
   2 _gravedad                                                      0205 GR
-  0 _gui                                                           1141 GR
+  0 _gui                                                           116B GR
   0 _inicializarPantalla                                           0000 GR
   0 _inicializar_disparos                                          0862 GR
   0 _inicializar_player                                            047B GR
@@ -166,7 +169,7 @@ Symbol Table
   0 _render_player                                                 0578 GR
   1 _tileX                                                         6A4C GR
   1 _tileY                                                         6A4E GR
-  0 _update_collision_system                                       10AF GR
+  0 _update_collision_system                                       10D9 GR
   0 _update_player                                                 073D GR
   0 _verArray                                                      03EE GR
 
@@ -175,7 +178,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size 12AB   flags    0
+   0 _CODE                                      size 1358   flags    0
    1 _DATA                                      size 6B0D   flags    0
    2 _INITIALIZED                               size  3A7   flags    0
    3 _DABS                                      size    0   flags    8

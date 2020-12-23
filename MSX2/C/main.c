@@ -140,9 +140,11 @@ void procesar_entrada(){
         if (player.colision==0) {
           player.oldX=player.x;
           player.oldY=player.y;
-          //La pantalla solo se moverá si el player está en el centro
-          recorrerBufferTileMapYPintarPage1EnPage0();
-          player.x+=player.velocidadX;
+          if ((player.x/8)>14) recorrerBufferTileMapYPintarPage1EnPage0();
+          else{
+              player.x+=player.velocidadX;
+          }
+
           player.direccion=3;
           if (player.andando==0){
             player.andando=1;
@@ -213,11 +215,12 @@ void gui(){
   PutText(100,185,Itoa(tileY,"  ",10),8);
   PutText(100,195,Itoa(tileX,"  ",10),8);
   PutText(100,203,Itoa(bufferTileSetYMap[tileY*numeroColumnas+tileX],"  ",10),8);
-  //Colision derecha con bloque
-  //tileY=(player.y/8)+3;
-  //tileX=(player.x/8)+(contadorColumna-32)-3;
+  PutText(120,185,"Enemigos:",8);
+  PutText(120,195,"Tiempo:",8);
+  PutText(120,203,"Conatdor: ",8);
   PutText(200,185,Itoa(numero_de_enemigo,"  ",10),8);
   PutText(200,195,Itoa(RealTimer()/60,"  ",10),8);
+  PutText(200,203,Itoa(contadorColumna,"  ",10),8);
   /*
   PutText(0,185,Itoa(array_structs_enemigos[0].plano,"  ",10),8);
   PutText(0,195,Itoa(array_structs_enemigos[0].sprite,"  ",10),8);

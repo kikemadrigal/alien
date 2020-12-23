@@ -129,7 +129,7 @@ int tileY;
 
 /**************DEFINICIONES************/
 //x,y,plano,sprite,direccion(3 derecha-7 izquierda),andando,saltando,color,velocidad,energia
-TPlayer player={10,18*8,0,0,0,0,3,0,0,0,6,8,8,100};
+TPlayer player={10*8,18*8,0,0,0,0,3,0,0,0,6,8,8,100};
 int gravedad=8;
 void inicializar_player(){
     //py=212/2;

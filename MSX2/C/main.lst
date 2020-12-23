@@ -348,14 +348,14 @@
    009D E3            [19]  343 	ex	(sp),hl
    009E CDr00r00      [17]  344 	call	_fcb_close
    00A1 F1            [10]  345 	pop	af
-                            346 ;src/entities/pantalla.c:73: }
+                            346 ;src/entities/pantalla.c:72: }
    00A2 C9            [10]  347 	ret
-                            348 ;src/entities/pantalla.c:74: void deRamAVramPage1(void){
+                            348 ;src/entities/pantalla.c:73: void deRamAVramPage1(void){
                             349 ;	---------------------------------
                             350 ; Function deRamAVramPage1
                             351 ; ---------------------------------
    00A3                     352 _deRamAVramPage1::
-                            353 ;src/entities/pantalla.c:77: HMMC(&bufferTileSetYMap[0], 0,256,256,212 ); 
+                            353 ;src/entities/pantalla.c:76: HMMC(&bufferTileSetYMap[0], 0,256,256,212 ); 
    00A3 21 D4 00      [10]  354 	ld	hl, #0x00d4
    00A6 E5            [11]  355 	push	hl
    00A7 21 00 01      [10]  356 	ld	hl, #0x0100
@@ -370,9 +370,9 @@
    00B8 21 0A 00      [10]  365 	ld	hl, #10
    00BB 39            [11]  366 	add	hl, sp
    00BC F9            [ 6]  367 	ld	sp, hl
-                            368 ;src/entities/pantalla.c:78: }
+                            368 ;src/entities/pantalla.c:77: }
    00BD C9            [10]  369 	ret
-                            370 ;src/entities/pantalla.c:82: void FT_SetName( FCB *p_fcb, const char *p_name )  // Routine servant à vérifier le format du nom de fichier
+                            370 ;src/entities/pantalla.c:81: void FT_SetName( FCB *p_fcb, const char *p_name )  // Routine servant à vérifier le format du nom de fichier
                             371 ;	---------------------------------
                             372 ; Function FT_SetName
                             373 ; ---------------------------------
@@ -381,7 +381,7 @@
    00C1 F5            [11]  376 	push	af
    00C2 F5            [11]  377 	push	af
    00C3 3B            [ 6]  378 	dec	sp
-                            379 ;src/entities/pantalla.c:85: memset( p_fcb, 0, sizeof(FCB) );
+                            379 ;src/entities/pantalla.c:84: memset( p_fcb, 0, sizeof(FCB) );
    00C4 DD 6E 04      [19]  380 	ld	l, 4 (ix)
    00C7 DD 66 05      [19]  381 	ld	h, 5 (ix)
    00CA 06 25         [ 7]  382 	ld	b, #0x25
@@ -389,7 +389,7 @@
    00CC 36 00         [10]  384 	ld	(hl), #0x00
    00CE 23            [ 6]  385 	inc	hl
    00CF 10 FB         [13]  386 	djnz	00178$
-                            387 ;src/entities/pantalla.c:86: for( i = 0; i < 11; i++ ) {
+                            387 ;src/entities/pantalla.c:85: for( i = 0; i < 11; i++ ) {
    00D1 DD 5E 04      [19]  388 	ld	e, 4 (ix)
    00D4 DD 56 05      [19]  389 	ld	d, 5 (ix)
    00D7 21 01 00      [10]  390 	ld	hl, #0x0001
@@ -398,18 +398,18 @@
    00DE DD 74 FD      [19]  393 	ld	-3 (ix), h
    00E1 0E 00         [ 7]  394 	ld	c, #0x00
    00E3                     395 00106$:
-                            396 ;src/entities/pantalla.c:87: p_fcb->name[i] = ' ';
+                            396 ;src/entities/pantalla.c:86: p_fcb->name[i] = ' ';
    00E3 DD 6E FC      [19]  397 	ld	l, -4 (ix)
    00E6 DD 66 FD      [19]  398 	ld	h, -3 (ix)
    00E9 06 00         [ 7]  399 	ld	b, #0x00
    00EB 09            [11]  400 	add	hl, bc
    00EC 36 20         [10]  401 	ld	(hl), #0x20
-                            402 ;src/entities/pantalla.c:86: for( i = 0; i < 11; i++ ) {
+                            402 ;src/entities/pantalla.c:85: for( i = 0; i < 11; i++ ) {
    00EE 0C            [ 4]  403 	inc	c
    00EF 79            [ 4]  404 	ld	a, c
    00F0 D6 0B         [ 7]  405 	sub	a, #0x0b
    00F2 38 EF         [12]  406 	jr	C,00106$
-                            407 ;src/entities/pantalla.c:89: for( i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++ ) {
+                            407 ;src/entities/pantalla.c:88: for( i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++ ) {
    00F4 AF            [ 4]  408 	xor	a, a
    00F5 DD 77 FE      [19]  409 	ld	-2 (ix), a
    00F8                     410 00111$:
@@ -438,7 +438,7 @@
    011F 28 1A         [12]  433 	jr	Z,00102$
    0121 CB 45         [ 8]  434 	bit	0, l
    0123 20 16         [12]  435 	jr	NZ,00102$
-                            436 ;src/entities/pantalla.c:90: p_fcb->name[i] =  p_name[i];
+                            436 ;src/entities/pantalla.c:89: p_fcb->name[i] =  p_name[i];
    0125 DD 7E FC      [19]  437 	ld	a, -4 (ix)
    0128 DD 86 FE      [19]  438 	add	a, -2 (ix)
    012B 6F            [ 4]  439 	ld	l, a
@@ -446,19 +446,19 @@
    012F CE 00         [ 7]  441 	adc	a, #0x00
    0131 67            [ 4]  442 	ld	h, a
    0132 71            [ 7]  443 	ld	(hl), c
-                            444 ;src/entities/pantalla.c:89: for( i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++ ) {
+                            444 ;src/entities/pantalla.c:88: for( i = 0; (i < 8) && (p_name[i] != 0) && (p_name[i] != '.'); i++ ) {
    0133 DD 7E FF      [19]  445 	ld	a, -1 (ix)
    0136 DD 77 FE      [19]  446 	ld	-2 (ix), a
    0139 18 BD         [12]  447 	jr	00111$
    013B                     448 00102$:
-                            449 ;src/entities/pantalla.c:92: if( p_name[i] == '.' ) {
+                            449 ;src/entities/pantalla.c:91: if( p_name[i] == '.' ) {
    013B 7D            [ 4]  450 	ld	a, l
    013C B7            [ 4]  451 	or	a, a
    013D 28 4C         [12]  452 	jr	Z,00118$
-                            453 ;src/entities/pantalla.c:93: i++;
+                            453 ;src/entities/pantalla.c:92: i++;
    013F DD 7E FF      [19]  454 	ld	a, -1 (ix)
    0142 DD 77 FB      [19]  455 	ld	-5 (ix), a
-                            456 ;src/entities/pantalla.c:94: for( j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++ ) {
+                            456 ;src/entities/pantalla.c:93: for( j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++ ) {
    0145 21 09 00      [10]  457 	ld	hl, #0x0009
    0148 19            [11]  458 	add	hl, de
    0149 EB            [ 4]  459 	ex	de, hl
@@ -491,20 +491,20 @@
    017E 78            [ 4]  486 	ld	a, b
    017F D6 2E         [ 7]  487 	sub	a, #0x2e
    0181 28 08         [12]  488 	jr	Z,00118$
-                            489 ;src/entities/pantalla.c:95: p_fcb->ext[j] =  p_name[i + j] ;
+                            489 ;src/entities/pantalla.c:94: p_fcb->ext[j] =  p_name[i + j] ;
    0183 69            [ 4]  490 	ld	l, c
    0184 26 00         [ 7]  491 	ld	h, #0x00
    0186 19            [11]  492 	add	hl, de
    0187 70            [ 7]  493 	ld	(hl), b
-                            494 ;src/entities/pantalla.c:94: for( j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++ ) {
+                            494 ;src/entities/pantalla.c:93: for( j = 0; (j < 3) && (p_name[i + j] != 0) && (p_name[i + j] != '.'); j++ ) {
    0188 0C            [ 4]  495 	inc	c
    0189 18 C1         [12]  496 	jr	00116$
    018B                     497 00118$:
-                            498 ;src/entities/pantalla.c:98: }
+                            498 ;src/entities/pantalla.c:97: }
    018B DD F9         [10]  499 	ld	sp, ix
    018D DD E1         [14]  500 	pop	ix
    018F C9            [10]  501 	ret
-                            502 ;src/entities/pantalla.c:103: void recorrerBufferTileMapYPintarPage1EnPage0(){
+                            502 ;src/entities/pantalla.c:102: void recorrerBufferTileMapYPintarPage1EnPage0(){
                             503 ;	---------------------------------
                             504 ; Function recorrerBufferTileMapYPintarPage1EnPage0
                             505 ; ---------------------------------
@@ -514,11 +514,11 @@
    0194 F5            [11]  509 	push	af
    0195 F5            [11]  510 	push	af
    0196 F5            [11]  511 	push	af
-                            512 ;src/entities/pantalla.c:104: contadorColumna++;
+                            512 ;src/entities/pantalla.c:103: contadorColumna++;
    0197 2Ar4Ar6A      [16]  513 	ld	hl, (_contadorColumna)
    019A 23            [ 6]  514 	inc	hl
    019B 22r4Ar6A      [16]  515 	ld	(_contadorColumna), hl
-                            516 ;src/entities/pantalla.c:105: for (int f=0; f<numeroFilas;f++){
+                            516 ;src/entities/pantalla.c:104: for (int f=0; f<numeroFilas;f++){
    019E 11 00 00      [10]  517 	ld	de, #0x0000
    01A1                     518 00103$:
    01A1 7B            [ 4]  519 	ld	a, e
@@ -529,7 +529,7 @@
    01A7 1F            [ 4]  524 	rra
    01A8 DE 80         [ 7]  525 	sbc	a, #0x80
    01AA D2r76r02      [10]  526 	jp	NC, 00101$
-                            527 ;src/entities/pantalla.c:106: HMMM(((bufferTileSetYMap[f*numeroColumnas+contadorColumna]-(bufferTileSetYMap[f*numeroColumnas+contadorColumna]/32)*32 ) )*8,(bufferTileSetYMap[f*numeroColumnas+contadorColumna]/32)*8+256, 256-8,8*f,8,8);
+                            527 ;src/entities/pantalla.c:105: HMMM(((bufferTileSetYMap[f*numeroColumnas+contadorColumna]-(bufferTileSetYMap[f*numeroColumnas+contadorColumna]/32)*32 ) )*8,(bufferTileSetYMap[f*numeroColumnas+contadorColumna]/32)*8+256, 256-8,8*f,8,8);
    01AD DD 73 F8      [19]  528 	ld	-8 (ix), e
    01B0 DD 72 F9      [19]  529 	ld	-7 (ix), d
    01B3 3E 04         [ 7]  530 	ld	a, #0x03+1
@@ -651,11 +651,11 @@
    026F 39            [11]  646 	add	hl, sp
    0270 F9            [ 6]  647 	ld	sp, hl
    0271 D1            [10]  648 	pop	de
-                            649 ;src/entities/pantalla.c:105: for (int f=0; f<numeroFilas;f++){
+                            649 ;src/entities/pantalla.c:104: for (int f=0; f<numeroFilas;f++){
    0272 13            [ 6]  650 	inc	de
    0273 C3rA1r01      [10]  651 	jp	00103$
    0276                     652 00101$:
-                            653 ;src/entities/pantalla.c:108: HMMM(8,0, 0,0,256,184);
+                            653 ;src/entities/pantalla.c:107: HMMM(8,0, 0,0,256,184);
    0276 21 B8 00      [10]  654 	ld	hl, #0x00b8
    0279 E5            [11]  655 	push	hl
    027A 21 00 01      [10]  656 	ld	hl, #0x0100
@@ -672,11 +672,11 @@
    028D 21 0C 00      [10]  667 	ld	hl, #12
    0290 39            [11]  668 	add	hl, sp
    0291 F9            [ 6]  669 	ld	sp, hl
-                            670 ;src/entities/pantalla.c:109: }
+                            670 ;src/entities/pantalla.c:108: }
    0292 DD F9         [10]  671 	ld	sp, ix
    0294 DD E1         [14]  672 	pop	ix
    0296 C9            [10]  673 	ret
-                            674 ;src/entities/pantalla.c:112: void pintarPantallaInicio(){
+                            674 ;src/entities/pantalla.c:111: void pintarPantallaInicio(){
                             675 ;	---------------------------------
                             676 ; Function pintarPantallaInicio
                             677 ; ---------------------------------
@@ -685,7 +685,7 @@
    029A 21 F3 FF      [10]  680 	ld	hl, #-13
    029D 39            [11]  681 	add	hl, sp
    029E F9            [ 6]  682 	ld	sp, hl
-                            683 ;src/entities/pantalla.c:113: for (int f=0; f<numeroFilas;f++){
+                            683 ;src/entities/pantalla.c:112: for (int f=0; f<numeroFilas;f++){
    029F 01 00 00      [10]  684 	ld	bc, #0x0000
    02A2                     685 00107$:
    02A2 79            [ 4]  686 	ld	a, c
@@ -696,7 +696,7 @@
    02A8 1F            [ 4]  691 	rra
    02A9 DE 80         [ 7]  692 	sbc	a, #0x80
    02AB D2rB1r03      [10]  693 	jp	NC, 00109$
-                            694 ;src/entities/pantalla.c:114: for (int c=0; c<32;c++){
+                            694 ;src/entities/pantalla.c:113: for (int c=0; c<32;c++){
    02AE DD 71 F3      [19]  695 	ld	-13 (ix), c
    02B1 DD 70 F4      [19]  696 	ld	-12 (ix), b
    02B4 3E 04         [ 7]  697 	ld	a, #0x03+1
@@ -736,7 +736,7 @@
    02E9 1F            [ 4]  731 	rra
    02EA DE 80         [ 7]  732 	sbc	a, #0x80
    02EC D2rADr03      [10]  733 	jp	NC, 00108$
-                            734 ;src/entities/pantalla.c:115: HMMM(((bufferTileSetYMap[f*numeroColumnas+c]-(bufferTileSetYMap[f*numeroColumnas+c]/32)*32))*8,(bufferTileSetYMap[f*numeroColumnas+c]/32)*8+256, c*8,f*8,8,8);
+                            734 ;src/entities/pantalla.c:114: HMMM(((bufferTileSetYMap[f*numeroColumnas+c]-(bufferTileSetYMap[f*numeroColumnas+c]/32)*32))*8,(bufferTileSetYMap[f*numeroColumnas+c]/32)*8+256, c*8,f*8,8,8);
    02EF DD 7E FE      [19]  735 	ld	a, -2 (ix)
    02F2 DD 77 F7      [19]  736 	ld	-9 (ix), a
    02F5 DD 7E FF      [19]  737 	ld	a, -1 (ix)
@@ -838,67 +838,67 @@
    039E 39            [11]  833 	add	hl, sp
    039F F9            [ 6]  834 	ld	sp, hl
    03A0 C1            [10]  835 	pop	bc
-                            836 ;src/entities/pantalla.c:114: for (int c=0; c<32;c++){
+                            836 ;src/entities/pantalla.c:113: for (int c=0; c<32;c++){
    03A1 DD 34 FE      [23]  837 	inc	-2 (ix)
    03A4 C2rDFr02      [10]  838 	jp	NZ,00104$
    03A7 DD 34 FF      [23]  839 	inc	-1 (ix)
    03AA C3rDFr02      [10]  840 	jp	00104$
    03AD                     841 00108$:
-                            842 ;src/entities/pantalla.c:113: for (int f=0; f<numeroFilas;f++){
+                            842 ;src/entities/pantalla.c:112: for (int f=0; f<numeroFilas;f++){
    03AD 03            [ 6]  843 	inc	bc
    03AE C3rA2r02      [10]  844 	jp	00107$
    03B1                     845 00109$:
-                            846 ;src/entities/pantalla.c:118: }
+                            846 ;src/entities/pantalla.c:117: }
    03B1 DD F9         [10]  847 	ld	sp, ix
    03B3 DD E1         [14]  848 	pop	ix
    03B5 C9            [10]  849 	ret
-                            850 ;src/entities/pantalla.c:123: void SetAdjust(signed char x, signed char y) // x and y must be between -7 and +6
+                            850 ;src/entities/pantalla.c:122: void SetAdjust(signed char x, signed char y) // x and y must be between -7 and +6
                             851 ;	---------------------------------
                             852 ; Function SetAdjust
                             853 ; ---------------------------------
    03B6                     854 _SetAdjust::
-                            855 ;src/entities/pantalla.c:126: vx=x;
+                            855 ;src/entities/pantalla.c:125: vx=x;
    03B6 FD 21 02 00   [14]  856 	ld	iy, #2
    03BA FD 39         [15]  857 	add	iy, sp
    03BC FD 4E 00      [19]  858 	ld	c, 0 (iy)
-                            859 ;src/entities/pantalla.c:127: if (x<0)
+                            859 ;src/entities/pantalla.c:126: if (x<0)
    03BF FD CB 00 7E   [20]  860 	bit	7,0 (iy)
    03C3 28 04         [12]  861 	jr	Z,00102$
-                            862 ;src/entities/pantalla.c:128: vx=16+x;
+                            862 ;src/entities/pantalla.c:127: vx=16+x;
    03C5 79            [ 4]  863 	ld	a, c
    03C6 C6 10         [ 7]  864 	add	a, #0x10
    03C8 4F            [ 4]  865 	ld	c, a
    03C9                     866 00102$:
-                            867 ;src/entities/pantalla.c:129: vy=y;
+                            867 ;src/entities/pantalla.c:128: vy=y;
    03C9 FD 21 03 00   [14]  868 	ld	iy, #3
    03CD FD 39         [15]  869 	add	iy, sp
    03CF FD 46 00      [19]  870 	ld	b, 0 (iy)
-                            871 ;src/entities/pantalla.c:130: if (y<0)
+                            871 ;src/entities/pantalla.c:129: if (y<0)
    03D2 FD CB 00 7E   [20]  872 	bit	7,0 (iy)
    03D6 28 04         [12]  873 	jr	Z,00104$
-                            874 ;src/entities/pantalla.c:131: vy=16+y;
+                            874 ;src/entities/pantalla.c:130: vy=16+y;
    03D8 78            [ 4]  875 	ld	a, b
    03D9 C6 10         [ 7]  876 	add	a, #0x10
    03DB 47            [ 4]  877 	ld	b, a
    03DC                     878 00104$:
-                            879 ;src/entities/pantalla.c:132: value = (vy<<4) | vx ;
+                            879 ;src/entities/pantalla.c:131: value = (vy<<4) | vx ;
    03DC 78            [ 4]  880 	ld	a, b
    03DD 87            [ 4]  881 	add	a, a
    03DE 87            [ 4]  882 	add	a, a
    03DF 87            [ 4]  883 	add	a, a
    03E0 87            [ 4]  884 	add	a, a
    03E1 B1            [ 4]  885 	or	a, c
-                            886 ;src/entities/pantalla.c:133: Poke(0xFFF1,value);     // Reg 18 Save
+                            886 ;src/entities/pantalla.c:132: Poke(0xFFF1,value);     // Reg 18 Save
    03E2 32 F1 FF      [13]  887 	ld	(#0xfff1),a
-                            888 ;src/entities/pantalla.c:134: VDPwrite(18,value);
+                            888 ;src/entities/pantalla.c:133: VDPwrite(18,value);
    03E5 57            [ 4]  889 	ld	d,a
    03E6 1E 12         [ 7]  890 	ld	e,#0x12
    03E8 D5            [11]  891 	push	de
    03E9 CDr00r00      [17]  892 	call	_VDPwrite
    03EC F1            [10]  893 	pop	af
-                            894 ;src/entities/pantalla.c:135: }
+                            894 ;src/entities/pantalla.c:134: }
    03ED C9            [10]  895 	ret
-                            896 ;src/entities/pantalla.c:136: void verArray(){
+                            896 ;src/entities/pantalla.c:135: void verArray(){
                             897 ;	---------------------------------
                             898 ; Function verArray
                             899 ; ---------------------------------
@@ -906,9 +906,9 @@
    03EE CDr00r00      [17]  901 	call	___sdcc_enter_ix
    03F1 F5            [11]  902 	push	af
    03F2 F5            [11]  903 	push	af
-                            904 ;src/entities/pantalla.c:137: int columna=0;
+                            904 ;src/entities/pantalla.c:136: int columna=0;
    03F3 01 00 00      [10]  905 	ld	bc, #0x0000
-                            906 ;src/entities/pantalla.c:139: for (int i=0; i<0x20; i++){
+                            906 ;src/entities/pantalla.c:138: for (int i=0; i<0x20; i++){
    03F6 21 00 00      [10]  907 	ld	hl, #0x0000
    03F9 E3            [19]  908 	ex	(sp), hl
    03FA AF            [ 4]  909 	xor	a, a
@@ -923,7 +923,7 @@
    040B 1F            [ 4]  918 	rra
    040C DE 80         [ 7]  919 	sbc	a, #0x80
    040E 30 63         [12]  920 	jr	NC,00107$
-                            921 ;src/entities/pantalla.c:141: PutText(columna*24,fila,Itoa(bufferTileSetYMap[22*numeroColumnas+i],"  ",10),8);
+                            921 ;src/entities/pantalla.c:140: PutText(columna*24,fila,Itoa(bufferTileSetYMap[22*numeroColumnas+i],"  ",10),8);
    0410 DD 7E FE      [19]  922 	ld	a, -2 (ix)
    0413 C6 F8         [ 7]  923 	add	a, #0xf8
    0415 5F            [ 4]  924 	ld	e, a
@@ -968,16 +968,16 @@
    044F F1            [10]  963 	pop	af
    0450 33            [ 6]  964 	inc	sp
    0451 C1            [10]  965 	pop	bc
-                            966 ;src/entities/pantalla.c:142: columna++;
+                            966 ;src/entities/pantalla.c:141: columna++;
    0452 03            [ 6]  967 	inc	bc
-                            968 ;src/entities/pantalla.c:143: if (columna==10){
+                            968 ;src/entities/pantalla.c:142: if (columna==10){
    0453 79            [ 4]  969 	ld	a, c
    0454 D6 0A         [ 7]  970 	sub	a, #0x0a
    0456 B0            [ 4]  971 	or	a, b
    0457 20 10         [12]  972 	jr	NZ,00106$
-                            973 ;src/entities/pantalla.c:144: columna=0;
+                            973 ;src/entities/pantalla.c:143: columna=0;
    0459 01 00 00      [10]  974 	ld	bc, #0x0000
-                            975 ;src/entities/pantalla.c:145: fila+=8;
+                            975 ;src/entities/pantalla.c:144: fila+=8;
    045C DD 7E FC      [19]  976 	ld	a, -4 (ix)
    045F C6 08         [ 7]  977 	add	a, #0x08
    0461 DD 77 FC      [19]  978 	ld	-4 (ix), a
@@ -985,13 +985,13 @@
    0466 DD 34 FD      [23]  980 	inc	-3 (ix)
    0469                     981 00127$:
    0469                     982 00106$:
-                            983 ;src/entities/pantalla.c:139: for (int i=0; i<0x20; i++){
+                            983 ;src/entities/pantalla.c:138: for (int i=0; i<0x20; i++){
    0469 DD 34 FE      [23]  984 	inc	-2 (ix)
    046C 20 93         [12]  985 	jr	NZ,00105$
    046E DD 34 FF      [23]  986 	inc	-1 (ix)
    0471 18 8E         [12]  987 	jr	00105$
    0473                     988 00107$:
-                            989 ;src/entities/pantalla.c:148: }
+                            989 ;src/entities/pantalla.c:147: }
    0473 DD F9         [10]  990 	ld	sp, ix
    0475 DD E1         [14]  991 	pop	ix
    0477 C9            [10]  992 	ret
@@ -2865,7 +2865,7 @@
    0ED7 CDr00r00      [17] 2860 	call	_KeySound
    0EDA 33            [ 6] 2861 	inc	sp
                            2862 ;main.c:64: gui();
-   0EDB CDr41r11      [17] 2863 	call	_gui
+   0EDB CDr6Br11      [17] 2863 	call	_gui
                            2864 ;main.c:74: repetir:
    0EDE                    2865 00101$:
                            2866 ;main.c:76: contadorColumna=32;
@@ -2898,9 +2898,9 @@
                            2893 ;main.c:90: render_player();
    0F0B CDr78r05      [17] 2894 	call	_render_player
                            2895 ;main.c:91: update_collision_system();
-   0F0E CDrAFr10      [17] 2896 	call	_update_collision_system
+   0F0E CDrD9r10      [17] 2896 	call	_update_collision_system
                            2897 ;main.c:93: gui();
-   0F11 CDr41r11      [17] 2898 	call	_gui
+   0F11 CDr6Br11      [17] 2898 	call	_gui
    0F14 18 CE         [12] 2899 	jr	00103$
    0F16                    2900 00105$:
                            2901 ;main.c:95: PutText(0,100,"Mision cumplida, desea repetir?",8);
@@ -3018,1490 +3018,1597 @@
                            3005 ;main.c:127: switch (joy)
    0FCB 79            [ 4] 3006 	ld	a, c
    0FCC 3D            [ 4] 3007 	dec	a
-   0FCD 28 0F         [12] 3008 	jr	Z,00101$
+   0FCD 28 10         [12] 3008 	jr	Z,00101$
    0FCF 79            [ 4] 3009 	ld	a,c
    0FD0 FE 03         [ 7] 3010 	cp	a,#0x03
-   0FD2 28 18         [12] 3011 	jr	Z,00102$
+   0FD2 28 1A         [12] 3011 	jr	Z,00102$
    0FD4 FE 05         [ 7] 3012 	cp	a,#0x05
-   0FD6 28 48         [12] 3013 	jr	Z,00108$
+   0FD6 28 72         [12] 3013 	jr	Z,00111$
    0FD8 D6 07         [ 7] 3014 	sub	a, #0x07
-   0FDA 28 50         [12] 3015 	jr	Z,00109$
-   0FDC 18 73         [12] 3016 	jr	00116$
+   0FDA 28 7A         [12] 3015 	jr	Z,00112$
+   0FDC C3r7Br10      [10] 3016 	jp	00119$
                            3017 ;main.c:129: case 1:
-   0FDE                    3018 00101$:
+   0FDF                    3018 00101$:
                            3019 ;main.c:130: player.y-=player.velocidadY;
-   0FDE 01rF8r01      [10] 3020 	ld	bc, #_player + 1
-   0FE1 0A            [ 7] 3021 	ld	a, (bc)
-   0FE2 5F            [ 4] 3022 	ld	e, a
-   0FE3 21r03r02      [10] 3023 	ld	hl, #_player + 12
-   0FE6 6E            [ 7] 3024 	ld	l, (hl)
-   0FE7 7B            [ 4] 3025 	ld	a, e
-   0FE8 95            [ 4] 3026 	sub	a, l
-   0FE9 02            [ 7] 3027 	ld	(bc), a
+   0FDF 01rF8r01      [10] 3020 	ld	bc, #_player + 1
+   0FE2 0A            [ 7] 3021 	ld	a, (bc)
+   0FE3 5F            [ 4] 3022 	ld	e, a
+   0FE4 21r03r02      [10] 3023 	ld	hl, #_player + 12
+   0FE7 56            [ 7] 3024 	ld	d, (hl)
+   0FE8 7B            [ 4] 3025 	ld	a, e
+   0FE9 92            [ 4] 3026 	sub	a, d
+   0FEA 02            [ 7] 3027 	ld	(bc), a
                            3028 ;main.c:138: break;
-   0FEA 18 65         [12] 3029 	jr	00116$
+   0FEB C3r7Br10      [10] 3029 	jp	00119$
                            3030 ;main.c:139: case 3:
-   0FEC                    3031 00102$:
+   0FEE                    3031 00102$:
                            3032 ;main.c:140: if (player.colision==0) {
-   0FEC 3Ar00r02      [13] 3033 	ld	a, (#_player + 9)
-   0FEF B7            [ 4] 3034 	or	a, a
-   0FF0 20 5F         [12] 3035 	jr	NZ,00116$
+   0FEE 3Ar00r02      [13] 3033 	ld	a, (#_player + 9)
+   0FF1 B7            [ 4] 3034 	or	a, a
+   0FF2 C2r7Br10      [10] 3035 	jp	NZ, 00119$
                            3036 ;main.c:141: player.oldX=player.x;
-   0FF2 3ArF7r01      [13] 3037 	ld	a, (#_player + 0)
-   0FF5 32rF9r01      [13] 3038 	ld	(#(_player + 0x0002)),a
-                           3039 ;main.c:142: player.oldY=player.y;
-   0FF8 3ArF8r01      [13] 3040 	ld	a, (#_player + 1)
-   0FFB 32rFAr01      [13] 3041 	ld	(#(_player + 0x0003)),a
-                           3042 ;main.c:144: recorrerBufferTileMapYPintarPage1EnPage0();
-   0FFE CDr90r01      [17] 3043 	call	_recorrerBufferTileMapYPintarPage1EnPage0
-                           3044 ;main.c:145: player.x+=player.velocidadX;
-   1001 21rF7r01      [10] 3045 	ld	hl, #_player + 0
-   1004 4E            [ 7] 3046 	ld	c, (hl)
-   1005 3Ar02r02      [13] 3047 	ld	a, (#_player + 11)
-   1008 81            [ 4] 3048 	add	a, c
-   1009 32rF7r01      [13] 3049 	ld	(#_player),a
-                           3050 ;main.c:146: player.direccion=3;
-   100C 21rFDr01      [10] 3051 	ld	hl, #(_player + 0x0006)
-   100F 36 03         [10] 3052 	ld	(hl), #0x03
-                           3053 ;main.c:147: if (player.andando==0){
-   1011 21rFEr01      [10] 3054 	ld	hl, #_player + 7
-   1014 7E            [ 7] 3055 	ld	a, (hl)
-   1015 B7            [ 4] 3056 	or	a, a
-   1016 20 04         [12] 3057 	jr	NZ,00104$
-                           3058 ;main.c:148: player.andando=1;
-   1018 36 01         [10] 3059 	ld	(hl), #0x01
-   101A 18 35         [12] 3060 	jr	00116$
-   101C                    3061 00104$:
-                           3062 ;main.c:150: player.andando=0;
-   101C 36 00         [10] 3063 	ld	(hl), #0x00
-                           3064 ;main.c:153: break;
-   101E 18 31         [12] 3065 	jr	00116$
-                           3066 ;main.c:154: case 5:
-   1020                    3067 00108$:
-                           3068 ;main.c:155: player.y+=player.velocidadY;
-   1020 01rF8r01      [10] 3069 	ld	bc, #_player + 1
-   1023 0A            [ 7] 3070 	ld	a, (bc)
-   1024 5F            [ 4] 3071 	ld	e, a
-   1025 3Ar03r02      [13] 3072 	ld	a, (#_player + 12)
-   1028 83            [ 4] 3073 	add	a, e
-   1029 02            [ 7] 3074 	ld	(bc), a
-                           3075 ;main.c:156: break;
-   102A 18 25         [12] 3076 	jr	00116$
-                           3077 ;main.c:157: case 7:
-   102C                    3078 00109$:
-                           3079 ;main.c:158: if(player.colision==0){
-   102C 01rF7r01      [10] 3080 	ld	bc, #_player+0
-   102F 3Ar00r02      [13] 3081 	ld	a, (#_player + 9)
-   1032 B7            [ 4] 3082 	or	a, a
-   1033 20 1C         [12] 3083 	jr	NZ,00116$
-                           3084 ;main.c:159: player.x-=player.velocidadX;
-   1035 0A            [ 7] 3085 	ld	a, (bc)
-   1036 5F            [ 4] 3086 	ld	e, a
-   1037 21r02r02      [10] 3087 	ld	hl, #_player + 11
-   103A 6E            [ 7] 3088 	ld	l, (hl)
-   103B 7B            [ 4] 3089 	ld	a, e
-   103C 95            [ 4] 3090 	sub	a, l
-   103D 02            [ 7] 3091 	ld	(bc), a
-                           3092 ;main.c:160: player.direccion=7;
-   103E 21rFDr01      [10] 3093 	ld	hl, #(_player + 0x0006)
-   1041 36 07         [10] 3094 	ld	(hl), #0x07
-                           3095 ;main.c:161: if (player.andando==0){
-   1043 21 07 00      [10] 3096 	ld	hl, #0x0007
-   1046 09            [11] 3097 	add	hl, bc
-   1047 7E            [ 7] 3098 	ld	a, (hl)
-   1048 B7            [ 4] 3099 	or	a, a
-   1049 20 04         [12] 3100 	jr	NZ,00111$
-                           3101 ;main.c:162: player.andando=1;
-   104B 36 01         [10] 3102 	ld	(hl), #0x01
-   104D 18 02         [12] 3103 	jr	00116$
-   104F                    3104 00111$:
-                           3105 ;main.c:164: player.andando=0;
-   104F 36 00         [10] 3106 	ld	(hl), #0x00
-                           3107 ;main.c:171: }
-   1051                    3108 00116$:
-                           3109 ;main.c:174: char trigger = TriggerRead(0);
-   1051 AF            [ 4] 3110 	xor	a, a
-   1052 F5            [11] 3111 	push	af
-   1053 33            [ 6] 3112 	inc	sp
-   1054 CDr00r00      [17] 3113 	call	_TriggerRead
-   1057 33            [ 6] 3114 	inc	sp
-   1058 7D            [ 4] 3115 	ld	a, l
-                           3116 ;main.c:175: if (trigger!=0) {
-   1059 B7            [ 4] 3117 	or	a, a
-   105A 28 4F         [12] 3118 	jr	Z,00121$
-                           3119 ;main.c:176: Beep();
-   105C CDr00r00      [17] 3120 	call	_Beep
-                           3121 ;main.c:177: if (numero_disparo<10){
-   105F 3ArA0r6A      [13] 3122 	ld	a,(#_numero_disparo + 0)
-   1062 D6 0A         [ 7] 3123 	sub	a, #0x0a
-   1064 30 45         [12] 3124 	jr	NC,00121$
-                           3125 ;main.c:178: TFire* fire=crear_disparos();
-   1066 CDr79r08      [17] 3126 	call	_crear_disparos
-   1069 4D            [ 4] 3127 	ld	c, l
-   106A 44            [ 4] 3128 	ld	b, h
-                           3129 ;main.c:179: fire->x=player.x;
-   106B 3ArF7r01      [13] 3130 	ld	a, (#_player + 0)
-   106E 5F            [ 4] 3131 	ld	e, a
-   106F 16 00         [ 7] 3132 	ld	d, #0x00
-   1071 69            [ 4] 3133 	ld	l, c
-   1072 60            [ 4] 3134 	ld	h, b
-   1073 73            [ 7] 3135 	ld	(hl), e
-   1074 23            [ 6] 3136 	inc	hl
-   1075 72            [ 7] 3137 	ld	(hl), d
-                           3138 ;main.c:180: fire->y=player.y+12;
-   1076 21 02 00      [10] 3139 	ld	hl, #0x0002
-   1079 09            [11] 3140 	add	hl, bc
-   107A E3            [19] 3141 	ex	(sp), hl
-   107B 3ArF8r01      [13] 3142 	ld	a, (#_player + 1)
-   107E 5F            [ 4] 3143 	ld	e, a
-   107F 16 00         [ 7] 3144 	ld	d, #0x00
-   1081 21 0C 00      [10] 3145 	ld	hl, #0x000c
-   1084 19            [11] 3146 	add	hl, de
-   1085 EB            [ 4] 3147 	ex	de, hl
-   1086 E1            [10] 3148 	pop	hl
-   1087 E5            [11] 3149 	push	hl
-   1088 73            [ 7] 3150 	ld	(hl), e
-   1089 23            [ 6] 3151 	inc	hl
-   108A 72            [ 7] 3152 	ld	(hl), d
-                           3153 ;main.c:181: fire->direccion=player.direccion;
-   108B 21 05 00      [10] 3154 	ld	hl, #0x0005
-   108E 09            [11] 3155 	add	hl, bc
-   108F EB            [ 4] 3156 	ex	de, hl
-   1090 3ArFDr01      [13] 3157 	ld	a, (#_player + 6)
-   1093 12            [ 7] 3158 	ld	(de), a
-                           3159 ;main.c:182: fire->velocidad=20;
-   1094 21 04 00      [10] 3160 	ld	hl, #0x0004
-   1097 09            [11] 3161 	add	hl, bc
-   1098 36 14         [10] 3162 	ld	(hl), #0x14
-                           3163 ;main.c:183: fire->plano=10+numero_disparo;
-   109A 21 06 00      [10] 3164 	ld	hl, #0x0006
-   109D 09            [11] 3165 	add	hl, bc
-   109E EB            [ 4] 3166 	ex	de, hl
-   109F 3ArA0r6A      [13] 3167 	ld	a,(#_numero_disparo + 0)
-   10A2 C6 0A         [ 7] 3168 	add	a, #0x0a
-   10A4 12            [ 7] 3169 	ld	(de), a
-                           3170 ;main.c:184: fire->sprite=10*4;
-   10A5 21 07 00      [10] 3171 	ld	hl, #0x0007
-   10A8 09            [11] 3172 	add	hl, bc
-   10A9 36 28         [10] 3173 	ld	(hl), #0x28
-   10AB                    3174 00121$:
-                           3175 ;main.c:187: }
-   10AB F1            [10] 3176 	pop	af
-   10AC DD E1         [14] 3177 	pop	ix
-   10AE C9            [10] 3178 	ret
-                           3179 ;main.c:189: void update_collision_system(){
-                           3180 ;	---------------------------------
-                           3181 ; Function update_collision_system
-                           3182 ; ---------------------------------
-   10AF                    3183 _update_collision_system::
-   10AF CDr00r00      [17] 3184 	call	___sdcc_enter_ix
-   10B2 F5            [11] 3185 	push	af
-                           3186 ;main.c:191: for (int i=0; i<numero_de_enemigo;i++){
-   10B3 21 00 00      [10] 3187 	ld	hl, #0x0000
-   10B6 E3            [19] 3188 	ex	(sp), hl
-   10B7                    3189 00108$:
-   10B7 21r05r6B      [10] 3190 	ld	hl,#_numero_de_enemigo + 0
-   10BA 4E            [ 7] 3191 	ld	c, (hl)
-   10BB 06 00         [ 7] 3192 	ld	b, #0x00
-   10BD DD 7E FE      [19] 3193 	ld	a, -2 (ix)
-   10C0 91            [ 4] 3194 	sub	a, c
-   10C1 DD 7E FF      [19] 3195 	ld	a, -1 (ix)
-   10C4 98            [ 4] 3196 	sbc	a, b
-   10C5 E2rCAr10      [10] 3197 	jp	PO, 00147$
-   10C8 EE 80         [ 7] 3198 	xor	a, #0x80
-   10CA                    3199 00147$:
-   10CA F2rFAr10      [10] 3200 	jp	P, 00103$
-                           3201 ;main.c:192: if(collisionPlayer(array_structs_enemigos[i].x,array_structs_enemigos[i].y)) Beep();
-   10CD C1            [10] 3202 	pop	bc
-   10CE C5            [11] 3203 	push	bc
-   10CF 69            [ 4] 3204 	ld	l, c
-   10D0 60            [ 4] 3205 	ld	h, b
-   10D1 29            [11] 3206 	add	hl, hl
-   10D2 29            [11] 3207 	add	hl, hl
-   10D3 09            [11] 3208 	add	hl, bc
-   10D4 29            [11] 3209 	add	hl, hl
-   10D5 EB            [ 4] 3210 	ex	de, hl
-   10D6 21rA1r6A      [10] 3211 	ld	hl, #_array_structs_enemigos
-   10D9 19            [11] 3212 	add	hl, de
-   10DA EB            [ 4] 3213 	ex	de, hl
-   10DB 6B            [ 4] 3214 	ld	l, e
-   10DC 62            [ 4] 3215 	ld	h, d
-   10DD 23            [ 6] 3216 	inc	hl
-   10DE 23            [ 6] 3217 	inc	hl
-   10DF 46            [ 7] 3218 	ld	b, (hl)
-   10E0 1A            [ 7] 3219 	ld	a, (de)
-   10E1 C5            [11] 3220 	push	bc
-   10E2 33            [ 6] 3221 	inc	sp
-   10E3 F5            [11] 3222 	push	af
-   10E4 33            [ 6] 3223 	inc	sp
-   10E5 CDr00r08      [17] 3224 	call	_collisionPlayer
-   10E8 F1            [10] 3225 	pop	af
-   10E9 7D            [ 4] 3226 	ld	a, l
-   10EA B7            [ 4] 3227 	or	a, a
-   10EB 28 03         [12] 3228 	jr	Z,00109$
-   10ED CDr00r00      [17] 3229 	call	_Beep
-   10F0                    3230 00109$:
-                           3231 ;main.c:191: for (int i=0; i<numero_de_enemigo;i++){
-   10F0 DD 34 FE      [23] 3232 	inc	-2 (ix)
-   10F3 20 C2         [12] 3233 	jr	NZ,00108$
-   10F5 DD 34 FF      [23] 3234 	inc	-1 (ix)
-   10F8 18 BD         [12] 3235 	jr	00108$
-   10FA                    3236 00103$:
-                           3237 ;main.c:195: for (int i=0; i<numero_disparo;i++){
-   10FA 01 00 00      [10] 3238 	ld	bc, #0x0000
-   10FD                    3239 00111$:
-   10FD 21rA0r6A      [10] 3240 	ld	hl,#_numero_disparo + 0
-   1100 5E            [ 7] 3241 	ld	e, (hl)
-   1101 16 00         [ 7] 3242 	ld	d, #0x00
-   1103 79            [ 4] 3243 	ld	a, c
-   1104 93            [ 4] 3244 	sub	a, e
-   1105 78            [ 4] 3245 	ld	a, b
-   1106 9A            [ 4] 3246 	sbc	a, d
-   1107 E2r0Cr11      [10] 3247 	jp	PO, 00149$
-   110A EE 80         [ 7] 3248 	xor	a, #0x80
-   110C                    3249 00149$:
-   110C F2r3Dr11      [10] 3250 	jp	P, 00113$
-                           3251 ;main.c:196: if (collision_enemigos(array_structs_fires[i].x,array_structs_fires[i].y)) {
-   110F 69            [ 4] 3252 	ld	l, c
-   1110 60            [ 4] 3253 	ld	h, b
-   1111 29            [11] 3254 	add	hl, hl
-   1112 29            [11] 3255 	add	hl, hl
-   1113 29            [11] 3256 	add	hl, hl
-   1114 7D            [ 4] 3257 	ld	a, l
-   1115 C6r50         [ 7] 3258 	add	a, #<(_array_structs_fires)
-   1117 5F            [ 4] 3259 	ld	e, a
-   1118 7C            [ 4] 3260 	ld	a, h
-   1119 CEs6A         [ 7] 3261 	adc	a, #>(_array_structs_fires)
-   111B 57            [ 4] 3262 	ld	d, a
-   111C 6B            [ 4] 3263 	ld	l, e
-   111D 62            [ 4] 3264 	ld	h, d
-   111E 23            [ 6] 3265 	inc	hl
-   111F 23            [ 6] 3266 	inc	hl
-   1120 7E            [ 7] 3267 	ld	a, (hl)
-   1121 F5            [11] 3268 	push	af
-   1122 1A            [ 7] 3269 	ld	a, (de)
-   1123 57            [ 4] 3270 	ld	d, a
-   1124 F1            [10] 3271 	pop	af
-   1125 C5            [11] 3272 	push	bc
-   1126 F5            [11] 3273 	push	af
-   1127 33            [ 6] 3274 	inc	sp
-   1128 D5            [11] 3275 	push	de
-   1129 33            [ 6] 3276 	inc	sp
-   112A CDr9Fr0D      [17] 3277 	call	_collision_enemigos
-   112D F1            [10] 3278 	pop	af
-   112E 7D            [ 4] 3279 	ld	a, l
-   112F C1            [10] 3280 	pop	bc
-   1130 B7            [ 4] 3281 	or	a, a
-   1131 28 07         [12] 3282 	jr	Z,00112$
-                           3283 ;main.c:197: eliminar_disparos(i);
-   1133 C5            [11] 3284 	push	bc
-   1134 C5            [11] 3285 	push	bc
-   1135 CDrB7r09      [17] 3286 	call	_eliminar_disparos
-   1138 F1            [10] 3287 	pop	af
-   1139 C1            [10] 3288 	pop	bc
-   113A                    3289 00112$:
-                           3290 ;main.c:195: for (int i=0; i<numero_disparo;i++){
-   113A 03            [ 6] 3291 	inc	bc
-   113B 18 C0         [12] 3292 	jr	00111$
-   113D                    3293 00113$:
-                           3294 ;main.c:201: }
-   113D F1            [10] 3295 	pop	af
-   113E DD E1         [14] 3296 	pop	ix
-   1140 C9            [10] 3297 	ret
-                           3298 ;main.c:207: void gui(){
-                           3299 ;	---------------------------------
-                           3300 ; Function gui
-                           3301 ; ---------------------------------
-   1141                    3302 _gui::
-                           3303 ;main.c:208: BoxLine(0,184,255,210,6,8);
-   1141 11 06 08      [10] 3304 	ld	de, #0x0806
-   1144 D5            [11] 3305 	push	de
-   1145 21 D2 00      [10] 3306 	ld	hl, #0x00d2
-   1148 E5            [11] 3307 	push	hl
-   1149 2E FF         [ 7] 3308 	ld	l, #0xff
-   114B E5            [11] 3309 	push	hl
-   114C 2E B8         [ 7] 3310 	ld	l, #0xb8
-   114E E5            [11] 3311 	push	hl
-   114F 2E 00         [ 7] 3312 	ld	l, #0x00
-   1151 E5            [11] 3313 	push	hl
-   1152 CDr00r00      [17] 3314 	call	_BoxLine
-   1155 21 0A 00      [10] 3315 	ld	hl, #10
-   1158 39            [11] 3316 	add	hl, sp
-   1159 F9            [ 6] 3317 	ld	sp, hl
-                           3318 ;main.c:209: BoxFill(0,184,255,210,1,8);
-   115A 11 01 08      [10] 3319 	ld	de, #0x0801
-   115D D5            [11] 3320 	push	de
-   115E 21 D2 00      [10] 3321 	ld	hl, #0x00d2
-   1161 E5            [11] 3322 	push	hl
-   1162 2E FF         [ 7] 3323 	ld	l, #0xff
-   1164 E5            [11] 3324 	push	hl
-   1165 2E B8         [ 7] 3325 	ld	l, #0xb8
-   1167 E5            [11] 3326 	push	hl
-   1168 2E 00         [ 7] 3327 	ld	l, #0x00
-   116A E5            [11] 3328 	push	hl
-   116B CDr00r00      [17] 3329 	call	_BoxFill
-   116E 21 0A 00      [10] 3330 	ld	hl, #10
-   1171 39            [11] 3331 	add	hl, sp
-   1172 F9            [ 6] 3332 	ld	sp, hl
-                           3333 ;main.c:211: tileY=(player.y/8)+4;
-   1173 3ArF8r01      [13] 3334 	ld	a, (#_player + 1)
-   1176 4F            [ 4] 3335 	ld	c, a
-   1177 06 00         [ 7] 3336 	ld	b, #0x00
-   1179 59            [ 4] 3337 	ld	e, c
-   117A 50            [ 4] 3338 	ld	d, b
-   117B CB 78         [ 8] 3339 	bit	7, b
-   117D 28 05         [12] 3340 	jr	Z,00103$
-   117F 21 07 00      [10] 3341 	ld	hl, #0x0007
-   1182 09            [11] 3342 	add	hl, bc
-   1183 EB            [ 4] 3343 	ex	de, hl
-   1184                    3344 00103$:
-   1184 06 03         [ 7] 3345 	ld	b, #0x03
-   1186                    3346 00115$:
-   1186 CB 2A         [ 8] 3347 	sra	d
-   1188 CB 1B         [ 8] 3348 	rr	e
-   118A 10 FA         [13] 3349 	djnz	00115$
-   118C 21 04 00      [10] 3350 	ld	hl, #0x0004
-   118F 19            [11] 3351 	add	hl, de
-   1190 22r4Er6A      [16] 3352 	ld	(_tileY), hl
-                           3353 ;main.c:212: tileX=(player.x/8)+(contadorColumna-32);
-   1193 3ArF7r01      [13] 3354 	ld	a, (#_player + 0)
-   1196 4F            [ 4] 3355 	ld	c, a
-   1197 06 00         [ 7] 3356 	ld	b, #0x00
-   1199 59            [ 4] 3357 	ld	e, c
-   119A 50            [ 4] 3358 	ld	d, b
-   119B CB 78         [ 8] 3359 	bit	7, b
-   119D 28 05         [12] 3360 	jr	Z,00104$
-   119F 21 07 00      [10] 3361 	ld	hl, #0x0007
-   11A2 09            [11] 3362 	add	hl, bc
-   11A3 EB            [ 4] 3363 	ex	de, hl
-   11A4                    3364 00104$:
-   11A4 06 03         [ 7] 3365 	ld	b, #0x03
-   11A6                    3366 00116$:
-   11A6 CB 2A         [ 8] 3367 	sra	d
-   11A8 CB 1B         [ 8] 3368 	rr	e
-   11AA 10 FA         [13] 3369 	djnz	00116$
-   11AC FD 21r4Ar6A   [14] 3370 	ld	iy, #_contadorColumna
-   11B0 FD 7E 00      [19] 3371 	ld	a, 0 (iy)
-   11B3 C6 E0         [ 7] 3372 	add	a, #0xe0
-   11B5 4F            [ 4] 3373 	ld	c, a
-   11B6 FD 7E 01      [19] 3374 	ld	a, 1 (iy)
-   11B9 CE FF         [ 7] 3375 	adc	a, #0xff
-   11BB 47            [ 4] 3376 	ld	b, a
-   11BC 7B            [ 4] 3377 	ld	a, e
-   11BD 21r4Cr6A      [10] 3378 	ld	hl, #_tileX
-   11C0 81            [ 4] 3379 	add	a, c
-   11C1 77            [ 7] 3380 	ld	(hl), a
-   11C2 7A            [ 4] 3381 	ld	a, d
-   11C3 88            [ 4] 3382 	adc	a, b
-   11C4 23            [ 6] 3383 	inc	hl
-   11C5 77            [ 7] 3384 	ld	(hl), a
-                           3385 ;main.c:213: PutText(100,185,Itoa(tileY,"  ",10),8);
-   11C6 21 0A 00      [10] 3386 	ld	hl, #0x000a
-   11C9 E5            [11] 3387 	push	hl
-   11CA 21rA8r12      [10] 3388 	ld	hl, #___str_5
-   11CD E5            [11] 3389 	push	hl
-   11CE 2Ar4Er6A      [16] 3390 	ld	hl, (_tileY)
-   11D1 E5            [11] 3391 	push	hl
-   11D2 CDr00r00      [17] 3392 	call	_Itoa
-   11D5 F1            [10] 3393 	pop	af
-   11D6 F1            [10] 3394 	pop	af
-   11D7 F1            [10] 3395 	pop	af
-   11D8 3E 08         [ 7] 3396 	ld	a, #0x08
-   11DA F5            [11] 3397 	push	af
-   11DB 33            [ 6] 3398 	inc	sp
-   11DC E5            [11] 3399 	push	hl
-   11DD 21 B9 00      [10] 3400 	ld	hl, #0x00b9
-   11E0 E5            [11] 3401 	push	hl
-   11E1 2E 64         [ 7] 3402 	ld	l, #0x64
-   11E3 E5            [11] 3403 	push	hl
-   11E4 CDr00r00      [17] 3404 	call	_PutText
-   11E7 F1            [10] 3405 	pop	af
-   11E8 F1            [10] 3406 	pop	af
-                           3407 ;main.c:214: PutText(100,195,Itoa(tileX,"  ",10),8);
-   11E9 33            [ 6] 3408 	inc	sp
-   11EA 21 0A 00      [10] 3409 	ld	hl,#0x000a
-   11ED E3            [19] 3410 	ex	(sp),hl
-   11EE 21rA8r12      [10] 3411 	ld	hl, #___str_5
-   11F1 E5            [11] 3412 	push	hl
-   11F2 2Ar4Cr6A      [16] 3413 	ld	hl, (_tileX)
-   11F5 E5            [11] 3414 	push	hl
-   11F6 CDr00r00      [17] 3415 	call	_Itoa
-   11F9 F1            [10] 3416 	pop	af
-   11FA F1            [10] 3417 	pop	af
-   11FB F1            [10] 3418 	pop	af
-   11FC 3E 08         [ 7] 3419 	ld	a, #0x08
-   11FE F5            [11] 3420 	push	af
-   11FF 33            [ 6] 3421 	inc	sp
-   1200 E5            [11] 3422 	push	hl
-   1201 21 C3 00      [10] 3423 	ld	hl, #0x00c3
-   1204 E5            [11] 3424 	push	hl
-   1205 2E 64         [ 7] 3425 	ld	l, #0x64
-   1207 E5            [11] 3426 	push	hl
-   1208 CDr00r00      [17] 3427 	call	_PutText
-   120B F1            [10] 3428 	pop	af
-   120C F1            [10] 3429 	pop	af
-   120D F1            [10] 3430 	pop	af
-   120E 33            [ 6] 3431 	inc	sp
-                           3432 ;main.c:215: PutText(100,203,Itoa(bufferTileSetYMap[tileY*numeroColumnas+tileX],"  ",10),8);
-   120F ED 4Br4Er6A   [20] 3433 	ld	bc, (_tileY)
-   1213 69            [ 4] 3434 	ld	l, c
-   1214 60            [ 4] 3435 	ld	h, b
-   1215 29            [11] 3436 	add	hl, hl
-   1216 09            [11] 3437 	add	hl, bc
-   1217 29            [11] 3438 	add	hl, hl
-   1218 09            [11] 3439 	add	hl, bc
-   1219 29            [11] 3440 	add	hl, hl
-   121A 09            [11] 3441 	add	hl, bc
-   121B 29            [11] 3442 	add	hl, hl
-   121C 09            [11] 3443 	add	hl, bc
-   121D 29            [11] 3444 	add	hl, hl
-   121E 29            [11] 3445 	add	hl, hl
-   121F 09            [11] 3446 	add	hl, bc
-   1220 29            [11] 3447 	add	hl, hl
-   1221 29            [11] 3448 	add	hl, hl
-   1222 EB            [ 4] 3449 	ex	de, hl
-   1223 2Ar4Cr6A      [16] 3450 	ld	hl, (_tileX)
-   1226 19            [11] 3451 	add	hl, de
-   1227 11r4Ar00      [10] 3452 	ld	de, #_bufferTileSetYMap
-   122A 19            [11] 3453 	add	hl, de
-   122B 4E            [ 7] 3454 	ld	c, (hl)
-   122C 06 00         [ 7] 3455 	ld	b, #0x00
-   122E 21 0A 00      [10] 3456 	ld	hl, #0x000a
-   1231 E5            [11] 3457 	push	hl
-   1232 21rA8r12      [10] 3458 	ld	hl, #___str_5
-   1235 E5            [11] 3459 	push	hl
-   1236 C5            [11] 3460 	push	bc
-   1237 CDr00r00      [17] 3461 	call	_Itoa
-   123A F1            [10] 3462 	pop	af
-   123B F1            [10] 3463 	pop	af
-   123C F1            [10] 3464 	pop	af
-   123D 3E 08         [ 7] 3465 	ld	a, #0x08
-   123F F5            [11] 3466 	push	af
-   1240 33            [ 6] 3467 	inc	sp
-   1241 E5            [11] 3468 	push	hl
-   1242 21 CB 00      [10] 3469 	ld	hl, #0x00cb
-   1245 E5            [11] 3470 	push	hl
-   1246 2E 64         [ 7] 3471 	ld	l, #0x64
-   1248 E5            [11] 3472 	push	hl
-   1249 CDr00r00      [17] 3473 	call	_PutText
-   124C F1            [10] 3474 	pop	af
-   124D F1            [10] 3475 	pop	af
-   124E F1            [10] 3476 	pop	af
-   124F 33            [ 6] 3477 	inc	sp
-                           3478 ;main.c:219: PutText(200,185,Itoa(numero_de_enemigo,"  ",10),8);
-   1250 11rA8r12      [10] 3479 	ld	de, #___str_5
-   1253 21r05r6B      [10] 3480 	ld	hl,#_numero_de_enemigo + 0
-   1256 4E            [ 7] 3481 	ld	c, (hl)
-   1257 06 00         [ 7] 3482 	ld	b, #0x00
-   1259 21 0A 00      [10] 3483 	ld	hl, #0x000a
-   125C E5            [11] 3484 	push	hl
-   125D D5            [11] 3485 	push	de
-   125E C5            [11] 3486 	push	bc
-   125F CDr00r00      [17] 3487 	call	_Itoa
-   1262 F1            [10] 3488 	pop	af
-   1263 F1            [10] 3489 	pop	af
-   1264 F1            [10] 3490 	pop	af
-   1265 3E 08         [ 7] 3491 	ld	a, #0x08
-   1267 F5            [11] 3492 	push	af
-   1268 33            [ 6] 3493 	inc	sp
-   1269 E5            [11] 3494 	push	hl
-   126A 21 B9 00      [10] 3495 	ld	hl, #0x00b9
-   126D E5            [11] 3496 	push	hl
-   126E 2E C8         [ 7] 3497 	ld	l, #0xc8
-   1270 E5            [11] 3498 	push	hl
-   1271 CDr00r00      [17] 3499 	call	_PutText
-   1274 F1            [10] 3500 	pop	af
-   1275 F1            [10] 3501 	pop	af
-   1276 F1            [10] 3502 	pop	af
-   1277 33            [ 6] 3503 	inc	sp
-                           3504 ;main.c:220: PutText(200,195,Itoa(RealTimer()/60,"  ",10),8);
-   1278 CDr00r00      [17] 3505 	call	_RealTimer
-   127B 01 3C 00      [10] 3506 	ld	bc, #0x003c
-   127E C5            [11] 3507 	push	bc
-   127F E5            [11] 3508 	push	hl
-   1280 CDr00r00      [17] 3509 	call	__divuint
-   1283 F1            [10] 3510 	pop	af
-   1284 F1            [10] 3511 	pop	af
-   1285 01 0A 00      [10] 3512 	ld	bc, #0x000a
-   1288 C5            [11] 3513 	push	bc
-   1289 01rA8r12      [10] 3514 	ld	bc, #___str_5
-   128C C5            [11] 3515 	push	bc
-   128D E5            [11] 3516 	push	hl
-   128E CDr00r00      [17] 3517 	call	_Itoa
-   1291 F1            [10] 3518 	pop	af
-   1292 F1            [10] 3519 	pop	af
-   1293 F1            [10] 3520 	pop	af
-   1294 3E 08         [ 7] 3521 	ld	a, #0x08
-   1296 F5            [11] 3522 	push	af
-   1297 33            [ 6] 3523 	inc	sp
-   1298 E5            [11] 3524 	push	hl
-   1299 21 C3 00      [10] 3525 	ld	hl, #0x00c3
-   129C E5            [11] 3526 	push	hl
-   129D 2E C8         [ 7] 3527 	ld	l, #0xc8
-   129F E5            [11] 3528 	push	hl
-   12A0 CDr00r00      [17] 3529 	call	_PutText
-   12A3 F1            [10] 3530 	pop	af
-   12A4 F1            [10] 3531 	pop	af
-   12A5 F1            [10] 3532 	pop	af
-   12A6 33            [ 6] 3533 	inc	sp
-                           3534 ;main.c:229: }
-   12A7 C9            [10] 3535 	ret
-   12A8                    3536 ___str_5:
-   12A8 20 20              3537 	.ascii "  "
-   12AA 00                 3538 	.db 0x00
-                           3539 	.area _CODE
-                           3540 	.area _INITIALIZER
-   0000                    3541 __xinit__fileNameTilseSet:
-   0000 74 69 6C 65 73 65  3542 	.ascii "tileset.sc5"
+   0FF5 01rF9r01      [10] 3037 	ld	bc, #_player + 2
+   0FF8 3ArF7r01      [13] 3038 	ld	a, (#_player + 0)
+   0FFB 02            [ 7] 3039 	ld	(bc), a
+                           3040 ;main.c:142: player.oldY=player.y;
+   0FFC 01rFAr01      [10] 3041 	ld	bc, #_player + 3
+   0FFF 3ArF8r01      [13] 3042 	ld	a, (#_player + 1)
+   1002 02            [ 7] 3043 	ld	(bc), a
+                           3044 ;main.c:143: if ((player.x/8)>14) recorrerBufferTileMapYPintarPage1EnPage0();
+   1003 21rF7r01      [10] 3045 	ld	hl, #_player + 0
+   1006 4E            [ 7] 3046 	ld	c, (hl)
+   1007 59            [ 4] 3047 	ld	e, c
+   1008 16 00         [ 7] 3048 	ld	d, #0x00
+   100A 6B            [ 4] 3049 	ld	l, e
+   100B 62            [ 4] 3050 	ld	h, d
+   100C CB 7A         [ 8] 3051 	bit	7, d
+   100E 28 04         [12] 3052 	jr	Z,00126$
+   1010 21 07 00      [10] 3053 	ld	hl, #0x0007
+   1013 19            [11] 3054 	add	hl, de
+   1014                    3055 00126$:
+   1014 06 03         [ 7] 3056 	ld	b, #0x03
+   1016                    3057 00191$:
+   1016 CB 2C         [ 8] 3058 	sra	h
+   1018 CB 1D         [ 8] 3059 	rr	l
+   101A 10 FA         [13] 3060 	djnz	00191$
+   101C 3E 0E         [ 7] 3061 	ld	a, #0x0e
+   101E BD            [ 4] 3062 	cp	a, l
+   101F 3E 00         [ 7] 3063 	ld	a, #0x00
+   1021 9C            [ 4] 3064 	sbc	a, h
+   1022 E2r27r10      [10] 3065 	jp	PO, 00192$
+   1025 EE 80         [ 7] 3066 	xor	a, #0x80
+   1027                    3067 00192$:
+   1027 F2r2Fr10      [10] 3068 	jp	P, 00104$
+   102A CDr90r01      [17] 3069 	call	_recorrerBufferTileMapYPintarPage1EnPage0
+   102D 18 07         [12] 3070 	jr	00105$
+   102F                    3071 00104$:
+                           3072 ;main.c:145: player.x+=player.velocidadX;
+   102F 3Ar02r02      [13] 3073 	ld	a, (#_player + 11)
+   1032 81            [ 4] 3074 	add	a, c
+   1033 32rF7r01      [13] 3075 	ld	(#_player),a
+   1036                    3076 00105$:
+                           3077 ;main.c:148: player.direccion=3;
+   1036 21rFDr01      [10] 3078 	ld	hl, #(_player + 0x0006)
+   1039 36 03         [10] 3079 	ld	(hl), #0x03
+                           3080 ;main.c:149: if (player.andando==0){
+   103B 21rFEr01      [10] 3081 	ld	hl, #_player + 7
+   103E 7E            [ 7] 3082 	ld	a, (hl)
+   103F B7            [ 4] 3083 	or	a, a
+   1040 20 04         [12] 3084 	jr	NZ,00107$
+                           3085 ;main.c:150: player.andando=1;
+   1042 36 01         [10] 3086 	ld	(hl), #0x01
+   1044 18 35         [12] 3087 	jr	00119$
+   1046                    3088 00107$:
+                           3089 ;main.c:152: player.andando=0;
+   1046 36 00         [10] 3090 	ld	(hl), #0x00
+                           3091 ;main.c:155: break;
+   1048 18 31         [12] 3092 	jr	00119$
+                           3093 ;main.c:156: case 5:
+   104A                    3094 00111$:
+                           3095 ;main.c:157: player.y+=player.velocidadY;
+   104A 01rF8r01      [10] 3096 	ld	bc, #_player + 1
+   104D 0A            [ 7] 3097 	ld	a, (bc)
+   104E 5F            [ 4] 3098 	ld	e, a
+   104F 3Ar03r02      [13] 3099 	ld	a, (#_player + 12)
+   1052 83            [ 4] 3100 	add	a, e
+   1053 02            [ 7] 3101 	ld	(bc), a
+                           3102 ;main.c:158: break;
+   1054 18 25         [12] 3103 	jr	00119$
+                           3104 ;main.c:159: case 7:
+   1056                    3105 00112$:
+                           3106 ;main.c:160: if(player.colision==0){
+   1056 01rF7r01      [10] 3107 	ld	bc, #_player+0
+   1059 3Ar00r02      [13] 3108 	ld	a, (#_player + 9)
+   105C B7            [ 4] 3109 	or	a, a
+   105D 20 1C         [12] 3110 	jr	NZ,00119$
+                           3111 ;main.c:161: player.x-=player.velocidadX;
+   105F 0A            [ 7] 3112 	ld	a, (bc)
+   1060 5F            [ 4] 3113 	ld	e, a
+   1061 21r02r02      [10] 3114 	ld	hl, #_player + 11
+   1064 6E            [ 7] 3115 	ld	l, (hl)
+   1065 7B            [ 4] 3116 	ld	a, e
+   1066 95            [ 4] 3117 	sub	a, l
+   1067 02            [ 7] 3118 	ld	(bc), a
+                           3119 ;main.c:162: player.direccion=7;
+   1068 21rFDr01      [10] 3120 	ld	hl, #(_player + 0x0006)
+   106B 36 07         [10] 3121 	ld	(hl), #0x07
+                           3122 ;main.c:163: if (player.andando==0){
+   106D 21 07 00      [10] 3123 	ld	hl, #0x0007
+   1070 09            [11] 3124 	add	hl, bc
+   1071 7E            [ 7] 3125 	ld	a, (hl)
+   1072 B7            [ 4] 3126 	or	a, a
+   1073 20 04         [12] 3127 	jr	NZ,00114$
+                           3128 ;main.c:164: player.andando=1;
+   1075 36 01         [10] 3129 	ld	(hl), #0x01
+   1077 18 02         [12] 3130 	jr	00119$
+   1079                    3131 00114$:
+                           3132 ;main.c:166: player.andando=0;
+   1079 36 00         [10] 3133 	ld	(hl), #0x00
+                           3134 ;main.c:173: }
+   107B                    3135 00119$:
+                           3136 ;main.c:176: char trigger = TriggerRead(0);
+   107B AF            [ 4] 3137 	xor	a, a
+   107C F5            [11] 3138 	push	af
+   107D 33            [ 6] 3139 	inc	sp
+   107E CDr00r00      [17] 3140 	call	_TriggerRead
+   1081 33            [ 6] 3141 	inc	sp
+   1082 7D            [ 4] 3142 	ld	a, l
+                           3143 ;main.c:177: if (trigger!=0) {
+   1083 B7            [ 4] 3144 	or	a, a
+   1084 28 4F         [12] 3145 	jr	Z,00124$
+                           3146 ;main.c:178: Beep();
+   1086 CDr00r00      [17] 3147 	call	_Beep
+                           3148 ;main.c:179: if (numero_disparo<10){
+   1089 3ArA0r6A      [13] 3149 	ld	a,(#_numero_disparo + 0)
+   108C D6 0A         [ 7] 3150 	sub	a, #0x0a
+   108E 30 45         [12] 3151 	jr	NC,00124$
+                           3152 ;main.c:180: TFire* fire=crear_disparos();
+   1090 CDr79r08      [17] 3153 	call	_crear_disparos
+   1093 4D            [ 4] 3154 	ld	c, l
+   1094 44            [ 4] 3155 	ld	b, h
+                           3156 ;main.c:181: fire->x=player.x;
+   1095 3ArF7r01      [13] 3157 	ld	a, (#_player + 0)
+   1098 5F            [ 4] 3158 	ld	e, a
+   1099 16 00         [ 7] 3159 	ld	d, #0x00
+   109B 69            [ 4] 3160 	ld	l, c
+   109C 60            [ 4] 3161 	ld	h, b
+   109D 73            [ 7] 3162 	ld	(hl), e
+   109E 23            [ 6] 3163 	inc	hl
+   109F 72            [ 7] 3164 	ld	(hl), d
+                           3165 ;main.c:182: fire->y=player.y+12;
+   10A0 21 02 00      [10] 3166 	ld	hl, #0x0002
+   10A3 09            [11] 3167 	add	hl, bc
+   10A4 E3            [19] 3168 	ex	(sp), hl
+   10A5 3ArF8r01      [13] 3169 	ld	a, (#_player + 1)
+   10A8 5F            [ 4] 3170 	ld	e, a
+   10A9 16 00         [ 7] 3171 	ld	d, #0x00
+   10AB 21 0C 00      [10] 3172 	ld	hl, #0x000c
+   10AE 19            [11] 3173 	add	hl, de
+   10AF EB            [ 4] 3174 	ex	de, hl
+   10B0 E1            [10] 3175 	pop	hl
+   10B1 E5            [11] 3176 	push	hl
+   10B2 73            [ 7] 3177 	ld	(hl), e
+   10B3 23            [ 6] 3178 	inc	hl
+   10B4 72            [ 7] 3179 	ld	(hl), d
+                           3180 ;main.c:183: fire->direccion=player.direccion;
+   10B5 21 05 00      [10] 3181 	ld	hl, #0x0005
+   10B8 09            [11] 3182 	add	hl, bc
+   10B9 EB            [ 4] 3183 	ex	de, hl
+   10BA 3ArFDr01      [13] 3184 	ld	a, (#_player + 6)
+   10BD 12            [ 7] 3185 	ld	(de), a
+                           3186 ;main.c:184: fire->velocidad=20;
+   10BE 21 04 00      [10] 3187 	ld	hl, #0x0004
+   10C1 09            [11] 3188 	add	hl, bc
+   10C2 36 14         [10] 3189 	ld	(hl), #0x14
+                           3190 ;main.c:185: fire->plano=10+numero_disparo;
+   10C4 21 06 00      [10] 3191 	ld	hl, #0x0006
+   10C7 09            [11] 3192 	add	hl, bc
+   10C8 EB            [ 4] 3193 	ex	de, hl
+   10C9 3ArA0r6A      [13] 3194 	ld	a,(#_numero_disparo + 0)
+   10CC C6 0A         [ 7] 3195 	add	a, #0x0a
+   10CE 12            [ 7] 3196 	ld	(de), a
+                           3197 ;main.c:186: fire->sprite=10*4;
+   10CF 21 07 00      [10] 3198 	ld	hl, #0x0007
+   10D2 09            [11] 3199 	add	hl, bc
+   10D3 36 28         [10] 3200 	ld	(hl), #0x28
+   10D5                    3201 00124$:
+                           3202 ;main.c:189: }
+   10D5 F1            [10] 3203 	pop	af
+   10D6 DD E1         [14] 3204 	pop	ix
+   10D8 C9            [10] 3205 	ret
+                           3206 ;main.c:191: void update_collision_system(){
+                           3207 ;	---------------------------------
+                           3208 ; Function update_collision_system
+                           3209 ; ---------------------------------
+   10D9                    3210 _update_collision_system::
+   10D9 CDr00r00      [17] 3211 	call	___sdcc_enter_ix
+   10DC F5            [11] 3212 	push	af
+                           3213 ;main.c:193: for (int i=0; i<numero_de_enemigo;i++){
+   10DD 21 00 00      [10] 3214 	ld	hl, #0x0000
+   10E0 E3            [19] 3215 	ex	(sp), hl
+   10E1                    3216 00108$:
+   10E1 21r05r6B      [10] 3217 	ld	hl,#_numero_de_enemigo + 0
+   10E4 4E            [ 7] 3218 	ld	c, (hl)
+   10E5 06 00         [ 7] 3219 	ld	b, #0x00
+   10E7 DD 7E FE      [19] 3220 	ld	a, -2 (ix)
+   10EA 91            [ 4] 3221 	sub	a, c
+   10EB DD 7E FF      [19] 3222 	ld	a, -1 (ix)
+   10EE 98            [ 4] 3223 	sbc	a, b
+   10EF E2rF4r10      [10] 3224 	jp	PO, 00147$
+   10F2 EE 80         [ 7] 3225 	xor	a, #0x80
+   10F4                    3226 00147$:
+   10F4 F2r24r11      [10] 3227 	jp	P, 00103$
+                           3228 ;main.c:194: if(collisionPlayer(array_structs_enemigos[i].x,array_structs_enemigos[i].y)) Beep();
+   10F7 C1            [10] 3229 	pop	bc
+   10F8 C5            [11] 3230 	push	bc
+   10F9 69            [ 4] 3231 	ld	l, c
+   10FA 60            [ 4] 3232 	ld	h, b
+   10FB 29            [11] 3233 	add	hl, hl
+   10FC 29            [11] 3234 	add	hl, hl
+   10FD 09            [11] 3235 	add	hl, bc
+   10FE 29            [11] 3236 	add	hl, hl
+   10FF EB            [ 4] 3237 	ex	de, hl
+   1100 21rA1r6A      [10] 3238 	ld	hl, #_array_structs_enemigos
+   1103 19            [11] 3239 	add	hl, de
+   1104 EB            [ 4] 3240 	ex	de, hl
+   1105 6B            [ 4] 3241 	ld	l, e
+   1106 62            [ 4] 3242 	ld	h, d
+   1107 23            [ 6] 3243 	inc	hl
+   1108 23            [ 6] 3244 	inc	hl
+   1109 46            [ 7] 3245 	ld	b, (hl)
+   110A 1A            [ 7] 3246 	ld	a, (de)
+   110B C5            [11] 3247 	push	bc
+   110C 33            [ 6] 3248 	inc	sp
+   110D F5            [11] 3249 	push	af
+   110E 33            [ 6] 3250 	inc	sp
+   110F CDr00r08      [17] 3251 	call	_collisionPlayer
+   1112 F1            [10] 3252 	pop	af
+   1113 7D            [ 4] 3253 	ld	a, l
+   1114 B7            [ 4] 3254 	or	a, a
+   1115 28 03         [12] 3255 	jr	Z,00109$
+   1117 CDr00r00      [17] 3256 	call	_Beep
+   111A                    3257 00109$:
+                           3258 ;main.c:193: for (int i=0; i<numero_de_enemigo;i++){
+   111A DD 34 FE      [23] 3259 	inc	-2 (ix)
+   111D 20 C2         [12] 3260 	jr	NZ,00108$
+   111F DD 34 FF      [23] 3261 	inc	-1 (ix)
+   1122 18 BD         [12] 3262 	jr	00108$
+   1124                    3263 00103$:
+                           3264 ;main.c:197: for (int i=0; i<numero_disparo;i++){
+   1124 01 00 00      [10] 3265 	ld	bc, #0x0000
+   1127                    3266 00111$:
+   1127 21rA0r6A      [10] 3267 	ld	hl,#_numero_disparo + 0
+   112A 5E            [ 7] 3268 	ld	e, (hl)
+   112B 16 00         [ 7] 3269 	ld	d, #0x00
+   112D 79            [ 4] 3270 	ld	a, c
+   112E 93            [ 4] 3271 	sub	a, e
+   112F 78            [ 4] 3272 	ld	a, b
+   1130 9A            [ 4] 3273 	sbc	a, d
+   1131 E2r36r11      [10] 3274 	jp	PO, 00149$
+   1134 EE 80         [ 7] 3275 	xor	a, #0x80
+   1136                    3276 00149$:
+   1136 F2r67r11      [10] 3277 	jp	P, 00113$
+                           3278 ;main.c:198: if (collision_enemigos(array_structs_fires[i].x,array_structs_fires[i].y)) {
+   1139 69            [ 4] 3279 	ld	l, c
+   113A 60            [ 4] 3280 	ld	h, b
+   113B 29            [11] 3281 	add	hl, hl
+   113C 29            [11] 3282 	add	hl, hl
+   113D 29            [11] 3283 	add	hl, hl
+   113E 7D            [ 4] 3284 	ld	a, l
+   113F C6r50         [ 7] 3285 	add	a, #<(_array_structs_fires)
+   1141 5F            [ 4] 3286 	ld	e, a
+   1142 7C            [ 4] 3287 	ld	a, h
+   1143 CEs6A         [ 7] 3288 	adc	a, #>(_array_structs_fires)
+   1145 57            [ 4] 3289 	ld	d, a
+   1146 6B            [ 4] 3290 	ld	l, e
+   1147 62            [ 4] 3291 	ld	h, d
+   1148 23            [ 6] 3292 	inc	hl
+   1149 23            [ 6] 3293 	inc	hl
+   114A 7E            [ 7] 3294 	ld	a, (hl)
+   114B F5            [11] 3295 	push	af
+   114C 1A            [ 7] 3296 	ld	a, (de)
+   114D 57            [ 4] 3297 	ld	d, a
+   114E F1            [10] 3298 	pop	af
+   114F C5            [11] 3299 	push	bc
+   1150 F5            [11] 3300 	push	af
+   1151 33            [ 6] 3301 	inc	sp
+   1152 D5            [11] 3302 	push	de
+   1153 33            [ 6] 3303 	inc	sp
+   1154 CDr9Fr0D      [17] 3304 	call	_collision_enemigos
+   1157 F1            [10] 3305 	pop	af
+   1158 7D            [ 4] 3306 	ld	a, l
+   1159 C1            [10] 3307 	pop	bc
+   115A B7            [ 4] 3308 	or	a, a
+   115B 28 07         [12] 3309 	jr	Z,00112$
+                           3310 ;main.c:199: eliminar_disparos(i);
+   115D C5            [11] 3311 	push	bc
+   115E C5            [11] 3312 	push	bc
+   115F CDrB7r09      [17] 3313 	call	_eliminar_disparos
+   1162 F1            [10] 3314 	pop	af
+   1163 C1            [10] 3315 	pop	bc
+   1164                    3316 00112$:
+                           3317 ;main.c:197: for (int i=0; i<numero_disparo;i++){
+   1164 03            [ 6] 3318 	inc	bc
+   1165 18 C0         [12] 3319 	jr	00111$
+   1167                    3320 00113$:
+                           3321 ;main.c:203: }
+   1167 F1            [10] 3322 	pop	af
+   1168 DD E1         [14] 3323 	pop	ix
+   116A C9            [10] 3324 	ret
+                           3325 ;main.c:209: void gui(){
+                           3326 ;	---------------------------------
+                           3327 ; Function gui
+                           3328 ; ---------------------------------
+   116B                    3329 _gui::
+                           3330 ;main.c:210: BoxLine(0,184,255,210,6,8);
+   116B 11 06 08      [10] 3331 	ld	de, #0x0806
+   116E D5            [11] 3332 	push	de
+   116F 21 D2 00      [10] 3333 	ld	hl, #0x00d2
+   1172 E5            [11] 3334 	push	hl
+   1173 2E FF         [ 7] 3335 	ld	l, #0xff
+   1175 E5            [11] 3336 	push	hl
+   1176 2E B8         [ 7] 3337 	ld	l, #0xb8
+   1178 E5            [11] 3338 	push	hl
+   1179 2E 00         [ 7] 3339 	ld	l, #0x00
+   117B E5            [11] 3340 	push	hl
+   117C CDr00r00      [17] 3341 	call	_BoxLine
+   117F 21 0A 00      [10] 3342 	ld	hl, #10
+   1182 39            [11] 3343 	add	hl, sp
+   1183 F9            [ 6] 3344 	ld	sp, hl
+                           3345 ;main.c:211: BoxFill(0,184,255,210,1,8);
+   1184 11 01 08      [10] 3346 	ld	de, #0x0801
+   1187 D5            [11] 3347 	push	de
+   1188 21 D2 00      [10] 3348 	ld	hl, #0x00d2
+   118B E5            [11] 3349 	push	hl
+   118C 2E FF         [ 7] 3350 	ld	l, #0xff
+   118E E5            [11] 3351 	push	hl
+   118F 2E B8         [ 7] 3352 	ld	l, #0xb8
+   1191 E5            [11] 3353 	push	hl
+   1192 2E 00         [ 7] 3354 	ld	l, #0x00
+   1194 E5            [11] 3355 	push	hl
+   1195 CDr00r00      [17] 3356 	call	_BoxFill
+   1198 21 0A 00      [10] 3357 	ld	hl, #10
+   119B 39            [11] 3358 	add	hl, sp
+   119C F9            [ 6] 3359 	ld	sp, hl
+                           3360 ;main.c:213: tileY=(player.y/8)+4;
+   119D 3ArF8r01      [13] 3361 	ld	a, (#_player + 1)
+   11A0 4F            [ 4] 3362 	ld	c, a
+   11A1 06 00         [ 7] 3363 	ld	b, #0x00
+   11A3 59            [ 4] 3364 	ld	e, c
+   11A4 50            [ 4] 3365 	ld	d, b
+   11A5 CB 78         [ 8] 3366 	bit	7, b
+   11A7 28 05         [12] 3367 	jr	Z,00103$
+   11A9 21 07 00      [10] 3368 	ld	hl, #0x0007
+   11AC 09            [11] 3369 	add	hl, bc
+   11AD EB            [ 4] 3370 	ex	de, hl
+   11AE                    3371 00103$:
+   11AE 06 03         [ 7] 3372 	ld	b, #0x03
+   11B0                    3373 00115$:
+   11B0 CB 2A         [ 8] 3374 	sra	d
+   11B2 CB 1B         [ 8] 3375 	rr	e
+   11B4 10 FA         [13] 3376 	djnz	00115$
+   11B6 21 04 00      [10] 3377 	ld	hl, #0x0004
+   11B9 19            [11] 3378 	add	hl, de
+   11BA 22r4Er6A      [16] 3379 	ld	(_tileY), hl
+                           3380 ;main.c:214: tileX=(player.x/8)+(contadorColumna-32);
+   11BD 3ArF7r01      [13] 3381 	ld	a, (#_player + 0)
+   11C0 4F            [ 4] 3382 	ld	c, a
+   11C1 06 00         [ 7] 3383 	ld	b, #0x00
+   11C3 59            [ 4] 3384 	ld	e, c
+   11C4 50            [ 4] 3385 	ld	d, b
+   11C5 CB 78         [ 8] 3386 	bit	7, b
+   11C7 28 05         [12] 3387 	jr	Z,00104$
+   11C9 21 07 00      [10] 3388 	ld	hl, #0x0007
+   11CC 09            [11] 3389 	add	hl, bc
+   11CD EB            [ 4] 3390 	ex	de, hl
+   11CE                    3391 00104$:
+   11CE 06 03         [ 7] 3392 	ld	b, #0x03
+   11D0                    3393 00116$:
+   11D0 CB 2A         [ 8] 3394 	sra	d
+   11D2 CB 1B         [ 8] 3395 	rr	e
+   11D4 10 FA         [13] 3396 	djnz	00116$
+   11D6 FD 21r4Ar6A   [14] 3397 	ld	iy, #_contadorColumna
+   11DA FD 7E 00      [19] 3398 	ld	a, 0 (iy)
+   11DD C6 E0         [ 7] 3399 	add	a, #0xe0
+   11DF 4F            [ 4] 3400 	ld	c, a
+   11E0 FD 7E 01      [19] 3401 	ld	a, 1 (iy)
+   11E3 CE FF         [ 7] 3402 	adc	a, #0xff
+   11E5 47            [ 4] 3403 	ld	b, a
+   11E6 7B            [ 4] 3404 	ld	a, e
+   11E7 21r4Cr6A      [10] 3405 	ld	hl, #_tileX
+   11EA 81            [ 4] 3406 	add	a, c
+   11EB 77            [ 7] 3407 	ld	(hl), a
+   11EC 7A            [ 4] 3408 	ld	a, d
+   11ED 88            [ 4] 3409 	adc	a, b
+   11EE 23            [ 6] 3410 	inc	hl
+   11EF 77            [ 7] 3411 	ld	(hl), a
+                           3412 ;main.c:215: PutText(100,185,Itoa(tileY,"  ",10),8);
+   11F0 21 0A 00      [10] 3413 	ld	hl, #0x000a
+   11F3 E5            [11] 3414 	push	hl
+   11F4 21r38r13      [10] 3415 	ld	hl, #___str_5
+   11F7 E5            [11] 3416 	push	hl
+   11F8 2Ar4Er6A      [16] 3417 	ld	hl, (_tileY)
+   11FB E5            [11] 3418 	push	hl
+   11FC CDr00r00      [17] 3419 	call	_Itoa
+   11FF F1            [10] 3420 	pop	af
+   1200 F1            [10] 3421 	pop	af
+   1201 F1            [10] 3422 	pop	af
+   1202 3E 08         [ 7] 3423 	ld	a, #0x08
+   1204 F5            [11] 3424 	push	af
+   1205 33            [ 6] 3425 	inc	sp
+   1206 E5            [11] 3426 	push	hl
+   1207 21 B9 00      [10] 3427 	ld	hl, #0x00b9
+   120A E5            [11] 3428 	push	hl
+   120B 2E 64         [ 7] 3429 	ld	l, #0x64
+   120D E5            [11] 3430 	push	hl
+   120E CDr00r00      [17] 3431 	call	_PutText
+   1211 F1            [10] 3432 	pop	af
+   1212 F1            [10] 3433 	pop	af
+                           3434 ;main.c:216: PutText(100,195,Itoa(tileX,"  ",10),8);
+   1213 33            [ 6] 3435 	inc	sp
+   1214 21 0A 00      [10] 3436 	ld	hl,#0x000a
+   1217 E3            [19] 3437 	ex	(sp),hl
+   1218 21r38r13      [10] 3438 	ld	hl, #___str_5
+   121B E5            [11] 3439 	push	hl
+   121C 2Ar4Cr6A      [16] 3440 	ld	hl, (_tileX)
+   121F E5            [11] 3441 	push	hl
+   1220 CDr00r00      [17] 3442 	call	_Itoa
+   1223 F1            [10] 3443 	pop	af
+   1224 F1            [10] 3444 	pop	af
+   1225 F1            [10] 3445 	pop	af
+   1226 3E 08         [ 7] 3446 	ld	a, #0x08
+   1228 F5            [11] 3447 	push	af
+   1229 33            [ 6] 3448 	inc	sp
+   122A E5            [11] 3449 	push	hl
+   122B 21 C3 00      [10] 3450 	ld	hl, #0x00c3
+   122E E5            [11] 3451 	push	hl
+   122F 2E 64         [ 7] 3452 	ld	l, #0x64
+   1231 E5            [11] 3453 	push	hl
+   1232 CDr00r00      [17] 3454 	call	_PutText
+   1235 F1            [10] 3455 	pop	af
+   1236 F1            [10] 3456 	pop	af
+   1237 F1            [10] 3457 	pop	af
+   1238 33            [ 6] 3458 	inc	sp
+                           3459 ;main.c:217: PutText(100,203,Itoa(bufferTileSetYMap[tileY*numeroColumnas+tileX],"  ",10),8);
+   1239 ED 4Br4Er6A   [20] 3460 	ld	bc, (_tileY)
+   123D 69            [ 4] 3461 	ld	l, c
+   123E 60            [ 4] 3462 	ld	h, b
+   123F 29            [11] 3463 	add	hl, hl
+   1240 09            [11] 3464 	add	hl, bc
+   1241 29            [11] 3465 	add	hl, hl
+   1242 09            [11] 3466 	add	hl, bc
+   1243 29            [11] 3467 	add	hl, hl
+   1244 09            [11] 3468 	add	hl, bc
+   1245 29            [11] 3469 	add	hl, hl
+   1246 09            [11] 3470 	add	hl, bc
+   1247 29            [11] 3471 	add	hl, hl
+   1248 29            [11] 3472 	add	hl, hl
+   1249 09            [11] 3473 	add	hl, bc
+   124A 29            [11] 3474 	add	hl, hl
+   124B 29            [11] 3475 	add	hl, hl
+   124C EB            [ 4] 3476 	ex	de, hl
+   124D 2Ar4Cr6A      [16] 3477 	ld	hl, (_tileX)
+   1250 19            [11] 3478 	add	hl, de
+   1251 11r4Ar00      [10] 3479 	ld	de, #_bufferTileSetYMap
+   1254 19            [11] 3480 	add	hl, de
+   1255 4E            [ 7] 3481 	ld	c, (hl)
+   1256 06 00         [ 7] 3482 	ld	b, #0x00
+   1258 21 0A 00      [10] 3483 	ld	hl, #0x000a
+   125B E5            [11] 3484 	push	hl
+   125C 21r38r13      [10] 3485 	ld	hl, #___str_5
+   125F E5            [11] 3486 	push	hl
+   1260 C5            [11] 3487 	push	bc
+   1261 CDr00r00      [17] 3488 	call	_Itoa
+   1264 F1            [10] 3489 	pop	af
+   1265 F1            [10] 3490 	pop	af
+   1266 F1            [10] 3491 	pop	af
+   1267 3E 08         [ 7] 3492 	ld	a, #0x08
+   1269 F5            [11] 3493 	push	af
+   126A 33            [ 6] 3494 	inc	sp
+   126B E5            [11] 3495 	push	hl
+   126C 21 CB 00      [10] 3496 	ld	hl, #0x00cb
+   126F E5            [11] 3497 	push	hl
+   1270 2E 64         [ 7] 3498 	ld	l, #0x64
+   1272 E5            [11] 3499 	push	hl
+   1273 CDr00r00      [17] 3500 	call	_PutText
+   1276 F1            [10] 3501 	pop	af
+   1277 F1            [10] 3502 	pop	af
+   1278 F1            [10] 3503 	pop	af
+   1279 33            [ 6] 3504 	inc	sp
+                           3505 ;main.c:218: PutText(120,185,"Enemigos:",8);
+   127A 3E 08         [ 7] 3506 	ld	a, #0x08
+   127C F5            [11] 3507 	push	af
+   127D 33            [ 6] 3508 	inc	sp
+   127E 21r3Br13      [10] 3509 	ld	hl, #___str_6
+   1281 E5            [11] 3510 	push	hl
+   1282 21 B9 00      [10] 3511 	ld	hl, #0x00b9
+   1285 E5            [11] 3512 	push	hl
+   1286 2E 78         [ 7] 3513 	ld	l, #0x78
+   1288 E5            [11] 3514 	push	hl
+   1289 CDr00r00      [17] 3515 	call	_PutText
+   128C F1            [10] 3516 	pop	af
+   128D F1            [10] 3517 	pop	af
+   128E F1            [10] 3518 	pop	af
+   128F 33            [ 6] 3519 	inc	sp
+                           3520 ;main.c:219: PutText(120,195,"Tiempo:",8);
+   1290 3E 08         [ 7] 3521 	ld	a, #0x08
+   1292 F5            [11] 3522 	push	af
+   1293 33            [ 6] 3523 	inc	sp
+   1294 21r45r13      [10] 3524 	ld	hl, #___str_7
+   1297 E5            [11] 3525 	push	hl
+   1298 21 C3 00      [10] 3526 	ld	hl, #0x00c3
+   129B E5            [11] 3527 	push	hl
+   129C 2E 78         [ 7] 3528 	ld	l, #0x78
+   129E E5            [11] 3529 	push	hl
+   129F CDr00r00      [17] 3530 	call	_PutText
+   12A2 F1            [10] 3531 	pop	af
+   12A3 F1            [10] 3532 	pop	af
+   12A4 F1            [10] 3533 	pop	af
+   12A5 33            [ 6] 3534 	inc	sp
+                           3535 ;main.c:220: PutText(120,203,"Conatdor: ",8);
+   12A6 3E 08         [ 7] 3536 	ld	a, #0x08
+   12A8 F5            [11] 3537 	push	af
+   12A9 33            [ 6] 3538 	inc	sp
+   12AA 21r4Dr13      [10] 3539 	ld	hl, #___str_8
+   12AD E5            [11] 3540 	push	hl
+   12AE 21 CB 00      [10] 3541 	ld	hl, #0x00cb
+   12B1 E5            [11] 3542 	push	hl
+   12B2 2E 78         [ 7] 3543 	ld	l, #0x78
+   12B4 E5            [11] 3544 	push	hl
+   12B5 CDr00r00      [17] 3545 	call	_PutText
+   12B8 F1            [10] 3546 	pop	af
+   12B9 F1            [10] 3547 	pop	af
+   12BA F1            [10] 3548 	pop	af
+   12BB 33            [ 6] 3549 	inc	sp
+                           3550 ;main.c:221: PutText(200,185,Itoa(numero_de_enemigo,"  ",10),8);
+   12BC 11r38r13      [10] 3551 	ld	de, #___str_5
+   12BF 21r05r6B      [10] 3552 	ld	hl,#_numero_de_enemigo + 0
+   12C2 4E            [ 7] 3553 	ld	c, (hl)
+   12C3 06 00         [ 7] 3554 	ld	b, #0x00
+   12C5 21 0A 00      [10] 3555 	ld	hl, #0x000a
+   12C8 E5            [11] 3556 	push	hl
+   12C9 D5            [11] 3557 	push	de
+   12CA C5            [11] 3558 	push	bc
+   12CB CDr00r00      [17] 3559 	call	_Itoa
+   12CE F1            [10] 3560 	pop	af
+   12CF F1            [10] 3561 	pop	af
+   12D0 F1            [10] 3562 	pop	af
+   12D1 3E 08         [ 7] 3563 	ld	a, #0x08
+   12D3 F5            [11] 3564 	push	af
+   12D4 33            [ 6] 3565 	inc	sp
+   12D5 E5            [11] 3566 	push	hl
+   12D6 21 B9 00      [10] 3567 	ld	hl, #0x00b9
+   12D9 E5            [11] 3568 	push	hl
+   12DA 2E C8         [ 7] 3569 	ld	l, #0xc8
+   12DC E5            [11] 3570 	push	hl
+   12DD CDr00r00      [17] 3571 	call	_PutText
+   12E0 F1            [10] 3572 	pop	af
+   12E1 F1            [10] 3573 	pop	af
+   12E2 F1            [10] 3574 	pop	af
+   12E3 33            [ 6] 3575 	inc	sp
+                           3576 ;main.c:222: PutText(200,195,Itoa(RealTimer()/60,"  ",10),8);
+   12E4 CDr00r00      [17] 3577 	call	_RealTimer
+   12E7 01 3C 00      [10] 3578 	ld	bc, #0x003c
+   12EA C5            [11] 3579 	push	bc
+   12EB E5            [11] 3580 	push	hl
+   12EC CDr00r00      [17] 3581 	call	__divuint
+   12EF F1            [10] 3582 	pop	af
+   12F0 F1            [10] 3583 	pop	af
+   12F1 01 0A 00      [10] 3584 	ld	bc, #0x000a
+   12F4 C5            [11] 3585 	push	bc
+   12F5 01r38r13      [10] 3586 	ld	bc, #___str_5
+   12F8 C5            [11] 3587 	push	bc
+   12F9 E5            [11] 3588 	push	hl
+   12FA CDr00r00      [17] 3589 	call	_Itoa
+   12FD F1            [10] 3590 	pop	af
+   12FE F1            [10] 3591 	pop	af
+   12FF F1            [10] 3592 	pop	af
+   1300 3E 08         [ 7] 3593 	ld	a, #0x08
+   1302 F5            [11] 3594 	push	af
+   1303 33            [ 6] 3595 	inc	sp
+   1304 E5            [11] 3596 	push	hl
+   1305 21 C3 00      [10] 3597 	ld	hl, #0x00c3
+   1308 E5            [11] 3598 	push	hl
+   1309 2E C8         [ 7] 3599 	ld	l, #0xc8
+   130B E5            [11] 3600 	push	hl
+   130C CDr00r00      [17] 3601 	call	_PutText
+   130F F1            [10] 3602 	pop	af
+   1310 F1            [10] 3603 	pop	af
+                           3604 ;main.c:223: PutText(200,203,Itoa(contadorColumna,"  ",10),8);
+   1311 33            [ 6] 3605 	inc	sp
+   1312 21 0A 00      [10] 3606 	ld	hl,#0x000a
+   1315 E3            [19] 3607 	ex	(sp),hl
+   1316 21r38r13      [10] 3608 	ld	hl, #___str_5
+   1319 E5            [11] 3609 	push	hl
+   131A 2Ar4Ar6A      [16] 3610 	ld	hl, (_contadorColumna)
+   131D E5            [11] 3611 	push	hl
+   131E CDr00r00      [17] 3612 	call	_Itoa
+   1321 F1            [10] 3613 	pop	af
+   1322 F1            [10] 3614 	pop	af
+   1323 F1            [10] 3615 	pop	af
+   1324 3E 08         [ 7] 3616 	ld	a, #0x08
+   1326 F5            [11] 3617 	push	af
+   1327 33            [ 6] 3618 	inc	sp
+   1328 E5            [11] 3619 	push	hl
+   1329 21 CB 00      [10] 3620 	ld	hl, #0x00cb
+   132C E5            [11] 3621 	push	hl
+   132D 2E C8         [ 7] 3622 	ld	l, #0xc8
+   132F E5            [11] 3623 	push	hl
+   1330 CDr00r00      [17] 3624 	call	_PutText
+   1333 F1            [10] 3625 	pop	af
+   1334 F1            [10] 3626 	pop	af
+   1335 F1            [10] 3627 	pop	af
+   1336 33            [ 6] 3628 	inc	sp
+                           3629 ;main.c:232: }
+   1337 C9            [10] 3630 	ret
+   1338                    3631 ___str_5:
+   1338 20 20              3632 	.ascii "  "
+   133A 00                 3633 	.db 0x00
+   133B                    3634 ___str_6:
+   133B 45 6E 65 6D 69 67  3635 	.ascii "Enemigos:"
+        6F 73 3A
+   1344 00                 3636 	.db 0x00
+   1345                    3637 ___str_7:
+   1345 54 69 65 6D 70 6F  3638 	.ascii "Tiempo:"
+        3A
+   134C 00                 3639 	.db 0x00
+   134D                    3640 ___str_8:
+   134D 43 6F 6E 61 74 64  3641 	.ascii "Conatdor: "
+        6F 72 3A 20
+   1357 00                 3642 	.db 0x00
+                           3643 	.area _CODE
+                           3644 	.area _INITIALIZER
+   0000                    3645 __xinit__fileNameTilseSet:
+   0000 74 69 6C 65 73 65  3646 	.ascii "tileset.sc5"
         74 2E 73 63 35
-   000B 00                 3543 	.db 0x00
-   000C                    3544 __xinit__fileNameTileMap:
-   000C 77 6F 72 6C 64 30  3545 	.ascii "world0.bin"
+   000B 00                 3647 	.db 0x00
+   000C                    3648 __xinit__fileNameTileMap:
+   000C 77 6F 72 6C 64 30  3649 	.ascii "world0.bin"
         2E 62 69 6E
-   0016 00                 3546 	.db 0x00
-   0017                    3547 __xinit__personaje_tronco_superior_derecha1:
-   0017 03                 3548 	.db #0x03	; 3
-   0018 07                 3549 	.db #0x07	; 7
-   0019 06                 3550 	.db #0x06	; 6
-   001A 07                 3551 	.db #0x07	; 7
-   001B 01                 3552 	.db #0x01	; 1
-   001C 07                 3553 	.db #0x07	; 7
-   001D 1D                 3554 	.db #0x1d	; 29
-   001E 39                 3555 	.db #0x39	; 57	'9'
-   001F 3C                 3556 	.db #0x3c	; 60
-   0020 1F                 3557 	.db #0x1f	; 31
-   0021 07                 3558 	.db #0x07	; 7
-   0022 01                 3559 	.db #0x01	; 1
-   0023 0C                 3560 	.db #0x0c	; 12
-   0024 0E                 3561 	.db #0x0e	; 14
-   0025 06                 3562 	.db #0x06	; 6
-   0026 06                 3563 	.db #0x06	; 6
-   0027 C0                 3564 	.db #0xc0	; 192
-   0028 40                 3565 	.db #0x40	; 64
-   0029 00                 3566 	.db #0x00	; 0
-   002A 00                 3567 	.db #0x00	; 0
-   002B 80                 3568 	.db #0x80	; 128
-   002C A0                 3569 	.db #0xa0	; 160
-   002D A0                 3570 	.db #0xa0	; 160
-   002E 80                 3571 	.db #0x80	; 128
-   002F 00                 3572 	.db #0x00	; 0
-   0030 00                 3573 	.db #0x00	; 0
-   0031 80                 3574 	.db #0x80	; 128
-   0032 CC                 3575 	.db #0xcc	; 204
-   0033 00                 3576 	.db #0x00	; 0
-   0034 C0                 3577 	.db #0xc0	; 192
-   0035 E0                 3578 	.db #0xe0	; 224
-   0036 E0                 3579 	.db #0xe0	; 224
-   0037                    3580 __xinit__personaje_tronco_superior_derecha2:
-   0037 00                 3581 	.db #0x00	; 0
-   0038 00                 3582 	.db #0x00	; 0
-   0039 01                 3583 	.db #0x01	; 1
-   003A 01                 3584 	.db #0x01	; 1
-   003B 00                 3585 	.db #0x00	; 0
-   003C 00                 3586 	.db #0x00	; 0
-   003D 01                 3587 	.db #0x01	; 1
-   003E 01                 3588 	.db #0x01	; 1
-   003F 00                 3589 	.db #0x00	; 0
-   0040 00                 3590 	.db #0x00	; 0
-   0041 00                 3591 	.db #0x00	; 0
-   0042 00                 3592 	.db #0x00	; 0
-   0043 00                 3593 	.db #0x00	; 0
-   0044 00                 3594 	.db #0x00	; 0
-   0045 00                 3595 	.db #0x00	; 0
-   0046 00                 3596 	.db #0x00	; 0
-   0047 00                 3597 	.db #0x00	; 0
-   0048 C0                 3598 	.db #0xc0	; 192
-   0049 E0                 3599 	.db #0xe0	; 224
-   004A C0                 3600 	.db #0xc0	; 192
-   004B 00                 3601 	.db #0x00	; 0
-   004C 40                 3602 	.db #0x40	; 64
-   004D E0                 3603 	.db #0xe0	; 224
-   004E F0                 3604 	.db #0xf0	; 240
-   004F D8                 3605 	.db #0xd8	; 216
-   0050 00                 3606 	.db #0x00	; 0
-   0051 03                 3607 	.db #0x03	; 3
-   0052 00                 3608 	.db #0x00	; 0
-   0053 00                 3609 	.db #0x00	; 0
-   0054 00                 3610 	.db #0x00	; 0
-   0055 00                 3611 	.db #0x00	; 0
-   0056 00                 3612 	.db #0x00	; 0
-   0057                    3613 __xinit__personaje_piernas_derecha1:
-   0057 07                 3614 	.db #0x07	; 7
-   0058 0E                 3615 	.db #0x0e	; 14
-   0059 0E                 3616 	.db #0x0e	; 14
-   005A 0E                 3617 	.db #0x0e	; 14
-   005B 0E                 3618 	.db #0x0e	; 14
-   005C 1C                 3619 	.db #0x1c	; 28
-   005D 1C                 3620 	.db #0x1c	; 28
-   005E 02                 3621 	.db #0x02	; 2
-   005F 1E                 3622 	.db #0x1e	; 30
-   0060 1C                 3623 	.db #0x1c	; 28
-   0061 3C                 3624 	.db #0x3c	; 60
-   0062 38                 3625 	.db #0x38	; 56	'8'
-   0063 30                 3626 	.db #0x30	; 48	'0'
-   0064 70                 3627 	.db #0x70	; 112	'p'
-   0065 78                 3628 	.db #0x78	; 120	'x'
-   0066 FC                 3629 	.db #0xfc	; 252
-   0067 E0                 3630 	.db #0xe0	; 224
-   0068 70                 3631 	.db #0x70	; 112	'p'
-   0069 78                 3632 	.db #0x78	; 120	'x'
-   006A 38                 3633 	.db #0x38	; 56	'8'
-   006B 38                 3634 	.db #0x38	; 56	'8'
-   006C 38                 3635 	.db #0x38	; 56	'8'
-   006D 30                 3636 	.db #0x30	; 48	'0'
-   006E 38                 3637 	.db #0x38	; 56	'8'
-   006F 38                 3638 	.db #0x38	; 56	'8'
-   0070 08                 3639 	.db #0x08	; 8
-   0071 38                 3640 	.db #0x38	; 56	'8'
-   0072 30                 3641 	.db #0x30	; 48	'0'
-   0073 38                 3642 	.db #0x38	; 56	'8'
-   0074 18                 3643 	.db #0x18	; 24
-   0075 3C                 3644 	.db #0x3c	; 60
-   0076 3F                 3645 	.db #0x3f	; 63
-   0077                    3646 __xinit__personaje_piernas_derecha2:
-   0077 07                 3647 	.db #0x07	; 7
-   0078 0E                 3648 	.db #0x0e	; 14
-   0079 0F                 3649 	.db #0x0f	; 15
-   007A 0F                 3650 	.db #0x0f	; 15
-   007B 07                 3651 	.db #0x07	; 7
-   007C 07                 3652 	.db #0x07	; 7
-   007D 07                 3653 	.db #0x07	; 7
-   007E 07                 3654 	.db #0x07	; 7
-   007F 07                 3655 	.db #0x07	; 7
-   0080 07                 3656 	.db #0x07	; 7
-   0081 07                 3657 	.db #0x07	; 7
-   0082 5F                 3658 	.db #0x5f	; 95
-   0083 7F                 3659 	.db #0x7f	; 127
-   0084 61                 3660 	.db #0x61	; 97	'a'
-   0085 33                 3661 	.db #0x33	; 51	'3'
-   0086 07                 3662 	.db #0x07	; 7
-   0087 C0                 3663 	.db #0xc0	; 192
-   0088 70                 3664 	.db #0x70	; 112	'p'
-   0089 70                 3665 	.db #0x70	; 112	'p'
-   008A 30                 3666 	.db #0x30	; 48	'0'
-   008B B0                 3667 	.db #0xb0	; 176
-   008C B0                 3668 	.db #0xb0	; 176
-   008D F0                 3669 	.db #0xf0	; 240
-   008E E0                 3670 	.db #0xe0	; 224
-   008F C0                 3671 	.db #0xc0	; 192
-   0090 C0                 3672 	.db #0xc0	; 192
-   0091 80                 3673 	.db #0x80	; 128
-   0092 80                 3674 	.db #0x80	; 128
-   0093 80                 3675 	.db #0x80	; 128
-   0094 80                 3676 	.db #0x80	; 128
-   0095 80                 3677 	.db #0x80	; 128
-   0096 E0                 3678 	.db #0xe0	; 224
-   0097                    3679 __xinit__arma_derecha:
-   0097 0F                 3680 	.db #0x0f	; 15
-   0098 70                 3681 	.db #0x70	; 112	'p'
-   0099 FF                 3682 	.db #0xff	; 255
-   009A 7F                 3683 	.db #0x7f	; 127
-   009B 1F                 3684 	.db #0x1f	; 31
-   009C 04                 3685 	.db #0x04	; 4
-   009D 1C                 3686 	.db #0x1c	; 28
-   009E 10                 3687 	.db #0x10	; 16
-   009F 10                 3688 	.db #0x10	; 16
-   00A0 00                 3689 	.db #0x00	; 0
-   00A1 00                 3690 	.db #0x00	; 0
-   00A2 00                 3691 	.db #0x00	; 0
-   00A3 00                 3692 	.db #0x00	; 0
-   00A4 00                 3693 	.db #0x00	; 0
-   00A5 00                 3694 	.db #0x00	; 0
-   00A6 00                 3695 	.db #0x00	; 0
-   00A7 80                 3696 	.db #0x80	; 128
-   00A8 E0                 3697 	.db #0xe0	; 224
-   00A9 FF                 3698 	.db #0xff	; 255
-   00AA F7                 3699 	.db #0xf7	; 247
-   00AB 80                 3700 	.db #0x80	; 128
-   00AC 00                 3701 	.db #0x00	; 0
-   00AD 00                 3702 	.db #0x00	; 0
-   00AE 00                 3703 	.db #0x00	; 0
-   00AF 00                 3704 	.db #0x00	; 0
-   00B0 00                 3705 	.db #0x00	; 0
-   00B1 00                 3706 	.db #0x00	; 0
-   00B2 00                 3707 	.db #0x00	; 0
-   00B3 00                 3708 	.db #0x00	; 0
-   00B4 00                 3709 	.db #0x00	; 0
-   00B5 00                 3710 	.db #0x00	; 0
-   00B6 00                 3711 	.db #0x00	; 0
-   00B7                    3712 __xinit__personaje_tronco_superior_izquieda1:
-   00B7 03                 3713 	.db #0x03	; 3
-   00B8 02                 3714 	.db #0x02	; 2
-   00B9 00                 3715 	.db #0x00	; 0
-   00BA 00                 3716 	.db #0x00	; 0
-   00BB 01                 3717 	.db #0x01	; 1
-   00BC 05                 3718 	.db #0x05	; 5
-   00BD 05                 3719 	.db #0x05	; 5
-   00BE 01                 3720 	.db #0x01	; 1
-   00BF 00                 3721 	.db #0x00	; 0
-   00C0 00                 3722 	.db #0x00	; 0
-   00C1 01                 3723 	.db #0x01	; 1
-   00C2 33                 3724 	.db #0x33	; 51	'3'
-   00C3 00                 3725 	.db #0x00	; 0
-   00C4 03                 3726 	.db #0x03	; 3
-   00C5 07                 3727 	.db #0x07	; 7
-   00C6 07                 3728 	.db #0x07	; 7
-   00C7 C0                 3729 	.db #0xc0	; 192
-   00C8 E0                 3730 	.db #0xe0	; 224
-   00C9 60                 3731 	.db #0x60	; 96
-   00CA E0                 3732 	.db #0xe0	; 224
-   00CB 80                 3733 	.db #0x80	; 128
-   00CC E0                 3734 	.db #0xe0	; 224
-   00CD B8                 3735 	.db #0xb8	; 184
-   00CE 9C                 3736 	.db #0x9c	; 156
-   00CF 3C                 3737 	.db #0x3c	; 60
-   00D0 F8                 3738 	.db #0xf8	; 248
-   00D1 E0                 3739 	.db #0xe0	; 224
-   00D2 80                 3740 	.db #0x80	; 128
-   00D3 30                 3741 	.db #0x30	; 48	'0'
-   00D4 70                 3742 	.db #0x70	; 112	'p'
-   00D5 60                 3743 	.db #0x60	; 96
-   00D6 60                 3744 	.db #0x60	; 96
-   00D7                    3745 __xinit__personaje_tronco_superior_izquierda2:
-   00D7 00                 3746 	.db #0x00	; 0
-   00D8 03                 3747 	.db #0x03	; 3
-   00D9 07                 3748 	.db #0x07	; 7
-   00DA 03                 3749 	.db #0x03	; 3
-   00DB 00                 3750 	.db #0x00	; 0
-   00DC 02                 3751 	.db #0x02	; 2
-   00DD 07                 3752 	.db #0x07	; 7
-   00DE 0F                 3753 	.db #0x0f	; 15
-   00DF 1B                 3754 	.db #0x1b	; 27
-   00E0 00                 3755 	.db #0x00	; 0
-   00E1 C0                 3756 	.db #0xc0	; 192
-   00E2 00                 3757 	.db #0x00	; 0
-   00E3 00                 3758 	.db #0x00	; 0
-   00E4 00                 3759 	.db #0x00	; 0
-   00E5 00                 3760 	.db #0x00	; 0
-   00E6 00                 3761 	.db #0x00	; 0
-   00E7 00                 3762 	.db #0x00	; 0
-   00E8 00                 3763 	.db #0x00	; 0
-   00E9 80                 3764 	.db #0x80	; 128
-   00EA 80                 3765 	.db #0x80	; 128
-   00EB 00                 3766 	.db #0x00	; 0
-   00EC 00                 3767 	.db #0x00	; 0
-   00ED 80                 3768 	.db #0x80	; 128
-   00EE 80                 3769 	.db #0x80	; 128
-   00EF 00                 3770 	.db #0x00	; 0
-   00F0 00                 3771 	.db #0x00	; 0
-   00F1 00                 3772 	.db #0x00	; 0
-   00F2 00                 3773 	.db #0x00	; 0
-   00F3 00                 3774 	.db #0x00	; 0
-   00F4 00                 3775 	.db #0x00	; 0
-   00F5 00                 3776 	.db #0x00	; 0
-   00F6 00                 3777 	.db #0x00	; 0
-   00F7                    3778 __xinit__personaje_piernas_izquierda1:
-   00F7 07                 3779 	.db #0x07	; 7
-   00F8 0E                 3780 	.db #0x0e	; 14
-   00F9 1E                 3781 	.db #0x1e	; 30
-   00FA 1C                 3782 	.db #0x1c	; 28
-   00FB 1C                 3783 	.db #0x1c	; 28
-   00FC 1C                 3784 	.db #0x1c	; 28
-   00FD 0C                 3785 	.db #0x0c	; 12
-   00FE 1C                 3786 	.db #0x1c	; 28
-   00FF 1C                 3787 	.db #0x1c	; 28
-   0100 10                 3788 	.db #0x10	; 16
-   0101 1C                 3789 	.db #0x1c	; 28
-   0102 0C                 3790 	.db #0x0c	; 12
-   0103 1C                 3791 	.db #0x1c	; 28
-   0104 18                 3792 	.db #0x18	; 24
-   0105 3C                 3793 	.db #0x3c	; 60
-   0106 FC                 3794 	.db #0xfc	; 252
-   0107 E0                 3795 	.db #0xe0	; 224
-   0108 70                 3796 	.db #0x70	; 112	'p'
-   0109 70                 3797 	.db #0x70	; 112	'p'
-   010A 70                 3798 	.db #0x70	; 112	'p'
-   010B 70                 3799 	.db #0x70	; 112	'p'
-   010C 38                 3800 	.db #0x38	; 56	'8'
-   010D 38                 3801 	.db #0x38	; 56	'8'
-   010E 40                 3802 	.db #0x40	; 64
-   010F 78                 3803 	.db #0x78	; 120	'x'
-   0110 38                 3804 	.db #0x38	; 56	'8'
-   0111 3C                 3805 	.db #0x3c	; 60
-   0112 1C                 3806 	.db #0x1c	; 28
-   0113 0C                 3807 	.db #0x0c	; 12
-   0114 0E                 3808 	.db #0x0e	; 14
-   0115 1E                 3809 	.db #0x1e	; 30
-   0116 3F                 3810 	.db #0x3f	; 63
-   0117                    3811 __xinit__personaje_piernas_izquierda2:
-   0117 03                 3812 	.db #0x03	; 3
-   0118 0E                 3813 	.db #0x0e	; 14
-   0119 0E                 3814 	.db #0x0e	; 14
-   011A 0C                 3815 	.db #0x0c	; 12
-   011B 0D                 3816 	.db #0x0d	; 13
-   011C 0D                 3817 	.db #0x0d	; 13
-   011D 0F                 3818 	.db #0x0f	; 15
-   011E 07                 3819 	.db #0x07	; 7
-   011F 03                 3820 	.db #0x03	; 3
-   0120 03                 3821 	.db #0x03	; 3
-   0121 01                 3822 	.db #0x01	; 1
-   0122 01                 3823 	.db #0x01	; 1
-   0123 01                 3824 	.db #0x01	; 1
-   0124 01                 3825 	.db #0x01	; 1
-   0125 01                 3826 	.db #0x01	; 1
-   0126 07                 3827 	.db #0x07	; 7
-   0127 E0                 3828 	.db #0xe0	; 224
-   0128 70                 3829 	.db #0x70	; 112	'p'
-   0129 F0                 3830 	.db #0xf0	; 240
-   012A F0                 3831 	.db #0xf0	; 240
-   012B E0                 3832 	.db #0xe0	; 224
-   012C E0                 3833 	.db #0xe0	; 224
-   012D E0                 3834 	.db #0xe0	; 224
-   012E E0                 3835 	.db #0xe0	; 224
-   012F E0                 3836 	.db #0xe0	; 224
-   0130 E0                 3837 	.db #0xe0	; 224
-   0131 E0                 3838 	.db #0xe0	; 224
-   0132 FA                 3839 	.db #0xfa	; 250
-   0133 FE                 3840 	.db #0xfe	; 254
-   0134 86                 3841 	.db #0x86	; 134
-   0135 CC                 3842 	.db #0xcc	; 204
-   0136 E0                 3843 	.db #0xe0	; 224
-   0137                    3844 __xinit__arma_izquierda:
-   0137 01                 3845 	.db #0x01	; 1
-   0138 07                 3846 	.db #0x07	; 7
-   0139 FF                 3847 	.db #0xff	; 255
-   013A EF                 3848 	.db #0xef	; 239
-   013B 01                 3849 	.db #0x01	; 1
-   013C 00                 3850 	.db #0x00	; 0
-   013D 00                 3851 	.db #0x00	; 0
-   013E 00                 3852 	.db #0x00	; 0
-   013F 00                 3853 	.db #0x00	; 0
-   0140 00                 3854 	.db #0x00	; 0
-   0141 00                 3855 	.db #0x00	; 0
-   0142 00                 3856 	.db #0x00	; 0
-   0143 00                 3857 	.db #0x00	; 0
-   0144 00                 3858 	.db #0x00	; 0
-   0145 00                 3859 	.db #0x00	; 0
-   0146 00                 3860 	.db #0x00	; 0
-   0147 F0                 3861 	.db #0xf0	; 240
-   0148 0E                 3862 	.db #0x0e	; 14
-   0149 FF                 3863 	.db #0xff	; 255
-   014A FE                 3864 	.db #0xfe	; 254
-   014B F8                 3865 	.db #0xf8	; 248
-   014C 20                 3866 	.db #0x20	; 32
-   014D 38                 3867 	.db #0x38	; 56	'8'
-   014E 08                 3868 	.db #0x08	; 8
-   014F 08                 3869 	.db #0x08	; 8
-   0150 00                 3870 	.db #0x00	; 0
-   0151 00                 3871 	.db #0x00	; 0
-   0152 00                 3872 	.db #0x00	; 0
-   0153 00                 3873 	.db #0x00	; 0
-   0154 00                 3874 	.db #0x00	; 0
-   0155 00                 3875 	.db #0x00	; 0
-   0156 00                 3876 	.db #0x00	; 0
-   0157                    3877 __xinit__color_personaje_tronco_superior1:
-   0157 04                 3878 	.db #0x04	; 4
-   0158 04                 3879 	.db #0x04	; 4
-   0159 04                 3880 	.db #0x04	; 4
-   015A 04                 3881 	.db #0x04	; 4
-   015B 08                 3882 	.db #0x08	; 8
-   015C 08                 3883 	.db #0x08	; 8
-   015D 08                 3884 	.db #0x08	; 8
-   015E 08                 3885 	.db #0x08	; 8
-   015F 08                 3886 	.db #0x08	; 8
-   0160 08                 3887 	.db #0x08	; 8
-   0161 08                 3888 	.db #0x08	; 8
-   0162 08                 3889 	.db #0x08	; 8
-   0163 08                 3890 	.db #0x08	; 8
-   0164 08                 3891 	.db #0x08	; 8
-   0165 08                 3892 	.db #0x08	; 8
-   0166 08                 3893 	.db #0x08	; 8
-   0167 0A                 3894 	.db #0x0a	; 10
-   0168 0A                 3895 	.db #0x0a	; 10
-   0169 0A                 3896 	.db #0x0a	; 10
-   016A 0A                 3897 	.db #0x0a	; 10
-   016B 0A                 3898 	.db #0x0a	; 10
-   016C 0A                 3899 	.db #0x0a	; 10
-   016D 0A                 3900 	.db #0x0a	; 10
-   016E 0A                 3901 	.db #0x0a	; 10
-   016F 0A                 3902 	.db #0x0a	; 10
-   0170 0A                 3903 	.db #0x0a	; 10
-   0171 0A                 3904 	.db #0x0a	; 10
-   0172 0A                 3905 	.db #0x0a	; 10
-   0173 0A                 3906 	.db #0x0a	; 10
-   0174 0A                 3907 	.db #0x0a	; 10
-   0175 0A                 3908 	.db #0x0a	; 10
-   0176 0A                 3909 	.db #0x0a	; 10
-   0177                    3910 __xinit__color_personaje_tronco_superior2:
-   0177 08                 3911 	.db #0x08	; 8
-   0178 08                 3912 	.db #0x08	; 8
-   0179 08                 3913 	.db #0x08	; 8
-   017A 08                 3914 	.db #0x08	; 8
-   017B 08                 3915 	.db #0x08	; 8
-   017C 08                 3916 	.db #0x08	; 8
-   017D 08                 3917 	.db #0x08	; 8
-   017E 08                 3918 	.db #0x08	; 8
-   017F 08                 3919 	.db #0x08	; 8
-   0180 08                 3920 	.db #0x08	; 8
-   0181 08                 3921 	.db #0x08	; 8
-   0182 08                 3922 	.db #0x08	; 8
-   0183 08                 3923 	.db #0x08	; 8
-   0184 08                 3924 	.db #0x08	; 8
-   0185 08                 3925 	.db #0x08	; 8
-   0186 08                 3926 	.db #0x08	; 8
-   0187 08                 3927 	.db #0x08	; 8
-   0188 08                 3928 	.db #0x08	; 8
-   0189 08                 3929 	.db #0x08	; 8
-   018A 08                 3930 	.db #0x08	; 8
-   018B 08                 3931 	.db #0x08	; 8
-   018C 08                 3932 	.db #0x08	; 8
-   018D 08                 3933 	.db #0x08	; 8
-   018E 08                 3934 	.db #0x08	; 8
-   018F 08                 3935 	.db #0x08	; 8
-   0190 08                 3936 	.db #0x08	; 8
-   0191 08                 3937 	.db #0x08	; 8
-   0192 08                 3938 	.db #0x08	; 8
-   0193 08                 3939 	.db #0x08	; 8
-   0194 08                 3940 	.db #0x08	; 8
-   0195 08                 3941 	.db #0x08	; 8
-   0196 08                 3942 	.db #0x08	; 8
-   0197                    3943 __xinit__color_personaje_piernas1:
-   0197 0D                 3944 	.db #0x0d	; 13
-   0198 0D                 3945 	.db #0x0d	; 13
-   0199 0D                 3946 	.db #0x0d	; 13
-   019A 0D                 3947 	.db #0x0d	; 13
-   019B 0D                 3948 	.db #0x0d	; 13
-   019C 0D                 3949 	.db #0x0d	; 13
-   019D 0D                 3950 	.db #0x0d	; 13
-   019E 0D                 3951 	.db #0x0d	; 13
-   019F 0D                 3952 	.db #0x0d	; 13
-   01A0 0D                 3953 	.db #0x0d	; 13
-   01A1 0D                 3954 	.db #0x0d	; 13
-   01A2 0D                 3955 	.db #0x0d	; 13
-   01A3 0D                 3956 	.db #0x0d	; 13
-   01A4 0D                 3957 	.db #0x0d	; 13
-   01A5 0D                 3958 	.db #0x0d	; 13
-   01A6 0D                 3959 	.db #0x0d	; 13
-   01A7 04                 3960 	.db #0x04	; 4
-   01A8 04                 3961 	.db #0x04	; 4
-   01A9 04                 3962 	.db #0x04	; 4
-   01AA 04                 3963 	.db #0x04	; 4
-   01AB 08                 3964 	.db #0x08	; 8
-   01AC 08                 3965 	.db #0x08	; 8
-   01AD 08                 3966 	.db #0x08	; 8
-   01AE 08                 3967 	.db #0x08	; 8
-   01AF 08                 3968 	.db #0x08	; 8
-   01B0 08                 3969 	.db #0x08	; 8
-   01B1 08                 3970 	.db #0x08	; 8
-   01B2 08                 3971 	.db #0x08	; 8
-   01B3 08                 3972 	.db #0x08	; 8
-   01B4 08                 3973 	.db #0x08	; 8
-   01B5 08                 3974 	.db #0x08	; 8
-   01B6 08                 3975 	.db #0x08	; 8
-   01B7                    3976 __xinit__color_personaje_piernas2:
-   01B7 0A                 3977 	.db #0x0a	; 10
-   01B8 0A                 3978 	.db #0x0a	; 10
-   01B9 0A                 3979 	.db #0x0a	; 10
-   01BA 0A                 3980 	.db #0x0a	; 10
-   01BB 0A                 3981 	.db #0x0a	; 10
-   01BC 0A                 3982 	.db #0x0a	; 10
-   01BD 0A                 3983 	.db #0x0a	; 10
-   01BE 0A                 3984 	.db #0x0a	; 10
-   01BF 0A                 3985 	.db #0x0a	; 10
-   01C0 0A                 3986 	.db #0x0a	; 10
-   01C1 0A                 3987 	.db #0x0a	; 10
-   01C2 0A                 3988 	.db #0x0a	; 10
-   01C3 0A                 3989 	.db #0x0a	; 10
-   01C4 0A                 3990 	.db #0x0a	; 10
-   01C5 0A                 3991 	.db #0x0a	; 10
-   01C6 0A                 3992 	.db #0x0a	; 10
-   01C7 08                 3993 	.db #0x08	; 8
-   01C8 08                 3994 	.db #0x08	; 8
-   01C9 08                 3995 	.db #0x08	; 8
-   01CA 08                 3996 	.db #0x08	; 8
-   01CB 08                 3997 	.db #0x08	; 8
-   01CC 08                 3998 	.db #0x08	; 8
-   01CD 08                 3999 	.db #0x08	; 8
-   01CE 08                 4000 	.db #0x08	; 8
-   01CF 08                 4001 	.db #0x08	; 8
-   01D0 08                 4002 	.db #0x08	; 8
-   01D1 08                 4003 	.db #0x08	; 8
-   01D2 08                 4004 	.db #0x08	; 8
-   01D3 08                 4005 	.db #0x08	; 8
-   01D4 08                 4006 	.db #0x08	; 8
-   01D5 08                 4007 	.db #0x08	; 8
-   01D6 08                 4008 	.db #0x08	; 8
-   01D7                    4009 __xinit__color_arma:
-   01D7 08                 4010 	.db #0x08	; 8
-   01D8 08                 4011 	.db #0x08	; 8
-   01D9 08                 4012 	.db #0x08	; 8
-   01DA 08                 4013 	.db #0x08	; 8
-   01DB 08                 4014 	.db #0x08	; 8
-   01DC 08                 4015 	.db #0x08	; 8
-   01DD 08                 4016 	.db #0x08	; 8
-   01DE 08                 4017 	.db #0x08	; 8
-   01DF 08                 4018 	.db #0x08	; 8
-   01E0 08                 4019 	.db #0x08	; 8
-   01E1 08                 4020 	.db #0x08	; 8
-   01E2 08                 4021 	.db #0x08	; 8
-   01E3 08                 4022 	.db #0x08	; 8
-   01E4 08                 4023 	.db #0x08	; 8
-   01E5 08                 4024 	.db #0x08	; 8
-   01E6 08                 4025 	.db #0x08	; 8
-   01E7 0D                 4026 	.db #0x0d	; 13
-   01E8 0D                 4027 	.db #0x0d	; 13
-   01E9 0D                 4028 	.db #0x0d	; 13
-   01EA 0D                 4029 	.db #0x0d	; 13
-   01EB 0D                 4030 	.db #0x0d	; 13
-   01EC 0D                 4031 	.db #0x0d	; 13
-   01ED 0D                 4032 	.db #0x0d	; 13
-   01EE 0D                 4033 	.db #0x0d	; 13
-   01EF 0D                 4034 	.db #0x0d	; 13
-   01F0 0D                 4035 	.db #0x0d	; 13
-   01F1 0D                 4036 	.db #0x0d	; 13
-   01F2 0D                 4037 	.db #0x0d	; 13
-   01F3 0D                 4038 	.db #0x0d	; 13
-   01F4 0D                 4039 	.db #0x0d	; 13
-   01F5 0D                 4040 	.db #0x0d	; 13
-   01F6 0D                 4041 	.db #0x0d	; 13
-   01F7                    4042 __xinit__player:
-   01F7 0A                 4043 	.db #0x0a	; 10
-   01F8 90                 4044 	.db #0x90	; 144
-   01F9 00                 4045 	.db #0x00	; 0
-   01FA 00                 4046 	.db #0x00	; 0
-   01FB 00                 4047 	.db #0x00	; 0
-   01FC 00                 4048 	.db #0x00	; 0
-   01FD 03                 4049 	.db #0x03	; 3
-   01FE 00                 4050 	.db #0x00	; 0
-   01FF 00                 4051 	.db #0x00	; 0
-   0200 00                 4052 	.db #0x00	; 0
-   0201 06                 4053 	.db #0x06	; 6
-   0202 08                 4054 	.db #0x08	; 8
-   0203 08                 4055 	.db #0x08	; 8
-   0204 64                 4056 	.db #0x64	; 100	'd'
-   0205                    4057 __xinit__gravedad:
-   0205 08 00              4058 	.dw #0x0008
-   0207                    4059 __xinit__fireSprite:
-   0207 FF                 4060 	.db #0xff	; 255
-   0208 00                 4061 	.db #0x00	; 0
-   0209 00                 4062 	.db #0x00	; 0
-   020A 00                 4063 	.db #0x00	; 0
-   020B 00                 4064 	.db #0x00	; 0
-   020C 00                 4065 	.db #0x00	; 0
-   020D 00                 4066 	.db #0x00	; 0
-   020E 00                 4067 	.db #0x00	; 0
-   020F 00                 4068 	.db #0x00	; 0
-   0210 00                 4069 	.db #0x00	; 0
-   0211 00                 4070 	.db #0x00	; 0
-   0212 00                 4071 	.db #0x00	; 0
-   0213 00                 4072 	.db #0x00	; 0
-   0214 00                 4073 	.db #0x00	; 0
-   0215 00                 4074 	.db #0x00	; 0
-   0216 00                 4075 	.db #0x00	; 0
-   0217 FF                 4076 	.db #0xff	; 255
-   0218 00                 4077 	.db #0x00	; 0
-   0219 00                 4078 	.db #0x00	; 0
-   021A 00                 4079 	.db #0x00	; 0
-   021B 00                 4080 	.db #0x00	; 0
-   021C 00                 4081 	.db #0x00	; 0
-   021D 00                 4082 	.db #0x00	; 0
-   021E 00                 4083 	.db #0x00	; 0
-   021F 00                 4084 	.db #0x00	; 0
-   0220 00                 4085 	.db #0x00	; 0
-   0221 00                 4086 	.db #0x00	; 0
-   0222 00                 4087 	.db #0x00	; 0
-   0223 00                 4088 	.db #0x00	; 0
-   0224 00                 4089 	.db #0x00	; 0
-   0225 00                 4090 	.db #0x00	; 0
-   0226 00                 4091 	.db #0x00	; 0
-   0227                    4092 __xinit__enemigo1:
-   0227 00                 4093 	.db #0x00	; 0
-   0228 07                 4094 	.db #0x07	; 7
-   0229 04                 4095 	.db #0x04	; 4
-   022A 04                 4096 	.db #0x04	; 4
-   022B 07                 4097 	.db #0x07	; 7
-   022C 03                 4098 	.db #0x03	; 3
-   022D 01                 4099 	.db #0x01	; 1
-   022E 1F                 4100 	.db #0x1f	; 31
-   022F 32                 4101 	.db #0x32	; 50	'2'
-   0230 26                 4102 	.db #0x26	; 38
-   0231 24                 4103 	.db #0x24	; 36
-   0232 28                 4104 	.db #0x28	; 40
-   0233 68                 4105 	.db #0x68	; 104	'h'
-   0234 48                 4106 	.db #0x48	; 72	'H'
-   0235 48                 4107 	.db #0x48	; 72	'H'
-   0236 48                 4108 	.db #0x48	; 72	'H'
-   0237 00                 4109 	.db #0x00	; 0
-   0238 C0                 4110 	.db #0xc0	; 192
-   0239 40                 4111 	.db #0x40	; 64
-   023A 40                 4112 	.db #0x40	; 64
-   023B C0                 4113 	.db #0xc0	; 192
-   023C 80                 4114 	.db #0x80	; 128
-   023D 00                 4115 	.db #0x00	; 0
-   023E F8                 4116 	.db #0xf8	; 248
-   023F 4C                 4117 	.db #0x4c	; 76	'L'
-   0240 64                 4118 	.db #0x64	; 100	'd'
-   0241 24                 4119 	.db #0x24	; 36
-   0242 36                 4120 	.db #0x36	; 54	'6'
-   0243 12                 4121 	.db #0x12	; 18
-   0244 12                 4122 	.db #0x12	; 18
-   0245 12                 4123 	.db #0x12	; 18
-   0246 12                 4124 	.db #0x12	; 18
-   0247                    4125 __xinit__enemigo1andando:
-   0247 00                 4126 	.db #0x00	; 0
-   0248 07                 4127 	.db #0x07	; 7
-   0249 04                 4128 	.db #0x04	; 4
-   024A 04                 4129 	.db #0x04	; 4
-   024B 07                 4130 	.db #0x07	; 7
-   024C 03                 4131 	.db #0x03	; 3
-   024D 01                 4132 	.db #0x01	; 1
-   024E 0F                 4133 	.db #0x0f	; 15
-   024F 0A                 4134 	.db #0x0a	; 10
-   0250 1A                 4135 	.db #0x1a	; 26
-   0251 12                 4136 	.db #0x12	; 18
-   0252 12                 4137 	.db #0x12	; 18
-   0253 12                 4138 	.db #0x12	; 18
-   0254 12                 4139 	.db #0x12	; 18
-   0255 12                 4140 	.db #0x12	; 18
-   0256 12                 4141 	.db #0x12	; 18
-   0257 00                 4142 	.db #0x00	; 0
-   0258 C0                 4143 	.db #0xc0	; 192
-   0259 40                 4144 	.db #0x40	; 64
-   025A 40                 4145 	.db #0x40	; 64
-   025B C0                 4146 	.db #0xc0	; 192
-   025C 80                 4147 	.db #0x80	; 128
-   025D 00                 4148 	.db #0x00	; 0
-   025E F0                 4149 	.db #0xf0	; 240
-   025F 50                 4150 	.db #0x50	; 80	'P'
-   0260 58                 4151 	.db #0x58	; 88	'X'
-   0261 48                 4152 	.db #0x48	; 72	'H'
-   0262 48                 4153 	.db #0x48	; 72	'H'
-   0263 48                 4154 	.db #0x48	; 72	'H'
-   0264 48                 4155 	.db #0x48	; 72	'H'
-   0265 48                 4156 	.db #0x48	; 72	'H'
-   0266 48                 4157 	.db #0x48	; 72	'H'
-   0267                    4158 __xinit__enemigo2:
-   0267 00                 4159 	.db #0x00	; 0
-   0268 00                 4160 	.db #0x00	; 0
-   0269 00                 4161 	.db #0x00	; 0
-   026A 00                 4162 	.db #0x00	; 0
-   026B 04                 4163 	.db #0x04	; 4
-   026C 04                 4164 	.db #0x04	; 4
-   026D 04                 4165 	.db #0x04	; 4
-   026E 07                 4166 	.db #0x07	; 7
-   026F 07                 4167 	.db #0x07	; 7
-   0270 3F                 4168 	.db #0x3f	; 63
-   0271 22                 4169 	.db #0x22	; 34
-   0272 02                 4170 	.db #0x02	; 2
-   0273 3F                 4171 	.db #0x3f	; 63
-   0274 22                 4172 	.db #0x22	; 34
-   0275 62                 4173 	.db #0x62	; 98	'b'
-   0276 42                 4174 	.db #0x42	; 66	'B'
-   0277 00                 4175 	.db #0x00	; 0
-   0278 00                 4176 	.db #0x00	; 0
-   0279 00                 4177 	.db #0x00	; 0
-   027A 00                 4178 	.db #0x00	; 0
-   027B 20                 4179 	.db #0x20	; 32
-   027C 20                 4180 	.db #0x20	; 32
-   027D 20                 4181 	.db #0x20	; 32
-   027E E0                 4182 	.db #0xe0	; 224
-   027F E0                 4183 	.db #0xe0	; 224
-   0280 FC                 4184 	.db #0xfc	; 252
-   0281 44                 4185 	.db #0x44	; 68	'D'
-   0282 40                 4186 	.db #0x40	; 64
-   0283 FC                 4187 	.db #0xfc	; 252
-   0284 44                 4188 	.db #0x44	; 68	'D'
-   0285 46                 4189 	.db #0x46	; 70	'F'
-   0286 42                 4190 	.db #0x42	; 66	'B'
-   0287                    4191 __xinit__enemigo2andando:
-   0287 00                 4192 	.db #0x00	; 0
-   0288 00                 4193 	.db #0x00	; 0
-   0289 00                 4194 	.db #0x00	; 0
-   028A 00                 4195 	.db #0x00	; 0
-   028B 04                 4196 	.db #0x04	; 4
-   028C 04                 4197 	.db #0x04	; 4
-   028D 04                 4198 	.db #0x04	; 4
-   028E 07                 4199 	.db #0x07	; 7
-   028F 07                 4200 	.db #0x07	; 7
-   0290 07                 4201 	.db #0x07	; 7
-   0291 0E                 4202 	.db #0x0e	; 14
-   0292 0A                 4203 	.db #0x0a	; 10
-   0293 07                 4204 	.db #0x07	; 7
-   0294 06                 4205 	.db #0x06	; 6
-   0295 0E                 4206 	.db #0x0e	; 14
-   0296 0A                 4207 	.db #0x0a	; 10
-   0297 00                 4208 	.db #0x00	; 0
-   0298 00                 4209 	.db #0x00	; 0
-   0299 00                 4210 	.db #0x00	; 0
-   029A 00                 4211 	.db #0x00	; 0
-   029B 20                 4212 	.db #0x20	; 32
-   029C 20                 4213 	.db #0x20	; 32
-   029D 20                 4214 	.db #0x20	; 32
-   029E E0                 4215 	.db #0xe0	; 224
-   029F E0                 4216 	.db #0xe0	; 224
-   02A0 E0                 4217 	.db #0xe0	; 224
-   02A1 70                 4218 	.db #0x70	; 112	'p'
-   02A2 50                 4219 	.db #0x50	; 80	'P'
-   02A3 E0                 4220 	.db #0xe0	; 224
-   02A4 60                 4221 	.db #0x60	; 96
-   02A5 70                 4222 	.db #0x70	; 112	'p'
-   02A6 50                 4223 	.db #0x50	; 80	'P'
-   02A7                    4224 __xinit__enemigo3:
-   02A7 7C                 4225 	.db #0x7c	; 124
-   02A8 44                 4226 	.db #0x44	; 68	'D'
-   02A9 44                 4227 	.db #0x44	; 68	'D'
-   02AA 7C                 4228 	.db #0x7c	; 124
-   02AB 08                 4229 	.db #0x08	; 8
-   02AC 0C                 4230 	.db #0x0c	; 12
-   02AD 02                 4231 	.db #0x02	; 2
-   02AE 01                 4232 	.db #0x01	; 1
-   02AF 01                 4233 	.db #0x01	; 1
-   02B0 01                 4234 	.db #0x01	; 1
-   02B1 01                 4235 	.db #0x01	; 1
-   02B2 01                 4236 	.db #0x01	; 1
-   02B3 3F                 4237 	.db #0x3f	; 63
-   02B4 66                 4238 	.db #0x66	; 102	'f'
-   02B5 44                 4239 	.db #0x44	; 68	'D'
-   02B6 44                 4240 	.db #0x44	; 68	'D'
-   02B7 3E                 4241 	.db #0x3e	; 62
-   02B8 22                 4242 	.db #0x22	; 34
-   02B9 22                 4243 	.db #0x22	; 34
-   02BA 3E                 4244 	.db #0x3e	; 62
-   02BB 20                 4245 	.db #0x20	; 32
-   02BC 60                 4246 	.db #0x60	; 96
-   02BD 40                 4247 	.db #0x40	; 64
-   02BE 80                 4248 	.db #0x80	; 128
-   02BF 80                 4249 	.db #0x80	; 128
-   02C0 80                 4250 	.db #0x80	; 128
-   02C1 80                 4251 	.db #0x80	; 128
-   02C2 80                 4252 	.db #0x80	; 128
-   02C3 FC                 4253 	.db #0xfc	; 252
-   02C4 66                 4254 	.db #0x66	; 102	'f'
-   02C5 22                 4255 	.db #0x22	; 34
-   02C6 22                 4256 	.db #0x22	; 34
-   02C7                    4257 __xinit__enemigo3andando:
-   02C7 00                 4258 	.db #0x00	; 0
-   02C8 00                 4259 	.db #0x00	; 0
-   02C9 7C                 4260 	.db #0x7c	; 124
-   02CA 44                 4261 	.db #0x44	; 68	'D'
-   02CB 44                 4262 	.db #0x44	; 68	'D'
-   02CC 7C                 4263 	.db #0x7c	; 124
-   02CD 02                 4264 	.db #0x02	; 2
-   02CE 01                 4265 	.db #0x01	; 1
-   02CF 01                 4266 	.db #0x01	; 1
-   02D0 01                 4267 	.db #0x01	; 1
-   02D1 01                 4268 	.db #0x01	; 1
-   02D2 01                 4269 	.db #0x01	; 1
-   02D3 07                 4270 	.db #0x07	; 7
-   02D4 0A                 4271 	.db #0x0a	; 10
-   02D5 0A                 4272 	.db #0x0a	; 10
-   02D6 0A                 4273 	.db #0x0a	; 10
-   02D7 00                 4274 	.db #0x00	; 0
-   02D8 00                 4275 	.db #0x00	; 0
-   02D9 3E                 4276 	.db #0x3e	; 62
-   02DA 22                 4277 	.db #0x22	; 34
-   02DB 22                 4278 	.db #0x22	; 34
-   02DC 7E                 4279 	.db #0x7e	; 126
-   02DD 40                 4280 	.db #0x40	; 64
-   02DE 80                 4281 	.db #0x80	; 128
-   02DF 80                 4282 	.db #0x80	; 128
-   02E0 80                 4283 	.db #0x80	; 128
-   02E1 80                 4284 	.db #0x80	; 128
-   02E2 80                 4285 	.db #0x80	; 128
-   02E3 E0                 4286 	.db #0xe0	; 224
-   02E4 50                 4287 	.db #0x50	; 80	'P'
-   02E5 50                 4288 	.db #0x50	; 80	'P'
-   02E6 50                 4289 	.db #0x50	; 80	'P'
-   02E7                    4290 __xinit__enemigo4:
-   02E7 00                 4291 	.db #0x00	; 0
-   02E8 02                 4292 	.db #0x02	; 2
-   02E9 02                 4293 	.db #0x02	; 2
-   02EA 03                 4294 	.db #0x03	; 3
-   02EB 41                 4295 	.db #0x41	; 65	'A'
-   02EC 61                 4296 	.db #0x61	; 97	'a'
-   02ED 3F                 4297 	.db #0x3f	; 63
-   02EE 01                 4298 	.db #0x01	; 1
-   02EF 3F                 4299 	.db #0x3f	; 63
-   02F0 61                 4300 	.db #0x61	; 97	'a'
-   02F1 41                 4301 	.db #0x41	; 65	'A'
-   02F2 03                 4302 	.db #0x03	; 3
-   02F3 3D                 4303 	.db #0x3d	; 61
-   02F4 21                 4304 	.db #0x21	; 33
-   02F5 21                 4305 	.db #0x21	; 33
-   02F6 20                 4306 	.db #0x20	; 32
-   02F7 00                 4307 	.db #0x00	; 0
-   02F8 40                 4308 	.db #0x40	; 64
-   02F9 40                 4309 	.db #0x40	; 64
-   02FA C0                 4310 	.db #0xc0	; 192
-   02FB 82                 4311 	.db #0x82	; 130
-   02FC 86                 4312 	.db #0x86	; 134
-   02FD FC                 4313 	.db #0xfc	; 252
-   02FE 80                 4314 	.db #0x80	; 128
-   02FF F8                 4315 	.db #0xf8	; 248
-   0300 8C                 4316 	.db #0x8c	; 140
-   0301 84                 4317 	.db #0x84	; 132
-   0302 C0                 4318 	.db #0xc0	; 192
-   0303 BC                 4319 	.db #0xbc	; 188
-   0304 84                 4320 	.db #0x84	; 132
-   0305 84                 4321 	.db #0x84	; 132
-   0306 04                 4322 	.db #0x04	; 4
-   0307                    4323 __xinit__enemigo4andando:
-   0307 00                 4324 	.db #0x00	; 0
-   0308 02                 4325 	.db #0x02	; 2
-   0309 02                 4326 	.db #0x02	; 2
-   030A 03                 4327 	.db #0x03	; 3
-   030B 01                 4328 	.db #0x01	; 1
-   030C 01                 4329 	.db #0x01	; 1
-   030D 07                 4330 	.db #0x07	; 7
-   030E 05                 4331 	.db #0x05	; 5
-   030F 0F                 4332 	.db #0x0f	; 15
-   0310 09                 4333 	.db #0x09	; 9
-   0311 09                 4334 	.db #0x09	; 9
-   0312 07                 4335 	.db #0x07	; 7
-   0313 09                 4336 	.db #0x09	; 9
-   0314 09                 4337 	.db #0x09	; 9
-   0315 09                 4338 	.db #0x09	; 9
-   0316 08                 4339 	.db #0x08	; 8
-   0317 00                 4340 	.db #0x00	; 0
-   0318 40                 4341 	.db #0x40	; 64
-   0319 40                 4342 	.db #0x40	; 64
-   031A C0                 4343 	.db #0xc0	; 192
-   031B 80                 4344 	.db #0x80	; 128
-   031C 80                 4345 	.db #0x80	; 128
-   031D E0                 4346 	.db #0xe0	; 224
-   031E A0                 4347 	.db #0xa0	; 160
-   031F F0                 4348 	.db #0xf0	; 240
-   0320 90                 4349 	.db #0x90	; 144
-   0321 90                 4350 	.db #0x90	; 144
-   0322 E0                 4351 	.db #0xe0	; 224
-   0323 90                 4352 	.db #0x90	; 144
-   0324 90                 4353 	.db #0x90	; 144
-   0325 90                 4354 	.db #0x90	; 144
-   0326 10                 4355 	.db #0x10	; 16
-   0327                    4356 __xinit__colorEnemigo1:
-   0327 0F                 4357 	.db #0x0f	; 15
-   0328 08                 4358 	.db #0x08	; 8
-   0329 08                 4359 	.db #0x08	; 8
-   032A 08                 4360 	.db #0x08	; 8
-   032B 08                 4361 	.db #0x08	; 8
-   032C 08                 4362 	.db #0x08	; 8
-   032D 08                 4363 	.db #0x08	; 8
-   032E 0B                 4364 	.db #0x0b	; 11
-   032F 0B                 4365 	.db #0x0b	; 11
-   0330 0B                 4366 	.db #0x0b	; 11
-   0331 0A                 4367 	.db #0x0a	; 10
-   0332 0A                 4368 	.db #0x0a	; 10
-   0333 0A                 4369 	.db #0x0a	; 10
-   0334 0A                 4370 	.db #0x0a	; 10
-   0335 0A                 4371 	.db #0x0a	; 10
-   0336 0A                 4372 	.db #0x0a	; 10
-   0337                    4373 __xinit__colorEnemigo1Andando:
-   0337 0F                 4374 	.db #0x0f	; 15
-   0338 08                 4375 	.db #0x08	; 8
-   0339 08                 4376 	.db #0x08	; 8
-   033A 08                 4377 	.db #0x08	; 8
-   033B 08                 4378 	.db #0x08	; 8
-   033C 08                 4379 	.db #0x08	; 8
-   033D 08                 4380 	.db #0x08	; 8
-   033E 0A                 4381 	.db #0x0a	; 10
-   033F 0A                 4382 	.db #0x0a	; 10
-   0340 0A                 4383 	.db #0x0a	; 10
-   0341 0A                 4384 	.db #0x0a	; 10
-   0342 0A                 4385 	.db #0x0a	; 10
-   0343 0A                 4386 	.db #0x0a	; 10
-   0344 0A                 4387 	.db #0x0a	; 10
-   0345 0A                 4388 	.db #0x0a	; 10
-   0346 0A                 4389 	.db #0x0a	; 10
-   0347                    4390 __xinit__colorEnemigo2:
-   0347 0F                 4391 	.db #0x0f	; 15
-   0348 0F                 4392 	.db #0x0f	; 15
-   0349 0F                 4393 	.db #0x0f	; 15
-   034A 0F                 4394 	.db #0x0f	; 15
-   034B 02                 4395 	.db #0x02	; 2
-   034C 02                 4396 	.db #0x02	; 2
-   034D 02                 4397 	.db #0x02	; 2
-   034E 02                 4398 	.db #0x02	; 2
-   034F 02                 4399 	.db #0x02	; 2
-   0350 0A                 4400 	.db #0x0a	; 10
-   0351 0A                 4401 	.db #0x0a	; 10
-   0352 0A                 4402 	.db #0x0a	; 10
-   0353 0D                 4403 	.db #0x0d	; 13
-   0354 0D                 4404 	.db #0x0d	; 13
-   0355 06                 4405 	.db #0x06	; 6
-   0356 06                 4406 	.db #0x06	; 6
-   0357                    4407 __xinit__colorEnemigo2Andando:
-   0357 0F                 4408 	.db #0x0f	; 15
-   0358 0F                 4409 	.db #0x0f	; 15
-   0359 0F                 4410 	.db #0x0f	; 15
-   035A 0F                 4411 	.db #0x0f	; 15
-   035B 02                 4412 	.db #0x02	; 2
-   035C 02                 4413 	.db #0x02	; 2
-   035D 02                 4414 	.db #0x02	; 2
-   035E 02                 4415 	.db #0x02	; 2
-   035F 02                 4416 	.db #0x02	; 2
-   0360 0A                 4417 	.db #0x0a	; 10
-   0361 0A                 4418 	.db #0x0a	; 10
-   0362 0A                 4419 	.db #0x0a	; 10
-   0363 0D                 4420 	.db #0x0d	; 13
-   0364 0D                 4421 	.db #0x0d	; 13
-   0365 06                 4422 	.db #0x06	; 6
-   0366 06                 4423 	.db #0x06	; 6
-   0367                    4424 __xinit__colorEnemigo3:
-   0367 04                 4425 	.db #0x04	; 4
-   0368 04                 4426 	.db #0x04	; 4
-   0369 04                 4427 	.db #0x04	; 4
-   036A 04                 4428 	.db #0x04	; 4
-   036B 04                 4429 	.db #0x04	; 4
-   036C 04                 4430 	.db #0x04	; 4
-   036D 04                 4431 	.db #0x04	; 4
-   036E 09                 4432 	.db #0x09	; 9
-   036F 09                 4433 	.db #0x09	; 9
-   0370 09                 4434 	.db #0x09	; 9
-   0371 09                 4435 	.db #0x09	; 9
-   0372 09                 4436 	.db #0x09	; 9
-   0373 08                 4437 	.db #0x08	; 8
-   0374 08                 4438 	.db #0x08	; 8
-   0375 08                 4439 	.db #0x08	; 8
-   0376 08                 4440 	.db #0x08	; 8
-   0377                    4441 __xinit__colorEnemigo3Andando:
-   0377 04                 4442 	.db #0x04	; 4
-   0378 04                 4443 	.db #0x04	; 4
-   0379 04                 4444 	.db #0x04	; 4
-   037A 04                 4445 	.db #0x04	; 4
-   037B 04                 4446 	.db #0x04	; 4
-   037C 04                 4447 	.db #0x04	; 4
-   037D 04                 4448 	.db #0x04	; 4
-   037E 09                 4449 	.db #0x09	; 9
-   037F 09                 4450 	.db #0x09	; 9
-   0380 09                 4451 	.db #0x09	; 9
-   0381 09                 4452 	.db #0x09	; 9
-   0382 09                 4453 	.db #0x09	; 9
-   0383 08                 4454 	.db #0x08	; 8
-   0384 08                 4455 	.db #0x08	; 8
-   0385 08                 4456 	.db #0x08	; 8
-   0386 08                 4457 	.db #0x08	; 8
-   0387                    4458 __xinit__colorEnemigo4:
-   0387 0F                 4459 	.db #0x0f	; 15
-   0388 09                 4460 	.db #0x09	; 9
-   0389 09                 4461 	.db #0x09	; 9
-   038A 09                 4462 	.db #0x09	; 9
-   038B 04                 4463 	.db #0x04	; 4
-   038C 04                 4464 	.db #0x04	; 4
-   038D 04                 4465 	.db #0x04	; 4
-   038E 04                 4466 	.db #0x04	; 4
-   038F 04                 4467 	.db #0x04	; 4
-   0390 04                 4468 	.db #0x04	; 4
-   0391 04                 4469 	.db #0x04	; 4
-   0392 04                 4470 	.db #0x04	; 4
-   0393 04                 4471 	.db #0x04	; 4
-   0394 04                 4472 	.db #0x04	; 4
-   0395 04                 4473 	.db #0x04	; 4
-   0396 04                 4474 	.db #0x04	; 4
-   0397                    4475 __xinit__colorEnemigo4Andando:
-   0397 0F                 4476 	.db #0x0f	; 15
-   0398 09                 4477 	.db #0x09	; 9
-   0399 09                 4478 	.db #0x09	; 9
-   039A 09                 4479 	.db #0x09	; 9
-   039B 04                 4480 	.db #0x04	; 4
-   039C 04                 4481 	.db #0x04	; 4
-   039D 04                 4482 	.db #0x04	; 4
-   039E 04                 4483 	.db #0x04	; 4
-   039F 04                 4484 	.db #0x04	; 4
-   03A0 04                 4485 	.db #0x04	; 4
-   03A1 04                 4486 	.db #0x04	; 4
-   03A2 04                 4487 	.db #0x04	; 4
-   03A3 04                 4488 	.db #0x04	; 4
-   03A4 04                 4489 	.db #0x04	; 4
-   03A5 04                 4490 	.db #0x04	; 4
-   03A6 04                 4491 	.db #0x04	; 4
-                           4492 	.area _CABS (ABS)
+   0016 00                 3650 	.db 0x00
+   0017                    3651 __xinit__personaje_tronco_superior_derecha1:
+   0017 03                 3652 	.db #0x03	; 3
+   0018 07                 3653 	.db #0x07	; 7
+   0019 06                 3654 	.db #0x06	; 6
+   001A 07                 3655 	.db #0x07	; 7
+   001B 01                 3656 	.db #0x01	; 1
+   001C 07                 3657 	.db #0x07	; 7
+   001D 1D                 3658 	.db #0x1d	; 29
+   001E 39                 3659 	.db #0x39	; 57	'9'
+   001F 3C                 3660 	.db #0x3c	; 60
+   0020 1F                 3661 	.db #0x1f	; 31
+   0021 07                 3662 	.db #0x07	; 7
+   0022 01                 3663 	.db #0x01	; 1
+   0023 0C                 3664 	.db #0x0c	; 12
+   0024 0E                 3665 	.db #0x0e	; 14
+   0025 06                 3666 	.db #0x06	; 6
+   0026 06                 3667 	.db #0x06	; 6
+   0027 C0                 3668 	.db #0xc0	; 192
+   0028 40                 3669 	.db #0x40	; 64
+   0029 00                 3670 	.db #0x00	; 0
+   002A 00                 3671 	.db #0x00	; 0
+   002B 80                 3672 	.db #0x80	; 128
+   002C A0                 3673 	.db #0xa0	; 160
+   002D A0                 3674 	.db #0xa0	; 160
+   002E 80                 3675 	.db #0x80	; 128
+   002F 00                 3676 	.db #0x00	; 0
+   0030 00                 3677 	.db #0x00	; 0
+   0031 80                 3678 	.db #0x80	; 128
+   0032 CC                 3679 	.db #0xcc	; 204
+   0033 00                 3680 	.db #0x00	; 0
+   0034 C0                 3681 	.db #0xc0	; 192
+   0035 E0                 3682 	.db #0xe0	; 224
+   0036 E0                 3683 	.db #0xe0	; 224
+   0037                    3684 __xinit__personaje_tronco_superior_derecha2:
+   0037 00                 3685 	.db #0x00	; 0
+   0038 00                 3686 	.db #0x00	; 0
+   0039 01                 3687 	.db #0x01	; 1
+   003A 01                 3688 	.db #0x01	; 1
+   003B 00                 3689 	.db #0x00	; 0
+   003C 00                 3690 	.db #0x00	; 0
+   003D 01                 3691 	.db #0x01	; 1
+   003E 01                 3692 	.db #0x01	; 1
+   003F 00                 3693 	.db #0x00	; 0
+   0040 00                 3694 	.db #0x00	; 0
+   0041 00                 3695 	.db #0x00	; 0
+   0042 00                 3696 	.db #0x00	; 0
+   0043 00                 3697 	.db #0x00	; 0
+   0044 00                 3698 	.db #0x00	; 0
+   0045 00                 3699 	.db #0x00	; 0
+   0046 00                 3700 	.db #0x00	; 0
+   0047 00                 3701 	.db #0x00	; 0
+   0048 C0                 3702 	.db #0xc0	; 192
+   0049 E0                 3703 	.db #0xe0	; 224
+   004A C0                 3704 	.db #0xc0	; 192
+   004B 00                 3705 	.db #0x00	; 0
+   004C 40                 3706 	.db #0x40	; 64
+   004D E0                 3707 	.db #0xe0	; 224
+   004E F0                 3708 	.db #0xf0	; 240
+   004F D8                 3709 	.db #0xd8	; 216
+   0050 00                 3710 	.db #0x00	; 0
+   0051 03                 3711 	.db #0x03	; 3
+   0052 00                 3712 	.db #0x00	; 0
+   0053 00                 3713 	.db #0x00	; 0
+   0054 00                 3714 	.db #0x00	; 0
+   0055 00                 3715 	.db #0x00	; 0
+   0056 00                 3716 	.db #0x00	; 0
+   0057                    3717 __xinit__personaje_piernas_derecha1:
+   0057 07                 3718 	.db #0x07	; 7
+   0058 0E                 3719 	.db #0x0e	; 14
+   0059 0E                 3720 	.db #0x0e	; 14
+   005A 0E                 3721 	.db #0x0e	; 14
+   005B 0E                 3722 	.db #0x0e	; 14
+   005C 1C                 3723 	.db #0x1c	; 28
+   005D 1C                 3724 	.db #0x1c	; 28
+   005E 02                 3725 	.db #0x02	; 2
+   005F 1E                 3726 	.db #0x1e	; 30
+   0060 1C                 3727 	.db #0x1c	; 28
+   0061 3C                 3728 	.db #0x3c	; 60
+   0062 38                 3729 	.db #0x38	; 56	'8'
+   0063 30                 3730 	.db #0x30	; 48	'0'
+   0064 70                 3731 	.db #0x70	; 112	'p'
+   0065 78                 3732 	.db #0x78	; 120	'x'
+   0066 FC                 3733 	.db #0xfc	; 252
+   0067 E0                 3734 	.db #0xe0	; 224
+   0068 70                 3735 	.db #0x70	; 112	'p'
+   0069 78                 3736 	.db #0x78	; 120	'x'
+   006A 38                 3737 	.db #0x38	; 56	'8'
+   006B 38                 3738 	.db #0x38	; 56	'8'
+   006C 38                 3739 	.db #0x38	; 56	'8'
+   006D 30                 3740 	.db #0x30	; 48	'0'
+   006E 38                 3741 	.db #0x38	; 56	'8'
+   006F 38                 3742 	.db #0x38	; 56	'8'
+   0070 08                 3743 	.db #0x08	; 8
+   0071 38                 3744 	.db #0x38	; 56	'8'
+   0072 30                 3745 	.db #0x30	; 48	'0'
+   0073 38                 3746 	.db #0x38	; 56	'8'
+   0074 18                 3747 	.db #0x18	; 24
+   0075 3C                 3748 	.db #0x3c	; 60
+   0076 3F                 3749 	.db #0x3f	; 63
+   0077                    3750 __xinit__personaje_piernas_derecha2:
+   0077 07                 3751 	.db #0x07	; 7
+   0078 0E                 3752 	.db #0x0e	; 14
+   0079 0F                 3753 	.db #0x0f	; 15
+   007A 0F                 3754 	.db #0x0f	; 15
+   007B 07                 3755 	.db #0x07	; 7
+   007C 07                 3756 	.db #0x07	; 7
+   007D 07                 3757 	.db #0x07	; 7
+   007E 07                 3758 	.db #0x07	; 7
+   007F 07                 3759 	.db #0x07	; 7
+   0080 07                 3760 	.db #0x07	; 7
+   0081 07                 3761 	.db #0x07	; 7
+   0082 5F                 3762 	.db #0x5f	; 95
+   0083 7F                 3763 	.db #0x7f	; 127
+   0084 61                 3764 	.db #0x61	; 97	'a'
+   0085 33                 3765 	.db #0x33	; 51	'3'
+   0086 07                 3766 	.db #0x07	; 7
+   0087 C0                 3767 	.db #0xc0	; 192
+   0088 70                 3768 	.db #0x70	; 112	'p'
+   0089 70                 3769 	.db #0x70	; 112	'p'
+   008A 30                 3770 	.db #0x30	; 48	'0'
+   008B B0                 3771 	.db #0xb0	; 176
+   008C B0                 3772 	.db #0xb0	; 176
+   008D F0                 3773 	.db #0xf0	; 240
+   008E E0                 3774 	.db #0xe0	; 224
+   008F C0                 3775 	.db #0xc0	; 192
+   0090 C0                 3776 	.db #0xc0	; 192
+   0091 80                 3777 	.db #0x80	; 128
+   0092 80                 3778 	.db #0x80	; 128
+   0093 80                 3779 	.db #0x80	; 128
+   0094 80                 3780 	.db #0x80	; 128
+   0095 80                 3781 	.db #0x80	; 128
+   0096 E0                 3782 	.db #0xe0	; 224
+   0097                    3783 __xinit__arma_derecha:
+   0097 0F                 3784 	.db #0x0f	; 15
+   0098 70                 3785 	.db #0x70	; 112	'p'
+   0099 FF                 3786 	.db #0xff	; 255
+   009A 7F                 3787 	.db #0x7f	; 127
+   009B 1F                 3788 	.db #0x1f	; 31
+   009C 04                 3789 	.db #0x04	; 4
+   009D 1C                 3790 	.db #0x1c	; 28
+   009E 10                 3791 	.db #0x10	; 16
+   009F 10                 3792 	.db #0x10	; 16
+   00A0 00                 3793 	.db #0x00	; 0
+   00A1 00                 3794 	.db #0x00	; 0
+   00A2 00                 3795 	.db #0x00	; 0
+   00A3 00                 3796 	.db #0x00	; 0
+   00A4 00                 3797 	.db #0x00	; 0
+   00A5 00                 3798 	.db #0x00	; 0
+   00A6 00                 3799 	.db #0x00	; 0
+   00A7 80                 3800 	.db #0x80	; 128
+   00A8 E0                 3801 	.db #0xe0	; 224
+   00A9 FF                 3802 	.db #0xff	; 255
+   00AA F7                 3803 	.db #0xf7	; 247
+   00AB 80                 3804 	.db #0x80	; 128
+   00AC 00                 3805 	.db #0x00	; 0
+   00AD 00                 3806 	.db #0x00	; 0
+   00AE 00                 3807 	.db #0x00	; 0
+   00AF 00                 3808 	.db #0x00	; 0
+   00B0 00                 3809 	.db #0x00	; 0
+   00B1 00                 3810 	.db #0x00	; 0
+   00B2 00                 3811 	.db #0x00	; 0
+   00B3 00                 3812 	.db #0x00	; 0
+   00B4 00                 3813 	.db #0x00	; 0
+   00B5 00                 3814 	.db #0x00	; 0
+   00B6 00                 3815 	.db #0x00	; 0
+   00B7                    3816 __xinit__personaje_tronco_superior_izquieda1:
+   00B7 03                 3817 	.db #0x03	; 3
+   00B8 02                 3818 	.db #0x02	; 2
+   00B9 00                 3819 	.db #0x00	; 0
+   00BA 00                 3820 	.db #0x00	; 0
+   00BB 01                 3821 	.db #0x01	; 1
+   00BC 05                 3822 	.db #0x05	; 5
+   00BD 05                 3823 	.db #0x05	; 5
+   00BE 01                 3824 	.db #0x01	; 1
+   00BF 00                 3825 	.db #0x00	; 0
+   00C0 00                 3826 	.db #0x00	; 0
+   00C1 01                 3827 	.db #0x01	; 1
+   00C2 33                 3828 	.db #0x33	; 51	'3'
+   00C3 00                 3829 	.db #0x00	; 0
+   00C4 03                 3830 	.db #0x03	; 3
+   00C5 07                 3831 	.db #0x07	; 7
+   00C6 07                 3832 	.db #0x07	; 7
+   00C7 C0                 3833 	.db #0xc0	; 192
+   00C8 E0                 3834 	.db #0xe0	; 224
+   00C9 60                 3835 	.db #0x60	; 96
+   00CA E0                 3836 	.db #0xe0	; 224
+   00CB 80                 3837 	.db #0x80	; 128
+   00CC E0                 3838 	.db #0xe0	; 224
+   00CD B8                 3839 	.db #0xb8	; 184
+   00CE 9C                 3840 	.db #0x9c	; 156
+   00CF 3C                 3841 	.db #0x3c	; 60
+   00D0 F8                 3842 	.db #0xf8	; 248
+   00D1 E0                 3843 	.db #0xe0	; 224
+   00D2 80                 3844 	.db #0x80	; 128
+   00D3 30                 3845 	.db #0x30	; 48	'0'
+   00D4 70                 3846 	.db #0x70	; 112	'p'
+   00D5 60                 3847 	.db #0x60	; 96
+   00D6 60                 3848 	.db #0x60	; 96
+   00D7                    3849 __xinit__personaje_tronco_superior_izquierda2:
+   00D7 00                 3850 	.db #0x00	; 0
+   00D8 03                 3851 	.db #0x03	; 3
+   00D9 07                 3852 	.db #0x07	; 7
+   00DA 03                 3853 	.db #0x03	; 3
+   00DB 00                 3854 	.db #0x00	; 0
+   00DC 02                 3855 	.db #0x02	; 2
+   00DD 07                 3856 	.db #0x07	; 7
+   00DE 0F                 3857 	.db #0x0f	; 15
+   00DF 1B                 3858 	.db #0x1b	; 27
+   00E0 00                 3859 	.db #0x00	; 0
+   00E1 C0                 3860 	.db #0xc0	; 192
+   00E2 00                 3861 	.db #0x00	; 0
+   00E3 00                 3862 	.db #0x00	; 0
+   00E4 00                 3863 	.db #0x00	; 0
+   00E5 00                 3864 	.db #0x00	; 0
+   00E6 00                 3865 	.db #0x00	; 0
+   00E7 00                 3866 	.db #0x00	; 0
+   00E8 00                 3867 	.db #0x00	; 0
+   00E9 80                 3868 	.db #0x80	; 128
+   00EA 80                 3869 	.db #0x80	; 128
+   00EB 00                 3870 	.db #0x00	; 0
+   00EC 00                 3871 	.db #0x00	; 0
+   00ED 80                 3872 	.db #0x80	; 128
+   00EE 80                 3873 	.db #0x80	; 128
+   00EF 00                 3874 	.db #0x00	; 0
+   00F0 00                 3875 	.db #0x00	; 0
+   00F1 00                 3876 	.db #0x00	; 0
+   00F2 00                 3877 	.db #0x00	; 0
+   00F3 00                 3878 	.db #0x00	; 0
+   00F4 00                 3879 	.db #0x00	; 0
+   00F5 00                 3880 	.db #0x00	; 0
+   00F6 00                 3881 	.db #0x00	; 0
+   00F7                    3882 __xinit__personaje_piernas_izquierda1:
+   00F7 07                 3883 	.db #0x07	; 7
+   00F8 0E                 3884 	.db #0x0e	; 14
+   00F9 1E                 3885 	.db #0x1e	; 30
+   00FA 1C                 3886 	.db #0x1c	; 28
+   00FB 1C                 3887 	.db #0x1c	; 28
+   00FC 1C                 3888 	.db #0x1c	; 28
+   00FD 0C                 3889 	.db #0x0c	; 12
+   00FE 1C                 3890 	.db #0x1c	; 28
+   00FF 1C                 3891 	.db #0x1c	; 28
+   0100 10                 3892 	.db #0x10	; 16
+   0101 1C                 3893 	.db #0x1c	; 28
+   0102 0C                 3894 	.db #0x0c	; 12
+   0103 1C                 3895 	.db #0x1c	; 28
+   0104 18                 3896 	.db #0x18	; 24
+   0105 3C                 3897 	.db #0x3c	; 60
+   0106 FC                 3898 	.db #0xfc	; 252
+   0107 E0                 3899 	.db #0xe0	; 224
+   0108 70                 3900 	.db #0x70	; 112	'p'
+   0109 70                 3901 	.db #0x70	; 112	'p'
+   010A 70                 3902 	.db #0x70	; 112	'p'
+   010B 70                 3903 	.db #0x70	; 112	'p'
+   010C 38                 3904 	.db #0x38	; 56	'8'
+   010D 38                 3905 	.db #0x38	; 56	'8'
+   010E 40                 3906 	.db #0x40	; 64
+   010F 78                 3907 	.db #0x78	; 120	'x'
+   0110 38                 3908 	.db #0x38	; 56	'8'
+   0111 3C                 3909 	.db #0x3c	; 60
+   0112 1C                 3910 	.db #0x1c	; 28
+   0113 0C                 3911 	.db #0x0c	; 12
+   0114 0E                 3912 	.db #0x0e	; 14
+   0115 1E                 3913 	.db #0x1e	; 30
+   0116 3F                 3914 	.db #0x3f	; 63
+   0117                    3915 __xinit__personaje_piernas_izquierda2:
+   0117 03                 3916 	.db #0x03	; 3
+   0118 0E                 3917 	.db #0x0e	; 14
+   0119 0E                 3918 	.db #0x0e	; 14
+   011A 0C                 3919 	.db #0x0c	; 12
+   011B 0D                 3920 	.db #0x0d	; 13
+   011C 0D                 3921 	.db #0x0d	; 13
+   011D 0F                 3922 	.db #0x0f	; 15
+   011E 07                 3923 	.db #0x07	; 7
+   011F 03                 3924 	.db #0x03	; 3
+   0120 03                 3925 	.db #0x03	; 3
+   0121 01                 3926 	.db #0x01	; 1
+   0122 01                 3927 	.db #0x01	; 1
+   0123 01                 3928 	.db #0x01	; 1
+   0124 01                 3929 	.db #0x01	; 1
+   0125 01                 3930 	.db #0x01	; 1
+   0126 07                 3931 	.db #0x07	; 7
+   0127 E0                 3932 	.db #0xe0	; 224
+   0128 70                 3933 	.db #0x70	; 112	'p'
+   0129 F0                 3934 	.db #0xf0	; 240
+   012A F0                 3935 	.db #0xf0	; 240
+   012B E0                 3936 	.db #0xe0	; 224
+   012C E0                 3937 	.db #0xe0	; 224
+   012D E0                 3938 	.db #0xe0	; 224
+   012E E0                 3939 	.db #0xe0	; 224
+   012F E0                 3940 	.db #0xe0	; 224
+   0130 E0                 3941 	.db #0xe0	; 224
+   0131 E0                 3942 	.db #0xe0	; 224
+   0132 FA                 3943 	.db #0xfa	; 250
+   0133 FE                 3944 	.db #0xfe	; 254
+   0134 86                 3945 	.db #0x86	; 134
+   0135 CC                 3946 	.db #0xcc	; 204
+   0136 E0                 3947 	.db #0xe0	; 224
+   0137                    3948 __xinit__arma_izquierda:
+   0137 01                 3949 	.db #0x01	; 1
+   0138 07                 3950 	.db #0x07	; 7
+   0139 FF                 3951 	.db #0xff	; 255
+   013A EF                 3952 	.db #0xef	; 239
+   013B 01                 3953 	.db #0x01	; 1
+   013C 00                 3954 	.db #0x00	; 0
+   013D 00                 3955 	.db #0x00	; 0
+   013E 00                 3956 	.db #0x00	; 0
+   013F 00                 3957 	.db #0x00	; 0
+   0140 00                 3958 	.db #0x00	; 0
+   0141 00                 3959 	.db #0x00	; 0
+   0142 00                 3960 	.db #0x00	; 0
+   0143 00                 3961 	.db #0x00	; 0
+   0144 00                 3962 	.db #0x00	; 0
+   0145 00                 3963 	.db #0x00	; 0
+   0146 00                 3964 	.db #0x00	; 0
+   0147 F0                 3965 	.db #0xf0	; 240
+   0148 0E                 3966 	.db #0x0e	; 14
+   0149 FF                 3967 	.db #0xff	; 255
+   014A FE                 3968 	.db #0xfe	; 254
+   014B F8                 3969 	.db #0xf8	; 248
+   014C 20                 3970 	.db #0x20	; 32
+   014D 38                 3971 	.db #0x38	; 56	'8'
+   014E 08                 3972 	.db #0x08	; 8
+   014F 08                 3973 	.db #0x08	; 8
+   0150 00                 3974 	.db #0x00	; 0
+   0151 00                 3975 	.db #0x00	; 0
+   0152 00                 3976 	.db #0x00	; 0
+   0153 00                 3977 	.db #0x00	; 0
+   0154 00                 3978 	.db #0x00	; 0
+   0155 00                 3979 	.db #0x00	; 0
+   0156 00                 3980 	.db #0x00	; 0
+   0157                    3981 __xinit__color_personaje_tronco_superior1:
+   0157 04                 3982 	.db #0x04	; 4
+   0158 04                 3983 	.db #0x04	; 4
+   0159 04                 3984 	.db #0x04	; 4
+   015A 04                 3985 	.db #0x04	; 4
+   015B 08                 3986 	.db #0x08	; 8
+   015C 08                 3987 	.db #0x08	; 8
+   015D 08                 3988 	.db #0x08	; 8
+   015E 08                 3989 	.db #0x08	; 8
+   015F 08                 3990 	.db #0x08	; 8
+   0160 08                 3991 	.db #0x08	; 8
+   0161 08                 3992 	.db #0x08	; 8
+   0162 08                 3993 	.db #0x08	; 8
+   0163 08                 3994 	.db #0x08	; 8
+   0164 08                 3995 	.db #0x08	; 8
+   0165 08                 3996 	.db #0x08	; 8
+   0166 08                 3997 	.db #0x08	; 8
+   0167 0A                 3998 	.db #0x0a	; 10
+   0168 0A                 3999 	.db #0x0a	; 10
+   0169 0A                 4000 	.db #0x0a	; 10
+   016A 0A                 4001 	.db #0x0a	; 10
+   016B 0A                 4002 	.db #0x0a	; 10
+   016C 0A                 4003 	.db #0x0a	; 10
+   016D 0A                 4004 	.db #0x0a	; 10
+   016E 0A                 4005 	.db #0x0a	; 10
+   016F 0A                 4006 	.db #0x0a	; 10
+   0170 0A                 4007 	.db #0x0a	; 10
+   0171 0A                 4008 	.db #0x0a	; 10
+   0172 0A                 4009 	.db #0x0a	; 10
+   0173 0A                 4010 	.db #0x0a	; 10
+   0174 0A                 4011 	.db #0x0a	; 10
+   0175 0A                 4012 	.db #0x0a	; 10
+   0176 0A                 4013 	.db #0x0a	; 10
+   0177                    4014 __xinit__color_personaje_tronco_superior2:
+   0177 08                 4015 	.db #0x08	; 8
+   0178 08                 4016 	.db #0x08	; 8
+   0179 08                 4017 	.db #0x08	; 8
+   017A 08                 4018 	.db #0x08	; 8
+   017B 08                 4019 	.db #0x08	; 8
+   017C 08                 4020 	.db #0x08	; 8
+   017D 08                 4021 	.db #0x08	; 8
+   017E 08                 4022 	.db #0x08	; 8
+   017F 08                 4023 	.db #0x08	; 8
+   0180 08                 4024 	.db #0x08	; 8
+   0181 08                 4025 	.db #0x08	; 8
+   0182 08                 4026 	.db #0x08	; 8
+   0183 08                 4027 	.db #0x08	; 8
+   0184 08                 4028 	.db #0x08	; 8
+   0185 08                 4029 	.db #0x08	; 8
+   0186 08                 4030 	.db #0x08	; 8
+   0187 08                 4031 	.db #0x08	; 8
+   0188 08                 4032 	.db #0x08	; 8
+   0189 08                 4033 	.db #0x08	; 8
+   018A 08                 4034 	.db #0x08	; 8
+   018B 08                 4035 	.db #0x08	; 8
+   018C 08                 4036 	.db #0x08	; 8
+   018D 08                 4037 	.db #0x08	; 8
+   018E 08                 4038 	.db #0x08	; 8
+   018F 08                 4039 	.db #0x08	; 8
+   0190 08                 4040 	.db #0x08	; 8
+   0191 08                 4041 	.db #0x08	; 8
+   0192 08                 4042 	.db #0x08	; 8
+   0193 08                 4043 	.db #0x08	; 8
+   0194 08                 4044 	.db #0x08	; 8
+   0195 08                 4045 	.db #0x08	; 8
+   0196 08                 4046 	.db #0x08	; 8
+   0197                    4047 __xinit__color_personaje_piernas1:
+   0197 0D                 4048 	.db #0x0d	; 13
+   0198 0D                 4049 	.db #0x0d	; 13
+   0199 0D                 4050 	.db #0x0d	; 13
+   019A 0D                 4051 	.db #0x0d	; 13
+   019B 0D                 4052 	.db #0x0d	; 13
+   019C 0D                 4053 	.db #0x0d	; 13
+   019D 0D                 4054 	.db #0x0d	; 13
+   019E 0D                 4055 	.db #0x0d	; 13
+   019F 0D                 4056 	.db #0x0d	; 13
+   01A0 0D                 4057 	.db #0x0d	; 13
+   01A1 0D                 4058 	.db #0x0d	; 13
+   01A2 0D                 4059 	.db #0x0d	; 13
+   01A3 0D                 4060 	.db #0x0d	; 13
+   01A4 0D                 4061 	.db #0x0d	; 13
+   01A5 0D                 4062 	.db #0x0d	; 13
+   01A6 0D                 4063 	.db #0x0d	; 13
+   01A7 04                 4064 	.db #0x04	; 4
+   01A8 04                 4065 	.db #0x04	; 4
+   01A9 04                 4066 	.db #0x04	; 4
+   01AA 04                 4067 	.db #0x04	; 4
+   01AB 08                 4068 	.db #0x08	; 8
+   01AC 08                 4069 	.db #0x08	; 8
+   01AD 08                 4070 	.db #0x08	; 8
+   01AE 08                 4071 	.db #0x08	; 8
+   01AF 08                 4072 	.db #0x08	; 8
+   01B0 08                 4073 	.db #0x08	; 8
+   01B1 08                 4074 	.db #0x08	; 8
+   01B2 08                 4075 	.db #0x08	; 8
+   01B3 08                 4076 	.db #0x08	; 8
+   01B4 08                 4077 	.db #0x08	; 8
+   01B5 08                 4078 	.db #0x08	; 8
+   01B6 08                 4079 	.db #0x08	; 8
+   01B7                    4080 __xinit__color_personaje_piernas2:
+   01B7 0A                 4081 	.db #0x0a	; 10
+   01B8 0A                 4082 	.db #0x0a	; 10
+   01B9 0A                 4083 	.db #0x0a	; 10
+   01BA 0A                 4084 	.db #0x0a	; 10
+   01BB 0A                 4085 	.db #0x0a	; 10
+   01BC 0A                 4086 	.db #0x0a	; 10
+   01BD 0A                 4087 	.db #0x0a	; 10
+   01BE 0A                 4088 	.db #0x0a	; 10
+   01BF 0A                 4089 	.db #0x0a	; 10
+   01C0 0A                 4090 	.db #0x0a	; 10
+   01C1 0A                 4091 	.db #0x0a	; 10
+   01C2 0A                 4092 	.db #0x0a	; 10
+   01C3 0A                 4093 	.db #0x0a	; 10
+   01C4 0A                 4094 	.db #0x0a	; 10
+   01C5 0A                 4095 	.db #0x0a	; 10
+   01C6 0A                 4096 	.db #0x0a	; 10
+   01C7 08                 4097 	.db #0x08	; 8
+   01C8 08                 4098 	.db #0x08	; 8
+   01C9 08                 4099 	.db #0x08	; 8
+   01CA 08                 4100 	.db #0x08	; 8
+   01CB 08                 4101 	.db #0x08	; 8
+   01CC 08                 4102 	.db #0x08	; 8
+   01CD 08                 4103 	.db #0x08	; 8
+   01CE 08                 4104 	.db #0x08	; 8
+   01CF 08                 4105 	.db #0x08	; 8
+   01D0 08                 4106 	.db #0x08	; 8
+   01D1 08                 4107 	.db #0x08	; 8
+   01D2 08                 4108 	.db #0x08	; 8
+   01D3 08                 4109 	.db #0x08	; 8
+   01D4 08                 4110 	.db #0x08	; 8
+   01D5 08                 4111 	.db #0x08	; 8
+   01D6 08                 4112 	.db #0x08	; 8
+   01D7                    4113 __xinit__color_arma:
+   01D7 08                 4114 	.db #0x08	; 8
+   01D8 08                 4115 	.db #0x08	; 8
+   01D9 08                 4116 	.db #0x08	; 8
+   01DA 08                 4117 	.db #0x08	; 8
+   01DB 08                 4118 	.db #0x08	; 8
+   01DC 08                 4119 	.db #0x08	; 8
+   01DD 08                 4120 	.db #0x08	; 8
+   01DE 08                 4121 	.db #0x08	; 8
+   01DF 08                 4122 	.db #0x08	; 8
+   01E0 08                 4123 	.db #0x08	; 8
+   01E1 08                 4124 	.db #0x08	; 8
+   01E2 08                 4125 	.db #0x08	; 8
+   01E3 08                 4126 	.db #0x08	; 8
+   01E4 08                 4127 	.db #0x08	; 8
+   01E5 08                 4128 	.db #0x08	; 8
+   01E6 08                 4129 	.db #0x08	; 8
+   01E7 0D                 4130 	.db #0x0d	; 13
+   01E8 0D                 4131 	.db #0x0d	; 13
+   01E9 0D                 4132 	.db #0x0d	; 13
+   01EA 0D                 4133 	.db #0x0d	; 13
+   01EB 0D                 4134 	.db #0x0d	; 13
+   01EC 0D                 4135 	.db #0x0d	; 13
+   01ED 0D                 4136 	.db #0x0d	; 13
+   01EE 0D                 4137 	.db #0x0d	; 13
+   01EF 0D                 4138 	.db #0x0d	; 13
+   01F0 0D                 4139 	.db #0x0d	; 13
+   01F1 0D                 4140 	.db #0x0d	; 13
+   01F2 0D                 4141 	.db #0x0d	; 13
+   01F3 0D                 4142 	.db #0x0d	; 13
+   01F4 0D                 4143 	.db #0x0d	; 13
+   01F5 0D                 4144 	.db #0x0d	; 13
+   01F6 0D                 4145 	.db #0x0d	; 13
+   01F7                    4146 __xinit__player:
+   01F7 50                 4147 	.db #0x50	; 80	'P'
+   01F8 90                 4148 	.db #0x90	; 144
+   01F9 00                 4149 	.db #0x00	; 0
+   01FA 00                 4150 	.db #0x00	; 0
+   01FB 00                 4151 	.db #0x00	; 0
+   01FC 00                 4152 	.db #0x00	; 0
+   01FD 03                 4153 	.db #0x03	; 3
+   01FE 00                 4154 	.db #0x00	; 0
+   01FF 00                 4155 	.db #0x00	; 0
+   0200 00                 4156 	.db #0x00	; 0
+   0201 06                 4157 	.db #0x06	; 6
+   0202 08                 4158 	.db #0x08	; 8
+   0203 08                 4159 	.db #0x08	; 8
+   0204 64                 4160 	.db #0x64	; 100	'd'
+   0205                    4161 __xinit__gravedad:
+   0205 08 00              4162 	.dw #0x0008
+   0207                    4163 __xinit__fireSprite:
+   0207 FF                 4164 	.db #0xff	; 255
+   0208 00                 4165 	.db #0x00	; 0
+   0209 00                 4166 	.db #0x00	; 0
+   020A 00                 4167 	.db #0x00	; 0
+   020B 00                 4168 	.db #0x00	; 0
+   020C 00                 4169 	.db #0x00	; 0
+   020D 00                 4170 	.db #0x00	; 0
+   020E 00                 4171 	.db #0x00	; 0
+   020F 00                 4172 	.db #0x00	; 0
+   0210 00                 4173 	.db #0x00	; 0
+   0211 00                 4174 	.db #0x00	; 0
+   0212 00                 4175 	.db #0x00	; 0
+   0213 00                 4176 	.db #0x00	; 0
+   0214 00                 4177 	.db #0x00	; 0
+   0215 00                 4178 	.db #0x00	; 0
+   0216 00                 4179 	.db #0x00	; 0
+   0217 FF                 4180 	.db #0xff	; 255
+   0218 00                 4181 	.db #0x00	; 0
+   0219 00                 4182 	.db #0x00	; 0
+   021A 00                 4183 	.db #0x00	; 0
+   021B 00                 4184 	.db #0x00	; 0
+   021C 00                 4185 	.db #0x00	; 0
+   021D 00                 4186 	.db #0x00	; 0
+   021E 00                 4187 	.db #0x00	; 0
+   021F 00                 4188 	.db #0x00	; 0
+   0220 00                 4189 	.db #0x00	; 0
+   0221 00                 4190 	.db #0x00	; 0
+   0222 00                 4191 	.db #0x00	; 0
+   0223 00                 4192 	.db #0x00	; 0
+   0224 00                 4193 	.db #0x00	; 0
+   0225 00                 4194 	.db #0x00	; 0
+   0226 00                 4195 	.db #0x00	; 0
+   0227                    4196 __xinit__enemigo1:
+   0227 00                 4197 	.db #0x00	; 0
+   0228 07                 4198 	.db #0x07	; 7
+   0229 04                 4199 	.db #0x04	; 4
+   022A 04                 4200 	.db #0x04	; 4
+   022B 07                 4201 	.db #0x07	; 7
+   022C 03                 4202 	.db #0x03	; 3
+   022D 01                 4203 	.db #0x01	; 1
+   022E 1F                 4204 	.db #0x1f	; 31
+   022F 32                 4205 	.db #0x32	; 50	'2'
+   0230 26                 4206 	.db #0x26	; 38
+   0231 24                 4207 	.db #0x24	; 36
+   0232 28                 4208 	.db #0x28	; 40
+   0233 68                 4209 	.db #0x68	; 104	'h'
+   0234 48                 4210 	.db #0x48	; 72	'H'
+   0235 48                 4211 	.db #0x48	; 72	'H'
+   0236 48                 4212 	.db #0x48	; 72	'H'
+   0237 00                 4213 	.db #0x00	; 0
+   0238 C0                 4214 	.db #0xc0	; 192
+   0239 40                 4215 	.db #0x40	; 64
+   023A 40                 4216 	.db #0x40	; 64
+   023B C0                 4217 	.db #0xc0	; 192
+   023C 80                 4218 	.db #0x80	; 128
+   023D 00                 4219 	.db #0x00	; 0
+   023E F8                 4220 	.db #0xf8	; 248
+   023F 4C                 4221 	.db #0x4c	; 76	'L'
+   0240 64                 4222 	.db #0x64	; 100	'd'
+   0241 24                 4223 	.db #0x24	; 36
+   0242 36                 4224 	.db #0x36	; 54	'6'
+   0243 12                 4225 	.db #0x12	; 18
+   0244 12                 4226 	.db #0x12	; 18
+   0245 12                 4227 	.db #0x12	; 18
+   0246 12                 4228 	.db #0x12	; 18
+   0247                    4229 __xinit__enemigo1andando:
+   0247 00                 4230 	.db #0x00	; 0
+   0248 07                 4231 	.db #0x07	; 7
+   0249 04                 4232 	.db #0x04	; 4
+   024A 04                 4233 	.db #0x04	; 4
+   024B 07                 4234 	.db #0x07	; 7
+   024C 03                 4235 	.db #0x03	; 3
+   024D 01                 4236 	.db #0x01	; 1
+   024E 0F                 4237 	.db #0x0f	; 15
+   024F 0A                 4238 	.db #0x0a	; 10
+   0250 1A                 4239 	.db #0x1a	; 26
+   0251 12                 4240 	.db #0x12	; 18
+   0252 12                 4241 	.db #0x12	; 18
+   0253 12                 4242 	.db #0x12	; 18
+   0254 12                 4243 	.db #0x12	; 18
+   0255 12                 4244 	.db #0x12	; 18
+   0256 12                 4245 	.db #0x12	; 18
+   0257 00                 4246 	.db #0x00	; 0
+   0258 C0                 4247 	.db #0xc0	; 192
+   0259 40                 4248 	.db #0x40	; 64
+   025A 40                 4249 	.db #0x40	; 64
+   025B C0                 4250 	.db #0xc0	; 192
+   025C 80                 4251 	.db #0x80	; 128
+   025D 00                 4252 	.db #0x00	; 0
+   025E F0                 4253 	.db #0xf0	; 240
+   025F 50                 4254 	.db #0x50	; 80	'P'
+   0260 58                 4255 	.db #0x58	; 88	'X'
+   0261 48                 4256 	.db #0x48	; 72	'H'
+   0262 48                 4257 	.db #0x48	; 72	'H'
+   0263 48                 4258 	.db #0x48	; 72	'H'
+   0264 48                 4259 	.db #0x48	; 72	'H'
+   0265 48                 4260 	.db #0x48	; 72	'H'
+   0266 48                 4261 	.db #0x48	; 72	'H'
+   0267                    4262 __xinit__enemigo2:
+   0267 00                 4263 	.db #0x00	; 0
+   0268 00                 4264 	.db #0x00	; 0
+   0269 00                 4265 	.db #0x00	; 0
+   026A 00                 4266 	.db #0x00	; 0
+   026B 04                 4267 	.db #0x04	; 4
+   026C 04                 4268 	.db #0x04	; 4
+   026D 04                 4269 	.db #0x04	; 4
+   026E 07                 4270 	.db #0x07	; 7
+   026F 07                 4271 	.db #0x07	; 7
+   0270 3F                 4272 	.db #0x3f	; 63
+   0271 22                 4273 	.db #0x22	; 34
+   0272 02                 4274 	.db #0x02	; 2
+   0273 3F                 4275 	.db #0x3f	; 63
+   0274 22                 4276 	.db #0x22	; 34
+   0275 62                 4277 	.db #0x62	; 98	'b'
+   0276 42                 4278 	.db #0x42	; 66	'B'
+   0277 00                 4279 	.db #0x00	; 0
+   0278 00                 4280 	.db #0x00	; 0
+   0279 00                 4281 	.db #0x00	; 0
+   027A 00                 4282 	.db #0x00	; 0
+   027B 20                 4283 	.db #0x20	; 32
+   027C 20                 4284 	.db #0x20	; 32
+   027D 20                 4285 	.db #0x20	; 32
+   027E E0                 4286 	.db #0xe0	; 224
+   027F E0                 4287 	.db #0xe0	; 224
+   0280 FC                 4288 	.db #0xfc	; 252
+   0281 44                 4289 	.db #0x44	; 68	'D'
+   0282 40                 4290 	.db #0x40	; 64
+   0283 FC                 4291 	.db #0xfc	; 252
+   0284 44                 4292 	.db #0x44	; 68	'D'
+   0285 46                 4293 	.db #0x46	; 70	'F'
+   0286 42                 4294 	.db #0x42	; 66	'B'
+   0287                    4295 __xinit__enemigo2andando:
+   0287 00                 4296 	.db #0x00	; 0
+   0288 00                 4297 	.db #0x00	; 0
+   0289 00                 4298 	.db #0x00	; 0
+   028A 00                 4299 	.db #0x00	; 0
+   028B 04                 4300 	.db #0x04	; 4
+   028C 04                 4301 	.db #0x04	; 4
+   028D 04                 4302 	.db #0x04	; 4
+   028E 07                 4303 	.db #0x07	; 7
+   028F 07                 4304 	.db #0x07	; 7
+   0290 07                 4305 	.db #0x07	; 7
+   0291 0E                 4306 	.db #0x0e	; 14
+   0292 0A                 4307 	.db #0x0a	; 10
+   0293 07                 4308 	.db #0x07	; 7
+   0294 06                 4309 	.db #0x06	; 6
+   0295 0E                 4310 	.db #0x0e	; 14
+   0296 0A                 4311 	.db #0x0a	; 10
+   0297 00                 4312 	.db #0x00	; 0
+   0298 00                 4313 	.db #0x00	; 0
+   0299 00                 4314 	.db #0x00	; 0
+   029A 00                 4315 	.db #0x00	; 0
+   029B 20                 4316 	.db #0x20	; 32
+   029C 20                 4317 	.db #0x20	; 32
+   029D 20                 4318 	.db #0x20	; 32
+   029E E0                 4319 	.db #0xe0	; 224
+   029F E0                 4320 	.db #0xe0	; 224
+   02A0 E0                 4321 	.db #0xe0	; 224
+   02A1 70                 4322 	.db #0x70	; 112	'p'
+   02A2 50                 4323 	.db #0x50	; 80	'P'
+   02A3 E0                 4324 	.db #0xe0	; 224
+   02A4 60                 4325 	.db #0x60	; 96
+   02A5 70                 4326 	.db #0x70	; 112	'p'
+   02A6 50                 4327 	.db #0x50	; 80	'P'
+   02A7                    4328 __xinit__enemigo3:
+   02A7 7C                 4329 	.db #0x7c	; 124
+   02A8 44                 4330 	.db #0x44	; 68	'D'
+   02A9 44                 4331 	.db #0x44	; 68	'D'
+   02AA 7C                 4332 	.db #0x7c	; 124
+   02AB 08                 4333 	.db #0x08	; 8
+   02AC 0C                 4334 	.db #0x0c	; 12
+   02AD 02                 4335 	.db #0x02	; 2
+   02AE 01                 4336 	.db #0x01	; 1
+   02AF 01                 4337 	.db #0x01	; 1
+   02B0 01                 4338 	.db #0x01	; 1
+   02B1 01                 4339 	.db #0x01	; 1
+   02B2 01                 4340 	.db #0x01	; 1
+   02B3 3F                 4341 	.db #0x3f	; 63
+   02B4 66                 4342 	.db #0x66	; 102	'f'
+   02B5 44                 4343 	.db #0x44	; 68	'D'
+   02B6 44                 4344 	.db #0x44	; 68	'D'
+   02B7 3E                 4345 	.db #0x3e	; 62
+   02B8 22                 4346 	.db #0x22	; 34
+   02B9 22                 4347 	.db #0x22	; 34
+   02BA 3E                 4348 	.db #0x3e	; 62
+   02BB 20                 4349 	.db #0x20	; 32
+   02BC 60                 4350 	.db #0x60	; 96
+   02BD 40                 4351 	.db #0x40	; 64
+   02BE 80                 4352 	.db #0x80	; 128
+   02BF 80                 4353 	.db #0x80	; 128
+   02C0 80                 4354 	.db #0x80	; 128
+   02C1 80                 4355 	.db #0x80	; 128
+   02C2 80                 4356 	.db #0x80	; 128
+   02C3 FC                 4357 	.db #0xfc	; 252
+   02C4 66                 4358 	.db #0x66	; 102	'f'
+   02C5 22                 4359 	.db #0x22	; 34
+   02C6 22                 4360 	.db #0x22	; 34
+   02C7                    4361 __xinit__enemigo3andando:
+   02C7 00                 4362 	.db #0x00	; 0
+   02C8 00                 4363 	.db #0x00	; 0
+   02C9 7C                 4364 	.db #0x7c	; 124
+   02CA 44                 4365 	.db #0x44	; 68	'D'
+   02CB 44                 4366 	.db #0x44	; 68	'D'
+   02CC 7C                 4367 	.db #0x7c	; 124
+   02CD 02                 4368 	.db #0x02	; 2
+   02CE 01                 4369 	.db #0x01	; 1
+   02CF 01                 4370 	.db #0x01	; 1
+   02D0 01                 4371 	.db #0x01	; 1
+   02D1 01                 4372 	.db #0x01	; 1
+   02D2 01                 4373 	.db #0x01	; 1
+   02D3 07                 4374 	.db #0x07	; 7
+   02D4 0A                 4375 	.db #0x0a	; 10
+   02D5 0A                 4376 	.db #0x0a	; 10
+   02D6 0A                 4377 	.db #0x0a	; 10
+   02D7 00                 4378 	.db #0x00	; 0
+   02D8 00                 4379 	.db #0x00	; 0
+   02D9 3E                 4380 	.db #0x3e	; 62
+   02DA 22                 4381 	.db #0x22	; 34
+   02DB 22                 4382 	.db #0x22	; 34
+   02DC 7E                 4383 	.db #0x7e	; 126
+   02DD 40                 4384 	.db #0x40	; 64
+   02DE 80                 4385 	.db #0x80	; 128
+   02DF 80                 4386 	.db #0x80	; 128
+   02E0 80                 4387 	.db #0x80	; 128
+   02E1 80                 4388 	.db #0x80	; 128
+   02E2 80                 4389 	.db #0x80	; 128
+   02E3 E0                 4390 	.db #0xe0	; 224
+   02E4 50                 4391 	.db #0x50	; 80	'P'
+   02E5 50                 4392 	.db #0x50	; 80	'P'
+   02E6 50                 4393 	.db #0x50	; 80	'P'
+   02E7                    4394 __xinit__enemigo4:
+   02E7 00                 4395 	.db #0x00	; 0
+   02E8 02                 4396 	.db #0x02	; 2
+   02E9 02                 4397 	.db #0x02	; 2
+   02EA 03                 4398 	.db #0x03	; 3
+   02EB 41                 4399 	.db #0x41	; 65	'A'
+   02EC 61                 4400 	.db #0x61	; 97	'a'
+   02ED 3F                 4401 	.db #0x3f	; 63
+   02EE 01                 4402 	.db #0x01	; 1
+   02EF 3F                 4403 	.db #0x3f	; 63
+   02F0 61                 4404 	.db #0x61	; 97	'a'
+   02F1 41                 4405 	.db #0x41	; 65	'A'
+   02F2 03                 4406 	.db #0x03	; 3
+   02F3 3D                 4407 	.db #0x3d	; 61
+   02F4 21                 4408 	.db #0x21	; 33
+   02F5 21                 4409 	.db #0x21	; 33
+   02F6 20                 4410 	.db #0x20	; 32
+   02F7 00                 4411 	.db #0x00	; 0
+   02F8 40                 4412 	.db #0x40	; 64
+   02F9 40                 4413 	.db #0x40	; 64
+   02FA C0                 4414 	.db #0xc0	; 192
+   02FB 82                 4415 	.db #0x82	; 130
+   02FC 86                 4416 	.db #0x86	; 134
+   02FD FC                 4417 	.db #0xfc	; 252
+   02FE 80                 4418 	.db #0x80	; 128
+   02FF F8                 4419 	.db #0xf8	; 248
+   0300 8C                 4420 	.db #0x8c	; 140
+   0301 84                 4421 	.db #0x84	; 132
+   0302 C0                 4422 	.db #0xc0	; 192
+   0303 BC                 4423 	.db #0xbc	; 188
+   0304 84                 4424 	.db #0x84	; 132
+   0305 84                 4425 	.db #0x84	; 132
+   0306 04                 4426 	.db #0x04	; 4
+   0307                    4427 __xinit__enemigo4andando:
+   0307 00                 4428 	.db #0x00	; 0
+   0308 02                 4429 	.db #0x02	; 2
+   0309 02                 4430 	.db #0x02	; 2
+   030A 03                 4431 	.db #0x03	; 3
+   030B 01                 4432 	.db #0x01	; 1
+   030C 01                 4433 	.db #0x01	; 1
+   030D 07                 4434 	.db #0x07	; 7
+   030E 05                 4435 	.db #0x05	; 5
+   030F 0F                 4436 	.db #0x0f	; 15
+   0310 09                 4437 	.db #0x09	; 9
+   0311 09                 4438 	.db #0x09	; 9
+   0312 07                 4439 	.db #0x07	; 7
+   0313 09                 4440 	.db #0x09	; 9
+   0314 09                 4441 	.db #0x09	; 9
+   0315 09                 4442 	.db #0x09	; 9
+   0316 08                 4443 	.db #0x08	; 8
+   0317 00                 4444 	.db #0x00	; 0
+   0318 40                 4445 	.db #0x40	; 64
+   0319 40                 4446 	.db #0x40	; 64
+   031A C0                 4447 	.db #0xc0	; 192
+   031B 80                 4448 	.db #0x80	; 128
+   031C 80                 4449 	.db #0x80	; 128
+   031D E0                 4450 	.db #0xe0	; 224
+   031E A0                 4451 	.db #0xa0	; 160
+   031F F0                 4452 	.db #0xf0	; 240
+   0320 90                 4453 	.db #0x90	; 144
+   0321 90                 4454 	.db #0x90	; 144
+   0322 E0                 4455 	.db #0xe0	; 224
+   0323 90                 4456 	.db #0x90	; 144
+   0324 90                 4457 	.db #0x90	; 144
+   0325 90                 4458 	.db #0x90	; 144
+   0326 10                 4459 	.db #0x10	; 16
+   0327                    4460 __xinit__colorEnemigo1:
+   0327 0F                 4461 	.db #0x0f	; 15
+   0328 08                 4462 	.db #0x08	; 8
+   0329 08                 4463 	.db #0x08	; 8
+   032A 08                 4464 	.db #0x08	; 8
+   032B 08                 4465 	.db #0x08	; 8
+   032C 08                 4466 	.db #0x08	; 8
+   032D 08                 4467 	.db #0x08	; 8
+   032E 0B                 4468 	.db #0x0b	; 11
+   032F 0B                 4469 	.db #0x0b	; 11
+   0330 0B                 4470 	.db #0x0b	; 11
+   0331 0A                 4471 	.db #0x0a	; 10
+   0332 0A                 4472 	.db #0x0a	; 10
+   0333 0A                 4473 	.db #0x0a	; 10
+   0334 0A                 4474 	.db #0x0a	; 10
+   0335 0A                 4475 	.db #0x0a	; 10
+   0336 0A                 4476 	.db #0x0a	; 10
+   0337                    4477 __xinit__colorEnemigo1Andando:
+   0337 0F                 4478 	.db #0x0f	; 15
+   0338 08                 4479 	.db #0x08	; 8
+   0339 08                 4480 	.db #0x08	; 8
+   033A 08                 4481 	.db #0x08	; 8
+   033B 08                 4482 	.db #0x08	; 8
+   033C 08                 4483 	.db #0x08	; 8
+   033D 08                 4484 	.db #0x08	; 8
+   033E 0A                 4485 	.db #0x0a	; 10
+   033F 0A                 4486 	.db #0x0a	; 10
+   0340 0A                 4487 	.db #0x0a	; 10
+   0341 0A                 4488 	.db #0x0a	; 10
+   0342 0A                 4489 	.db #0x0a	; 10
+   0343 0A                 4490 	.db #0x0a	; 10
+   0344 0A                 4491 	.db #0x0a	; 10
+   0345 0A                 4492 	.db #0x0a	; 10
+   0346 0A                 4493 	.db #0x0a	; 10
+   0347                    4494 __xinit__colorEnemigo2:
+   0347 0F                 4495 	.db #0x0f	; 15
+   0348 0F                 4496 	.db #0x0f	; 15
+   0349 0F                 4497 	.db #0x0f	; 15
+   034A 0F                 4498 	.db #0x0f	; 15
+   034B 02                 4499 	.db #0x02	; 2
+   034C 02                 4500 	.db #0x02	; 2
+   034D 02                 4501 	.db #0x02	; 2
+   034E 02                 4502 	.db #0x02	; 2
+   034F 02                 4503 	.db #0x02	; 2
+   0350 0A                 4504 	.db #0x0a	; 10
+   0351 0A                 4505 	.db #0x0a	; 10
+   0352 0A                 4506 	.db #0x0a	; 10
+   0353 0D                 4507 	.db #0x0d	; 13
+   0354 0D                 4508 	.db #0x0d	; 13
+   0355 06                 4509 	.db #0x06	; 6
+   0356 06                 4510 	.db #0x06	; 6
+   0357                    4511 __xinit__colorEnemigo2Andando:
+   0357 0F                 4512 	.db #0x0f	; 15
+   0358 0F                 4513 	.db #0x0f	; 15
+   0359 0F                 4514 	.db #0x0f	; 15
+   035A 0F                 4515 	.db #0x0f	; 15
+   035B 02                 4516 	.db #0x02	; 2
+   035C 02                 4517 	.db #0x02	; 2
+   035D 02                 4518 	.db #0x02	; 2
+   035E 02                 4519 	.db #0x02	; 2
+   035F 02                 4520 	.db #0x02	; 2
+   0360 0A                 4521 	.db #0x0a	; 10
+   0361 0A                 4522 	.db #0x0a	; 10
+   0362 0A                 4523 	.db #0x0a	; 10
+   0363 0D                 4524 	.db #0x0d	; 13
+   0364 0D                 4525 	.db #0x0d	; 13
+   0365 06                 4526 	.db #0x06	; 6
+   0366 06                 4527 	.db #0x06	; 6
+   0367                    4528 __xinit__colorEnemigo3:
+   0367 04                 4529 	.db #0x04	; 4
+   0368 04                 4530 	.db #0x04	; 4
+   0369 04                 4531 	.db #0x04	; 4
+   036A 04                 4532 	.db #0x04	; 4
+   036B 04                 4533 	.db #0x04	; 4
+   036C 04                 4534 	.db #0x04	; 4
+   036D 04                 4535 	.db #0x04	; 4
+   036E 09                 4536 	.db #0x09	; 9
+   036F 09                 4537 	.db #0x09	; 9
+   0370 09                 4538 	.db #0x09	; 9
+   0371 09                 4539 	.db #0x09	; 9
+   0372 09                 4540 	.db #0x09	; 9
+   0373 08                 4541 	.db #0x08	; 8
+   0374 08                 4542 	.db #0x08	; 8
+   0375 08                 4543 	.db #0x08	; 8
+   0376 08                 4544 	.db #0x08	; 8
+   0377                    4545 __xinit__colorEnemigo3Andando:
+   0377 04                 4546 	.db #0x04	; 4
+   0378 04                 4547 	.db #0x04	; 4
+   0379 04                 4548 	.db #0x04	; 4
+   037A 04                 4549 	.db #0x04	; 4
+   037B 04                 4550 	.db #0x04	; 4
+   037C 04                 4551 	.db #0x04	; 4
+   037D 04                 4552 	.db #0x04	; 4
+   037E 09                 4553 	.db #0x09	; 9
+   037F 09                 4554 	.db #0x09	; 9
+   0380 09                 4555 	.db #0x09	; 9
+   0381 09                 4556 	.db #0x09	; 9
+   0382 09                 4557 	.db #0x09	; 9
+   0383 08                 4558 	.db #0x08	; 8
+   0384 08                 4559 	.db #0x08	; 8
+   0385 08                 4560 	.db #0x08	; 8
+   0386 08                 4561 	.db #0x08	; 8
+   0387                    4562 __xinit__colorEnemigo4:
+   0387 0F                 4563 	.db #0x0f	; 15
+   0388 09                 4564 	.db #0x09	; 9
+   0389 09                 4565 	.db #0x09	; 9
+   038A 09                 4566 	.db #0x09	; 9
+   038B 04                 4567 	.db #0x04	; 4
+   038C 04                 4568 	.db #0x04	; 4
+   038D 04                 4569 	.db #0x04	; 4
+   038E 04                 4570 	.db #0x04	; 4
+   038F 04                 4571 	.db #0x04	; 4
+   0390 04                 4572 	.db #0x04	; 4
+   0391 04                 4573 	.db #0x04	; 4
+   0392 04                 4574 	.db #0x04	; 4
+   0393 04                 4575 	.db #0x04	; 4
+   0394 04                 4576 	.db #0x04	; 4
+   0395 04                 4577 	.db #0x04	; 4
+   0396 04                 4578 	.db #0x04	; 4
+   0397                    4579 __xinit__colorEnemigo4Andando:
+   0397 0F                 4580 	.db #0x0f	; 15
+   0398 09                 4581 	.db #0x09	; 9
+   0399 09                 4582 	.db #0x09	; 9
+   039A 09                 4583 	.db #0x09	; 9
+   039B 04                 4584 	.db #0x04	; 4
+   039C 04                 4585 	.db #0x04	; 4
+   039D 04                 4586 	.db #0x04	; 4
+   039E 04                 4587 	.db #0x04	; 4
+   039F 04                 4588 	.db #0x04	; 4
+   03A0 04                 4589 	.db #0x04	; 4
+   03A1 04                 4590 	.db #0x04	; 4
+   03A2 04                 4591 	.db #0x04	; 4
+   03A3 04                 4592 	.db #0x04	; 4
+   03A4 04                 4593 	.db #0x04	; 4
+   03A5 04                 4594 	.db #0x04	; 4
+   03A6 04                 4595 	.db #0x04	; 4
+                           4596 	.area _CABS (ABS)
