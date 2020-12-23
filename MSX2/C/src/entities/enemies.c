@@ -18,18 +18,94 @@ typedef struct {
     unsigned char tipo;
 }TEnemy;
 
-unsigned char enemie1[]={
-    0,7,4,4,7,3,1,31,
+unsigned char enemigo1[]={
+  0,7,4,4,7,3,1,31,
     50,38,36,40,104,72,72,72,
     0,192,64,64,192,128,0,248,
     76,100,36,54,18,18,18,18
 };
-unsigned char enemie2[]={
+unsigned char enemigo1andando[]={
     0,7,4,4,7,3,1,15,
     10,26,18,18,18,18,18,18,
     0,192,64,64,192,128,0,240,
     80,88,72,72,72,72,72,72
 };
+unsigned char enemigo2[]={
+    0,0,0,0,4,4,4,7,
+    7,63,34,2,63,34,98,66,
+    0,0,0,0,32,32,32,224,
+    224,252,68,64,252,68,70,66
+};
+
+unsigned char enemigo2andando[]={
+    0,0,0,0,4,4,4,7,
+    7,7,14,10,7,6,14,10,
+    0,0,0,0,32,32,32,224,
+    224,224,112,80,224,96,112,80
+};
+unsigned char enemigo3[]={
+    124,68,68,124,8,12,2,1,
+    1,1,1,1,63,102,68,68,
+    62,34,34,62,32,96,64,128,
+    128,128,128,128,252,102,34,34
+};
+
+unsigned char enemigo3andando[]={
+    0,0,124,68,68,124,2,1,
+    1,1,1,1,7,10,10,10,
+    0,0,62,34,34,126,64,128,
+    128,128,128,128,224,80,80,80
+};
+unsigned char enemigo4[]={
+    0,2,2,3,65,97,63,1,
+    63,97,65,3,61,33,33,32,
+    0,64,64,192,130,134,252,128,
+    248,140,132,192,188,132,132,4
+};
+
+unsigned char enemigo4andando[]={
+    0,2,2,3,1,1,7,5,
+    15,9,9,7,9,9,9,8,
+    0,64,64,192,128,128,224,160,
+    240,144,144,224,144,144,144,16
+};
+
+// SPRITE COLORS
+unsigned char colorEnemigo1[]={
+    15,8,8,8,8,8,8,11,
+    11,11,10,10,10,10,10,10
+};
+unsigned char colorEnemigo1Andando[]={
+    15,8,8,8,8,8,8,10,
+    10,10,10,10,10,10,10,10
+};
+unsigned char colorEnemigo2[]={
+    15,15,15,15,2,2,2,2,
+    2,10,10,10,13,13,6,6
+};
+unsigned char colorEnemigo2Andando[]={
+    15,15,15,15,2,2,2,2,
+    2,10,10,10,13,13,6,6
+};
+unsigned char colorEnemigo3[]={
+    4,4,4,4,4,4,4,9,
+    9,9,9,9,8,8,8,8
+};
+unsigned char colorEnemigo3Andando[]={
+    4,4,4,4,4,4,4,9,
+    9,9,9,9,8,8,8,8
+};
+unsigned char colorEnemigo4[]={
+    15,9,9,9,4,4,4,4,
+    4,4,4,4,4,4,4,4
+};
+unsigned char colorEnemigo4Andando[]={
+    15,9,9,9,4,4,4,4,
+    4,4,4,4,4,4,4,4
+};
+
+
+
 
 //FUNCIONES
 void inicializar_enemigos();
@@ -49,8 +125,24 @@ TEnemy array_structs_enemigos[10];
 char numero_de_enemigo;
 char colisionFire;
 void inicilizar_enemigos(){
-    SetSpritePattern( 4*11, enemie1, 32);
-    SetSpritePattern( 4*12, enemie2, 32);
+    SetSpritePattern( 4*20, enemigo1, 32);
+    SetSpritePattern( 4*21, enemigo1andando, 32);
+    SetSpritePattern( 4*22, enemigo2, 32);
+    SetSpritePattern( 4*23, enemigo2andando, 32);
+    SetSpritePattern( 4*24, enemigo3, 32);
+    SetSpritePattern( 4*25, enemigo3andando, 32);
+    SetSpritePattern( 4*26, enemigo4, 32);
+    SetSpritePattern( 4*27, enemigo4andando, 32);
+
+    //SC5SpriteColors( 20, colorEnemigo1);
+    //SC5SpriteColors( 21, colorEnemigo1Andando);
+    //SC5SpriteColors( 22, colorEnemigo2);
+    //SC5SpriteColors( 23, colorEnemigo2Andando);
+    //SC5SpriteColors( 24, colorEnemigo3);
+    //SC5SpriteColors( 25, colorEnemigo3Andando);
+    //SC5SpriteColors( 26, colorEnemigo4);
+    //SC5SpriteColors( 27, colorEnemigo4Andando);
+
     //Las variables globales tienen que ser inicializadas dentro de un método
     numero_de_enemigo=0;
     colisionFire=0;
@@ -60,10 +152,71 @@ TEnemy* crear_enemigos(){
     ++numero_de_enemigo;
     return enemy;
 }
+
+
+
+void fabricaDeEnemigos(){
+    TEnemy* enemy1=crear_enemigos();
+    enemy1->x=255;
+    enemy1->y=19*8;
+    enemy1->velocidad=13;
+    enemy1->direccion=7;
+    enemy1->plano=20;
+    enemy1->sprite=20*4;
+    enemy1->color=9;
+    enemy1->tipo=0;
+
+    TEnemy* enemy2=crear_enemigos();
+    enemy2->x=1;
+    enemy2->y=135;
+    enemy2->velocidad=13;
+    enemy2->direccion=3;
+    enemy2->plano=21;
+    enemy2->sprite=21*4;
+    enemy2->color=2;
+    enemy2->tipo=0;
+
+    TEnemy* enemy3=crear_enemigos();
+    enemy3->x=255;
+    enemy3->y=120;
+    enemy3->velocidad=13;
+    enemy3->direccion=7;
+    enemy3->plano=22;
+    enemy3->sprite=22*4;
+    enemy3->color=6;
+    enemy3->tipo=0;
+
+    TEnemy* enemy4=crear_enemigos();
+    enemy4->x=1;
+    enemy4->y=130;
+    enemy4->velocidad=13;
+    enemy4->direccion=3;
+    enemy4->plano=23;
+    enemy4->sprite=23*4;
+    enemy4->color=3;
+    enemy4->tipo=0;
+}
+
 void actualizar_enemigos(){
    for (int i=0; i<numero_de_enemigo;i++){
-    array_structs_enemigos[i].x-=1;
-    if(array_structs_enemigos[i].x<0) array_structs_enemigos[i].x=255;
+       //Si se mueve a la derecha
+    if(array_structs_enemigos[i].direccion==3){
+        array_structs_enemigos[i].x-=array_structs_enemigos[i].velocidad;
+        if(array_structs_enemigos[i].x<0){
+            array_structs_enemigos[i].x=255;
+            array_structs_enemigos[i].y=generar_numero_aleatorio (100,150);
+            array_structs_enemigos[i].color=generar_numero_aleatorio (0, 14);
+        } 
+    }
+   if(array_structs_enemigos[i].direccion==7){
+        array_structs_enemigos[i].x+=array_structs_enemigos[i].velocidad;
+        if(array_structs_enemigos[i].x>240){
+            array_structs_enemigos[i].x=0;
+            array_structs_enemigos[i].y=generar_numero_aleatorio (100,150);
+            array_structs_enemigos[i].color=generar_numero_aleatorio (0, 14);
+        } 
+    }
+    
     if(array_structs_enemigos[i].x % 2){
          PutSprite(array_structs_enemigos[i].plano,array_structs_enemigos[i].sprite,array_structs_enemigos[i].x,array_structs_enemigos[i].y,array_structs_enemigos[i].color);
     }else{
@@ -76,22 +229,15 @@ void eliminar_enemigos(int i){
    --numero_de_enemigo;
   array_structs_enemigos[i]=array_structs_enemigos[numero_de_enemigo];
   PutSprite(array_structs_enemigos[i].plano,array_structs_enemigos[i].sprite,1,215,array_structs_enemigos[i].color);
+  if (numero_de_enemigo==0) fabricaDeEnemigos();
 }
+
 
 char collision_enemigos(char fireX, char fireiY){
     for (int i=0; i<numero_de_enemigo;i++){
          if (fireX < array_structs_enemigos[i].x + 16 &&  fireX + 16 > array_structs_enemigos[i].x && fireiY < array_structs_enemigos[i].y + 16 && 16 + fireiY > array_structs_enemigos[i].y){
             colisionFire=1;
             eliminar_enemigos(i);
-            TEnemy* enemy1=crear_enemigos();
-            enemy1->x=255;
-            enemy1->y=generar_numero_aleatorio (120,150);
-            enemy1->velocidad=4;
-            enemy1->direccion=7;
-            enemy1->plano=20;
-            enemy1->sprite=11*4;
-            enemy1->color=6;
-            enemy1->tipo=0;
         }else{
             colisionFire=0;
         }

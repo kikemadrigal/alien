@@ -173,7 +173,7 @@ void render_player(){
         //Pintamos el tronco superior 2, color amarillo 10
         PutSprite( player.plano+1, player.sprite+4, player.x,player.y,  10);
         //Pintamos las piernas
-        if(player.andando==0){
+        if(player.andando ==0){
             PutSprite( player.plano+2, player.sprite+2*4, player.x,player.y+16,  9 );
         } else {
             PutSprite( player.plano+2, player.sprite+3*4, player.x,player.y+16,  9 );
@@ -186,7 +186,7 @@ void render_player(){
         //Pintamos el tronco superior 2, color amarillo 10
         PutSprite( player.plano+1, player.sprite+6*4, player.x,player.y,  player.color );
         //Pintamos las piernas
-        if(player.andando==0){
+        if(player.andando ==0){
             PutSprite( player.plano+2, player.sprite+7*4, player.x,player.y+16,  player.color );
         } else {
             PutSprite( player.plano+2, player.sprite+8*4, player.x,player.y+16,  player.color );
@@ -206,21 +206,18 @@ void update_player(){
     if (player.y>140) player.y=140;
     //Colision con bloque solido en la derecha
     //Los sprites son un poc dificiles de tratar porque son de 16 pixeles y son 2 y la pantalla su mueve
-    tileY=(player.y/8)+3;
-    tileX=(player.x/8)+(contador-32);
-    /*
-    if(filas[tileY+1][tileX]<192 && player.saltando==0){
-        //Beep();
-        player.y+=player.velocidadY;
-    }
-
-    if (filas[tileY][tileX]>=195 && player.saltando==0){
-       player.x=player.oldX;
-       player.colision=1;
+    tileY=(player.y/8)+4;
+    
+    if (player.direccion==3) tileX=(player.x/8)+(contadorColumna-32)+1;
+    if (player.direccion==7) tileX=(player.x/8)+(contadorColumna-32)-1;
+    
+    if (bufferTileSetYMap[tileY*numeroColumnas+tileX]>=195){
+       //player.x=player.oldX;
+       //player.colision=1;
     }else{
-        player.colision=0;
+        //player.colision=0;
     }   
-    */ 
+    
     //Salto
     /*if (player.saltando==1){
         //Si la posición del player es menor qu ela inicial se l resta la velocidad
@@ -237,11 +234,11 @@ void update_player(){
     if (player.saltando==1){
         //Si la posición del player es menor qu ela inicial se l resta la velocidad
         
-        if(filas[tileY+1][tileX]>=192){
+        /*if(filas[tileY+1][tileX]>=192){
            player.saltando=0;
         }else{
             player.y+=player.velocidadY;
-        }
+        }*/
     }
 }
 

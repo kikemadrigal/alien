@@ -38,8 +38,8 @@ int posicionPlayerInicial;
 unsigned int espacioLibre;
 TFire* fire;
 void main(void){
-  contador_tiles=0;
   espacioLibre=0;
+
   SetColors(15,1,1);
   Screen(5);
 
@@ -47,16 +47,19 @@ void main(void){
   SpriteOn();
   inicializar_player(); 
 
+  inicializarPantalla();
   cargarTileSetEnRAM();
   deRamAVramPage1();
 
   cargarTileMapEnRAM();
-  cargarArrayFilasTileMap();
   pintarPantallaInicio();
  
   inicializar_disparos();
   inicilizar_enemigos();
   fabricaDeEnemigos();
+
+  SetRealTimer(0);	
+  KeySound(0);
   
   gui();
   //verArray();
@@ -69,26 +72,33 @@ void main(void){
   /*************Fin pantalla de bienvenida**************/
  
   repetir:
-  contador=32;
-  while(contador<numeroColumnas && Inkey()!=27){
-    
+  //El scroll empezará en la columna 32
+  contadorColumna=32;
+  while(contadorColumna<numeroColumnas && Inkey()!=27){
     __asm 
       halt 
       halt 
-      
+      halt 
     __endasm;
     
     //El movimiento de la pantalla o scroll está en el input system
     procesar_entrada();
     update_player();
-    render_player();
     actualizar_disparos();
     actualizar_enemigos();
+
+    render_player();
     update_collision_system();
-    //gui();
+    //recorrerBufferTileMapYPintarPage1EnPage0();
+    gui();
   }
-  PutText(100,100,"Mision cumplida, desea repetir",8);
-  goto repetir;
+  PutText(0,100,"Mision cumplida, desea repetir?",8);
+  char letra=WaitKey();
+  PutText(0,120,Itoa(letra,"  ",10),8);
+  if (letra==27){
+    PutText(0,130,"Has presionado escape",8);
+    goto repetir;
+  }
 }
 
 void inicializar_sprites(){
@@ -145,6 +155,7 @@ void procesar_entrada(){
         player.y+=player.velocidadY;
         break;
     case 7:
+      if(player.colision==0){
         player.x-=player.velocidadX;
         player.direccion=7;
         if (player.andando==0){
@@ -152,6 +163,7 @@ void procesar_entrada(){
         }else{
           player.andando=0;
         }
+      } 
         //recorrerBufferTileMapYPintarPage1EnPage0Inversa();
         break;
     default:
@@ -189,19 +201,6 @@ void update_collision_system(){
 }
 
 
-void fabricaDeEnemigos(){
-    TEnemy* enemy1=crear_enemigos();
-    enemy1->x=255;
-    enemy1->y=19*8;
-    enemy1->velocidad=16;
-    enemy1->direccion=7;
-    enemy1->plano=20;
-    enemy1->sprite=11*4;
-    enemy1->color=6;
-    enemy1->tipo=0;
-}
-
-
 
 
 //HUD
@@ -209,17 +208,16 @@ void gui(){
   BoxLine(0,184,255,210,6,8);
   BoxFill(0,184,255,210,1,8);
 
-  tileY=(player.y/8)+3;
-  tileX=(player.x/8)+(contador-32);
+  tileY=(player.y/8)+4;
+  tileX=(player.x/8)+(contadorColumna-32);
   PutText(100,185,Itoa(tileY,"  ",10),8);
   PutText(100,195,Itoa(tileX,"  ",10),8);
-  PutText(100,203,Itoa(filas[tileY][tileX],"  ",10),8);
+  PutText(100,203,Itoa(bufferTileSetYMap[tileY*numeroColumnas+tileX],"  ",10),8);
   //Colision derecha con bloque
-  tileY=(player.y/8)+3;
-  tileX=(player.x/8)+(contador-32)-3;
-  PutText(200,185,Itoa(player.saltando,"  ",10),8);
-  espacioLibre=ReadSP();
-  PutText(200,195,Itoa(espacioLibre,"  ",10),8);
+  //tileY=(player.y/8)+3;
+  //tileX=(player.x/8)+(contadorColumna-32)-3;
+  PutText(200,185,Itoa(numero_de_enemigo,"  ",10),8);
+  PutText(200,195,Itoa(RealTimer()/60,"  ",10),8);
   /*
   PutText(0,185,Itoa(array_structs_enemigos[0].plano,"  ",10),8);
   PutText(0,195,Itoa(array_structs_enemigos[0].sprite,"  ",10),8);
