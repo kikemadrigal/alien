@@ -21,7 +21,7 @@
 #
 #
 .PHONY: all, clean, fclean, emulator, re
-HEX2BINDIR = ./										# where is the hex2bin folder : ./ if installed in system
+HEX2BINDIR = ./Tools/Hex2bin/linux/										# where is the hex2bin folder : ./ if installed in system
 HEX2BIN = hex2bin       							# name of hex2bin command name
 ASM = sdasz80  										# ASM compilator command name
 CC = sdcc  											# SDCC commpilator command name
@@ -92,4 +92,4 @@ clean:
 
 emulator:
 	# Starting emulator script 
-	./openMSX/emul_start.sh
+	./Tools/openMSX/linux/emul_start.sh

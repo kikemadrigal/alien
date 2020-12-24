@@ -75,6 +75,7 @@ void main(void){
   //El scroll empezará en la columna 32
   contadorColumna=32;
   while(contadorColumna<numeroColumnas && Inkey()!=27){
+    
     __asm 
       halt 
       halt 

@@ -74,10 +74,10 @@ del %proga%.com
 del %proga%.asm
 del %proga%.ihx
 del %proga%.lk
-%proga%.lst
-%proga%.map
+del %proga%.lst
+del %proga%.map
 del %proga%.noi
-%proga%.sym
+del %proga%.sym
 del %proga%.rel
 
 echo Done.
