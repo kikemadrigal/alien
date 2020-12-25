@@ -59,6 +59,7 @@ void actualizar_disparos(){
 }
 void eliminar_disparos(int i){
    --numero_disparo;
-  array_structs_fires[i]=array_structs_fires[numero_disparo];
   PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, 1,215, 15 );
+  array_structs_fires[i]=array_structs_fires[numero_disparo];
+  
 }

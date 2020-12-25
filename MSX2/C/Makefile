@@ -92,4 +92,19 @@ clean:
 
 emulator:
 	# Starting emulator script 
-	./Tools/openMSX/linux/emul_start.sh
+	#./Tools/openMSX/linux/emul_start.sh
+	openmsx -carta test.rom -script launch_fast.tcl &
+
+.PHONY: dddmsx
+dddmsx:
+	ddd --trace --debugger openmsxgdb.py test 2> ddd_openmsx.log
+
+.PHONY: ddd
+ddd:
+	ddd --trace test 2> ddd_linux.log
+
+.PHONY: compare
+compare:
+	cat ddd_linux.log | grep -e "^\\*" -e "^<- \".*\"" -e "^-> \".*\"" -e "^[[:space:]]*\".*\"" > ddd_linux.filtered.log
+	cat ddd_openmsx.log | grep -e "^\\*" -e "^<- \".*\"" -e "^-> \".*\"" -e "^[[:space:]]*\".*\"" > ddd_openmsx.filtered.log
+	meld ddd_linux.log ddd_openmsx.log&

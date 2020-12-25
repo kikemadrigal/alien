@@ -80,6 +80,9 @@ void main(void){
       halt 
       halt 
       halt 
+      halt
+      halt
+      halt
     __endasm;
     
     //El movimiento de la pantalla o scroll está en el input system
@@ -91,7 +94,7 @@ void main(void){
     render_player();
     update_collision_system();
     //recorrerBufferTileMapYPintarPage1EnPage0();
-    gui();
+    //gui();
   }
   PutText(0,100,"Mision cumplida, desea repetir?",8);
   char letra=WaitKey();
