@@ -27,7 +27,7 @@
 1 ' ----------------------' 
     1 'bluce principal'
     1 'Capturamos las teclas'
-    2000 gosub 2500
+    2000 gosub 5000
     1 'Chequeamos la física'
     2020 gosub 3100
     1 'render player, el update lo hacemos en el sistema de input'
@@ -63,38 +63,8 @@
     2400 if re=10 then sound 6,5:sound 8,16:sound 12,6:sound 13,9
 2420 return
 
-1 ' ----------------------'
-1 '     INPUT SYSTEM'
-1 ' ----------------------'
-1 '2 Sistema de input'
-    1 'Nos guardamos las posiciones del player antes de cambiarlas'
-    2500 on stick(0) gosub 2700,2500,2600,2500,2800,2500,2640
-    1 '2520 if pa=1 then py=py-pj
-    1 '12 es la distancia máxima a la que puede saltar'
-    1 '2530 if py<po-20 then pj=-pj
-    1 '2540 if py>po then py=po:pj=0:pj=-pj:pa=0'strig(0)on
-    2520 if pa=1 and pc<7 then py=py+s(pc):pc=pc+1
-    2530 if pa=1 and pc>=5 then pc=0:pa=0
-2545 return
-1 're=8 es el efecto de sonido 8 de la rutina de reprodución de sonidos 2300
-1 '3 derecha'
-    2600 px=px+pv
-    2610 p1=0:p2=1:p4=4
-    2620 swap p(0),p(1):p3=p(1)
-2630 return
-1 '7 izquierda'
-    2640 px=px-pv:'gosub 9000
-    2650 p1=5:p2=6:p4=9
-    2660 swap p(2),p(3):p3=p(3)
-2670 return
-1 '1 Arriba'
-    1 'Saltamos y reproducimos un sonido'
-    1 '2700 if pa<>1 then po=py:pj=2:pa=1:re=10: gosub 2300:'strig(0)off
-    2700 if pa<>1 then pa=1
-2750 return
-1 '5 abajo'
-    2800 'nada'
-2850 return
+
+
 
 
 
@@ -124,7 +94,7 @@
     3150 if t7>=ts then px=px+pv
     1 'Si el tile del suelo es un solido nos quedamos ahí'
     3160 if pa=1 and t5>ts then py=py-pv
-    1 'Si no estas saltando y el tile del suelo no es de tipo suelo'
+    1 'Si no estas saltando y el tile del suelo no es de tipo suelo aumentamos la y'
     3170 if pa=0 and t5<tf then py=py+pv 
 3190 return
 
@@ -139,20 +109,86 @@
 
 
 
+1 ' ----------------------'
+1 '     INPUT SYSTEM'
+1 ' ----------------------'
+1 '2 Sistema de input'
+    1 'Nos guardamos las posiciones del player antes de cambiarlas'
+    5000 on stick(0) gosub 5200,5400,5600,5800,6000,6200,6400,6600
+    1 '5000 j=stick(0)
+    1 '5010 if j=1 then gosub 5200
+    1 '5020 if j=2 then gosub 5400
+    1 '5030 if j=3 then gosub 5600
+    1 '5040 if j=4 then gosub 5800
+    1 '5050 if j=5 then gosub 6000
+    1 '5060 if j=6 then gosub 6200 
+    1 '5070 if j=7 then gosub 6400 
+    1 '5080 if j=8 then gosub 6600 
+
+    1 'Rutina de salto (2 parte)'
+    1 '5100 if pa=1 then py=py-pj
+    1 '12 es la distancia máxima a la que puede saltar'
+    1 '5120 if py<po-20 then pj=-pj
+    1 '5130 if py>po then py=po:pj=0:pj=-pj:pa=0'strig(0)on
+    5100 if pa=1 and pc<7 then py=py+s(pc):pc=pc+1
+    5120 if pa=1 and pc>=7 and t5>=tf then pc=0:pa=0
+    1'5130 if pa=1 and t5>=tf then pa=0
+    1' 5120 if t5=tf or t5=ts then pc=0:pa=0
+5190 return
+1 '1 Arriba'
+    1 'Saltamos y reproducimos un sonido'
+    1 '2700 if pa<>1 then po=py:pj=2:pa=1:re=10: gosub 2300:'strig(0)off
+    5200 if pa<>1 then pa=1
+5290 return
+1 '2-arriba-derecha'
+    5400 if pa<>1 then pa=1
+    5410 px=px+pv
+    5420 p1=0:p2=1:p4=4
+    5430 swap p(0),p(1):p3=p(1)
+5490 return
+1 '3 derecha'
+    5600 px=px+pv
+    5610 p1=0:p2=1:p4=4
+    5620 swap p(0),p(1):p3=p(1)
+5690 return
+1 '4-abajo derecha'
+    5800 'nada'
+5890 return
+1 '5 abajo'
+    6000 'nada'
+6090 return
+1 '6-abajo-izquierda'
+    6200 'nada'
+6290 return
+1 '7 izquierda'
+    6400 px=px-pv:'gosub 9000
+    6420 p1=5:p2=6:p4=9
+    6440 swap p(2),p(3):p3=p(3)
+6490 return
+1 '8 arriba izquierda'
+    6600 if pa<>1 then pa=1
+    6610 px=px-pv:'gosub 9000
+    6620 p1=5:p2=6:p4=9
+    6630 swap p(2),p(3):p3=p(3)
+6690 return
+
+
 
 
 
 1 ' ----------------------'
 1 '     HUD'
 1 ' ----------------------'
-    9000 line (0,180)-(256,212),1,bf
+    9000 line (0,180)-(256,212),1,bf 
     1'9040 preset (0,170):print #1,"px: "px"  py: "py
     1 '9050 preset (0,180):print #1,"mc: "mc"  energy: "pe
     1 '9055 preset (0,190):print #1,"pa: "pa" tx: "tx"  ty: "ty 
     1 '9060 preset (0,200):print #1,"t7: "t7" t3 "t3" t5 "t5
-    9050 preset (0,180):print #1,"mc: "mc"  en: "en
-    9055 preset (0,190):print #1,"ep: "ep(0)" es: "es(0)"  ex: "ex(0)" ey: "ey(0) 
-    9060 preset (0,200):print #1,"px: "px
+    1 '9050 preset (0,180):print #1,"mc: "mc"  en: "en
+    1 '9055 preset (0,190):print #1,"ep: "ep(0)" es: "es(0)"  ex: "ex(0)" ey: "ey(0)  
+    1 '9060 preset (0,200):print #1,"px: "px
+    9050 preset (0,180):print #1,"pa: "pa"  en: "pc" tf: "tf" ts: "ts
+    9060 preset (0,190):print #1,"t5: "t5" tf: "tf" ts: "ts
 9090 return
 
 
@@ -190,7 +226,7 @@
     1 'pj=distancia que recorre cuando el salto está activado'
     1 'pc=variable utilizada para el contador de salto y así recorrer el array de salto p()'
     1 'pg=player gravedad'
-    10000 px=0:py=18*8:pw=16:ph=16:pv=8:pj=0:po=py:pa=0:pc=0:dim s(7)
+    10000 px=0:py=18*8:pw=16:ph=16:pv=8:pl=8:pj=0:po=py:pa=0:pc=0:dim s(7)
     1 'Array de salto'
     10010 s(0)=-8:s(1)=-8:s(2)=-8:s(3)=0:s(4)=8:s(5)=8:s(6)=8
     1 'Apartir del 5 sprite es la izquierda'

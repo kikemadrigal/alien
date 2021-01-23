@@ -10,7 +10,7 @@
 550 gosub 14000
 560 gosub 13300
 570 gosub 4000
-    2000 gosub 2500
+    2000 gosub 5000
     2020 gosub 3100
     2030 gosub 10300
     2040 gosub 12700
@@ -26,22 +26,6 @@
     2390 if re=9 then PLAY"o2 l64 t255 v10 m6500 c"
     2400 if re=10 then sound 6,5:sound 8,16:sound 12,6:sound 13,9
 2420 return
-    2500 on stick(0) gosub 2700,2500,2600,2500,2800,2500,2640
-    2520 if pa=1 and pc<7 then py=py+s(pc):pc=pc+1
-    2530 if pa=1 and pc>=5 then pc=0:pa=0
-2545 return
-    2600 px=px+pv
-    2610 p1=0:p2=1:p4=4
-    2620 swap p(0),p(1):p3=p(1)
-2630 return
-    2640 px=px-pv:'gosub 9000
-    2650 p1=5:p2=6:p4=9
-    2660 swap p(2),p(3):p3=p(3)
-2670 return
-    2700 if pa<>1 then pa=1
-2750 return
-    2800 'nada'
-2850 return
     3100 if mc>=200-32 then print #1,"FINAL": return
     3101 if px<0 then px=0
     3105 if py>180 then goto 10400
@@ -57,12 +41,41 @@
 3190 return
     4000 'if px mod 80=0 and px<>0 then gosub 12500
 4090 return
-    9000 line (0,180)-(256,212),1,bf
-    9050 preset (0,180):print #1,"mc: "mc"  en: "en
-    9055 preset (0,190):print #1,"ep: "ep(0)" es: "es(0)"  ex: "ex(0)" ey: "ey(0) 
-    9060 preset (0,200):print #1,"px: "px
+    5000 on stick(0) gosub 5200,5400,5600,5800,6000,6200,6400,6600
+    5100 if pa=1 and pc<7 then py=py+s(pc):pc=pc+1
+    5120 if pa=1 and pc>=7 and t5>=tf then pc=0:pa=0
+5190 return
+    5200 if pa<>1 then pa=1
+5290 return
+    5400 if pa<>1 then pa=1
+    5410 px=px+pv
+    5420 p1=0:p2=1:p4=4
+    5430 swap p(0),p(1):p3=p(1)
+5490 return
+    5600 px=px+pv
+    5610 p1=0:p2=1:p4=4
+    5620 swap p(0),p(1):p3=p(1)
+5690 return
+    5800 'nada'
+5890 return
+    6000 'nada'
+6090 return
+    6200 'nada'
+6290 return
+    6400 px=px-pv:'gosub 9000
+    6420 p1=5:p2=6:p4=9
+    6440 swap p(2),p(3):p3=p(3)
+6490 return
+    6600 if pa<>1 then pa=1
+    6610 px=px-pv:'gosub 9000
+    6620 p1=5:p2=6:p4=9
+    6630 swap p(2),p(3):p3=p(3)
+6690 return
+    9000 line (0,180)-(256,212),1,bf 
+    9050 preset (0,180):print #1,"pa: "pa"  en: "pc" tf: "tf" ts: "ts
+    9060 preset (0,190):print #1,"t5: "t5" tf: "tf" ts: "ts
 9090 return
-    10000 px=0:py=18*8:pw=16:ph=16:pv=8:pj=0:po=py:pa=0:pc=0:dim s(7)
+    10000 px=0:py=18*8:pw=16:ph=16:pv=8:pl=8:pj=0:po=py:pa=0:pc=0:dim s(7)
     10010 s(0)=-8:s(1)=-8:s(2)=-8:s(3)=0:s(4)=8:s(5)=8:s(6)=8
     10020 dim p(3):p(0)=2:p(1)=3:p(2)=7:p(3)=8:p1=0:p2=1:p3=2:p4=4
     10030 pp=0:ps=0

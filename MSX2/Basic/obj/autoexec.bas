@@ -1,3 +1,4 @@
 10 cls
-20 load"loader.bas",r
+1 '20 load"loader.bas",r
+20 load"main2.bas",r
 
