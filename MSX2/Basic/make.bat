@@ -9,10 +9,6 @@ move /y world0.bin .\bin
 rem del /F src\music.lst
 
 
-if exist %TARGET_DSK% del /f /Q %TARGET_DSK%
-copy tools\Disk-Manager\main.dsk .\%TARGET_DSK%
-
-
 
 rem Copiando todos los archivos.bas de la carpeta src
 rem los pegamos en objects y mostramos un mensajito
@@ -20,7 +16,7 @@ for /R src %%a in (*.bas) do (
     copy "%%a" obj & echo %%a)
 rem Copiando todos los archivos.bin de la carpeta bin
 rem los pegamos en objects y mostramos un mensajito
-for /R bin %%a in (*.bin) do (
+for /R bin %%a in (*.*) do (
     copy "%%a" obj & echo %%a)
 
 
@@ -31,6 +27,9 @@ rem Lo tokenizamos
 rem start /wait tools/tokenizer/msxbatoken.py obj/game.asc obj/game.bas 
 
 
+
+if exist %TARGET_DSK% del /f /Q %TARGET_DSK%
+copy tools\Disk-Manager\main.dsk .\%TARGET_DSK%
 rem añadimos todos los .bas de la carpeta obj al disco
 rem por favor mirar for /?
 rem for /R obj/ %%a in (*.bas) do (
@@ -42,7 +41,7 @@ start /wait tools/Disk-Manager/DISKMGR.exe -A -F -C %TARGET_DSK% obj/game.bas
 rem añadimos todos los arhivos binarios de la carpeta bin al disco
 rem recuerda que un sc2, sc5, sc8 es también un archivo binario, renombralo
 rem por favor mirar for /?
-for /R bin/ %%a in (*.bin) do (
+for /R bin/ %%a in (*.*) do (
     start /wait tools/Disk-Manager/DISKMGR.exe -A -F -C %TARGET_DSK% "%%a")   
 
 rem abrimos nuestro emulador preferido
