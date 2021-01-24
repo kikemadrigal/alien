@@ -34,7 +34,7 @@
     2030 gosub 10300
     1 'Render / update enemy'
     2040 gosub 12700
-    2060 gosub 9000
+    2060 'gosub 9000
 2090 goto 2000
 1 ' ----------------------'
 1 '    FINAL MAIN LOOP
@@ -170,13 +170,13 @@
     1 '9050 preset (0,180):print #1,"mc: "mc"  energy: "pe
     1 '9055 preset (0,190):print #1,"pa: "pa" tx: "tx"  ty: "ty 
     1 '9060 preset (0,200):print #1,"t7: "t7" t3 "t3" t5 "t5
-    9050 preset (0,180):print #1,"!mc: "mc"  en: "en" ec: "ec(1)
-    9055 preset (0,190):print #1,"!ep: "ep(1)" es: "es(1)"  ex: "ex(1)" ey: "ey(1)  
+    1 '9050 preset (0,180):print #1,"!mc: "mc"  en: "en" ec: "ec(1)
+    1 '9055 preset (0,190):print #1,"!ep: "ep(1)" es: "es(1)"  ex: "ex(1)" ey: "ey(1)  
     1 '9060 preset (0,200):print #1,"px: "px
     1 '9050 preset (0,180):print #1,"pa: "pa"  en: "pc" tf: "tf" ts: "ts
     1 '9060 preset (0,190):print #1,"t5: "t5" tf: "tf" ts: "ts
-    1 '9050 preset (10,190):print #1,"Muestras: 0 / Oxigeno: 100 %"
-    1 '9060 preset (10,200):print #1,"Vidas: 10"
+    9050 preset (10,180):print #1,"Muestras: 0 / Oxigeno: 100 %"
+    9060 preset (10,190):print #1,"Vidas: 10"
 9090 return
 
 
@@ -437,6 +437,8 @@
         13720 next f
     13730 next i
     13735 _turbo off
+    1 ' Pintamos el marcador'
+    13736 gosub 9000
 13740 return
 
 1 '---------------------------------------'

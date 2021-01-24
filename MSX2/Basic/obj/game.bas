@@ -13,7 +13,7 @@
 2020gosub3100
 2030gosub10300
 2040gosub12700
-2060gosub9000
+2060'gosub9000
 2090goto2000
 2300a=usr2(0)
 2310ifre=1thenPLAY"O5L8V4M8000AADFG2AAAAr60GEFDCDGR8A2A2A8","o1v4cr8o2cr8o1v6cr8o2v4cr8o1cr8o2v6cr8"
@@ -71,8 +71,8 @@
 6630swapp(2),p(3):p3=p(3)
 6690return
 9000line(0,180)-(256,212),1,bf
-    9050 preset (0,180):print #1,"mc: "mc"  en: "en" ec: "ec(1)
-    9055 preset (0,190):print #1,"ep: "ep(1)" es: "es(1)"  ex: "ex(1)" ey: "ey(1)  
+9050preset(10,180):print#1,"Muestras:0/Oxigeno:100%"
+9060preset(10,190):print#1,"Vidas:10"
 9090return
 10000px=0:py=13*8:pw=16:ph=16:pv=8:pl=8:pj=0:pa=0:dimj(7):po=0
 10010j(0)=-8:j(1)=-8:j(2)=-8:j(3)=0:j(4)=8:j(5)=8:j(6)=8
@@ -167,6 +167,7 @@
 13720nextf
 13730nexti
 13735_turbooff
+13736gosub9000
 13740return
     14000 cls:preset (10,30):  print #1,"@@@@  @  @@@@  @ @@@@@ @  @   @"
     14010 preset (10,40):      print #1,"@    @ @ @@@@  @   @  @ @ @ @ @"
