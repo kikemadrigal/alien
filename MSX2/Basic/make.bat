@@ -21,7 +21,7 @@ for /R bin %%a in (*.*) do (
 
 
 rem Le quitamos los comentarios a game.bas
-java -jar tools/deletecomments/deletecomments1.2.jar src/main.bas obj/game.bas  
+java -jar tools/deletecomments/deletecomments1.4.jar src/main.bas obj/game.bas  
 
 rem Lo tokenizamos
 rem start /wait tools/tokenizer/msxbatoken.py obj/game.asc obj/game.bas 
@@ -37,7 +37,7 @@ rem for /R obj/ %%a in (*.bas) do (
 start /wait tools/Disk-Manager/DISKMGR.exe -A -F -C %TARGET_DSK% obj/autoexec.bas  
 start /wait tools/Disk-Manager/DISKMGR.exe -A -F -C %TARGET_DSK% obj/loader.bas  
 start /wait tools/Disk-Manager/DISKMGR.exe -A -F -C %TARGET_DSK% obj/game.bas 
-start /wait tools/Disk-Manager/DISKMGR.exe -A -F -C %TARGET_DSK% obj/main2.bas 
+
 rem añadimos todos los arhivos binarios de la carpeta bin al disco
 rem recuerda que un sc2, sc5, sc8 es también un archivo binario, renombralo
 rem por favor mirar for /?

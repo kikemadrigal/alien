@@ -5,21 +5,21 @@
 1 'Enlazamos con las rutinas de la bios para aparagar y encender la pantalla'
 20 defusr3=&H41:defusr4=&H44
 1 'Inicializar mapa, cargamos mapas en array y lo pintamos'
-100 print #1, "Cargando mapa en array (en RAM)"
+100 print #1, "!Cargando mapa en array (en RAM)"
 110 gosub 13000: gosub 13100
 1 'Inicializamos el personaje'
 130 gosub 10000
 1 'Rutina barra espaciadora pulsada
 520 strig(0) on:on strig gosub 10500
-530 on interval=500 gosub 12500:interval on
-1 'Mostrar scoreboard'
-540 'gosub 9000
+1 'cada 5 segundos creamos un enemigo'
+530 'interval on:on interval=500 gosub 12500:beep
 1 'Mostrar pantalla de información / bienvenida'
 550 gosub 14000
 1 'Copiando mundo en page 0'
 560 gosub 13300
-1 'crear enemigo'
-570 gosub 4000
+1 'Mostrar scoreboard'
+570 gosub 9000
+
 
 1 'Solo se saldrá de este bucle si se ha llegado al final de la pantalla'
 1 ' ----------------------'
@@ -32,11 +32,9 @@
     2020 gosub 3100
     1 'render player, el update lo hacemos en el sistema de input'
     2030 gosub 10300
-    1 'Render enemy'
+    1 'Render / update enemy'
     2040 gosub 12700
-    1 'Game update- Crear o destruir enemigos'
-    2050 gosub 4000
-    2060 'gosub 9000
+    2060 gosub 9000
 2090 goto 2000
 1 ' ----------------------'
 1 '    FINAL MAIN LOOP
@@ -72,40 +70,47 @@
 1 '    Physics system'
 1 ' ----------------------'
 1'chequeando contorno sprite personaje
-    1 'Chekeo de llegar al final del mundo'
-    3100 if mc>=200-32 then print #1,"FINAL": return
+    3100 'nada'
+    1 'Chekeo de llegar al final del mundo, mc=mapa contador'
+    3110 if mc>=200-32 then print #1,"!FINAL": return
     1 'Chekeo pantalla'
-    3101 if px<0 then px=0
+    3120 if px<0 then px=0
     1 'Si la posición y es mayor que 180 es que te has caido y vuelves a empezar'
-    3105 if py>180 then goto 10400
-    1 'Si la posición x del player ha llegado al final movemos la pantalla'
-    3106 if px>256-16 then px=-32:gosub 10300: gosub 13600:py=18*8:px=0
+    3130 if py>180 then goto 10400
+    1 'Si la posición x del player ha llegado al final, sacamos al personaje de la pantalla 10300, lo pintamos y movemos la pantalla 13600'
+    3140 if px>256-16 then px=-32:gosub 10300: gosub 13600:py=18*8:px=0
+
     1 'Obtenemos el tile actual del player'
-    3110 tx=px/8+mc:ty=py/8
+    3150 tx=px/8+mc:ty=py/8 
     1 'nuestro sprite son 2 sprites de alto'
     1 'Queremos saber el tile que hay en la derecha del sprite,como son de 8px es +2'
     1 'Colision bloque derecha, hay que sumarle 3 bloques de 8px de los sprites'
-    3130 t3=m(tx+1,ty+3)
-    1 'Tile de abajo'
-    3131 t5=m(tx,ty+4)
+    1 'tf=tile floor, o tile suelo o sólido, a partir de las posición 160 empiezan a definirse los tiles que no se pueden pasar'
+    3160 t3=m(tx+1,ty+3)
+    1 'Tile de abajo' 
+    3170 t5=m(tx,ty+4)    
     1 'tile de la izquierda'
-    3135 t7=m(tx,ty+3)
-    3140 if t3>=ts then px=px-pv
-    3150 if t7>=ts then px=px+pv
-    1 'Si el tile del suelo es un solido nos quedamos ahí'
-    3160 if pa=1 and t5>ts then py=py-pv
-    1 'Si no estas saltando y el tile del suelo no es de tipo suelo aumentamos la y'
-    3170 if pa=0 and t5<tf then py=py+pv 
-3190 return
+    3180 t7=m(tx,ty+3) 
+    1 ' tf=160: ts=192'
+    1 'Si el tile de la derecha es mayor que 192' 
+    3190 if t3>=tf then px=px-pv
+    3200 if t7>=tf then px=px+pv
+
+    1 ' Control del salto'
+    1' Si el tile del suelo es mayor que el del suelo guardado y estamos cayendo reiniciamos
+    3210 if pa=1 and t5>=tf and pl<0 then pa=0:pl=-pl
+    3220 if pa=1 then py=py-pl 
+    3230 if pa=1 and py<po-20 then pl=-pl
+    3240 if pa=1 and py>po then py=po:pl=-pl:pa=0
+
+    1 'Sin saltar '
+    1 'Gravedad: si el tile de debajo es menor que el definido de tipo suelo le sumamos la velocidad y'
+    1 'Asi solo parará de bajar al player cuando p5 sea mayor 160'
+    3250 if pa=0 and t5<tf then py=py+pl
+   
+3290 return
 
 
-1 ' ----------------------'
-1 '    Game system'
-1 ' ----------------------'
-1 'Update game'
-1 'Si han habido 16 pasos creamos un enemigo'
-    4000 'if px mod 80=0 and px<>0 then gosub 12500
-4090 return
 
 
 
@@ -114,34 +119,15 @@
 1 ' ----------------------'
 1 '2 Sistema de input'
     1 'Nos guardamos las posiciones del player antes de cambiarlas'
-    5000 on stick(0) gosub 5200,5400,5600,5800,6000,6200,6400,6600
-    1 '5000 j=stick(0)
-    1 '5010 if j=1 then gosub 5200
-    1 '5020 if j=2 then gosub 5400
-    1 '5030 if j=3 then gosub 5600
-    1 '5040 if j=4 then gosub 5800
-    1 '5050 if j=5 then gosub 6000
-    1 '5060 if j=6 then gosub 6200 
-    1 '5070 if j=7 then gosub 6400 
-    1 '5080 if j=8 then gosub 6600 
-
-    1 'Rutina de salto (2 parte)'
-    1 '5100 if pa=1 then py=py-pj
-    1 '12 es la distancia máxima a la que puede saltar'
-    1 '5120 if py<po-20 then pj=-pj
-    1 '5130 if py>po then py=po:pj=0:pj=-pj:pa=0'strig(0)on
-    5100 if pa=1 and pc<7 then py=py+s(pc):pc=pc+1
-    5120 if pa=1 and pc>=7 and t5>=tf then pc=0:pa=0
-    1'5130 if pa=1 and t5>=tf then pa=0
-    1' 5120 if t5=tf or t5=ts then pc=0:pa=0
+    5000 'nada'
+    5010 on stick(0) gosub 5200,5400,5600,5800,6000,6200,6400,6600
 5190 return
 1 '1 Arriba'
     1 'Saltamos y reproducimos un sonido'
-    1 '2700 if pa<>1 then po=py:pj=2:pa=1:re=10: gosub 2300:'strig(0)off
-    5200 if pa<>1 then pa=1
+    5200 if pa<>1 then po=py:pa=1
 5290 return
 1 '2-arriba-derecha'
-    5400 if pa<>1 then pa=1
+    5400 if pa<>1 then po=py:pa=1
     5410 px=px+pv
     5420 p1=0:p2=1:p4=4
     5430 swap p(0),p(1):p3=p(1)
@@ -161,13 +147,13 @@
     6200 'nada'
 6290 return
 1 '7 izquierda'
-    6400 px=px-pv:'gosub 9000
+    6400 px=px-pv
     6420 p1=5:p2=6:p4=9
     6440 swap p(2),p(3):p3=p(3)
 6490 return
 1 '8 arriba izquierda'
-    6600 if pa<>1 then pa=1
-    6610 px=px-pv:'gosub 9000
+    6600 if pa<>1 then po=py:pa=1
+    6610 px=px-pv
     6620 p1=5:p2=6:p4=9
     6630 swap p(2),p(3):p3=p(3)
 6690 return
@@ -180,15 +166,17 @@
 1 '     HUD'
 1 ' ----------------------'
     9000 line (0,180)-(256,212),1,bf 
-    1'9040 preset (0,170):print #1,"px: "px"  py: "py
+    1' 9040 preset (0,170):print #1,"px: "px"  py: "py
     1 '9050 preset (0,180):print #1,"mc: "mc"  energy: "pe
     1 '9055 preset (0,190):print #1,"pa: "pa" tx: "tx"  ty: "ty 
     1 '9060 preset (0,200):print #1,"t7: "t7" t3 "t3" t5 "t5
-    1 '9050 preset (0,180):print #1,"mc: "mc"  en: "en
-    1 '9055 preset (0,190):print #1,"ep: "ep(0)" es: "es(0)"  ex: "ex(0)" ey: "ey(0)  
+    9050 preset (0,180):print #1,"!mc: "mc"  en: "en" ec: "ec(1)
+    9055 preset (0,190):print #1,"!ep: "ep(1)" es: "es(1)"  ex: "ex(1)" ey: "ey(1)  
     1 '9060 preset (0,200):print #1,"px: "px
-    9050 preset (0,180):print #1,"pa: "pa"  en: "pc" tf: "tf" ts: "ts
-    9060 preset (0,190):print #1,"t5: "t5" tf: "tf" ts: "ts
+    1 '9050 preset (0,180):print #1,"pa: "pa"  en: "pc" tf: "tf" ts: "ts
+    1 '9060 preset (0,190):print #1,"t5: "t5" tf: "tf" ts: "ts
+    1 '9050 preset (10,190):print #1,"Muestras: 0 / Oxigeno: 100 %"
+    1 '9060 preset (10,200):print #1,"Vidas: 10"
 9090 return
 
 
@@ -224,11 +212,13 @@
     1 'po=player y old'
     1 'pa=player salto activado'
     1 'pj=distancia que recorre cuando el salto está activado'
-    1 'pc=variable utilizada para el contador de salto y así recorrer el array de salto p()'
-    1 'pg=player gravedad'
-    10000 px=0:py=18*8:pw=16:ph=16:pv=8:pl=8:pj=0:po=py:pa=0:pc=0:dim s(7)
+    1 'pj=variable utilizada para el contador de salto y así recorrer el array de salto j()'
+    1 'Variables player para la física'
+    10000 px=0:py=13*8:pw=16:ph=16:pv=8:pl=8:pj=0:pa=0:dim j(7):po=0
     1 'Array de salto'
-    10010 s(0)=-8:s(1)=-8:s(2)=-8:s(3)=0:s(4)=8:s(5)=8:s(6)=8
+    10010 j(0)=-8:j(1)=-8:j(2)=-8:j(3)=0:j(4)=8:j(5)=8:j(6)=8
+    1 'variables player para detectar colisiones
+    10020 t1=0:t3=0:t5=0:t7=0
     1 'Apartir del 5 sprite es la izquierda'
     1 'p1 tronco superior'
     1 'p2 tronco superior color 2'
@@ -236,7 +226,7 @@
     1' p4 arma
     10020 dim p(3):p(0)=2:p(1)=3:p(2)=7:p(3)=8:p1=0:p2=1:p3=2:p4=4
     1 'Componente render:'
-    10030 pp=0:ps=0
+    10030 pp=0:ps=0:pc=0
     1 'Componente RPG pe= energía o vida'
     10040 pe=100
 10050 return
@@ -328,16 +318,16 @@
 
 1 ' Crear enemigo'
     1 ' si el numero de enemigos creados es mayor que 5 volvemos para no crear más'
-    12500 if en>2 then return
-    12505 en=en+1
+    12500 if en>5 then return
+    12505 'en=en+1
     1 'Establecemos las posiciones del enemigo'
-    12510 ex(en)=256:ey(en)=20*8
+    12510 ex(en)=0:ey(en)=0
     12530 ev(en)=8:el(en)=8
     1 'Los enemigos son los sprites 7,8,9'
     12540 es(en)=11+en*2:ep(en)=4+en:ec(en)=6
     12550 'if ec(en)<2 then goto 11540
     12560 ee(en)=100
-    12570 'en=en+1
+    12570 en=en+1
 12580 return
 
 1 ' Rutina eliminar enemigos'
@@ -347,14 +337,16 @@
 12660 return
 
 1 'Render y Update enemigo'
-    12700 if en<=0 then return
+    12700 'if en<=0 then return 
     12710 for i=0 to en-1
         1 ' A cada uno le restamos la velocidad'
-        12720 ex(i)=ex(i)-ev(i)        
-        12730 'if ex(i)<0 then ex(i)=255
-        12770 put sprite ep(i),(ex(i),ey(i)),ec(ei),es(i)
+        12720 ex(i)=ex(i)-ev(i) :ec(i)=ec(i)+1
+        1 'Si recorre 20 pasos le cambiamos la velocidad'
+        12730 if ex(i) mod 5=0 then ev(i)=-ev(i)       
+        1 '12730 if ex(i)<0 then ex(i)=255
+        12770 put sprite ep(i),(ex(i),ey(i)),6,es(i)
         12780 'preset (0,150+i*10):print #1,"es: "es(i)", ep: "ep(i)", ex: "ex(i)
-        12790 if ex(i)<=0 then ed=i:gosub 12600
+        12790 'if ex(i)<=0 then ed=i:gosub 12600
     12800 next i
 12810 return
 
@@ -384,7 +376,7 @@
 1 '-----------------------------------'
 
 1 'Init map'
-    13000 print #1, "Definiendo array del mapa y pintando mapa"
+    13000 print #1, "!Definiendo array del mapa y pintando mapa"
     13010 dim m(200,26):mc=0
 13020 return
 
@@ -453,14 +445,14 @@
 1'------------------------------------'
 1'  Pantalla de Bienvenida y records 
 1'------------------------------------'
-    14000 cls:preset (10,30):  print #1,"@@@@  @  @@@@  @ @@@@@ @  @   @"
-    14010 preset (10,40):      print #1,"@    @ @ @@@@  @   @  @ @ @ @ @"
-    14020 preset (10,50):      print #1,"@@@@@   @@     @   @ @   @@  @@"
-    14030 preset (10,70):      print #1,"10540,capita Kik, debes ir a recoger las muestras fabricadas en otros entornos planetarios."
-    14040 preset (10,110):     print #1,"Pero ten cuidado los esbirros de worst que te obstaculizan."
+    14000 cls:preset (10,30):  print #1,"!@@@@  @  @@@@  @ @@@@@ @  @   @"
+    14010 preset (10,40):      print #1,"!@    @ @ @@@@  @   @  @ @ @ @ @"
+    14020 preset (10,50):      print #1,"!@@@@@   @@     @   @ @   @@  @@"
+    14030 preset (10,70):      print #1,"!10540,capita Kik, debes ir a recoger las muestras fabricadas en otros entornos planetarios."
+    14040 preset (10,110):     print #1,"!Pero ten cuidado los esbirros de worst que te obstaculizan."
     1 ' Con inverse ponemos el fondo de los carcacteres en el frente y el frente en el fondo'
-    14050 preset (10,160): print #1, "Cursores para mover, pulsa una tecla para continuar"
-    14060 preset (10,180): print #1, "libre: "fre(0)
+    14050 preset (10,160): print #1, "!Cursores para mover, pulsa una tecla para continuar"
+    14060 preset (10,180): print #1, "!libre: "fre(0)
     1 'Si no se pulsa una tecla se queda en blucle infinito reproduciebdo una música, si se pulsa se para la música'
     1 '11870 re=1:gosub 2300
     14070 if inkey$="" then goto 14070
@@ -473,6 +465,10 @@
     20000 wg=8
     1 'Tiles'
     1 'tf=tile floor, tile suelo, corresponde al tile 160 hasta el 160+32'
-    1 'ts=tile solid, tile sólido, corresponde desde el tile 192 hasta el 256 '
-    20010 tf=160: ts=192
+    1 'tf=tile suelo'
+    20010 tf=160
+    1 'creamos 2 enemigos'
+    1 'ex(em),ey(em),ev(em),el(em),es(em),ep(em),ec(em),ee(em) / y=21*8=168
+    20020 gosub 12500: ex(en-1)=4*8:ey(en-1)=20*8
+    20030 gosub 12500: ex(en-1)=26*8:ey(en-1)=20*8
 20090 return
