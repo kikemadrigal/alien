@@ -1,87 +1,116 @@
 #pragma once
 #include "./src/man/entity.c"
+#include "./src/man/graphics.c"
+#include "./src/sys/anim.c"
+#include "./src/man/game.c"
 
 //Declarations
 void sys_physics_init();
 void sys_physics_update(TEntity *entity);
 void sys_physics_check_keyboard(TEntity *entity);
-void realizar_salto(TEntity *entity, char posicion_inicial);
+void entity_jump(TEntity *entity);
+
+
 //Members
 //char posicion_inicial_jump;
 char contador_jump;
 char array_jump[5];
 //Definitions
 void sys_physics_init(){
-    //posicion_inicial_jump=0;
-    contador_jump=0;
-
-    array_jump[0]=14;
-    array_jump[1]=8;
-    array_jump[2]=0;
-    array_jump[3]=-8;
-    array_jump[4]=-14;
 
 }
 void sys_physics_update(TEntity *entity){
-    if (entity->type==entity_type_player)
+    if (entity->type==entity_type_player){
         sys_physics_check_keyboard(entity);
-    entity->old_x=entity->x;
-    entity->old_y=entity->y;
-    entity->x+=entity->vx;
-    entity->y+=entity->vy;
+        //Sistema de salto 2 parte
+        if(entity->jump==1){
+            entity->y+=entity->vy;
+            if(entity->old_y-16>=entity->y){
+                entity->vy*=-1;
+                entity->jump=0;
+            } 
+        }
+        //Colision con el margen izquierdo
+        if(entity->x<=8) entity->x=8;
+        
+   
+        //Gravedad
+        if (get_tile_down_array(entity)<man_graphics_get_tile_suelo() && entity->jump==0){
+            //Beep();
+            entity->y+=entity->vy;
+        } 
+
+
+        //Si te caes por un agujero te matas y vuelves
+        if(entity->y>180){
+            entity->y=1*8;
+            entity->x=1*8;
+        } 
+        
+    }
 }
 
 
 
 void sys_physics_check_keyboard(TEntity *entity){
     //movement
-    entity->vx=0;
-    entity->vy=0;
     // 0=inactive  1=up 2=up & right 3=right 4=down & right 5=down 6=down & left 7=left 8=up & left 
     char joy = JoystickRead(0);
-    if(joy !=0){
-        if (entity->andando==0){
-          entity->andando=1;
-        }else{
-          entity->andando=0;
-        }
+    if(joy==1){
+        //entity->vy=-8;
+        entity_jump(entity);
+    }
+    if(joy==2){
+        entity->dir=3;
+        entity_jump(entity); 
+        entity->x+=entity->vx;
     }
     if(joy==3){
         entity->dir=3;
-        if ((entity->x/8)>14){
-            recorrerBufferTileMapYPintarPage1EnPage0();
-            entity->vx=0;
-        }else{
-            entity->vx=8;
-        }
+        if (man_graphics_get_tile_right_array(entity)<man_graphics_get_tile_suelo()) 
+            entity->x+=entity->vx;
+        sys_anim_update(entity);
     }
-    if(joy==7) {
-        entity->dir=7;
-        entity->vx=-8; 
-    }
-    if(joy==1){
-        //entity->vy=-8;
-        if (entity->jump!=1){
-          entity->jump=1;
-        }
- 
+    if(joy==4){
     }
     if(joy==5){
-        entity->vy=8;
+        //if(get_game_mode()==1)entity->y+=entity->vy;
     }  
+    if(joy==6){
+    }  
+    if(joy==7) {
+        entity->dir=7;
+        sys_anim_update(entity);
+        if (man_graphics_get_tile_left_array(entity)<man_graphics_get_tile_suelo()) entity->x-=entity->vx; 
+    }
+    if(joy==8){
+        entity->dir=7;
+        entity_jump(entity);
+        entity->x-=entity->vx; 
+    }
 
-    //shot
-    
+    //Leemos el disparo
+    char trigger = TriggerRead(0);
+    if (trigger!=0) {
+        man_game_crear_disparo();     
+    }
 
-    
-    //jump
-    if (entity->jump==1){
-        if(contador_jump<sizeof(array_jump)){
-            entity->y-=array_jump[contador_jump];
-            ++contador_jump;
-        }else{
-            entity->jump=0;
-            contador_jump=0;
-        }
+
+
+}
+
+//Sistema de salto 1 parte
+void entity_jump(TEntity *entity){
+    //Solo se puede saltar si no se está y aen un salto y si se está pegado a un sólido
+    if (entity->jump==0 && get_tile_down_array(entity)>=man_graphics_get_tile_suelo()){
+        //Activamos el salto
+        entity->jump=1;  
+        //invertimos la velocidad en y para que sume negativos y lo suba
+        entity->vy*=-1;
+        entity->old_y=entity->y;
     }
 }
+
+
+
+

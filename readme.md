@@ -29,6 +29,8 @@ http://msx.tipolisto.es/webmsx/standalone/?disk=files/alien2.dsk
 
 ##C
 
+http://msx.tipolisto.es/webmsx/standalone/?disk=files/alien24-2.dsk
+
 http://msx.tipolisto.es/webmsx/standalone/?disk=files/alien24.dsk
 
 <img src=images\24.PNG width=400px />

@@ -1,16 +1,16 @@
 #pragma once
 //para el memset
 #include <string.h>
-//#include "src/man/entity-templates.c"
+#include "src/man/sprites.c"
 
 
 //================================Declarations
 #define entity_type_invalid      0x00  
 #define entity_type_player       0x01  
-#define entity_type_enemy        0x02  
-#define entity_type_mothership   0x04  
-#define entity_type_shot         0x08  
-#define entity_type_boxFill      0x10  
+#define entity_type_enemy1       0x02  
+#define entity_type_enemy2       0x04  
+#define entity_type_enemy3       0x08  
+#define entity_type_shot         0x10  
 #define entity_type_dead         0x80  
 #define entity_type_default      entity_type_enemy
 
@@ -63,18 +63,48 @@ char sys_entity_get_max_entities();
 //=======================================Definitions
 const TEntity player_template={
     entity_type_player, // Type
-    entity_cmp_movable | entity_cmp_render | entity_cmp_input, //Components 0b=11=0000 1011
-    8*1,8*18,            //x,y  
-    8*1,8*18,           //old position
+    entity_cmp_movable | entity_cmp_render | entity_cmp_input, //Components 
+    8*1,8*20,            //x,y  ,20*8 es el suelo, 8*16 plataforma
+    8*1,8*16,           //old position
     16, 16,             //width, heigh
-    0,0,                //speed X,speed Y 
+    8,8,                 //speed X,speed Y 
+    3,                   //direction
+    0,                   //is it jumpimg?
+    0,                   //is it colliding?
+    0,                   //plano, inutilizado
+    0,                    //Sprite, inutilizado
+    10,                  //Color, inutilizado
+    100                  //Enenrgy
+};
+const TEntity enemy1_template={
+    entity_type_enemy1, // Type1= el enemigo se cae si encuantra un agujero y rebota con bloque sólido
+    entity_cmp_movable | entity_cmp_render, //Components 
+    0,0,            //x,y  ,20*8 es el suelo, 8*16 plataforma
+    0,0,           //old position
+    16, 16,             //width, heigh
+    8,8,                //speed X,speed Y 
     3,                  //direction
     0,                  //is it jumpimg?
     0,                  //is it colliding?
-    0,                  //patrón/plano
-    0,                  //Sprite
-    10,                 //Color
+    0,                  //plano,  inutilizado
+    0,                  //Sprite, inutilizado
+    10,                 //Color, inutilizado
     100                 //Enenrgy
+};
+const TEntity fire_template={
+    entity_type_shot, // Type1= el enemigo se cae si encuantra un agujero y rebota con bloque sólido
+    entity_cmp_movable | entity_cmp_render, //Components 
+    0,0,            //x,y  ,20*8 es el suelo, 8*16 plataforma
+    0,0,           //old position
+    16, 16,             //width, heigh
+    8,8,                //speed X,speed Y 
+    3,                  //direction
+    0,                  //is it jumpimg?
+    0,                  //is it colliding?
+    0,                  //plano, inutilizado
+    0,                  //Sprite, inutilizado
+    15,                 //Color, inutilizado
+    0                 //Enenrgy
 };
 //Life cicle
 void sys_entity_init(){
@@ -88,10 +118,10 @@ TEntity* sys_entity_create(){
     ++num_entities;
     return entity;
 }
-void sys_entity_erase(int i){
+void sys_entity_erase(TEntity *entity){
    --num_entities;
    //PutSprite(array_structs_entity[i].plano,array_structs_entity[i].sprite,1,215,array_structs_entity[i].color);
-  array_structs_entities[i]=array_structs_entities[num_entities];
+   //memcpy(*entity, &array_entities[num_entities],sixeof(TEntity) );
   //if (num_entities==0) fabricaDeEnemigos();
 }
 //End life cicle

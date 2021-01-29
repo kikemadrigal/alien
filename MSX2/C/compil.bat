@@ -83,7 +83,8 @@ del %proga%.rel
 echo Done.
 
 :Emulator
-Set MyProcess=openmsx.exe
-tasklist | find /i "%MyProcess%">nul  && (echo %MyProcess% Already running) || start Tools\openMSX\openmsx.exe -script Tools\openMSX\emul_start_config.txt
+rem Set MyProcess=openmsx.exe
+rem tasklist | find /i "%MyProcess%">nul  && (echo %MyProcess% Already running) || start Tools\openMSX\openmsx.exe -script Tools\openMSX\emul_start_config.txt
 
+start Tools\openMSX\openmsx.exe -script Tools\openMSX\emul_start_config.txt
 :_end_

@@ -1,6 +1,7 @@
 #pragma once
 #include "fusion-c/header/msx_fusion.h"
 #include "fusion-c/header/vdp_graph2.h"
+#include "src/man/entity.c"
 /**************DECLARACIONES************/
 
 //FUNCIONES
@@ -21,6 +22,17 @@ int man_graphics_get_column_counter();
 char* man_graphics_get_buffer_tile_map();
 
 void SetAdjust(signed char x, signed char y);
+
+char man_graphics_get_tile_suelo();
+
+int man_graphics_get_tile_left_array(TEntity *entity);
+int man_graphics_get_tile_right_array(TEntity *entity);
+int get_tile_down_array(TEntity *entity);
+
+int man_graphics_get_column_entity(TEntity *entity);
+//int get_tile_right_entity(TEntity *entity);
+int get_fila_entity(TEntity *entity);
+
 //VARIABLES Y ARRAYS
 char fileNameLoader[]="loader.sc5";
 char fileNameTilseSet[]="tileset.sc5";
@@ -31,10 +43,12 @@ FCB TFileTileMap;
 //En el ejemplo de fusion c cada 20 líneas son 2560 bytes
 #define tamanobufferTileSet 27136
 #define numeroFilas 23
-#define numeroColumnas 500
+#define numeroColumnas 200
 #define tamanoBufferTileMap 11500 // numeroFilas*numeroColumnas
 unsigned char bufferTileSetYMap[tamanobufferTileSet];
 int contadorColumnaArray;
+
+char tile_suelo;
 
 /********FINAL DE DECLARAIONES***********/
 
@@ -44,6 +58,7 @@ int contadorColumnaArray;
 /**************DEFINICIONES************/
 void inicializarPantalla(){
   contadorColumnaArray=32;
+  tile_suelo=160;
 }
 
 int man_graphics_get_column_counter(){
@@ -95,7 +110,7 @@ void cargarTileMapEnRAM(){
     fcb_open( &TFileTileMap );
     //Analizando el archivo word0.bin con un editor hexadecimal vemos que hay que saltar 8 bytes que definen al .bin
     fcb_read( &TFileTileMap, &bufferTileSetYMap[0], 8 );  // Skip 7 first bytes of the file  
-    fcb_read( &TFileTileMap, &bufferTileSetYMap[0], tamanoBufferTileMap );  // Read 20 lines of image data (128bytes per line in screen5)
+    fcb_read( &TFileTileMap, &bufferTileSetYMap[-1], tamanoBufferTileMap );  // Read 20 lines of image data (128bytes per line in screen5)
     fcb_close( &TFileTileMap);
 }
 void deRamAVramPage1(void){
@@ -133,11 +148,12 @@ void FT_SetName( FCB *p_fcb, const char *p_name )  // Routine servant à vérifi
 
 
 void recorrerBufferTileMapYPintarPage1EnPage0(){
-  contadorColumnaArray++;
+  HMMM(8,0, 0,0,256,184);
+  
   for (int f=0; f<numeroFilas;f++){
     HMMM(((bufferTileSetYMap[f*numeroColumnas+contadorColumnaArray]-(bufferTileSetYMap[f*numeroColumnas+contadorColumnaArray]/32)*32 ) )*8,(bufferTileSetYMap[f*numeroColumnas+contadorColumnaArray]/32)*8+256, 256-8,8*f,8,8);
   }
-  HMMM(8,0, 0,0,256,184);
+  contadorColumnaArray++;
 }
 
 
@@ -148,6 +164,7 @@ void pintarPantallaInicio(){
     }
   }
 }
+
 
 
 
@@ -178,3 +195,36 @@ void verArray(){
     } 
   }
 }
+
+char man_graphics_get_tile_suelo(){
+  return tile_suelo;
+}
+
+
+int man_graphics_get_column_entity(TEntity *entity){
+  //Será la posición en x/8 pixeles el tile
+  int tile_column=(entity->x/8)+(contadorColumnaArray-32);
+  return tile_column;
+}
+
+int get_fila_entity(TEntity *entity){
+  //Será la posición y / 8 pixeles
+  int tile_file=(entity->y/8);
+  return tile_file;
+}
+
+int man_graphics_get_tile_left_array(TEntity *entity){
+  //Recuerda que el sprite es de 16*16, es decir hay que bajar 1 tiles para ver el pie,
+  //hay mover a la izquierda 1 tile para ver el tile izquierdo y 2 tiles a la derecha para ver el tile de la derecha
+  int tile_izquierdo=bufferTileSetYMap[((get_fila_entity(entity)+1)*numeroColumnas)+man_graphics_get_column_entity(entity)-1];
+  return tile_izquierdo;
+}
+int man_graphics_get_tile_right_array(TEntity *entity){
+  int tile_derecho=bufferTileSetYMap[((get_fila_entity(entity)+1)*numeroColumnas)+(man_graphics_get_column_entity(entity)+2)];
+  return tile_derecho;
+}
+int get_tile_down_array(TEntity *entity){
+  int tile_abajo=bufferTileSetYMap[((get_fila_entity(entity)+2)*numeroColumnas)+(man_graphics_get_column_entity(entity)+1)];
+  return tile_abajo;
+}
+

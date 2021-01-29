@@ -2,13 +2,15 @@
 #include "fusion-c/header/msx_fusion.h"
 #include "fusion-c/header/vdp_graph2.h"
 #include "src/man/entity.c"
-
+#include "src/man/sprites.c"
+#include "src/sys/anim.c"
 //Declarations
 void sys_render_init();
 void sys_render_update(TEntity *entity);
 void sys_render_update_player(TEntity *player);
 void sys_render_update_enemy(TEntity *enemy);
 void sys_render_update_fire(TEntity *fire);
+
 //Definitions
 void sys_render_init(){
   SetColors(15,1,1);
@@ -17,8 +19,9 @@ void sys_render_init(){
 }
 
 void sys_render_update(TEntity *entity){
-    sys_render_update_player(entity);
-
+    if (entity->type==entity_type_player)sys_render_update_player(entity);
+    if (entity->type==entity_type_enemy1)sys_render_update_enemy(entity);
+    if (entity->type==entity_type_shot)sys_render_update_fire(entity);
 }
 void sys_render_update_player(TEntity *player){
     //void PutSprite( char sprite_n, char pattern_n, char x, char y, char color)
@@ -28,90 +31,47 @@ void sys_render_update_player(TEntity *player){
     // 4 posición eje y
     // 5 color  
     //PutSprite( pplano, psprite, px,py, pcolor );
-
+    //Si se mueve a la derecha
     if (player->dir==3){
-        //Pintamos el tronco superior, color 9 rosa
-        PutSprite( player->plano, player_right_head1_pattern, player->x,player->y,0 );
-        //Se ha creado un 2 sprite para el tronco superior, porque en MSX1 son 1 solo color por sprite
-        //Pintamos el tronco superior 2, color amarillo 10
-        PutSprite( player->plano+1, player_right_head2_pattern, player->x,player->y,  0);
-        //Pintamos las piernas
-        if(player->andando ==0){
-            PutSprite( player->plano+2, player_right_legs1_pattern, player->x,player->y+16, 0 );
-        } else {
-            PutSprite( player->plano+2, player_right_legs2_pattern, player->x,player->y+16,  0 );
+        if (player->jump==1){
+            PutSprite( player->plano, player_jump_right_pattern, player->x,player->y,0 );
+        }else{
+            if(player->andando ==0 ){
+                PutSprite( player->plano, player_right_pattern, player->x,player->y,0 );
+            } else {
+                PutSprite( player->plano, player_right_walking_pattern, player->x,player->y,  0);
+            }
         }
-        //Pintamos el arma
-        PutSprite( player->plano+3, player_right_weapon, player->x,player->y+8, 0 );
+    //Si se mueve a la izquierda
     }else if(player->dir==7){
-        //Pintamos el tronco superior, color 9 rosa
-        PutSprite( player->plano, player_left_head1_pattern, player->x,player->y, 0 );
-        //Pintamos el tronco superior 2, color amarillo 10
-        PutSprite( player->plano+1, player_left_head2_pattern, player->x,player->y,  0 );
-        //Pintamos las piernas
-        if(player->andando ==0){
-            PutSprite( player->plano+2, player_left_legs1_pattern, player->x,player->y+16,  0 );
-        } else {
-            PutSprite( player->plano+2, player_left_legs2_pattern, player->x,player->y+16,  0 );
-        }
-        //Pintamos el arma
-        PutSprite( player->plano+3, player_left_weapon, player->x,player->y+8, 0 );
+        if (player->jump==1){
+            PutSprite( player->plano, player_Jump_left_pattern, player->x,player->y,0 );
+        }else{
+            if(player->andando ==0){
+                PutSprite( player->plano, player_left_pattern, player->x,player->y, 0 );
+            } else {
+                PutSprite( player->plano, player_left_walking_pattern, player->x,player->y,  0 );
+            }
+        } 
     }
-    
-
-   
-
 }
-
-
-
-
 
 
 
 void sys_render_update_enemy(TEntity *enemy){
-  /*
-     for (int i=0; i<numero_de_enemigo;i++){
-       //Si se mueve a la derecha
-    if(array_structs_enemigos[i].direccion==3){
-        array_structs_enemigos[i].x-=array_structs_enemigos[i].velocidad;
-        if(array_structs_enemigos[i].x<0){
-            array_structs_enemigos[i].x=255;
-            array_structs_enemigos[i].y=generar_numero_aleatorio (100,150);
-            array_structs_enemigos[i].color=generar_numero_aleatorio (0, 14);
+    sys_anim_update(enemy);
+    if (enemy->dir==3){
+        if (enemy->andando){
+            PutSprite(7,enemy1_pattern,enemy->x,enemy->y,0);
+        }else{
+            PutSprite(7,enemy1_walking_pattern,enemy->x,enemy->y,0);
         } 
+    }else if (enemy->dir==7){
+        //Falta sprite 
     }
-   if(array_structs_enemigos[i].direccion==7){
-        array_structs_enemigos[i].x+=array_structs_enemigos[i].velocidad;
-        if(array_structs_enemigos[i].x>240){
-            array_structs_enemigos[i].x=0;
-            array_structs_enemigos[i].y=generar_numero_aleatorio (100,150);
-            array_structs_enemigos[i].color=generar_numero_aleatorio (0, 14);
-        } 
-    }
-    
-    if(array_structs_enemigos[i].x % 2){
-         PutSprite(array_structs_enemigos[i].plano,array_structs_enemigos[i].sprite,array_structs_enemigos[i].x,array_structs_enemigos[i].y,array_structs_enemigos[i].color);
-    }else{
-         PutSprite(array_structs_enemigos[i].plano,array_structs_enemigos[i].sprite+4,array_structs_enemigos[i].x,array_structs_enemigos[i].y,array_structs_enemigos[i].color);
-    }
-   
-   }
-   */
 }
 
 void sys_render_update_fire(TEntity *fire){
-  /*
-    for (int i=0; i<numero_disparo; i++){
-    if (array_structs_fires[i].direccion==3) array_structs_fires[i].x+=array_structs_fires[i].velocidad;
-    if (array_structs_fires[i].direccion==7) array_structs_fires[i].x-=array_structs_fires[i].velocidad;
-    if(array_structs_fires[i].x>240 || array_structs_fires[i].x<0){
-      PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, 1,215, 15 );
-      eliminar_disparos(i);
-    } else{
-       PutSprite( array_structs_fires[i].plano, array_structs_fires[i].sprite, array_structs_fires[i].x,array_structs_fires[i].y, 15 );
-    }
-    */
-  
+    PutSprite(6,fire_pattern,fire->x,fire->y,0);
 }
  
