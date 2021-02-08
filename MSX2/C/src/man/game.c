@@ -67,7 +67,7 @@ void man_game_play(){
         //Le ponemos el comportamiento a los enemigos
         sys_ai_update(entity);
         sys_physics_update(entity);
-        scoreboard();
+        //scoreboard();
         //Movemos la pantalla si el player1/2 está en el centro
         if (entity->type==entity_type_player && entity->x/8>14){
           man_game_desplazar_entidades_a_la_izquierda();
@@ -108,12 +108,12 @@ void man_game_crear_disparo(){
   TEntity *entity=&array_entities[0];
   Beep();
   if (number_shot<10){
-    TEntity* fire=sys_entity_create_template(&fire_template);
-    fire->x=entity->x;
-    fire->y=entity->y+8;
-    fire->dir=entity->dir;
-    fire->vx=20+number_shot;   
-    ++number_shot;
+    //TEntity* fire=sys_entity_create_template(&fire_template);
+    //fire->x=entity->x;
+    //fire->y=entity->y+8;
+    //fire->dir=entity->dir;
+    //fire->vx=20+number_shot;   
+    //++number_shot;
   }
 }
 

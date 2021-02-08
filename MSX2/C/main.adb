@@ -144,9 +144,7 @@ S:Lmain.man_game_desplazar_entidades_a_la_izquierda$i$2_0$350({1}SC:U),R,0,0,[c]
 S:Lmain.man_game_desplazar_entidades_a_la_izquierda$entity$3_0$351({2}DG,STTEntity:S),R,0,0,[e,d]
 S:Lmain.man_game_desplazar_entidades_a_la_izquierda$sloc0$0_1$0({2}DG,SC:U),B,1,-2
 F:G$man_game_crear_disparo$0_0$0({2}DF,SV:S),Z,0,0,0,0,0
-S:Lmain.man_game_crear_disparo$entity$1_0$353({2}DG,STTEntity:S),B,1,-2
-S:Lmain.man_game_crear_disparo$fire$2_0$354({2}DG,STTEntity:S),R,0,0,[c,b]
-S:Lmain.man_game_crear_disparo$sloc0$0_1$0({2}DG,STTEntity:S),B,1,-2
+S:Lmain.man_game_crear_disparo$entity$1_0$353({2}DG,STTEntity:S),R,0,0,[]
 F:G$scoreboard$0_0$0({2}DF,SV:S),Z,0,0,0,0,0
 S:Lmain.scoreboard$entity$1_1$356({2}DG,STTEntity:S),B,1,-2
 S:Lmain.scoreboard$sloc0$0_1$0({2}DG,STTEntity:S),B,1,-2
