@@ -9,7 +9,8 @@ void sys_render_init();
 void sys_render_update(TEntity *entity);
 void sys_render_update_player(TEntity *player);
 void sys_render_update_enemy(TEntity *enemy);
-void sys_render_update_fire(TEntity *fire);
+void sys_render_update_shot(TEntity *fire);
+void sys_render_update_object(TEntity *object);
 
 //Definitions
 void sys_render_init(){
@@ -21,7 +22,9 @@ void sys_render_init(){
 void sys_render_update(TEntity *entity){
     if (entity->type==entity_type_player)sys_render_update_player(entity);
     if (entity->type==entity_type_enemy1)sys_render_update_enemy(entity);
-    if (entity->type==entity_type_shot)sys_render_update_fire(entity);
+    if (entity->type==entity_type_shot)sys_render_update_shot(entity);
+    if (entity->type==entity_type_object_oxigen)sys_render_update_object(entity);
+    if (entity->type==entity_type_object_batery)sys_render_update_object(entity);
 }
 void sys_render_update_player(TEntity *player){
     //void PutSprite( char sprite_n, char pattern_n, char x, char y, char color)
@@ -34,23 +37,23 @@ void sys_render_update_player(TEntity *player){
     //Si se mueve a la derecha
     if (player->dir==3){
         if (player->jump==1){
-            PutSprite( player->plano, player_jump_right_pattern, player->x,player->y,0 );
+            PutSprite( player_plane, player_jump_right_pattern, player->x,player->y,0 );
         }else{
             if(player->andando ==0 ){
-                PutSprite( player->plano, player_right_pattern, player->x,player->y,0 );
+                PutSprite( player_plane, player_right_pattern, player->x,player->y,0 );
             } else {
-                PutSprite( player->plano, player_right_walking_pattern, player->x,player->y,  0);
+                PutSprite( player_plane, player_right_walking_pattern, player->x,player->y,  0);
             }
         }
     //Si se mueve a la izquierda
     }else if(player->dir==7){
         if (player->jump==1){
-            PutSprite( player->plano, player_Jump_left_pattern, player->x,player->y,0 );
+            PutSprite( player_plane, player_Jump_left_pattern, player->x,player->y,0 );
         }else{
             if(player->andando ==0){
-                PutSprite( player->plano, player_left_pattern, player->x,player->y, 0 );
+                PutSprite( player_plane, player_left_pattern, player->x,player->y, 0 );
             } else {
-                PutSprite( player->plano, player_left_walking_pattern, player->x,player->y,  0 );
+                PutSprite( player_plane, player_left_walking_pattern, player->x,player->y,  0 );
             }
         } 
     }
@@ -60,18 +63,28 @@ void sys_render_update_player(TEntity *player){
 
 void sys_render_update_enemy(TEntity *enemy){
     sys_anim_update(enemy);
-    if (enemy->dir==3){
+
+    if (enemy->dir==3 && sys_entity_get_num_enemies()>0){
         if (enemy->andando){
-            PutSprite(7,enemy1_pattern,enemy->x,enemy->y,0);
+            PutSprite(enemy->plane,enemy1_right_pattern,enemy->x,enemy->y,0);
         }else{
-            PutSprite(7,enemy1_walking_pattern,enemy->x,enemy->y,0);
+            PutSprite(enemy->plane,enemy1_right_walking_pattern,enemy->x,enemy->y,0);
         } 
-    }else if (enemy->dir==7){
-        //Falta sprite 
+        //todo poner la ara derecha a los enemigos
+    }else if (enemy->dir==7  && sys_entity_get_num_enemies()>0){
+        if (enemy->andando){
+            PutSprite(enemy->plane,enemy1_left_pattern,enemy->x,enemy->y,0);
+        }else{
+            PutSprite(enemy->plane,enemy1_left_walking_pattern,enemy->x,enemy->y,0);
+        } 
     }
 }
 
-void sys_render_update_fire(TEntity *fire){
-    PutSprite(6,fire_pattern,fire->x,fire->y,0);
+void sys_render_update_shot(TEntity *shot){
+    if (sys_entity_get_num_shots()>0) PutSprite(shot->plane,shot_pattern,shot->x,shot->y,0);
 }
  
+void sys_render_update_object(TEntity *object){
+    if (object->type==entity_type_object_oxigen  && sys_entity_get_num_objects()>0) PutSprite(object->plane,object_oxigen_pattern,object->x,object->y,0);
+    else if (object->type==entity_type_object_batery  && sys_entity_get_num_objects()>0) PutSprite(object->plane,object_batery_pattern,object->x,object->y,0);
+}

@@ -25,7 +25,7 @@ void sys_physics_update(TEntity *entity){
         //Sistema de salto 2 parte
         if(entity->jump==1){
             entity->y+=entity->vy;
-            if(entity->old_y-16>=entity->y){
+            if(entity->old_y-22>=entity->y){
                 entity->vy*=-1;
                 entity->jump=0;
             } 
@@ -45,8 +45,10 @@ void sys_physics_update(TEntity *entity){
         if(entity->y>180){
             entity->y=1*8;
             entity->x=1*8;
-        } 
-        
+        }     
+    }else if(entity->type==entity_type_shot){
+        if (entity->dir==3)entity->x+=entity->vx;
+        else if (entity->dir==7)entity->x-=entity->vx;
     }
 }
 
@@ -92,7 +94,8 @@ void sys_physics_check_keyboard(TEntity *entity){
     //Leemos el disparo
     char trigger = TriggerRead(0);
     if (trigger!=0) {
-        man_game_crear_disparo();     
+        man_game_crear_disparo(); 
+        Beep();   
     }
 
 

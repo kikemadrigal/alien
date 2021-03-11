@@ -11,6 +11,8 @@
 #define entity_type_enemy2       0x04  
 #define entity_type_enemy3       0x08  
 #define entity_type_shot         0x10  
+#define entity_type_object_oxigen 0x16  
+#define entity_type_object_batery 0x32  
 #define entity_type_dead         0x80  
 #define entity_type_default      entity_type_enemy
 
@@ -29,30 +31,47 @@ typedef struct TEntity TEntity;
 struct TEntity{
     unsigned char type;
     unsigned char cmp;
-    unsigned char x,y;
+    signed int x,y;
     unsigned char old_x,old_y;
     unsigned char w,h;
-    unsigned char vx,vy;
+    signed char vx,vy;
     unsigned char dir;
     unsigned char andando;
     unsigned char jump;
     unsigned char collision;
-    unsigned char plano;
+    unsigned char plane;
     unsigned char sprite;
     unsigned char color;
-    unsigned char energy;
+    unsigned int energy;
 };
-#define MAX_ENTITIES 10
-TEntity array_structs_entities[10];
-char num_entities;
+
+#define MAX_enemies 10
+#define MAX_shots 10
+#define MAX_objects 10
+TEntity array_structs_enemies[MAX_enemies];
+TEntity array_structs_shots[MAX_shots];
+TEntity array_structs_objects[MAX_objects];
+char num_enemies;
+char num_shots;
+char num_objects;
 //Functions
-void sys_entity_init();
-TEntity* sys_entity_create();
-TEntity* sys_entity_create_template(TEntity *template);
-//void sys_create_enemy();
-TEntity* sys_entity_get_array_structs_entities();
-char sys_entity_get_num_entities();
-char sys_entity_get_max_entities();
+void sys_entities_init();
+TEntity* sys_entity_create_player();
+TEntity* sys_enemy_create_enemy();
+TEntity* sys_enemy_create_shot();
+TEntity* sys_enemy_create_object();
+void sys_entity_erase_enemy(char i);
+void sys_entity_erase_shot(char i);
+void sys_entity_erase_object(char i);
+TEntity* sys_enemy_get_array_structs_enemies();
+TEntity* sys_enemy_get_array_structs_fires();
+TEntity* sys_enemy_get_array_structs_objects();
+char sys_entity_get_num_enemies();
+char sys_entity_get_num_shots();
+char sys_entity_get_num_objects();
+char sys_entity_get_max_enemies();
+char sys_entity_get_max_shots();
+char sys_entity_get_max_objects();
 //===================================End declarations
 
 
@@ -64,14 +83,14 @@ char sys_entity_get_max_entities();
 const TEntity player_template={
     entity_type_player, // Type
     entity_cmp_movable | entity_cmp_render | entity_cmp_input, //Components 
-    8*1,8*20,            //x,y  ,20*8 es el suelo, 8*16 plataforma
+    8*2,8*18,            //x,y  ,20*8 es el suelo, 8*16 plataforma
     8*1,8*16,           //old position
-    16, 16,             //width, heigh
-    8,8,                 //speed X,speed Y 
+    16,16,             //width, heigh
+    4,8,                 //speed X,speed Y 
     3,                   //direction
     0,                   //is it jumpimg?
     0,                   //is it colliding?
-    0,                   //plano, inutilizado
+    player_plane,                   //plano, inutilizado
     0,                    //Sprite, inutilizado
     10,                  //Color, inutilizado
     100                  //Enenrgy
@@ -81,72 +100,140 @@ const TEntity enemy1_template={
     entity_cmp_movable | entity_cmp_render, //Components 
     0,0,            //x,y  ,20*8 es el suelo, 8*16 plataforma
     0,0,           //old position
-    16, 16,             //width, heigh
+    16,16,             //width, heigh
     8,8,                //speed X,speed Y 
     3,                  //direction
     0,                  //is it jumpimg?
     0,                  //is it colliding?
-    0,                  //plano,  inutilizado
+    enemy1_plane,       //plano,  inutilizado
     0,                  //Sprite, inutilizado
     10,                 //Color, inutilizado
     100                 //Enenrgy
 };
-const TEntity fire_template={
+const TEntity shot_template={
     entity_type_shot, // Type1= el enemigo se cae si encuantra un agujero y rebota con bloque sólido
     entity_cmp_movable | entity_cmp_render, //Components 
     0,0,            //x,y  ,20*8 es el suelo, 8*16 plataforma
     0,0,           //old position
-    16, 16,             //width, heigh
+    16,1,             //width, heigh
+    12,8,                //speed X,speed Y 
+    3,                  //direction
+    0,                  //is it jumpimg?
+    0,                  //is it colliding?
+    shot_plane,                  //plano,  inutilizado
+    0,                  //Sprite, inutilizado
+    10,                 //Color, inutilizado
+    100                 //Enenrgy
+};
+const TEntity object_template={
+    entity_type_object_oxigen, // Type1= el enemigo se cae si encuantra un agujero y rebota con bloque sólido
+    entity_cmp_movable | entity_cmp_render, //Components 
+    0,0,            //x,y  ,20*8 es el suelo, 8*16 plataforma
+    0,0,           //old position
+    8,8,             //width, heigh
     8,8,                //speed X,speed Y 
     3,                  //direction
     0,                  //is it jumpimg?
     0,                  //is it colliding?
-    0,                  //plano, inutilizado
+    object1_oxigen_plane, //plano,  inutilizado
     0,                  //Sprite, inutilizado
-    15,                 //Color, inutilizado
-    0                 //Enenrgy
+    10,                 //Color, inutilizado
+    100                 //Enenrgy
 };
+
 //Life cicle
-void sys_entity_init(){
+void sys_entities_init(){
     //Ponemos a 0 todos los valores del array de estructuras
     //void * memset ( void * ptr, int value, size_t num );
-    memset(array_structs_entities,0,sizeof(array_structs_entities) );
-    num_entities=0;
+    memset(array_structs_enemies,0,sizeof(array_structs_enemies) );
+    memset(array_structs_shots,0,sizeof(array_structs_shots) );
+    memset(array_structs_objects,0,sizeof(array_structs_objects) );
+    num_enemies=0;
+    num_shots=0;
+    num_objects=0;
 }
-TEntity* sys_entity_create(){
-    TEntity* entity=&array_structs_entities[num_entities];
-    ++num_entities;
-    return entity;
+
+
+
+TEntity* sys_entity_create_player(){
+    return &player_template;
 }
-void sys_entity_erase(TEntity *entity){
-   --num_entities;
-   //PutSprite(array_structs_entity[i].plano,array_structs_entity[i].sprite,1,215,array_structs_entity[i].color);
-   //memcpy(*entity, &array_entities[num_entities],sixeof(TEntity) );
-  //if (num_entities==0) fabricaDeEnemigos();
+TEntity* sys_entity_create_enemy1(){
+    TEntity* enemy=&array_structs_enemies[num_enemies];
+    memcpy(enemy,&enemy1_template,sizeof(TEntity));
+    ++num_enemies;
+    //enemy->plane=num_enemies*6;
+    enemy->plane=num_enemies+enemy1_plane;
+    return enemy;
+}  
+TEntity* sys_entity_create_shot(){
+    TEntity* shot=&array_structs_shots[num_shots];
+    memcpy(shot,&shot_template,sizeof(TEntity));
+    ++num_shots;
+    shot->plane=num_objects+shot_plane;
+    return shot;
+}  
+TEntity* sys_entity_create_object(){
+    TEntity* object=&array_structs_objects[num_objects];
+    memcpy(object,&object_template,sizeof(TEntity));
+    ++num_objects;
+    object->plane=num_objects+object1_oxigen_plane;
+    return object;
+}  
+
+void sys_entity_erase_enemy(char i){
+    TEntity *enemy=&array_structs_enemies[i];
+    --num_enemies;
+   PutSprite(enemy->plane , player_Jump_left_pattern, 0,212,0 );
+   array_structs_enemies[i]=array_structs_enemies[num_enemies];
+}
+void sys_entity_erase_shot(char i){
+    TEntity *shot=&array_structs_shots[i];
+    --num_shots;
+    PutSprite(shot->plane, shot_pattern, 0,212,0 );
+    array_structs_shots[i]=array_structs_shots[num_shots];
+}
+void sys_entity_erase_object(char i){
+    TEntity *object=&array_structs_objects[i];
+    --num_objects;
+    PutSprite(object->plane, object_oxigen_pattern, 0,212,0 );
+    array_structs_objects[i]=array_structs_objects[num_objects];
 }
 //End life cicle
 
 //Geters & setters
-TEntity* sys_entity_get_array_structs_entities(){
-    return array_structs_entities;
+TEntity* sys_entity_get_array_structs_enemies(){
+    return array_structs_enemies;
 }
-char sys_entity_get_num_entities(){
-    return num_entities;
+TEntity* sys_entity_get_array_structs_shots(){
+    return array_structs_shots;
 }
-
-char sys_entity_get_max_entities(){
-    return MAX_ENTITIES;
+TEntity* sys_entity_get_array_structs_objects(){
+    return array_structs_objects;
+}
+char sys_entity_get_num_enemies(){
+    return num_enemies;
+}
+char sys_entity_get_num_shots(){
+    return num_shots;
+}
+char sys_entity_get_num_objects(){
+    return num_objects;
+}
+char sys_entity_get_max_enemies(){
+    return MAX_enemies;
+}
+char sys_entity_get_max_shot(){
+    return MAX_enemies;
+}
+char sys_entity_get_max_objects(){
+    return MAX_enemies;
 }
 //End getters & setters
 
 
 
 
-TEntity* sys_entity_create_template(TEntity *template){
-    TEntity* entity=sys_entity_create();
-    memcpy(entity,template,sizeof(TEntity));
-    return entity;
-}
 
 
 
